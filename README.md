@@ -4,7 +4,9 @@ Carrier PCB and flight firmware for the [js-rocket](https://github.com/jwilleke/
 
 Separate from the rocket repo on purpose: `js-rocket` is geometry and documentation with no code, no package manager and no dependencies, and its `CLAUDE.md` says so explicitly. Copper and firmware live here instead. The design record — every decision and why — stays in [`js-rocket/docs/planing/electronics-plan.md`](https://github.com/jwilleke/js-rocket/blob/main/docs/planing/electronics-plan.md).
 
-**Status: stage 2a complete.** Board outline, stackup and mounting holes exist and pass DRC. There is **no schematic, no placement and no routing yet**, so the Gerbers in `fab/` describe an empty board — they exist to prove the toolchain, not to be ordered.
+**Status: stage 2a complete.** Board outline, stackup and mounting holes exist and pass DRC. There is **no schematic, no placement and no routing yet**, so this board is **empty copper** — outline and four holes, nothing else.
+
+> **Do not order it.** Uploading it to OSH Park quotes cleanly (**$26.00 for 3**, 4 layers, 0.94 × 2.76 in detected unaided), which is a useful toolchain check and nothing more. You would receive three blank cards.
 
 ## The frozen interface
 
@@ -90,4 +92,6 @@ DRC must report **0 violations** before anything is ordered.
 
 **Do not order copper before breadboarding both populations.** A layout error costs ~$28 and two weeks; a wiring error costs minutes.
 
-Fab target is **OSH Park**, ~$28 for 3 copies of a 4-layer 2.79 in² board, ENIG, free US shipping. OSH Park accepts `.kicad_pcb` directly, so the Gerbers may never be needed.
+Fab target is **OSH Park** — **quoted $26.00 for 3 copies**, 4 layers, ENIG, free US shipping, no customs. Three is exactly right: two populated plus a spare.
+
+**OSH Park accepts the `.kicad_pcb` directly** — confirmed by upload, not assumed. It read the layer count and outline unaided, so `fab/gerbers/` is not in the ordering path and exists only as a check that the export chain works.
