@@ -90,7 +90,7 @@ DRC must report **0 violations** before anything is ordered.
 | 2d — routing | not started |
 | 2e — Gerber + drill for fab | chain proven; needs a real board first |
 
-**Do not order copper before breadboarding both populations.** A layout error costs ~$28 and two weeks; a wiring error costs minutes.
+**Do not order copper before breadboarding both populations.** A layout error costs $26 and two weeks; a wiring error costs minutes.
 
 Fab target is **OSH Park** — **quoted $26.00 for 3 copies**, 4 layers, ENIG, free US shipping, no customs. Three is exactly right: two populated plus a spare.
 
