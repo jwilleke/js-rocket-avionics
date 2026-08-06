@@ -1,0 +1,9 @@
+# KiCad backups and locks
+*-backups/
+*.kicad_prl
+*.lck
+fp-info-cache
+~*
+
+# DRC/ERC scratch output
+/tmp/
