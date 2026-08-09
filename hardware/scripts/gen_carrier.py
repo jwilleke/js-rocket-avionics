@@ -11,11 +11,18 @@ stacking headers, so the holes pass through the board, and XIAO A uses D6/D7
 for the GPS UART while XIAO B uses D4/D5 for I2C -- different nets on the same
 holes. They have to sit end to end. Laying the real parts out:
 
-    top face     XIAO A 21 + GPS ~25                              = 46 mm
-    bottom face  XIAO B 21 + LSM6DSO32 25.5 + BMP390 25.5 + buzzer = 84 mm
+    top face     XIAO A 21 + GPS in the stack, not end to end    = 21 mm
+    bottom face  XIAO B 21 + LSM6DSO32 25.5 + BMP388 25.5 + buzzer = 84 mm
 
 and the board is 24 mm wide against 17.8 mm sensors, so no two sit side by
 side. 95 mm gives the bottom face its 84 mm plus spacing.
+
+The top-face line above once read "XIAO A 21 + GPS ~25 = 46 mm", from a
+MAX-M10S breakout that was rejected on 2026-08-06 (44.2 x 30.5 mm -- wider
+than this board -- and ~$60). The GPS is a Seeed L76K for XIAO (109100021),
+which plugs onto the XIAO's own 14 pads and needs no footprint here. The
+BOTTOM face is what sets 95 mm, so the board length is unaffected and the
+mounting pattern the rocket's sled generator derives from it does not move.
 
 WHY NO SCHEMATIC FILE. Nets are assigned directly to pads here rather than
 generated from a .kicad_sch. For ~9 nets that is more robust than authoring
@@ -24,8 +31,9 @@ source of truth. The cost is no ERC and no drawn wiring diagram, so the
 human-readable version lives in README.md as a connection table -- keep the
 two in step.
 
-WHAT IS DELIBERATELY NOT HERE YET. Footprints for the MAX-M10S, LSM6DSO32,
-BMP390 and buzzer. Their header pin ORDER differs between vendors and a wrong
+WHAT IS DELIBERATELY NOT HERE YET. Footprints for the LSM6DSO32, BMP388,
+buzzer and battery JST -- but NOT the GPS, which needs none; the L76K rides
+the XIAO stack. Their header pin ORDER differs between vendors and a wrong
 order is a scrapped board, not a re-solder. Those land after the breadboard
 stage confirms the actual parts in hand. XIAO geometry is safe to commit now
 because it comes from KiCad's own Seeed footprint, which cites Seeed's package
@@ -82,7 +90,8 @@ XIAO_PIN = {
     "D7": 8, "D8": 9, "D9": 10, "D10": 11, "3V3": 12, "GND": 13, "5V": 14,
 }
 
-# A: D6/D7 = GPIO43/44 = UART to the MAX-M10S
+# A: D6/D7 = GPIO43/44 = UART to the L76K GNSS, which meets these nets in the
+# XIAO stack rather than through a footprint on this board.
 # B: D4/D5 = GPIO5/6   = I2C;  D0 = GPIO1 = buzzer
 # Pins not listed are left unassigned rather than guessed.
 XIAO_A_SIGNALS = {"D6": "GPS_TX", "D7": "GPS_RX", "3V3": "+3V3", "GND": "GND"}
