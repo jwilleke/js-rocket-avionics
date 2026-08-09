@@ -62,29 +62,10 @@ Both ride one carrier PCB, on opposite faces. **Two MCUs, not one**, so the beac
 - **IMU unobtainable** → **BMI088** (±24 g, ~$12, widely stocked) or split the job: **MPU6050 + ADXL375**. The split costs **+1 g and one I2C address, no extra pins** — everything shares the bus.
 - **Barometer unobtainable** → any BMP3xx, or a generic **BMP280**. It is not the altimeter.
 
-## The BMP388, measured off the part
+## Pinouts and measured dimensions
 
-The only part that has been through the confirmation below. **In hand and measured 2026-08-08.** 25.5 × 17.8 mm, address **0x77** (ADDR jumper for 0x76), two Qwiic cables included at **110 mm** each. Pin order confirmed from the part:
+**In [module-pinouts.md](module-pinouts.md)**, with photographs — pin order, measured mass and hole sizes, the mounting-orientation decision, and the chip-ID check to run before designing a footprint round anything.
 
-```text
-1 VIN   2 3Vo   3 GND   4 SCL   5 SDO   6 SDA   7 CS   8 INT
-```
+**Only the BMP388 has been measured.** Everything else on this page is a datasheet figure until the part is on the bench, and that one board already disagreed with Adafruit's published dimensions in two places.
 
-**We use 1, 3, 4, 6.** Header ships **loose**, which keeps the mounting orientation open. Measured: **1.8 g**, **4.79 mm** thick over the Qwiic connectors, mounting holes **Ø2.35 mm at 20.58 mm spacing** on the edge opposite the header — so **M2, not M2.5**, and Adafruit's own figure is 2.5. Photos: [front](https://github.com/jwilleke/js-rocket/blob/main/docs/resources/PXL_20260808_193009460.jpg), [back](https://github.com/jwilleke/js-rocket/blob/main/docs/resources/PXL_20260808_192959846.jpg).
-
-Three cautions on that board, each of which has cost someone an evening:
-
-- **Power to VIN, never 3Vo.** `3Vo` is the on-board regulator's *output*; back-feeding it kills the LDO. **The board in hand is marked 3 V, not the `3-5VDC` the listing claims** — that figure is Adafruit's text, which the listing copies. **Treat it as a 3.3 V part** and do not feed it 5 V until the back silkscreen is read cleanly. The design runs it at +3V3 either way, so nothing changes except the assumption that 5 V was available as a fallback.
-- **The seller's wiring diagram is SPI, not I2C.** It wires SCL/SDO/SDA/CS to Arduino 13/12/11/10 — SCK, MISO, MOSI, SS. On BMP3xx the pins are dual-purpose; this design uses I2C, four wires.
-- **If it does not enumerate at 0x77, check CS first.** CS low selects SPI; it must be HIGH for I2C.
-
-**Qwiic cables are bench-only.** They make breadboarding solder-free, but JST-SH is friction-fit and will shake loose under boost — the flight build solders to the 0.1 in header holes.
-
-## Before designing a footprint round any of these
-
-**Confirm the silicon matches the label.** Clone listings copy Adafruit's product text verbatim and the chip does not always match.
-
-- BMP3xx `reg 0x00` → **0x50 = BMP388**, 0x60 = BMP390. A **BMP280** answers **0x58** at `reg 0xD0`.
-- **Photograph the header pin order** with the part in front of you. That order is the footprint input, and getting it wrong scraps a board rather than costing a re-solder.
-
-**Only the BMP388 has been through this.** Everything else is a datasheet figure until the part is on the bench — and this board already disagreed with Adafruit's dimensions in two places.
+**Qwiic cables are bench-only.** Both sensors ship with them, so breadboarding needs no soldering — but JST-SH is friction-fit and will shake loose under boost. The flight build solders to the 0.1 in header holes.
