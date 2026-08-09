@@ -2,9 +2,11 @@
 
 Carrier PCB and flight firmware for the [js-rocket](https://github.com/jwilleke/js-rocket) electronics sled.
 
-Separate from the rocket repo on purpose: `js-rocket` is geometry and documentation with no code, no package manager and no dependencies, and its `CLAUDE.md` says so explicitly. Copper and firmware live here instead. The design record — every decision and why — stays in [`js-rocket/docs/planing/electronics-plan.md`](https://github.com/jwilleke/js-rocket/blob/main/docs/planing/electronics-plan.md).
+**This is one candidate payload for the rocket, not *the* payload.** The rocket flies on ballast alone. The interface it has to satisfy — 40.0 mm bore × 150 mm, an M3 × 55 retainer at nose z 15, a ~50 g mass ceiling, an optional camera port — is [`js-rocket/docs/payload-bay.md`](https://github.com/jwilleke/js-rocket/blob/main/docs/payload-bay.md), and that is the only page in that repo this project depends on.
 
-**Every part this project needs is in [docs/BOM.md](docs/BOM.md)** — what each part is, which board it serves, mass, size, and what was rejected. **What was actually bought is in [docs/shopping-list.md](docs/shopping-list.md)** — SKUs, orders, costs, arrival status. The printed sled that carries these boards, and the [PayloadAdapter](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-adapter.md) it loads through, are rocket parts and stay in [js-rocket](https://github.com/jwilleke/js-rocket).
+Separate from the rocket repo on purpose: `js-rocket` is geometry and documentation with no code, no package manager and no dependencies, and its `CLAUDE.md` says so explicitly. Copper, firmware and **the design record — every decision and why, in [docs/design.md](docs/design.md)** — live here instead.
+
+**Why it is built this way is in [docs/design.md](docs/design.md).** **Every part this project needs is in [docs/BOM.md](docs/BOM.md)** — what each part is, which board it serves, mass, size, and what was rejected. **What was actually bought is in [docs/shopping-list.md](docs/shopping-list.md)** — SKUs, orders, costs, arrival status. The printed sled that carries these boards, and the [PayloadAdapter](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-adapter.md) it loads through, are rocket parts and stay in [js-rocket](https://github.com/jwilleke/js-rocket).
 
 **Status: 2a complete, 2b partial.** Outline, stackup, mounting holes, ground and power planes, both XIAO header positions and their net assignments — **DRC clean at 0 violations, 0 unconnected**. Still missing: footprints for the sensors, buzzer and battery connector, and all signal routing. The GPS needs no footprint — it rides the XIAO stack.
 
