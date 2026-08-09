@@ -4,6 +4,8 @@ Carrier PCB and flight firmware for the [js-rocket](https://github.com/jwilleke/
 
 Separate from the rocket repo on purpose: `js-rocket` is geometry and documentation with no code, no package manager and no dependencies, and its `CLAUDE.md` says so explicitly. Copper and firmware live here instead. The design record — every decision and why — stays in [`js-rocket/docs/planing/electronics-plan.md`](https://github.com/jwilleke/js-rocket/blob/main/docs/planing/electronics-plan.md).
 
+**Every part this project needs is in [docs/BOM.md](docs/BOM.md)** — spec, quantity, cost and status, as a standalone list. The printed sled that carries these boards, and the [PayloadAdapter](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-adapter.md) it loads through, are rocket parts and stay in [js-rocket](https://github.com/jwilleke/js-rocket).
+
 **Status: 2a complete, 2b partial.** Outline, stackup, mounting holes, ground and power planes, both XIAO header positions and their net assignments — **DRC clean at 0 violations, 0 unconnected**. Still missing: footprints for the GPS, sensors, buzzer and battery connector, and all signal routing.
 
 > **Do not order it.** It quotes cleanly, which is a toolchain check and nothing more. Everything except the two XIAOs is still absent.
