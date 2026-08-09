@@ -8,10 +8,12 @@ The receipts. What each part **is** and why it was chosen is in [BOM.md](BOM.md)
 
 | Order | Vendor | Date | Total | Status |
 |---|---|---|---|---|
-| **4000564803** | Seeed | 2026-08-07 | **$18.72** | **Shipped 2026-08-07.** AIG insurance active. China warehouse, 7–15 working days |
-| **4000564800** | Seeed | 2026-08-07 | **$35.65** | **Contents unconfirmed** — see below |
+| **4000564800** | Seeed | 2026-08-07 | **$35.65** | **Shipped 2026-08-07 from the US warehouse.** USPS `420430509261290198196828213362`. **Contents unconfirmed** — see below |
+| **4000564803** | Seeed | 2026-08-07 | **$18.72** | **Shipped 2026-08-07 from the China warehouse.** YanWen `UL400424782YP`, 7–15 working days |
 | **3722796-7493495579** | Adafruit | 2026-08-06 | **$50.11** | In transit. UPS `1Z71EY050394397600`, **ETA 2026-08-11** |
 | | | | **$104.48** | |
+
+Both Seeed orders carry AIG insurance covering 100% of item value, **claimable within 7 days of the estimated delivery date** — so check the boxes on arrival rather than when you get round to breadboarding.
 
 ## Bought
 
@@ -29,11 +31,15 @@ Freight and tax are not in the rows above: Seeed shipping **$7.82**, Adafruit **
 
 ## Unconfirmed
 
-**Seeed order 4000564800, $35.65.** Placed one minute before 4000564803 and charged to the card, but **Seeed sent no invoice email for it and no shipping notice** — only the contents-free "order received" template. So there is no evidence of what is in it.
+**Seeed order 4000564800, $35.65 — shipped, contents still unknown.**
 
-The two parts the BOM still needs from Seeed are the **XIAO ESP32S3 Sense (113991115)** and the **L76K GNSS for XIAO (109100021)**, and their list prices plus shipping land near $35.65. **That is arithmetic, not a receipt.** Check "My Orders" on seeedstudio.com and replace this section with the real line items.
+It was placed one minute before 4000564803, charged to the card, and **shipped first**: 2026-08-07, **USPS `420430509261290198196828213362`, from the United States warehouse**. What Seeed never sent for it is the **invoice email**, which is the only mail that carries line items — the "order received" and insurance templates have none. So the box is on its way and there is still no record of what is in it.
+
+The two parts the BOM still needs from Seeed are the **XIAO ESP32S3 Sense (113991115)** and the **L76K GNSS for XIAO (109100021)**, and their list prices plus shipping land near $35.65. **That is arithmetic, not a receipt.** Get the real line items from "My Orders" on seeedstudio.com, or simply open the box, and replace this section.
 
 Until then, **board B has no MCU on record.**
+
+**It should arrive well before the other Seeed box.** US warehouse on USPS is days; 4000564803 ships YanWen from China at 7–15 working days. So the first Seeed parts to land are probably the ones nobody can name.
 
 ## Still to buy
 
@@ -49,10 +55,11 @@ Until then, **board B has no MCU on record.**
 
 **Ordering copper is blocked on breadboarding, and breadboarding is blocked on parts arriving.**
 
-1. **2026-08-11** — the Adafruit box lands. That brings the **LSM6DSO32**, whose header pin order is the last unknown blocking sensor footprints. With the BMP388 already here, both I2C sensors can go on the bench the same day. Qwiic cables ship with both, so **no soldering is needed to breadboard them**.
-2. **~2026-08-17 to 08-26** — the Seeed shipment, 7–15 working days from 2026-08-07. That brings **board A**, which needs **no firmware at all** — it should enumerate as a Meshtastic device untouched.
-3. **Then** measure the L76K against the Wio-SX1262 on the B2B. If it will not ride the XIAO stack, it returns to the carrier as a footprint.
-4. **Then** place, route, and order.
+1. **Any day now** — Seeed **4000564800**, USPS out of the US warehouse since 2026-08-07. Believed to be board B's MCU and the GPS. **Open it and record what is actually inside**, since no email will tell you.
+2. **2026-08-11** — the Adafruit box lands. That brings the **LSM6DSO32**, whose header pin order is the last unknown blocking sensor footprints. With the BMP388 already here, both I2C sensors can go on the bench the same day. Qwiic cables ship with both, so **no soldering is needed to breadboard them**.
+3. **~2026-08-17 to 08-26** — Seeed **4000564803**, YanWen from China, 7–15 working days from 2026-08-07. That brings **board A**, which needs **no firmware at all** — it should enumerate as a Meshtastic device untouched.
+4. **Then** measure the L76K against the Wio-SX1262 on the B2B. If it will not ride the XIAO stack, it returns to the carrier as a footprint.
+5. **Then** place, route, and order.
 
 **A layout error costs ~$33 and two weeks. A wiring error costs minutes.** That is the whole reason for this order.
 
