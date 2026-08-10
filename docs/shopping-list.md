@@ -10,7 +10,7 @@ The receipts. What each part **is** and why it was chosen is in [BOM.md](BOM.md)
 |---|---|---|---|---|
 | **4000564800** | Seeed | 2026-08-07 | **$35.65** | **Shipped 2026-08-07 from the US warehouse.** USPS `420430509261290198196828213362`, departed the DHL eCommerce facility 00:55 |
 | **4000564803** | Seeed | 2026-08-07 | **$18.72** | **Shipped 2026-08-07 from the China warehouse.** YanWen `UL400424782YP`, handed to USPS as `4204305014989219790323596301191013`. **Port of departure 2026-08-09 09:05** |
-| **3722796-7493495579** | Adafruit | 2026-08-06 | **$50.11** | In transit. UPS `1Z71EY050394397600`, **ETA 2026-08-11** |
+| **3722796-7493495579** | Adafruit | 2026-08-06 | **$50.11** | **Delivered 2026-08-10**, a day early. UPS `1Z71EY050394397600` |
 | | | | **$104.48** | |
 
 Both Seeed orders carry AIG insurance covering 100% of item value, **claimable within 7 days of the estimated delivery date** — so check the boxes on arrival rather than when you get round to breadboarding.
@@ -22,9 +22,9 @@ Both Seeed orders carry AIG insurance covering 100% of item value, **claimable w
 | **XIAO ESP32S3 & Wio-SX1262 Kit** for Meshtastic & LoRa — **antennas included** | **A** | **102010611** | Seeed | 4000564803 | **$10.90** | **Shipped 2026-08-07.** Left port 2026-08-09 |
 | **XIAO ESP32-S3 Sense** — OV2640 + microSD | **B** | **113991115** | Seeed | 4000564800 | **$13.99** | **Shipped 2026-08-07** |
 | **L76K GNSS Module for XIAO** — active antenna included | **A** | **109100021** | Seeed | 4000564800 | **$11.99** | **Shipped 2026-08-07** |
-| **LSM6DSO32** 6-DoF, ±32 g | **B** | **4692** | Adafruit | 3722796 | **$12.50** | **ETA 2026-08-11** |
-| **Piezo buzzer** PS1240, passive | **B** | **160** | Adafruit | 3722796 | **$1.50** | **ETA 2026-08-11** |
-| **LiPo 3.7 V 500 mAh** | shared | **1578** | Adafruit | 3722796 | **$7.95** | **ETA 2026-08-11** |
+| **LSM6DSO32** 6-DoF, ±32 g | **B** | **4692** | Adafruit | 3722796 | **$12.50** | **In hand 2026-08-10** |
+| **Piezo buzzer** PS1240, passive | **B** | **160** | Adafruit | 3722796 | **$1.50** | **In hand 2026-08-10** |
+| **LiPo 3.7 V 500 mAh** | shared | **1578** | Adafruit | 3722796 | **$7.95** | **In hand 2026-08-10** |
 | **BMP388** barometer, STEMMA QT clone | **B** | — | [DIYmall B0GSYYT1K5](https://www.amazon.com/dp/B0GSYYT1K5) | — | ~$6–12 est. | **In hand.** Measured 2026-08-08 |
 
 Freight and tax are not in the rows above: Seeed shipping **$7.82**, Adafruit **UPS Ground $24.77 + $3.39 tax**.
@@ -54,7 +54,7 @@ Its two items are the **Sense ($13.99)** and the **L76K ($11.99)** — $25.98 of
 **Ordering copper is blocked on breadboarding, and breadboarding is blocked on parts arriving.**
 
 1. **Any day now** — Seeed **4000564800**: the **XIAO ESP32-S3 Sense** and the **L76K GNSS**. Board B's MCU and the GPS, USPS out of the US warehouse since 2026-08-07.
-2. **2026-08-11** — the Adafruit box lands. That brings the **LSM6DSO32**, whose header pin order is the last unknown blocking sensor footprints. With the BMP388 already here, both I2C sensors can go on the bench the same day. Qwiic cables ship with both, so **no soldering is needed to breadboard them**.
+2. ~~**2026-08-11** — the Adafruit box lands.~~ **Arrived 2026-08-10.** The **LSM6DSO32** is here, and its header pin order was the last unknown blocking sensor footprints. With the BMP388 already on the bench, **both I2C sensors can be breadboarded now** — Qwiic cables ship with both, so no soldering. **Measure the LSM6DSO32 and photograph its header before designing its footprint**; see [module-pinouts.md](module-pinouts.md).
 3. **~2026-08-17 to 08-26** — Seeed **4000564803**, YanWen from China, only out of port on 2026-08-09. That brings **board A**, which needs **no firmware at all** — it should enumerate as a Meshtastic device untouched.
 4. **Then** measure the L76K against the Wio-SX1262 on the B2B. **This is the one measurement the layout waits on**, and it needs both boxes: the L76K arrives in step 1, the radio not until step 3. If the two will not share the XIAO stack, the GPS returns to the carrier as a footprint.
 5. **Then** place, route, and order.
