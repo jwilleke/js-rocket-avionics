@@ -8,7 +8,7 @@ The receipts. What each part **is** and why it was chosen is in [BOM.md](BOM.md)
 
 | Order | Vendor | Date | Total | Status |
 |---|---|---|---|---|
-| **4000564800** | Seeed | 2026-08-07 | **$35.65** | **Shipped 2026-08-07 from the US warehouse.** USPS `420430509261290198196828213362`, departed the DHL eCommerce facility 00:55 |
+| **4000564800** | Seeed | 2026-08-07 | **$35.65** | **Delivered 2026-08-11.** USPS `420430509261290198196828213362`, US warehouse |
 | **4000564803** | Seeed | 2026-08-07 | **$18.72** | **Shipped 2026-08-07 from the China warehouse.** YanWen `UL400424782YP`, handed to USPS as `4204305014989219790323596301191013`. **Port of departure 2026-08-09 09:05** |
 | **3722796-7493495579** | Adafruit | 2026-08-06 | **$50.11** | **Delivered 2026-08-10**, a day early. UPS `1Z71EY050394397600` |
 | | | | **$104.48** | |
@@ -20,8 +20,8 @@ Both Seeed orders carry AIG insurance covering 100% of item value, **claimable w
 | Part | Board | SKU | Vendor | Order | Cost | Status |
 |---|---|---|---|---|---|---|
 | **XIAO ESP32S3 & Wio-SX1262 Kit** for Meshtastic & LoRa — **antennas included** | **A** | **102010611** | Seeed | 4000564803 | **$10.90** | **Shipped 2026-08-07.** Left port 2026-08-09 |
-| **XIAO ESP32-S3 Sense** — OV2640 + microSD | **B** | **113991115** | Seeed | 4000564800 | **$13.99** | **Shipped 2026-08-07** |
-| **L76K GNSS Module for XIAO** — active antenna included | **A** | **109100021** | Seeed | 4000564800 | **$11.99** | **Shipped 2026-08-07** |
+| **XIAO ESP32-S3 Sense** — OV2640 + microSD | **B** | **113991115** | Seeed | 4000564800 | **$13.99** | **In hand 2026-08-11** |
+| **L76K GNSS Module for XIAO** — active antenna included | **A** | **109100021** | Seeed | 4000564800 | **$11.99** | **In hand 2026-08-11** |
 | **LSM6DSO32** 6-DoF, ±32 g | **B** | **4692** | Adafruit | 3722796 | **$12.50** | **In hand 2026-08-10** |
 | **Piezo buzzer** PS1240, passive | **B** | **160** | Adafruit | 3722796 | **$1.50** | **In hand 2026-08-10** |
 | **LiPo 3.7 V 500 mAh** | shared | **1578** | Adafruit | 3722796 | **$7.95** | **In hand 2026-08-10** |
@@ -37,7 +37,7 @@ Freight and tax are not in the rows above: Seeed shipping **$7.82**, Adafruit **
 
 Its two items are the **Sense ($13.99)** and the **L76K ($11.99)** — $25.98 of goods against a $35.65 charge, so **$9.67 of shipping and insurance**.
 
-**It will land well before the other Seeed box.** 4000564800 went out of a **US warehouse** on USPS and cleared the DHL eCommerce facility on 2026-08-07; 4000564803 is YanWen out of China and only **left port on 2026-08-09**, with 7–15 working days quoted. So **board B's MCU and the GPS arrive first, and board A's radio last**.
+**It landed well before the other Seeed box, as predicted.** 4000564800 went USPS out of a **US warehouse** and arrived **2026-08-11**; 4000564803 is YanWen out of China, left port 2026-08-09, 7–15 working days quoted — so **board A's radio is the last thing outstanding**.
 
 ## Still to buy
 
@@ -51,16 +51,23 @@ Its two items are the **Sense ($13.99)** and the **L76K ($11.99)** — $25.98 of
 
 ## What is actually blocking
 
-**Ordering copper is blocked on breadboarding, and breadboarding is blocked on parts arriving.**
+**Everything except board A's radio is on the bench.** The only outstanding parcel is Seeed **4000564803** — YanWen from China, out of port 2026-08-09, 7–15 working days quoted, so roughly **2026-08-17 to 08-26**.
 
-1. **Any day now** — Seeed **4000564800**: the **XIAO ESP32-S3 Sense** and the **L76K GNSS**. Board B's MCU and the GPS, USPS out of the US warehouse since 2026-08-07.
-2. ~~**2026-08-11** — the Adafruit box lands.~~ **Arrived 2026-08-10.** The **LSM6DSO32** is here, and its header pin order was the last unknown blocking sensor footprints. With the BMP388 already on the bench, **both I2C sensors can be breadboarded now** — Qwiic cables ship with both, so no soldering. **Measure the LSM6DSO32 and photograph its header before designing its footprint**; see [module-pinouts.md](module-pinouts.md).
-3. **~2026-08-17 to 08-26** — Seeed **4000564803**, YanWen from China, only out of port on 2026-08-09. That brings **board A**, which needs **no firmware at all** — it should enumerate as a Meshtastic device untouched.
-4. **Then** measure the L76K against the Wio-SX1262 on the B2B. **This is the one measurement the layout waits on**, and it needs both boxes: the L76K arrives in step 1, the radio not until step 3. If the two will not share the XIAO stack, the GPS returns to the carrier as a footprint.
-5. **Then** place, route, and order.
+### What can be done now, without waiting
 
-**Step 4 is the schedule.** Everything else can be bench-tested as it arrives, but the stack-collision question needs the last box off the slowest shipment — so the copper order is gated on the **China** parcel, not the fast one.
+1. **Weigh the four new parts.** The Sense, L76K, LSM6DSO32 and cell are all estimates in [BOM.md](BOM.md), and together they are most of the **51.4 g** nose-mass figure the rocket's ballast decision rests on. The one estimate already replaced by a scale — the BMP388 — came in **80% over**. **This is the highest-value half hour available**, and it feeds straight into [js-rocket#9](https://github.com/jwilleke/js-rocket/issues/9)'s ballast numbers.
+2. **Breadboard board B in full.** Sense, BMP388, LSM6DSO32, buzzer and cell are all here. Qwiic cables ship with both sensors, so the I2C bus needs no soldering. Confirm the camera, the microSD slot and both sensors enumerate, and that the strapping pins (GPIO3, 43, 44) behave.
+3. **Measure and photograph every header** before drawing a footprint — see [module-pinouts.md](module-pinouts.md). Only the BMP388 has been through this. **A wrong pin order scraps a board rather than costing a re-solder.**
+4. **Check the L76K's own geometry.** It is documented as plugging onto the XIAO's 14 pads rather than presenting a header to the carrier, which is why no GPS footprint is planned. That claim can be checked against the part now, even without the radio.
 
-**A layout error costs ~$33 and two weeks. A wiring error costs minutes.** That is the whole reason for this order.
+### What still waits on the China parcel
+
+1. **The L76K against the Wio-SX1262 on the B2B.** **This is the one measurement the layout waits on.** If the two will not share the XIAO stack, the GPS returns to the carrier as a footprint and the top face needs ~21 mm back.
+2. **Board A bring-up** — it should enumerate as a Meshtastic device untouched, with no firmware written.
+3. **Then** place, route, and order copper.
+
+**The copper order is gated on the slow parcel, not the fast one** — but the four steps above it are no longer gated on anything.
+
+**A layout error costs ~$33 and two weeks. A wiring error costs minutes.** That is the whole reason for this sequence.
 
 **Board B's firmware does not exist yet** and is not on any critical path above — but it is what turns a breadboard into a flight recorder, and nothing has been written.
