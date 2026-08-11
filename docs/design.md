@@ -19,7 +19,7 @@ Related: [BOM.md](BOM.md) (parts and masses) · [shopping-list.md](shopping-list
 | Apogee method | **Inertial primary**; GPS anchor by **offline timestamp merge**, not real time | The cost of putting GPS on the stock-Meshtastic board |
 | Flight log storage | **Buffer in PSRAM during flight, flush after landing** | Both flash and microSD stall the 500 Hz sampler mid-boost |
 | Power | **One cell** to a carrier JST, distributed to each XIAO's **underside BAT pads by soldered pigtail**. **Charge through one USB port at a time** | BAT is not on the castellated edge, so it cannot come through the headers. Avoids adding a charge IC |
-| Arming | Reed switch **in the battery line**, not on a GPIO | Physically cuts power; zero pins; no hole in the nose |
+| Arming | Reed switch **in the battery line**, not on a GPIO | Physically cuts power; zero pins; no hole in the nose. **Polarity and switching topology are open** — see below |
 | Antennas | **Both off-board on U.FL** — GPS patch forward-facing, LoRa 82 mm whip up the ogive | A GPS patch needs a 30–40 mm ground plane; a 24 mm board never will be |
 
 ## Why two boards, after settling on one
@@ -117,6 +117,24 @@ The MAX-M10S was rejected on 2026-08-06: **44.2 × 30.5 mm, wider than the 24 mm
 - **Solder those pigtails before fitting the expansion board.** Seeed's wiki implies the pads are inaccessible afterwards.
 - **On battery power there is no voltage on the 5V pin**, so nothing can be fed from a XIAO's 5V rail.
 - Both XIAO chargers sit in parallel on one cell. **Charge through one USB port at a time.**
+
+### Arming — the reed switch, and two things not yet decided
+
+**The problem it solves is access, not convenience.** Once the nose is assembled there is no way in: USB is unreachable, Wi-Fi is off, and the status LED is sealed inside. A slide switch would need another hand-drilled hole in a part with no generator. A reed switch responds to a magnet **through** the PLA, so the switch lives inside and the magnet stays outside — no hole, no connector, no pin.
+
+It sits **in series in the battery line**, between the cell and the carrier's JST. That means it **physically cuts power** rather than setting a firmware state a boot-loop could defeat, it costs **zero GPIO**, and it **cuts both boards at once** — arming is all-or-nothing, including the beacon.
+
+> **OPEN 1 — polarity. Does the magnet arm or safe?** Not decided, and it inverts the field procedure and the part number.
+>
+> **Normally-closed, magnet safes** is the standard model-rocket pattern and the one to adopt unless there is a reason not to: a magnet taped to the nose holds the contacts open, and pulling it off at the pad arms the rocket. It **fails safe**, and the magnet doubles as a visible remove-before-flight tag. The alternative — normally-open, magnet arms — would need the magnet held on for the whole flight and is unworkable.
+>
+> **This decides what to order.** Normally-closed reeds are much less common than normally-open, so a switch bought before this is settled is likely to be the wrong one. It is currently an unordered ~$2 part with an unspecified type.
+
+> **OPEN 2 — contact rating against camera inrush.** A typical small reed switches around **0.5 A**. Steady draw is ~300 mA, which is comfortable. **The OV2640 powering up is the question**: reed contacts are small and can weld under inrush, and **a welded reed is an armed rocket that cannot be safed** — which is the failure mode that matters, because it happens on the pad with people nearby.
+>
+> **The fix is standard and cheap: let the reed switch a MOSFET rather than the load.** The reed carries milliamps into the gate; the FET carries the current. One extra part, and the concern disappears. Decide this before the carrier is routed, since it adds a footprint.
+
+**Both are unresolved.** The decision recorded in the table above — *reed switch in the battery line, not on a GPIO* — is the architecture. Neither the part type nor the switching topology follows from it.
 
 ### RF
 
@@ -258,5 +276,6 @@ Each flight adds one thing, and the recovery beacon is proven before anything ex
 - **The PCB is on the critical path.** Sled geometry derives from its outline and mounting holes, so a layout revision reprints the sled. Freeze the outline early; breadboard before committing to copper.
 - **GPS desense from the LoRa transmitter** cannot be reasoned away on paper. ≥50 mm antenna separation and both antennas on U.FL are the mitigations; verification step 3 is the proof.
 - **Shared cell couples the boards.** A camera brownout could disturb board A. Separate cells would isolate them at +8 g, which the mass budget cannot afford.
+- **A welded reed switch is an armed rocket that cannot be safed.** Contacts are small and the camera's inrush is unquantified; the mitigation is to switch a MOSFET rather than the load. Unresolved — see [Arming](#arming--the-reed-switch-and-two-things-not-yet-decided).
 - **Estimated masses run heavy.** The first estimate replaced by a scale came in **80% over** — see [BOM.md](BOM.md).
 - **The rocket's stability re-run ([#9](https://github.com/jwilleke/js-rocket/issues/9)) is P0 and blocking.** This payload can be built and bench-tested now, but **it cannot be flown** until that clears.

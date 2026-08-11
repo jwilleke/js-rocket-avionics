@@ -47,7 +47,8 @@ Its two items are the **Sense ($13.99)** and the **L76K ($11.99)** — $25.98 of
 | Part | Board | Est. | Note |
 |---|---|---|---|
 | **Carrier PCB** — 3 copies, 4-layer, OSH Park | both | **~$33** | **Blocked.** Do not order before breadboarding — see below |
-| **Reed switch** | shared | ~$2 | Arming, in the battery line. **The only outstanding part that is not the PCB** |
+| **Reed switch** | shared | ~$2 | Arming, in the battery line. **Do not order yet** — normally-open vs normally-closed is undecided, and NC is the one this needs. See [design.md § Arming](design.md#arming--the-reed-switch-and-two-things-not-yet-decided) |
+| **MOSFET**, low-Vgs logic-level | shared | ~$1 | **Only if** the reed switches a gate rather than the load — the likely answer, and it adds a carrier footprint |
 | 2× 2×7 stacking headers, ~14 mm | both | — | Believed already held. Verify before the flight build |
 | Solder, flux, PET window, zip ties, standoffs | — | ~$15 | Consumables |
 
