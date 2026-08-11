@@ -129,7 +129,7 @@ It sits **in series in the battery line**, between the cell and the carrier's JS
 > **Normally-closed, magnet safes** is the standard model-rocket pattern and the one to adopt unless there is a reason not to: a magnet taped to the nose holds the contacts open, and pulling it off at the pad arms the rocket. It **fails safe**, and the magnet doubles as a visible remove-before-flight tag. The alternative — normally-open, magnet arms — would need the magnet held on for the whole flight and is unworkable.
 >
 > **This decides what to order.** Normally-closed reeds are much less common than normally-open, so a switch bought before this is settled is likely to be the wrong one. It is currently an unordered ~$2 part with an unspecified type.
-
+>
 > **OPEN 2 — contact rating against camera inrush.** A typical small reed switches around **0.5 A**. Steady draw is ~300 mA, which is comfortable. **The OV2640 powering up is the question**: reed contacts are small and can weld under inrush, and **a welded reed is an armed rocket that cannot be safed** — which is the failure mode that matters, because it happens on the pad with people nearby.
 >
 > **The fix is standard and cheap: let the reed switch a MOSFET rather than the load.** The reed carries milliamps into the gate; the FET carries the current. One extra part, and the concern disappears. Decide this before the carrier is routed, since it adds a footprint.

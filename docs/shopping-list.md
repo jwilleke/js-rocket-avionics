@@ -31,7 +31,7 @@ Both Seeed orders carry AIG insurance covering 100% of item value, **claimable w
 Freight and tax are not in the rows above: Seeed shipping **$7.82**, Adafruit **UPS Ground $24.77 + $3.39 tax**.
 
 > **The A1/A2 requirement was written for a design that no longer exists.** It came from the era when the 500 Hz sampler wrote to the card *during flight*, where a 100–250 ms stall dropped samples. **PSRAM buffering removed that**: nothing touches the card until after landing. What remains is **sequential video write**, which is a speed-class question (Class 10 / U1 / V10), not the random-IOPS question A1/A2 answers. **Any reasonable card is very likely fine** — check the class marking rather than buying.
-
+>
 > **Shipping cost more than the parts.** $24.77 of freight against $21.95 of Adafruit goods. The project's ~$136 budget assumed nothing for it. Consolidate future orders.
 
 **Every part is now on a receipt.** Nothing on this page is inferred.
