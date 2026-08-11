@@ -26,8 +26,11 @@ Both Seeed orders carry AIG insurance covering 100% of item value, **claimable w
 | **Piezo buzzer** PS1240, passive | **B** | **160** | Adafruit | 3722796 | **$1.50** | **In hand 2026-08-10** |
 | **LiPo 3.7 V 500 mAh** | shared | **1578** | Adafruit | 3722796 | **$7.95** | **In hand 2026-08-10** |
 | **BMP388** barometer, STEMMA QT clone | **B** | — | [DIYmall B0GSYYT1K5](https://www.amazon.com/dp/B0GSYYT1K5) | — | ~$6–12 est. | **In hand.** Measured 2026-08-08 |
+| **microSD** | **B** | — | already held | — | — | **In hand** — several. See the note below on why the A1/A2 spec no longer binds |
 
 Freight and tax are not in the rows above: Seeed shipping **$7.82**, Adafruit **UPS Ground $24.77 + $3.39 tax**.
+
+> **The A1/A2 requirement was written for a design that no longer exists.** It came from the era when the 500 Hz sampler wrote to the card *during flight*, where a 100–250 ms stall dropped samples. **PSRAM buffering removed that**: nothing touches the card until after landing. What remains is **sequential video write**, which is a speed-class question (Class 10 / U1 / V10), not the random-IOPS question A1/A2 answers. **Any reasonable card is very likely fine** — check the class marking rather than buying.
 
 > **Shipping cost more than the parts.** $24.77 of freight against $21.95 of Adafruit goods. The project's ~$136 budget assumed nothing for it. Consolidate future orders.
 
@@ -44,8 +47,7 @@ Its two items are the **Sense ($13.99)** and the **L76K ($11.99)** — $25.98 of
 | Part | Board | Est. | Note |
 |---|---|---|---|
 | **Carrier PCB** — 3 copies, 4-layer, OSH Park | both | **~$33** | **Blocked.** Do not order before breadboarding — see below |
-| **microSD**, A1/A2 or industrial pSLC, 32 GB | B | ~$10 | Cheap cards stall 100–250 ms on a write |
-| **Reed switch** | shared | ~$2 | Arming, in the battery line |
+| **Reed switch** | shared | ~$2 | Arming, in the battery line. **The only outstanding part that is not the PCB** |
 | 2× 2×7 stacking headers, ~14 mm | both | — | Believed already held. Verify before the flight build |
 | Solder, flux, PET window, zip ties, standoffs | — | ~$15 | Consumables |
 

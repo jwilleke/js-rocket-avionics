@@ -4,9 +4,9 @@ Every part the avionics sled needs. **Nothing here is required to fly the rocket
 
 This page owns the engineering facts: what each part is, which board it serves, what it weighs, and why it beat the alternatives. **What was actually bought, what it cost and where it is now is in [shopping-list.md](shopping-list.md).**
 
-**Where things live.** The *design record* — every decision and the reasoning behind it — is [`js-rocket/docs/planing/electronics-plan.md`](https://github.com/jwilleke/js-rocket/blob/main/docs/planing/electronics-plan.md). The *printed sled* that carries these boards is a rocket part and stays there too, as is the [PayloadAdapter](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-adapter.md) the sled loads through. The carrier PCB, its Gerbers and the firmware are here.
+**Where things live.** The *design record* — every decision and the reasoning behind it — is [design.md](design.md), in this repo. The *printed sled* that carries these boards is a rocket part and stays there too, as is the [PayloadAdapter](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-adapter.md) the sled loads through. The carrier PCB, its Gerbers and the firmware are here.
 
-**The mass budget is the hard constraint.** Target is **~50 g of nose mass** including the printed sled; past ~65 g the rocket goes over-stable and weathercocks. A payload gram displaces only **0.78 g** of ballast, so overruns cost more than they look — see [payload-ballast.md](https://github.com/jwilleke/js-rocket/blob/main/docs/payload-ballast.md).
+**The mass budget is the hard constraint.** Target is **~50 g of nose mass** including the printed sled; past ~65 g the rocket goes over-stable and weathercocks. A payload gram displaces only **0.75 g** of ballast, so overruns cost more than they look — see [payload-ballast.md](https://github.com/jwilleke/js-rocket/blob/main/docs/payload-ballast.md).
 
 ## The two boards
 
@@ -32,10 +32,10 @@ Both ride one carrier PCB, on opposite faces. **Two MCUs, not one**, so the beac
 | **BMP388** barometer, STEMMA QT | B | **1.8 measured** | 25.5 × 17.8, **4.79 thick** | Unported: only jobs are timestamping ejection and detecting landing. Address **0x77**, no clash with the IMU. **Do not re-specify a BMP390** — same driver, and the 390 has an 8–12 week lead |
 | **Passive piezo buzzer** (Adafruit 160, PS1240) | B | 2.0 | — | PWM from D0. **Passive, not active** — a real GPIO can drive multiple tones, so beep patterns read as distinct status codes |
 | **Carrier PCB**, 4-layer, 1.0 mm | both | 4.3 | **24 × 95 × 1.0** | The sled's structural span. See [README](../README.md) for the frozen interface |
-| 2× 2×7 stacking headers, ~14 mm | both | 1.0 | — | The expansion board hangs in the gap; **15 mm** total stack above the carrier |
+| 2× 2×7 stacking headers, **~14 mm standoff** | both | 1.0 | — | The expansion board hangs in the gap; **15 mm** total stack above the carrier. **Not a generic part** — the standoff height is what makes the two-board stack work, and stock 2×7 headers are far shorter. Believed held; **verify before assuming** |
 | **LiPo 500 mAh** (Adafruit 1578) | shared | 9.0 | — | One cell feeds both MCUs. Over an hour against ~300 mA |
 | Reed switch, pigtails, wiring | shared | 1.5 | — | Arming switch sits **in the battery line**, not on a GPIO — physically cuts power, zero pins, no hole in the nose |
-| **microSD**, A1/A2 or industrial pSLC | B | — | — | Video only. **Buy a good card** — a cheap one's worst-case write latency is 100–250 ms |
+| **microSD** | B | — | — | **Video only, and in hand.** The old A1/A2 / pSLC requirement was written when the sampler wrote to the card in flight; **PSRAM buffering removed that**, so what is left is sequential video write — a speed-class question, not a random-IOPS one |
 | | | | | |
 | **Avionics subtotal** | | **42.1** | | |
 | ElectronicsSled, PLA — **measured** | | **9.3** | ≤ 39.4 × 39.4 × 134 | Printed part, lives in the rocket repo |
