@@ -113,7 +113,7 @@ Footprints for the **LSM6DSO32, BMP388, buzzer and battery JST**.
 
 Their header pin *order* varies between vendors, and a wrong order is a scrapped board rather than a re-solder. These land after the breadboard stage confirms the parts actually in hand. XIAO geometry was safe to commit now only because it comes from KiCad's own Seeed footprint, which cites Seeed's package drawing.
 
-The BMP388 is the one exception on pin order — **confirmed from the part in hand** (`VIN 3Vo GND SCL SDO SDA CS INT`, two Ø2.35 mm mounting holes at 20.58 mm centres, **M2 not M2.5**). It still waits on the breadboard because mounting orientation is shared with the LSM6DSO32, which has not arrived.
+The BMP388 is the one exception on pin order — **confirmed from the part in hand** (`VIN 3Vo GND SCL SDO SDA CS INT`, two Ø2.35 mm mounting holes at 20.58 mm centres, **M2 not M2.5**). It still waits on the breadboard because mounting orientation is shared with the LSM6DSO32 — in hand since 2026-08-10, and not yet measured.
 
 ## Battery — read before assembling
 

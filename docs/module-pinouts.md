@@ -72,7 +72,7 @@ Both sensors put their header on **one edge only**. Two ways to mount, and it is
 
 Flat also wins on height now that the board is measured. It stacks **4.79 mm** plus standoff against the **19.7 mm** available at the bore centre; perpendicular would stand 17.8 mm of board plus header into that same 19.7 mm, cantilevered off the header alone.
 
-**Footprint inputs, from the part:** two Ø2.35 mm holes at 20.58 mm spacing, **M2 screws**. See [BMP388 — measured](#bmp388--measured-2026-08-08) above. The LSM6DSO32 shares this form factor and is expected to match, but **it has not arrived and must be measured, not assumed** — this board already disagreed with Adafruit's dimensions in two places.
+**Footprint inputs, from the part:** two Ø2.35 mm holes at 20.58 mm spacing, **M2 screws**. See [BMP388 — measured](#bmp388--measured-2026-08-08) above. The LSM6DSO32 shares this form factor and is expected to match, but **it is in hand since 2026-08-10 and still unmeasured — measure it, do not assume** — this board already disagreed with Adafruit's dimensions in two places.
 
 ## Before designing a footprint round any module
 
