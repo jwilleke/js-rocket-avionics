@@ -6,7 +6,38 @@
 
 ---
 
-## 1. The big one: replace the reed switch with a removable plug
+## 0. Where this landed — pull-pin and a microswitch
+
+**Direction chosen 2026-08-15: a pin / pull-tab holding a subminiature snap-action microswitch.** Pin in, plunger held, circuit open, **SAFE**. Pin out, plunger releases, circuit closed, **ARMED**. Remove-before-flight streamer on the pin.
+
+It beats both the reed (§1) and the jack (§1) on the constraint measured in §4:
+
+| | Hole | Intrusion into the cord path |
+|---|---|---|
+| USB-C aperture | 9 × 3.2 mm | ~5 mm |
+| 3.5 mm jack | ~6 mm | 12–14 mm |
+| **Pull-pin + microswitch** | **~2–3 mm** | **a few mm** |
+
+- **Snap action gives defined make/break with no chatter**, and avoids the oxidation that plagues DIY leaf contacts.
+- **Many subminiature microswitches are rated 3–5 A**, above the ~300 mA steady draw and the camera inrush, so **the pin may switch the load directly**.
+- **The pin is a printed rod with no mechanism.** Unlike a twist-key it does not depend on printed tolerances — which matters here, because **this project has abandoned two printed mechanisms already**: the Nosecone's bayonet lug (removed at v7.0.0) and printed snap fingers for the motor hook (three attempts, 865 / 591 / 6 non-manifold edges).
+- **Radial mounting already satisfies the G-force rule.** A port in the adapter's side puts a ~12 g launch acceleration perpendicular to the pin's axis, so it cannot be pulled out. **Stated explicitly so nobody later "improves" it into an axial plug in the nose tip.**
+
+> ### Blocker nobody had noticed: the sled can rotate
+>
+> **This applies to the pin, the jack and USB-C equally.** The pin arrives radially at one fixed azimuth, but the sled is held by **four crush ribs that centre it and do not clock it**. Nothing fixes its rotation in the bore, so **the microswitch could end up anywhere on the circle relative to the hole.**
+>
+> Three ways out, none chosen:
+>
+> 1. **Key the sled rotationally** — its **D-flat already exists**, and a matching flat or rib in the Nosecone bore would clock it. Costs geometry on a part with no generator.
+> 2. **Mount the switch to the airframe**, reached by a flying lead. Always aligned, but the lead must disconnect to pull the sled.
+> 3. **Make the contact azimuth-independent** — a ring or circumferential contact. More design, no keying.
+>
+> **This decides whether the fix lands on the sled, the Nosecone or the carrier, so it wants settling before anything is cut.**
+
+## 1. Superseded proposal: replace the reed switch with a removable plug
+
+**Kept for the reasoning, which still applies. The jack is no longer the proposal — see §0.**
 
 **`design.md` settles arming as a reed switch in the battery line, magnet through the PLA. This proposes replacing it with a physical key.**
 
@@ -25,11 +56,13 @@
 | Carrier sits on the centre plane of a 40 mm bore, so ~20 mm of field gap | Gone |
 | 32 g steel ballast nut distorting the field | Gone |
 | **Welded contacts = an armed rocket that cannot be safed** | **Gone** — a plug physically breaks the circuit |
-| Needs a MOSFET so the reed does not carry camera inrush | **Gone** — a jack's contacts handle amps |
+| Needs a MOSFET so the reed does not carry camera inrush | **Not gone — this was wrong.** See the correction below |
 | Armed state is invisible | **Visible and tactile** |
 | No confirmation it actuated | You feel it seat |
 
-**Both open questions in [design.md § Arming](../design.md) — NC vs NO, and reed-switches-a-MOSFET — stop existing.** That is the strongest argument for it.
+> **Correction — only one of the two dissolves.** This section originally claimed a jack's contacts "handle amps" and that both open questions in [design.md § Arming](../design.md) stop existing. **The tip and sleeve conductors carry current, but the normalled switch contact — the one that does the arming — is signal-rated, typically around 0.5 A**, the same order as a reed. **NC vs NO dissolves; the MOSFET does not.** A **microswitch** rated 3–5 A is what actually removes it (§0), by a different route.
+
+**Chatter is a better argument against the reed than welding.** With normally-closed / magnet-safes the reed sits **closed in flight**, so vibration or landing impact can momentarily open it and brown out both boards mid-flight. **Welding is a pad-safety problem; chatter is a data-loss problem, and it happens every flight or not at all.** A latching circuit fixes it — another part.
 
 ### What it costs
 
