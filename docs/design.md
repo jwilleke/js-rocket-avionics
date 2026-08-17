@@ -277,5 +277,5 @@ Each flight adds one thing, and the recovery beacon is proven before anything ex
 - **GPS desense from the LoRa transmitter** cannot be reasoned away on paper. ≥50 mm antenna separation and both antennas on U.FL are the mitigations; verification step 3 is the proof.
 - **Shared cell couples the boards.** A camera brownout could disturb board A. Separate cells would isolate them at +8 g, which the mass budget cannot afford.
 - **A welded reed switch is an armed rocket that cannot be safed.** Contacts are small and the camera's inrush is unquantified; the mitigation is to switch a MOSFET rather than the load. Unresolved — see [Arming](#arming--the-reed-switch-and-two-things-not-yet-decided).
-- **Estimated masses run heavy.** The first estimate replaced by a scale came in **80% over** — see [BOM.md](BOM.md).
+- **Estimated masses were unreliable in both directions.** Nine parts weighed 2026-08-17: the **L76K came in +184%** and is now the heaviest object in the nose, while the Sense and the radio came in light. Net **+4.1 g**, putting the nose over its ~50 g target — see [BOM.md](BOM.md), which owns every weight.
 - **The rocket's stability re-run ([#9](https://github.com/jwilleke/js-rocket/issues/9)) is P0 and blocking.** This payload can be built and bench-tested now, but **it cannot be flown** until that clears.

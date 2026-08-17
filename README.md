@@ -6,7 +6,7 @@ Carrier PCB and flight firmware for the [js-rocket](https://github.com/jwilleke/
 
 Separate from the rocket repo on purpose: `js-rocket` is geometry and documentation with no code, no package manager and no dependencies, and its `CLAUDE.md` says so explicitly. Copper, firmware and **the design record — every decision and why, in [docs/design.md](docs/design.md)** — live here instead.
 
-**Why it is built this way is in [docs/design.md](docs/design.md).** **Every part this project needs is in [docs/BOM.md](docs/BOM.md)** — what each part is, which board it serves, mass, size, and what was rejected. **What was actually bought is in [docs/shopping-list.md](docs/shopping-list.md)** — SKUs, orders, costs, arrival status. The printed sled that carries these boards, and the [PayloadAdapter](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-adapter.md) it loads through, are rocket parts and stay in [js-rocket](https://github.com/jwilleke/js-rocket).
+**Why it is built this way is in [docs/design.md](docs/design.md).** **Every part this project needs is in [docs/BOM.md](docs/BOM.md), which is the single source of truth for part numbers and weights** — plus what each part is, which board it serves, and what was rejected. **What was actually bought is in [docs/shopping-list.md](docs/shopping-list.md)** — orders, costs, arrival status. The printed sled that carries these boards, and the [PayloadAdapter](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-adapter.md) it loads through, are rocket parts and stay in [js-rocket](https://github.com/jwilleke/js-rocket).
 
 **Status: 2a complete, 2b partial.** Outline, stackup, mounting holes, ground and power planes, both XIAO header positions and their net assignments — **DRC clean at 0 violations, 0 unconnected**. Still missing: footprints for the sensors, buzzer and battery connector, and all signal routing. The GPS needs no footprint — it rides the XIAO stack.
 
@@ -23,7 +23,7 @@ These numbers are what the rocket's sled generator derives its rail bosses from.
 | Corner radius | 2.0 mm |
 | Mounting holes | **4 × Ø2.200 mm** (M2 clearance) at **(3, 3), (21, 3), (3, 92), (21, 92)** |
 | Mounting pattern | 18.0 mm × 89.0 mm centres |
-| Mass | **4.3 g** (FR4 at 1.9 g/cm³) |
+| Mass | see [BOM.md](docs/BOM.md) — estimated from FR4 at 1.9 g/cm³, and **not yet weighed** |
 | XIAO B centre | y = 18.0 mm — the Sense, so the camera lands at nose z 30..45 |
 | XIAO A centre | y = 46.0 mm |
 

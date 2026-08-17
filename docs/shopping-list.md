@@ -1,6 +1,8 @@
 # Shopping list — avionics purchases
 
-The receipts. What each part **is** and why it was chosen is in [BOM.md](BOM.md); this page is only what was bought, what it cost and where it is.
+**What to buy and what it cost. Nothing else.**
+
+**Part numbers and weights are in [BOM.md](BOM.md), which is the single source of truth for both.** Do not restate either here — a number in two places is a number that will disagree with itself. What each part _is_ and why it was chosen is there too.
 
 **Costs on this page are from order confirmations, not estimates** — except where a row says otherwise. Status is as of **2026-08-14**. **Every ordered part is now in hand.**
 
@@ -17,20 +19,22 @@ Both Seeed orders carry AIG insurance covering 100% of item value, **claimable w
 
 ## Bought
 
-| Part | Board | SKU | Vendor | Order | Cost | Status |
-|---|---|---|---|---|---|---|
-| **XIAO ESP32S3 & Wio-SX1262 Kit** for Meshtastic & LoRa — **antennas included** | **A** | **102010611** | Seeed | 4000564803 | **$10.90** | **In hand 2026-08-13** |
-| **XIAO ESP32-S3 Sense** — OV2640 + microSD | **B** | **113991115** | Seeed | 4000564800 | **$13.99** | **In hand 2026-08-11** |
-| **L76K GNSS Module for XIAO** — active antenna included | **A** | **109100021** | Seeed | 4000564800 | **$11.99** | **In hand 2026-08-11** |
-| **LSM6DSO32** 6-DoF, ±32 g | **B** | **4692** | Adafruit | 3722796 | **$12.50** | **In hand 2026-08-10** |
-| **Piezo buzzer** PS1240, passive | **B** | **160** | Adafruit | 3722796 | **$1.50** | **In hand 2026-08-10** |
-| **LiPo 3.7 V 500 mAh** | shared | **1578** | Adafruit | 3722796 | **$7.95** | **In hand 2026-08-10** |
-| **BMP388** barometer, STEMMA QT clone | **B** | — | [DIYmall B0GSYYT1K5](https://www.amazon.com/dp/B0GSYYT1K5) | — | ~$6–12 est. | **In hand.** Measured 2026-08-08 |
-| **microSD** | **B** | — | already held | — | — | **In hand** — several. See the note below on why the A1/A2 spec no longer binds |
+**Part numbers are in [BOM.md](BOM.md)** — order from there, not from this page.
+
+| Part | Vendor | Order | Cost | Status |
+|---|---|---|---|---|
+| **XIAO ESP32S3 & Wio-SX1262 Kit** for Meshtastic & LoRa — **antennas included** | Seeed | 4000564803 | **$10.90** | **In hand 2026-08-13** |
+| **XIAO ESP32-S3 Sense** — OV2640 + microSD | Seeed | 4000564800 | **$13.99** | **In hand 2026-08-11** |
+| **L76K GNSS Module for XIAO** — active antenna included | Seeed | 4000564800 | **$11.99** | **In hand 2026-08-11** |
+| **LSM6DSO32** 6-DoF, ±32 g | Adafruit | 3722796 | **$12.50** | **In hand 2026-08-10** |
+| **Piezo buzzer** PS1240, passive | Adafruit | 3722796 | **$1.50** | **In hand 2026-08-10** |
+| **LiPo 3.7 V 500 mAh** | Adafruit | 3722796 | **$7.95** | **In hand 2026-08-10** |
+| **BMP388** barometer, STEMMA QT clone | [DIYmall](https://www.amazon.com/dp/B0GSYYT1K5) | — | ~$6–12 est. | **In hand.** Measured 2026-08-08 |
+| **microSD** | already held | — | — | **In hand** — several. See the note below on why the A1/A2 spec no longer binds |
 
 Freight and tax are not in the rows above: Seeed shipping **$7.82**, Adafruit **UPS Ground $24.77 + $3.39 tax**.
 
-> **The A1/A2 requirement was written for a design that no longer exists.** It came from the era when the 500 Hz sampler wrote to the card *during flight*, where a 100–250 ms stall dropped samples. **PSRAM buffering removed that**: nothing touches the card until after landing. What remains is **sequential video write**, which is a speed-class question (Class 10 / U1 / V10), not the random-IOPS question A1/A2 answers. **Any reasonable card is very likely fine** — check the class marking rather than buying.
+> **The A1/A2 requirement was written for a design that no longer exists.** It came from the era when the 500 Hz sampler wrote to the card _during flight_, where a 100–250 ms stall dropped samples. **PSRAM buffering removed that**: nothing touches the card until after landing. What remains is **sequential video write**, which is a speed-class question (Class 10 / U1 / V10), not the random-IOPS question A1/A2 answers. **Any reasonable card is very likely fine** — check the class marking rather than buying.
 >
 > **Shipping cost more than the parts.** $24.77 of freight against $21.95 of Adafruit goods. The project's ~$136 budget assumed nothing for it. Consolidate future orders.
 
@@ -42,17 +46,17 @@ Its two items are the **Sense ($13.99)** and the **L76K ($11.99)** — $25.98 of
 
 **It landed well before the other Seeed box, as predicted.** 4000564800 went USPS out of a **US warehouse** and arrived **2026-08-11**; 4000564803 is YanWen out of China, left port 2026-08-09, 7–15 working days quoted at **2026-08-17 to 08-26** — and it arrived **2026-08-13**, four days inside the earliest date. **Nothing ordered is outstanding.**
 
-**Claim the AIG insurance window on both Seeed boxes now if at all** — 7 days from the *estimated* delivery date, and 4000564803's estimate has not even started yet. Check the kit's contents against the listing (board, Wio-SX1262, both antennas) before that window is a question.
+**Claim the AIG insurance window on both Seeed boxes now if at all** — 7 days from the _estimated_ delivery date, and 4000564803's estimate has not even started yet. Check the kit's contents against the listing (board, Wio-SX1262, both antennas) before that window is a question.
 
 ## Still to buy
 
-| Part | Board | Est. | Note |
-|---|---|---|---|
-| **Carrier PCB** — 3 copies, 4-layer, OSH Park | both | **~$33** | **Blocked.** Do not order before breadboarding — see below |
-| **Reed switch** | shared | ~$2 | Arming, in the battery line. **Do not order yet** — normally-open vs normally-closed is undecided, and NC is the one this needs. See [design.md § Arming](design.md#arming--the-reed-switch-and-two-things-not-yet-decided) |
-| **MOSFET**, low-Vgs logic-level | shared | ~$1 | **Only if** the reed switches a gate rather than the load — the likely answer, and it adds a carrier footprint |
-| 2× 2×7 stacking headers, ~14 mm | both | — | Believed already held. Verify before the flight build |
-| Solder, flux, PET window, zip ties, standoffs | — | ~$15 | Consumables |
+| Part | Est. | Note |
+|---|---|---|
+| **Carrier PCB** — 3 copies, 4-layer, OSH Park | **~$33** | **Blocked.** Do not order before breadboarding — see below |
+| **Pull-pin + subminiature microswitch** | ~$5 | Arming, in the battery line. **Superseded the reed switch 2026-08-15** — smallest hole, snap action, no printed mechanism. **Do not order yet**: no part chosen, and the sled can rotate, so where the pin enters is unresolved. See [the arming brainstorm](resources/2026-08-15-arming-and-access-brainstorm.md) and avionics #1/#2 |
+| **MOSFET**, low-Vgs logic-level | ~$1 | **Only if** the switch drives a gate rather than the load. Still open — a 3.5 mm jack's normalled contact is signal-rated even though its tip and sleeve are not. Adds a carrier footprint |
+| 2× 2×7 stacking headers, ~14 mm | — | Believed already held. Verify before the flight build |
+| Solder, flux, PET window, zip ties, standoffs | ~$15 | Consumables |
 
 ## What is actually blocking
 
@@ -60,17 +64,15 @@ Its two items are the **Sense ($13.99)** and the **L76K ($11.99)** — $25.98 of
 
 ### What can be done now, without waiting
 
-1. **Weigh the four new parts.** The Sense, L76K, LSM6DSO32 and cell are all estimates in [BOM.md](BOM.md), and together they are most of the **51.4 g** nose-mass figure the rocket's ballast decision rests on. The one estimate already replaced by a scale — the BMP388 — came in **80% over**. **This is the highest-value half hour available**, and it feeds straight into [js-rocket#9](https://github.com/jwilleke/js-rocket/issues/9)'s ballast numbers.
-2. **Breadboard board B in full.** Sense, BMP388, LSM6DSO32, buzzer and cell are all here. Qwiic cables ship with both sensors, so the I2C bus needs no soldering. Confirm the camera, the microSD slot and both sensors enumerate, and that the strapping pins (GPIO3, 43, 44) behave.
-3. **Measure and photograph every header** before drawing a footprint — see [module-pinouts.md](module-pinouts.md). Only the BMP388 has been through this. **A wrong pin order scraps a board rather than costing a re-solder.**
-4. **Check the L76K's own geometry.** It is documented as plugging onto the XIAO's 14 pads rather than presenting a header to the carrier, which is why no GPS footprint is planned. That claim can be checked against the part directly.
+1. **Breadboard board B in full.** Sense, BMP388, LSM6DSO32, buzzer and cell are all here. Qwiic cables ship with both sensors, so the I2C bus needs no soldering. Confirm the camera, the microSD slot and both sensors enumerate, and that the strapping pins (GPIO3, 43, 44) behave.
+2. **Measure and photograph every header** before drawing a footprint — see [module-pinouts.md](module-pinouts.md). Only the BMP388 has been through this. **A wrong pin order scraps a board rather than costing a re-solder.**
+3. **Check the L76K's own geometry.** It is documented as plugging onto the XIAO's 14 pads rather than presenting a header to the carrier, which is why no GPS footprint is planned. That claim can be checked against the part directly.
 
 ### What the radio's arrival unblocks
 
 1. **The L76K against the Wio-SX1262 on the B2B.** **This is the one measurement the layout waits on, and it can be taken now.** If the two will not share the XIAO stack, the GPS returns to the carrier as a footprint and the top face needs ~21 mm back. The 95 mm board has the room either way, so this decides layout, not size.
 2. **Board A bring-up** — it should enumerate as a Meshtastic device untouched, with no firmware written.
-3. **Weigh the kit.** Board A's XIAO, the Wio-SX1262 and the antennas are estimates in [BOM.md](BOM.md) like the rest, and they sit in the same 51.4 g nose figure.
-4. **Then** place, route, and order copper.
+3. **Then** place, route, and order copper.
 
 **Nothing above is gated on a parcel any more.** The whole sequence is bench time.
 

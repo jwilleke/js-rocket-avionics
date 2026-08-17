@@ -39,7 +39,7 @@ Calipers and scale, on the board in hand. Photos: [front](resources/PXL_20260808
 
 | | Measured | Was assumed | |
 |---|---|---|---|
-| Mass | **1.8 g** | 1.0 g (BOM estimate) | **+80%** |
+| Mass | **1.8 g** — [BOM.md](BOM.md) owns this figure | 1.0 g (old estimate) | **+80%** |
 | Thickness over Qwiic connectors | **4.79 mm** | 4.4 mm (Adafruit) | +0.4 |
 | Mounting-hole diameter | **Ø2.35 mm** | 2.5 mm (Adafruit) | **undersize** |
 | Mounting-hole spacing | **20.58 mm** | — | now known |
