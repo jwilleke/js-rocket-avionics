@@ -1,0 +1,68 @@
+# Seeded by mjs-project-template's install-kit.sh. Keeps this repo up to date
+# with the agent kit by opening a pull request — it never pushes to the default
+# branch. Delete it if you do not want that.
+#
+# DELIBERATELY THIN. GITHUB_TOKEN may not push a file under .github/workflows/,
+# so anything in here can only be changed by a human running install-kit.sh
+# against every consumer. The logic therefore lives in utility/kit-sync.sh inside
+# the kit, which the sync delivers like any other file — five defects in this
+# mechanism have each cost a manual round across twelve repos, and every one of
+# them was in the logic rather than the trigger.
+#
+# Change this file only for triggers, permissions or the checkout steps.
+#
+# No cron. A schedule fires while nobody is looking, and GitHub disables
+# scheduled workflows after 60 days of repository inactivity — so it stops firing
+# in exactly the dormant repos that drift furthest. This runs on push, which is
+# when someone is already here, and on demand.
+#
+# PREREQUISITE, which no `permissions:` block can grant:
+#
+#   Settings > Actions > General > Workflow permissions
+#   [x] Allow GitHub Actions to create and approve pull requests
+#
+# Off by default in many repos. Without it the sync still pushes its branch and
+# files an issue with a compare link, rather than failing.
+#
+# Green means checked. Red means the sync could not be produced or did not lint.
+
+name: Kit Sync
+
+on:
+  push:
+    branches: [master, main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: kit-sync
+  cancel-in-progress: false
+
+jobs:
+  kit-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out this repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Beside this repo, not installed into it: runners already ship Node, so a
+      # C++, Go, Python or Shell repo pays nothing to run the checker. Full
+      # history because the kit's version comes from `git describe --tags`.
+      - name: Check out the kit
+        uses: actions/checkout@v4
+        with:
+          repository: jwilleke/mjs-project-template
+          path: .kit-sync
+          fetch-depth: 0
+
+      - name: Sync
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: .kit-sync/utility/kit-sync.sh .kit-sync

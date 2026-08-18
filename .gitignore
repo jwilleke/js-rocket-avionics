@@ -7,3 +7,10 @@ fp-info-cache
 
 # DRC/ERC scratch output
 /tmp/
+private/
+.claude/settings.local.json
+.claude/worktrees/
+.kit-sync/
+.kit-check/
+.continue/
+.agents/
