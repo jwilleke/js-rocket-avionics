@@ -18,6 +18,14 @@ A __contamination bulkhead__ — foam or plate, no sealing duty — still belong
 
 Because it is not the altimeter, __the part is interchangeable__: it shares the BMP3xx driver so it was a drop-in for the out-of-stock BMP390, and a generic BMP280 would serve.
 
+## Photographs
+
+| [Front](../docs/resources/BMP388-front.jpg) | [Back](../docs/resources/BMP388-back.jpg) |
+|---|---|
+| ![BMP388 front](../docs/resources/BMP388-front.jpg) | ![BMP388 back](../docs/resources/BMP388-back.jpg) |
+
+__The front photo confirms the pin order below on the physical silkscreen__ — VIN, 3Vo, GND, SCL, SDO, SDA, CS, INT, labels alternating above and below the row, both Qwiic connectors on the short edges, and both mounting holes on the long edge __opposite__ the header. The board is a blue clone, not an Adafruit black one, which is what makes the layout-clone claim worth having checked rather than assumed.
+
 ## Pinout — confirmed from the part
 
 Eight pins, 0.1 in pitch, single row along one long edge, labels alternating above and below:
@@ -58,3 +66,5 @@ __Sled bosses must be modelled oversize__ — a hole modelled at nominal prints 
 ---
 
 Part numbers, vendors and masses live in [BOM.md](../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../docs/shopping-list.md); the reasoning is in [design.md](../docs/design.md).
+
+![BMP388-back](../docs/resources/BMP388-back.jpg)

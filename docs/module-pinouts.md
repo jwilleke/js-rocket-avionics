@@ -2,7 +2,7 @@
 
 __Footprints cannot be drawn until these are read off the physical parts.__ Vendor listings copy Adafruit's product text verbatim, and this project has already caught two places where the board in hand disagreed with the datasheet it was sold under. A wrong pin order scraps a board rather than costing a re-solder.
 
-__BMP388 is confirmed. Nothing else is.__
+__BMP388 is confirmed from the part. The LSM6DSO32's pin order and markings are confirmed from photographs — its dimensions are not.__ Nothing else is.
 
 Moved here from the rocket repo's `electronics-plan.md` — this is footprint input for the carrier PCB, so it belongs with the copper. What each part *is* and why it was chosen stays in [BOM.md](BOM.md); the design record stays in [electronics-plan.md](https://github.com/jwilleke/js-rocket/blob/main/docs/planing/electronics-plan.md).
 
@@ -35,7 +35,7 @@ Header ships __loose and un-soldered__, confirmed on the part — which keeps th
 
 ## BMP388 — measured 2026-08-08
 
-Calipers and scale, on the board in hand. Photos: [front](resources/PXL_20260808_193009460.jpg), [back](resources/PXL_20260808_192959846.jpg).
+Calipers and scale, on the board in hand. Photos: [front](resources/BMP388-front.jpg), [back](resources/BMP388-back.jpg).
 
 | | Measured | Was assumed | |
 |---|---|---|---|
@@ -53,9 +53,38 @@ __The sled's bosses must be modelled oversize.__ Same rule as the anchor bore in
 
 __20.58 mm of spacing on a 25.5 mm edge__ puts the holes ~2.46 mm in from each end, which is the standard STEMMA QT placement and consistent with the clone claim. __Board length and width were not measured__ — the 25.5 × 17.8 mm figures are still Adafruit's. Worth two minutes with the calipers already out, since the footprint depends on them.
 
+## LSM6DSO32 — read off photographs 2026-09-05, not off calipers
+
+Photos: [front](resources/LSM6DSO32-front.jpg), [back](resources/LSM6DSO32-back.jpg).
+
+__It does not share the BMP388's form factor, which this page assumed it would.__ Two header rows rather than one, and both mounting holes on the same edge as one of them:
+
+| | BMP388 | LSM6DSO32 |
+|---|---|---|
+| Header rows | __one__, 8 pins | __two__ — 9-pin `Primary I2C/SPI`, 5-pin `Aux. I2C/SPI` |
+| Mounting holes | long edge __opposite__ the header | flanking the __Aux__ row, on that edge |
+
+__The flat-mounting conclusion survives.__ Screws on the Aux edge with the Primary header soldered on the opposite edge still gives two-point restraint across the board — the premise below was wrong, the answer is not.
+
+__Primary row, 9 pins:__ `VIN 3Vo GND SCL SDA DO CS I1 I2`, labels alternating above and below.
+
+__Aux row, 5 pins:__ `SCX SDX CS DO GND`. Confirm the ordering against the part; a photograph is not a reading.
+
+Back silkscreen: __`ST LSM6DSO32`__, `6-DoF Accel+Gyro IMU`, __`Accel ±4/8/16/32 g`__, `Gyro ±125~2000 dps`, __`I2C Addr 0x6A`__ with an `AD0` jumper, `I2C VLogic/Vcc: 3-5VDC`, STEMMA QT both short edges, board revision __B__.
+
+Three things that follow:
+
+- __The silicon matches the label__ — the check at the foot of this page passes on this part
+- __±32 g is confirmed on the board itself__, not on a listing
+- __0x6A does not clash with the BMP388's 0x77__, now confirmed from the part rather than from a datasheet
+
+__`3-5VDC` appears on this board's back and is presumably true here__, unlike the BMP388, where the identical wording came off Adafruit's copy and the part in hand was marked 3 V. The design runs +3V3 either way.
+
+__Still not known: every dimension.__ Hole diameter and spacing, board length and width, thickness over the Qwiic connectors. Those need calipers — [#5](https://github.com/jwilleke/js-rocket-avionics/issues/5) — and the footprint cannot be drawn without them.
+
 ## Still needed
 
-- __LSM6DSO32__ (Adafruit 4692) — header order. __Due 2026-08-11__, and it is the last unknown blocking sensor footprints
+- __LSM6DSO32__ (Adafruit 4692) — __header order now read off photographs__ (above); __every dimension is still missing__, and it remains the last unknown blocking sensor footprints. Calipers: [#5](https://github.com/jwilleke/js-rocket-avionics/issues/5)
 - __L76K GNSS__ — it plugs onto the XIAO's 14 pads rather than using its own header, so the question is __stack collision with the Wio-SX1262 on the B2B__, not pin order. Needs both Seeed parcels, and they arrive weeks apart
 - __Buzzer, reed switch__ — trivial, two pins each
 
@@ -72,7 +101,7 @@ __Flat is the answer, and the calipers settled it.__ On the BMP388 the two mount
 
 Flat also wins on height now that the board is measured. It stacks __4.79 mm__ plus standoff against the __19.7 mm__ available at the bore centre; perpendicular would stand 17.8 mm of board plus header into that same 19.7 mm, cantilevered off the header alone.
 
-__Footprint inputs, from the part:__ two Ø2.35 mm holes at 20.58 mm spacing, __M2 screws__. See [BMP388 — measured](#bmp388--measured-2026-08-08) above. The LSM6DSO32 shares this form factor and is expected to match, but __it is in hand since 2026-08-10 and still unmeasured — measure it, do not assume__ — this board already disagreed with Adafruit's dimensions in two places.
+__Footprint inputs, from the part:__ two Ø2.35 mm holes at 20.58 mm spacing, __M2 screws__. See [BMP388 — measured](#bmp388--measured-2026-08-08) above. __The LSM6DSO32 was expected to share this form factor and does not__ — it carries two header rows and puts its mounting holes on the same edge as one of them (see above). The two-point restraint argument still holds, on the Aux edge rather than the header-opposite edge. __It is in hand since 2026-08-10 and still unmeasured — measure it, do not assume__ — this board already disagreed with Adafruit's dimensions in two places.
 
 ## Before designing a footprint round any module
 

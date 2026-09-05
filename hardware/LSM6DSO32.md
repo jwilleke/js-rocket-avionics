@@ -28,11 +28,43 @@ __Integrated 10DOF modules were evaluated and rejected.__ The DFRobot Gravity 10
 
 ## Mounting
 
-__Flat, not perpendicular.__ Settled on the BMP388's measurements and applies here: screws at the end opposite the header give __two-point restraint__ across the board, which is what boost loading wants and what a cantilevered header cannot offer. Flat also stacks low against the __19.7 mm__ available at the bore centre.
+__Flat, not perpendicular.__ Settled on the BMP388's measurements and it survives the form-factor surprise below: screws on the __Aux__ edge with the Primary header soldered opposite give __two-point restraint__ across the board, which is what boost loading wants and what a cantilevered header cannot offer. Flat also stacks low against the __19.7 mm__ available at the bore centre.
 
 __Module footprint, not the bare chip.__ A bare LSM6DSO32 is an __LGA-14 at 2.5 × 3 mm__ and is not hand-solderable.
 
-Two Mounting holes take 2mm screws.
+__Screw size is not known for this part.__ The BMP388's turned out to be __M2, not M2.5__, on holes published as 2.5 mm and measured at Ø2.35 — but that is a reading off a different board, and this one is unmeasured. Do not carry the figure across.
+
+## Photographs — and the form factor is not what was assumed
+
+| [Front](../docs/resources/LSM6DSO32-front.jpg) | [Back](../docs/resources/LSM6DSO32-back.jpg) |
+|---|---|
+| ![LSM6DSO32 front](../docs/resources/LSM6DSO32-front.jpg) | ![LSM6DSO32 back](../docs/resources/LSM6DSO32-back.jpg) |
+
+__Read off the photographs, not off calipers.__ Dimensions are still owed — see Open below.
+
+> __It does not share the BMP388's form factor.__ [module-pinouts.md](../docs/module-pinouts.md) expected it to: *"the LSM6DSO32 shares this form factor and is expected to match."* __It has two header rows, not one__, and __both mounting holes sit on the same edge as one of them__, where the BMP388's sit on the edge opposite its single row.
+
+| | BMP388 | LSM6DSO32 |
+|---|---|---|
+| Header rows | __one__, 8 pins | __two__ — 9-pin `Primary I2C/SPI`, 5-pin `Aux. I2C/SPI` |
+| Mounting holes | long edge __opposite__ the header | flanking the __Aux__ row, on that edge |
+
+__The mounting conclusion survives the surprise.__ Screws on the Aux edge and the Primary header soldered on the opposite edge still gives __two-point restraint across the board__, which is what [module-pinouts.md](../docs/module-pinouts.md) wanted from flat mounting. The premise was wrong; the answer is unchanged.
+
+### What the silkscreen says
+
+__Primary row, 9 pins:__ `VIN 3Vo GND SCL SDA DO CS I1 I2`, labels alternating above and below the row.
+
+__Aux row, 5 pins:__ `SCX SDX CS DO GND`. Exact ordering wants confirming with the part in hand rather than off a photograph.
+
+Back silkscreen, all of it useful:
+
+- __`ST LSM6DSO32`, `6-DoF Accel+Gyro IMU`__ — the *"confirm the silicon matches the label"* check at the foot of [module-pinouts.md](../docs/module-pinouts.md) __passes__
+- __`Accel ±4/8/16/32 g`__ — ±32 g confirmed on the part, not on a listing
+- `Gyro ±125~2000 dps`
+- __`I2C Addr 0x6A`__ with an `AD0` solder jumper — __no clash with the BMP388's 0x77__, confirming from the part what [design.md](../docs/design.md) claimed from datasheets
+- __`I2C VLogic/Vcc: 3-5VDC`__ — worth noting, because that exact wording is what *"did not survive the part arriving"* on the BMP388, whose board turned out to be marked 3 V. __Here it really is on the part__
+- STEMMA QT on both short edges; board marked revision __B__
 
 ## Open — this part is the bottleneck
 
