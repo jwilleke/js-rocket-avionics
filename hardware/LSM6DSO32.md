@@ -32,7 +32,7 @@ __Flat, not perpendicular.__ Settled on the BMP388's measurements and it survive
 
 __Module footprint, not the bare chip.__ A bare LSM6DSO32 is an __LGA-14 at 2.5 × 3 mm__ and is not hand-solderable.
 
-__Screw size is not known for this part.__ The BMP388's turned out to be __M2, not M2.5__, on holes published as 2.5 mm and measured at Ø2.35 — but that is a reading off a different board, and this one is unmeasured. Do not carry the figure across.
+__The screw is M2__ — the project standard, see [Fasteners](README.md#fasteners--m2-everywhere). Nothing here is sized off a datasheet hole: M3 does not fit these breakouts, and the BMP388's holes measured Ø2.35 against a published 2.5. __What is still owed on this part is the hole *spacing*__, not the diameter.
 
 ## Photographs — and the form factor is not what was assumed
 

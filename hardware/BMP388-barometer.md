@@ -52,7 +52,7 @@ __Four are used: 1, 3, 4, 6__ — VIN, GND, SCL, SDA. Address __0x77__, no clash
 | Mounting-hole spacing | __20.58 mm__ | — | now known |
 | Qwiic cables supplied | 2 × 110 mm | "two included" | — |
 
-__The mounting screw is M2, not M2.5.__ Ø2.35 passes an M2 with 0.35 mm of total clearance; __an M2.5 does not fit at all__. Anyone sizing this off the datasheet picks a screw that will not go in.
+__The mounting screw is M2, not M2.5.__ Ø2.35 passes an M2 with 0.35 mm of total clearance; __an M2.5 does not fit at all__. Anyone sizing this off the datasheet picks a screw that will not go in. This board is where the __M2-everywhere__ standard came from — see [Fasteners](README.md#fasteners--m2-everywhere).
 
 __The `3-5VDC` figure did not survive the part arriving.__ That is Adafruit's wording, which the listing copies; __the board in hand is marked 3 V__. The design runs +3V3 into VIN so nothing changes, but __5 V is no longer a documented fallback__.
 

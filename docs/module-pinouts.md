@@ -80,7 +80,9 @@ Three things that follow:
 
 __`3-5VDC` appears on this board's back and is presumably true here__, unlike the BMP388, where the identical wording came off Adafruit's copy and the part in hand was marked 3 V. The design runs +3V3 either way.
 
-__Still not known: every dimension.__ Hole diameter and spacing, board length and width, thickness over the Qwiic connectors. Those need calipers — [#5](https://github.com/jwilleke/js-rocket-avionics/issues/5) — and the footprint cannot be drawn without them.
+__Hole diameter is not an open question.__ The fastener is __M2 across the project__ (operator, 2026-09-05) — M3 does not fit these breakouts and nothing 2.5 mm is being bought. Footprints are drawn for __M2 clearance__, not for whatever a given board's hole measures.
+
+__Still owed: hole spacing, board length and width, and thickness over the Qwiic connectors.__ Spacing is the one that actually blocks a footprint — two holes cannot be placed without their centres. Calipers: [#5](https://github.com/jwilleke/js-rocket-avionics/issues/5).
 
 ## Still needed
 

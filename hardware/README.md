@@ -20,6 +20,17 @@ __These pages hold no part numbers and no masses.__ [BOM.md](../docs/BOM.md) own
 | Mechanical | [Stacking-headers.md](Stacking-headers.md) | both | ~14 mm standoff. __Unverified__ |
 | Mechanical | [PCB-carrier.md](PCB-carrier.md) | both | The board, and the sled's structural span |
 
+## Fasteners — M2 everywhere
+
+__Every board mounting screw on this payload is M2.__ Decided by the operator on 2026-09-05, and it is a standard rather than a per-board reading:
+
+- __M3 does not fit these breakouts.__ There is no version of this where a 3 mm screw goes through a STEMMA QT mounting hole
+- __Nothing 2.5 mm is being bought.__ Adafruit publishes 2.5 mm holes on parts whose holes actually measure __Ø2.35__ — an M2.5 does not pass, and stocking a second size to chase a datasheet figure buys nothing
+
+So a board's measured hole diameter is __not__ an input to the footprint; it only has to clear an M2. What still matters per board is __hole spacing__, which no standard can supply.
+
+__Printed bosses are modelled oversize.__ A hole modelled at nominal prints undersize by ~0.3 mm on the P2S, so sled bosses are drawn for M2 clearance rather than to a measured 2.35 — the same rule as the anchor bore in the rocket repo.
+
 ## What is not here
 
 - __KiCad sources__ — `carrier/`
