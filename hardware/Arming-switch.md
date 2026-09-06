@@ -19,7 +19,7 @@ __Nothing has been bought and no part has been chosen.__ The mass in [BOM.md](..
 The reed design left two open questions. The pull-pin answers the first outright and __the second survives the change of part__:
 
 - __Polarity — does the magnet arm or safe?__ Dead with the reed switch. A pull-pin is unambiguous: the pin is in, the rocket is safe, and the pin doubles as a visible remove-before-flight tag
-- __Contact rating against camera inrush — still live.__ Steady draw is ~300 mA, which is comfortable, but __the OV2640 powering up is the question__: small contacts can weld under inrush, and __a welded switch is an armed rocket that cannot be safed__ — the failure mode that matters, because it happens on the pad with people nearby
+- __Contact rating against camera inrush — still live.__ Steady draw is ~300 mA, which is comfortable, but __the camera powering up is the question__: small contacts can weld under inrush, and __a welded switch is an armed rocket that cannot be safed__ — the failure mode that matters, because it happens on the pad with people nearby
 
 __The fix is standard and cheap: let the switch drive a MOSFET rather than the load.__ The switch carries milliamps into the gate; the FET carries the current. One extra part, and the concern disappears — __but it adds a footprint, so it must be decided before the carrier is routed.__
 

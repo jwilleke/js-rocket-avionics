@@ -14,7 +14,7 @@ Related: [BOM.md](BOM.md) (parts and masses) · [shopping-list.md](shopping-list
 | Interconnect | __One carrier PCB__ on the sled's centre plane, parts on both faces, 1.0 mm FR4, 4-layer, __24 × 95 mm__ | A XIAO stack is 15 mm tall, which no 11 mm face channel holds |
 | Board A firmware | __Stock Meshtastic__, pre-flashed by Seeed. No code written | The Wio-SX1262 + XIAO ESP32S3 kit is a supported Meshtastic device out of the box |
 | Board B firmware | Custom — camera, sensors, PSRAM logging, Wi-Fi | Not yet started |
-| Camera | __OV2640__ on the Sense expansion board | Estes AstroCam was considered and dropped |
+| Camera | __OV3660__ on the Sense expansion board — __confirmed off the ribbon 2026-09-06__, having been recorded as an OV2640 throughout | Estes AstroCam was considered and dropped |
 | Barometric static port | __Dropped__ | See below |
 | Apogee method | __Inertial primary__; GPS anchor by __offline timestamp merge__, not real time | The cost of putting GPS on the stock-Meshtastic board |
 | Flight log storage | __Buffer in PSRAM during flight, flush after landing__ | Both flash and microSD stall the 500 Hz sampler mid-boost |
@@ -194,6 +194,12 @@ The two-chip split is where this design began, before it was consolidated to a s
 __Integrated 10DOF modules were evaluated and rejected.__ The DFRobot Gravity 10DOF (BMI323 + BMM350 + BMP581, $19.90) is representative: its BMI323 maxes at ±16 g. It is also 32 × 27 mm — wider than the carrier — uses a PH2.0 flying lead, and carries a magnetometer this design deliberately excludes.
 
 ## The camera, and the port it needs
+
+> __The part is an OV3660, not an OV2640__ (confirmed 2026-09-06). The analysis below was written for a 2640 and __survives almost intact__: the OV3660's active area is 2048 × 1536 at 1.75 µm = 3.584 × 2.688 mm, a __4.480 mm__ diagonal against the 2640's 4.482 — two microns apart, the same optical format. __What would move the cone is a different focal length__, which a 3 MP module may well carry: at f 4.0 the cone is 58.5°, at f 3.6 it is 63.8°, at f 3.0 it is 73.5°.
+>
+> __A wider cone makes the port harder.__ At 50° the full cone already needs Ø14.2 mm outside a 15.0 mm collar; at 70° it needs Ø21.3. It was unbuildable from a board-mounted lens and it gets worse. __The standoff fix holds across the whole range__ — with the lens at r 19 the port is Ø4.9 at 50° and Ø7.3 at 70° — which is why bringing the lens to the wall was the right answer rather than a bigger hole.
+>
+> __Measure the cone rather than looking the lens up.__ Photograph a ruler at a known distance and compute the captured angle. That settles it for the real lens, and this project has already had one argument with a datasheet over this exact number.
 
 __The OV2640's real FOV is ~50°, not the 65–68° commonly quoted.__ Active area diagonal is √(3.590² + 2.684²) = __4.482 mm__; with the stock __f = 4.8 mm__ lens that gives `2·atan(4.482/9.6)` = __50.1° diagonal__ (HFOV 41°, VFOV 31°). The sensor's __25° chief ray angle__ independently confirms it — a 25° half-angle *is* a 50° full cone. The 65–68° figure is inconsistent with both and should be disregarded.
 

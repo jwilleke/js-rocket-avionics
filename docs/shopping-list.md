@@ -24,7 +24,7 @@ __Part numbers are in [BOM.md](BOM.md)__ — order from there, not from this pag
 | Part | Vendor | Order | Cost | Status |
 |---|---|---|---|---|
 | __XIAO ESP32S3 & Wio-SX1262 Kit__ for Meshtastic & LoRa — __antennas included__ | Seeed | 4000564803 | __$10.90__ | __In hand 2026-08-13__ |
-| __XIAO ESP32-S3 Sense__ — OV2640 + microSD | Seeed | 4000564800 | __$13.99__ | __In hand 2026-08-11__ |
+| __XIAO ESP32-S3 Sense__ — camera + microSD. __Listed as OV2640; the board that arrived carries an OV3660__ (2026-09-06) | Seeed | 4000564800 | __$13.99__ | __In hand 2026-08-11__ |
 | __L76K GNSS Module for XIAO__ — active antenna included | Seeed | 4000564800 | __$11.99__ | __In hand 2026-08-11__ |
 | __LSM6DSO32__ 6-DoF, ±32 g | Adafruit | 3722796 | __$12.50__ | __In hand 2026-08-10__ |
 | __Piezo buzzer__ PS1240, passive | Adafruit | 3722796 | __$1.50__ | __In hand 2026-08-10__ |

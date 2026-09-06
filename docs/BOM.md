@@ -65,7 +65,7 @@ Both ride one carrier PCB, on opposite faces. __Two MCUs, not one__, so the beac
 | __XIAO ESP32S3 + Wio-SX1262__ | Supported Meshtastic device out of the box. __Must be the matched B2B kit variant__ — buy SKU 102010611 as a kit, never the two boards separately. It arrives pre-flashed, which is the entire premise of board A |
 | __U.FL 82 mm whip__ | LoRa antenna, runs forward up the ogive. Included in the kit |
 | __L76K GNSS__ | __Active antenna included.__ Plugs onto the XIAO's own 14 pads and talks UART on D6/D7 — __no carrier footprint needed__. Replaced a MAX-M10S that was 44.2 × 30.5 mm and ~$60 |
-| __XIAO ESP32S3 Sense__ | Recorder MCU. Carries the __OV2640 camera__ and microSD slot on its expansion board |
+| __XIAO ESP32S3 Sense__ | Recorder MCU. Carries the camera — an __OV3660__, confirmed off the ribbon 2026-09-06, not the OV2640 assumed throughout — and the microSD slot on its expansion board |
 | __LSM6DSO32__ | __±32 g.__ Boost peaks at __17.6 g__, so every ±16 g part on the market clips — and a clipped boost integral destroys the velocity estimate for the whole flight. 9 KB __FIFO__ is a hard requirement |
 | __BMP388__ | Unported: only jobs are timestamping ejection and detecting landing. Address __0x77__, no clash with the IMU. __Do not re-specify a BMP390__ — same driver, 8–12 week lead |
 | __Piezo buzzer__ | PWM from D0. __Passive, not active__ — a real GPIO can drive multiple tones, so beep patterns read as distinct status codes |

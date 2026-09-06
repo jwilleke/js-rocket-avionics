@@ -1,6 +1,6 @@
 # XIAO ESP32S3 Sense — board B
 
-__The flight recorder's MCU.__ Same module as board A plus the Sense expansion board, which carries the __OV2640 camera__ and the __microSD__ slot.
+__The flight recorder's MCU.__ Same module as board A plus the Sense expansion board, which carries the camera — an __OV3660__, confirmed off the ribbon 2026-09-06, where every document here had assumed an OV2640 — and the __microSD__ slot.
 
 ## What it is for
 
@@ -16,7 +16,38 @@ Splitting it from board A buys failure isolation, and dissolves two problems as 
 
 The pair is the whole of board B: the MCU module, and the Sense expansion board carrying the camera and the microSD slot. The expansion shot shows the FPC connector, the folded camera ribbon, and __the lens barrel standing proud of the board__ — which is the dimension [#9](https://github.com/jwilleke/js-rocket-avionics/issues/9) needs and which __this photograph cannot give__: standoff is a height, so it wants an __edge-on__ shot against the grid, with the stack assembled on its headers.
 
-> __Verify which sensor this is before trusting any field-of-view number.__ The camera ribbon appears to carry an __`OV36…`__ marking rather than `OV2640`. It is partly obscured by the fold and I would not act on it from this image — __but if the part is an OV3660, every figure in the camera analysis moves__: the 4.482 mm active-area diagonal, the f = 4.8 mm lens, the __50.1° cone__, and therefore the port sizing in [js-rocket#88](https://github.com/jwilleke/js-rocket/issues/88) and the shelf radius in [js-rocket#89](https://github.com/jwilleke/js-rocket/issues/89). This repo already has the rule — *confirm the silicon matches the label* — and it has caught two parts already. __Read the marking with the ribbon unfolded, or query the sensor ID over I2C during [#7](https://github.com/jwilleke/js-rocket-avionics/issues/7).__
+> __It is an OV3660, not an OV2640.__ Read off the camera ribbon, 2026-09-06. Every camera figure in this project was written for an OV2640, so the correction propagates — but __it changes far less than it looks like it should__, for the reason below.
+
+### The sensor swap is almost irrelevant. The lens is what matters
+
+| | Active area | Diagonal |
+|---|---|---|
+| OV2640, as [design.md](../docs/design.md) states it | 3.590 × 2.684 mm | __4.482 mm__ |
+| __OV3660__, 2048 × 1536 at 1.75 µm | 3.584 × 2.688 mm | __4.480 mm__ |
+
+__Two microns apart.__ The two sensors are effectively the same optical format, so swapping one for the other moves the cone by nothing measurable. __What sets the cone is the focal length__, and a 3 MP module is often shipped with a shorter lens than a 2 MP one:
+
+| f | Diagonal FOV |
+|---|---|
+| 4.8 mm — the figure in [design.md](../docs/design.md) | 50.0° |
+| 4.0 mm | 58.5° |
+| 3.6 mm | 63.8° |
+| 3.0 mm | 73.5° |
+
+__A wider cone makes the port harder, not easier.__ At a lens sitting on the board (r 9) the full cone needs Ø14.2 mm outside the collar at 50°, Ø17.6 at 60° and Ø21.3 at 70° — against a collar 15.0 mm tall. It was unbuildable at 50° and it gets worse.
+
+__And the conclusion is unchanged at every one of those angles.__ With the lens brought out to r 19 the port stays small — Ø4.9 outside at 50°, Ø6.0 at 60°, Ø7.3 at 70° — so __the standoff fix works across the whole plausible range__, which is exactly why it was the right answer rather than a bigger hole. [js-rocket#88](https://github.com/jwilleke/js-rocket/issues/88) and [js-rocket#89](https://github.com/jwilleke/js-rocket/issues/89) stand as written; only the arithmetic behind them is re-derived.
+
+> __Do not look the focal length up. Measure the cone.__ Photograph a ruler at a known distance and compute the angle actually captured. That gives the __real__ figure for the __real__ lens — settling the 50°-versus-68° argument that this project has already had once with a datasheet, and giving [#9](https://github.com/jwilleke/js-rocket-avionics/issues/9) a number nobody has to defend. One frame at bring-up ([#7](https://github.com/jwilleke/js-rocket-avionics/issues/7)).
+
+### How to confirm a camera's identity without reading a ribbon
+
+The ribbon settled it this time, but it is the weakest of the four:
+
+- __Query the sensor over I2C.__ Decisive, because it reads the die: OV2640 reports PID __0x26__, OV3660 reports __0x3660__ (registers 0x300A/0x300B). Under `esp32-camera` that is `esp_camera_sensor_get()->id.PID`, and the stock Arduino examples print it at boot
+- __Try the largest frame size.__ An OV2640 tops out at __UXGA 1600 × 1200__; an OV3660 does __QXGA 2048 × 1536__. If QXGA returns a frame, it is not a 2640
+- __Check the vendor's SKU for the batch__ — Seeed has shipped both on this expansion board
+- __Read the ribbon__, as here — fine when it is legible and unfolded, and it was neither until it was
 
 ## Interfaces
 
@@ -26,7 +57,7 @@ The pair is the whole of board B: the MCU module, and the Sense expansion board 
 | Position | __Centred at carrier y = 18 mm__, which is what puts the camera at nose z 30..45 |
 | Sensors | I2C on __D4/D5__ |
 | Buzzer | PWM on __D0__ |
-| Camera | __DVP parallel bus__, 14 GPIO, plus I2C/SCCB for control. Frames land in PSRAM by DMA |
+| Camera | __OV3660__ (not OV2640 — confirmed 2026-09-06). __DVP parallel bus__, 14 GPIO, plus I2C/SCCB for control. Frames land in PSRAM by DMA |
 | microSD | on SPI, on the Sense expansion board |
 | PSRAM | __8 MB__ (ESP32-S3R8) |
 
