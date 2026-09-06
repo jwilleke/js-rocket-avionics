@@ -51,24 +51,29 @@ __Do not fit the wide-angle lens.__ The 120–160° M7 option cannot match the s
 
 ## Specification
 
-[Specifications](https://www.seeedstudio.com/XIAO-ESP32S3-Sense-p-5639.html?srsltid=AfmBOoqlnJHk4DPgMnXNXsylaaDgI12FxYe6sk9a7pb1amkIAesnmNpG)
+[Seeed product page](https://www.seeedstudio.com/XIAO-ESP32S3-Sense-p-5639.html)
 
-Kit includes:
+### What is in the kit, and what flies
 
-- XIAO ESP32-S3 x1
-- Plug-in camera sensor board x1
-- Aluminum Heat Sink For XIAO x2
-- 7 Pin Header x2
-- Antenna x1
+| In the box | Flies | |
+|---|---|---|
+| XIAO ESP32-S3 × 1 | __yes__ | the MCU |
+| Plug-in camera sensor board × 1 | __yes__ | the expansion board — camera and microSD |
+| 7-pin header × 2 | __yes__ | the flight mounting, ~2.50 mm standoff |
+| Antenna × 1 — 2.4G A-02, WiFi/BLE | __no__ | [Antennas.md](Antennas.md) |
+| __Aluminium heat sink for XIAO × 2__ | __no__ | see below |
+
+> Seeed's note: *from 2 Sep 2024 the Sense (113991115) ships with 2 heat sinks from the China warehouse; US and Germany warehouses ship the new version from 2025.*
+
+__The heat sinks are not used, and nothing in the design calls for them.__ Two reasons, both structural rather than thermal:
+
+- __The face they are made for is occupied.__ They adhere to the module can on the XIAO's top face, and that is the face the expansion board mates to
+- __A sealed PLA nose has no airflow.__ Fin area does nothing without convection; what a lump of aluminium would actually contribute is thermal __mass__, and the nose budget is already over target
+
+If heat becomes a real question it will show up at bench bring-up, where both boards run on one cell with the camera active ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)). Until then they stay in the box.
 
 The BAT-pad and one-USB-at-a-time rules from [XIAO-ESP32S3.md](XIAO-ESP32S3.md) apply identically here.
 
-- XIAO ESP32-S3 x1
-- Plug-in camera sensor board x1
-- Aluminum Heat Sink For XIAO x2
-- 7 Pin Header x2
-- Antenna x1
-
-Note: From Sep 2, 2024, XIAO ESP32S3 Sense (113991115) ships with 2 heat sinks in China Warehouse. US&Germany warehouses ships new version from 2025.
+---
 
 Part numbers, vendors and masses live in [BOM.md](../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../docs/shopping-list.md); the reasoning is in [design.md](../docs/design.md).
