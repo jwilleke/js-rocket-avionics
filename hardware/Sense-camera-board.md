@@ -1,25 +1,20 @@
-# XIAO ESP32S3 Sense — board B
+# Sense camera board
 
-__The flight recorder's MCU.__ Same module as board A plus the Sense expansion board, which carries the camera — an __OV3660__ — and the __microSD__ slot.
+__The expansion board that carries the OV3660 camera and the microSD slot.__ Mates to [XIAO-ESP32S3-cam](XIAO-ESP32S3-cam.md) via its B2B connector and sits __above__ it.
 
 ## What it is for
 
-Board B does the work that cannot be bought pre-flashed: camera, IMU, barometer, PSRAM logging. Its firmware is __custom and not yet started__.
-
-Splitting it from board A buys failure isolation, and dissolves two problems as a side effect ([design.md](../docs/design.md)): board B sheds LoRa and the GPS UART, so __an I2C GPIO expander is no longer needed__, and its SPI carries only the microSD, so __no "do not transmit while recording" scheduling rule is required__ — different MCU, different bus.
+Camera and card. It is the recorder's only payload; everything else on that side — IMU, barometer, buzzer — sits on the carrier beside the XIAO, not on this board.
 
 ## Interfaces
 
 | | |
 |---|---|
-| Carrier face | __Bottom__ — with LSM6DSO32, BMP388 and the buzzer |
+| Carrier face | the recorder's — with LSM6DSO32, BMP388 and the buzzer |
 | Position | __centred at carrier y = 18 mm__, which is what puts the camera at nose z 30..45 |
-| Sensors | I2C on __D4/D5__ |
-| Buzzer | PWM on __D0__ |
 | Camera | __OV3660__ on a __DVP parallel bus__ — 14 GPIO plus I2C/SCCB for control. Frames land in PSRAM by DMA |
 | microSD | SPI, on the expansion board |
-| PSRAM | __8 MB__ (ESP32-S3R8) |
-| Battery | __BAT+/BAT− are underside pads__, not on the castellated edge — soldered pigtail, fitted before the expansion board goes on |
+| PSRAM | __8 MB__ on the XIAO (ESP32-S3R8) — where frames land |
 
 __Which carrier face is which sled azimuth is unsettled__, and it now matters: the Nosecone port is at azimuth 270° ([#13](https://github.com/jwilleke/js-rocket-avionics/issues/13)).
 
@@ -35,13 +30,13 @@ __Which carrier face is which sled azimuth is unsettled__, and it now matters: t
 
 ## The stack
 
-From the mounting surface up: __7-pin headers → XIAO → Sense expansion board → FPC connector__, with the camera on a __flexible ribbon__ above it.
+From the mounting surface up: __7-pin headers → [XIAO](XIAO-ESP32S3-cam.md) → this board → FPC connector__, with the camera on a __flexible ribbon__ above it.
 
 | | |
 |---|---|
 | Height, mounting surface to tallest point, __camera excluded__ | __10.7 mm__ |
 | Header standoff | ~2.50 mm, the kit's standard 7-pin headers |
-| Expansion board | __above__ the XIAO |
+| This board | __above__ the XIAO |
 | Camera | on a flexible ribbon — __its position is not fixed by the stack__ |
 
 ### Optics
@@ -64,9 +59,9 @@ __Focus is adjustable__ via the M5/M6 lens thread. Hyperfocal at f/2.8 with a ~4
 
 | In the box | Flies | |
 |---|---|---|
-| XIAO ESP32-S3 × 1 | __yes__ | the MCU |
-| Plug-in camera sensor board × 1 | __yes__ | the expansion board — camera and microSD |
-| 7-pin header × 2 | __yes__ | the flight mounting, ~2.50 mm standoff |
+| XIAO ESP32-S3 × 1 | __yes__ | [XIAO-ESP32S3-cam](XIAO-ESP32S3-cam.md) |
+| Plug-in camera sensor board × 1 | __yes__ | __this board__ |
+| 7-pin header × 2 | __yes__ | loose in this kit — the cam XIAO has none soldered |
 | Antenna × 1 — 2.4G A-02, WiFi/BLE | __no__ | [Antennas.md](Antennas.md) |
 | __Aluminium heat sink for XIAO × 2__ | __no__ | see below |
 
@@ -79,7 +74,7 @@ __The heat sinks are not used, and nothing in the design calls for them.__ Two r
 
 If heat becomes a real question it will show up at bench bring-up, where both boards run on one cell with the camera active ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)). Until then they stay in the box.
 
-The BAT-pad and one-USB-at-a-time rules from [XIAO-ESP32S3.md](XIAO-ESP32S3.md) apply identically here.
+The BAT-pad and one-USB-at-a-time rules are on [XIAO-ESP32S3-cam.md](XIAO-ESP32S3-cam.md).
 
 ## Things that will catch you
 

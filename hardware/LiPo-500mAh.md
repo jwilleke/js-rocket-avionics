@@ -16,7 +16,7 @@ The cell lands on a __JST-PH on the carrier__, and short __soldered pigtails__ r
 
 [BOM.md](../docs/BOM.md) accepts a coupling failure in writing: __*"a camera brownout on B can disturb A."*__ [design.md](../docs/design.md) repeats it — separate cells would isolate the boards but cost ~8 g the mass budget cannot afford.
 
-__That is a prediction, not a measurement, and the thing it threatens is the recovery beacon.__ A camera write that resets board A mid-descent costs the rocket, not the video. Settling it is [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) — run both boards off one cell with the camera active, on a __partially discharged cell__ where sag is worst, and produce a verdict: acceptable, needs decoupling on the carrier, or needs the second cell after all.
+__That is a prediction, not a measurement, and the thing it threatens is the recovery beacon.__ A camera write that resets the beacon mid-descent costs the rocket, not the video. Settling it is [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) — run both boards off one cell with the camera active, on a __partially discharged cell__ where sag is worst, and produce a verdict: acceptable, needs decoupling on the carrier, or needs the second cell after all.
 
 __If decoupling is the answer it lands in the layout before the board is ordered__, not after.
 

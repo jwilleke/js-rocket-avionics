@@ -18,7 +18,7 @@ __A piezo in a closed cavity loses 20–30 dB.__ Mount the disc __against the no
 
 ## What it is not
 
-__It is not radio redundancy.__ It shares board B's MCU, so a firmware or MCU failure takes both. Only a __self-powered beeper with its own cell__ — ~5 g, zero pins — is immune to that. [BOM.md](../docs/BOM.md) records it as considered and not adopted: *"revisit if recovery confidence outranks grams."*
+__It is not radio redundancy.__ It shares the recorder's MCU, so a firmware or MCU failure takes both. Only a __self-powered beeper with its own cell__ — ~5 g, zero pins — is immune to that. [BOM.md](../docs/BOM.md) records it as considered and not adopted: *"revisit if recovery confidence outranks grams."*
 
 ---
 
