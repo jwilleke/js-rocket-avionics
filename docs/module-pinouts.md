@@ -6,6 +6,21 @@ __BMP388 is confirmed from the part. The LSM6DSO32's pin order and markings are 
 
 Moved here from the rocket repo's `electronics-plan.md` — this is footprint input for the carrier PCB, so it belongs with the copper. What each part *is* and why it was chosen stays in [BOM.md](BOM.md); the design record stays in [electronics-plan.md](https://github.com/jwilleke/js-rocket/blob/main/docs/planing/electronics-plan.md).
 
+## How these are measured — photograph on the grid, not calipers
+
+__Adopted 2026-09-06, operator.__ These parts are 17–25 mm and their features sit on a 2.54 mm pitch; __reading 0.1 mm or better off them with calipers is not realistic__, and two attempts at it produced numbers that did not close (a header pair 0.49 mm over the board width, and hole spacing with two routes 0.16 mm apart).
+
+__The method is: lay the part flat on the printed grid, shoot square-on from directly above, keep the calibration bar in frame, and read the dimensions off the image.__ The grid is [`pcb_measurement_grid.pdf`](resources/pcb_measurement_grid.pdf); the bar reads `CALIBRATION BAR 100.0 mm`, so the image's own scale is recoverable from the photograph regardless of camera distance.
+
+Why it is better here:
+
+- __It measures to the feature, not to whatever the jaws could reach.__ Most of the readings wanted are edge-to-hole-__centre__, which a caliper cannot do directly and a grid can
+- __It is auditable.__ The photograph is committed, so a disputed number can be re-read years later without the part
+- __It reads every dimension at once__, rather than one careful reading at a time
+- __Its error is honest__ — perspective, and how squarely the shot was taken. Keep the camera above the part, not off to one side
+
+__Realistic precision is ±0.2–0.3 mm__ on a square-on shot, and that is the number to quote. It is worse than a caliper's theoretical resolution and __better than a caliper's actual result on parts this size__. Where a dimension genuinely needs tighter than that, say so explicitly rather than implying the photograph gave it.
+
 ## BMP388 — confirmed from the part
 
 Eight pins, 0.1 in pitch, single row along one long edge, labels alternating above and below:

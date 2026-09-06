@@ -6,6 +6,25 @@ __Position for the beacon.__ Plugs onto the XIAO's own 14 pads rather than prese
 
 The __MAX-M10S was rejected on 2026-08-06__: 44.2 × 30.5 mm — wider than the 24 mm carrier — and ~$60. The L76K is 18 × 21 mm, talks UART on __D6/D7__ (already in the netlist), and includes the active antenna.
 
+## Photograph, on the grid
+
+![L76K and its patch antenna on the measurement grid](../docs/resources/L76K-GNSS.jpg)
+
+Read off the grid, __±0.2–0.3 mm__ — see [module-pinouts.md](../docs/module-pinouts.md#how-these-are-measured--photograph-on-the-grid-not-calipers):
+
+| | Size |
+|---|---|
+| __L76K module__ | ≈ __20 × 17 mm__ |
+| __Patch antenna__ | ≈ __25 × 25 mm__, on a flying U.FL lead |
+
+The module reads slightly under the __18 × 21 mm__ quoted in [design.md](../docs/design.md) — within the method's error either way, and it does not matter, because __the module needs no carrier footprint at all__. Silkscreen confirms `QUECTEL L76K`, a U.FL connector, and __`ANT 50mA MAX`__ — the active antenna's current budget, which had not been recorded anywhere.
+
+## The antenna is the part worth looking at
+
+> __The patch is ≈25 mm square — wider than the 24 mm carrier__, and it is the only part of this module that has to be placed rather than stacked. It is fine in a 40 mm bore, but it lands at the sled's forward end facing up, where it competes for the same space as the ballast.
+
+__It is also the obvious candidate for the mass overrun.__ [BOM.md](../docs/BOM.md)'s open action is to __weigh the module without its active antenna__, and the photograph makes the reason plain: a 25 mm ceramic patch on a coax lead is not a rounding error against the module's ≈20 × 17 mm board. If the patch is most of the mass, this is a separable choice rather than a mis-spec.
+
 ## It needs no carrier footprint
 
 Because it rides the XIAO stack, `GPS_TX`/`GPS_RX` stay in the netlist — the same node the module meets in the stack — but __nothing is placed for them__.
