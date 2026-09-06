@@ -80,9 +80,25 @@ Three things that follow:
 
 __`3-5VDC` appears on this board's back and is presumably true here__, unlike the BMP388, where the identical wording came off Adafruit's copy and the part in hand was marked 3 V. The design runs +3V3 either way.
 
+### Measured 2026-09-05
+
+| | Reading | Confidence |
+|---|---|---|
+| Mounting-hole spacing | __20.58 mm__ | *"appears to be"* — provisional |
+| Thickness over Qwiic connectors | __4.80 mm__ | *"about the same"* as the BMP388's 4.79 |
+| Header pitch | __2.54 mm__ | confirmed on the BMP388 and the XIAO |
+
+__Both sensors take the same mounting pattern.__ 20.58 mm centres on the LSM6DSO32 against 20.58 mm on the BMP388, and 4.80 mm thick against 4.79 — indistinguishable at this precision. __So the carrier needs one hole pattern, placed twice__: two M2 clearance holes at 20.58 mm centres.
+
+__What differs is not the pattern but its orientation.__ The BMP388's holes sit on the edge opposite its single 8-pin row; the LSM6DSO32's sit on its __Aux__ edge with the Primary row opposite. Same drill pattern, different rotation on the board.
+
+> __The holes do not line up with the end pins, and it is close enough to assume they do.__ At 2.54 mm pitch the LSM6DSO32's 9-pin Primary row spans __8 × 2.54 = 20.32 mm__ against a hole spacing of __20.58__. The holes sit __0.13 mm outboard of the end pins on each side__ — a real offset, and one that will not be visible by eye. Do not snap the footprint's holes to the end pads.
+
 __Hole diameter is not an open question.__ The fastener is __M2 across the project__ (operator, 2026-09-05) — M3 does not fit these breakouts and nothing 2.5 mm is being bought. Footprints are drawn for __M2 clearance__, not for whatever a given board's hole measures.
 
-__Still owed: hole spacing, board length and width, and thickness over the Qwiic connectors.__ Spacing is the one that actually blocks a footprint — two holes cannot be placed without their centres. Calipers: [#5](https://github.com/jwilleke/js-rocket-avionics/issues/5).
+__Still owed: board length and width, and the two datum ties__ — one hole centre to its nearest board edges, and Primary pin 1 to its nearest board edges. Those locate the pattern and the header __on the outline__; spacing and thickness are now in hand, and pitch at 2.54 mm means nothing needs measuring pin by pin. Calipers: [#5](https://github.com/jwilleke/js-rocket-avionics/issues/5).
+
+__The BMP388 owes the same outline readings.__ Its spacing and thickness are measured, but its __length and width are still Adafruit's published figures__ on a board that has disagreed with Adafruit twice.
 
 ## Still needed
 

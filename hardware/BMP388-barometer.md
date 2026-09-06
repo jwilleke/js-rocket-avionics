@@ -28,7 +28,7 @@ __The front photo confirms the pin order below on the physical silkscreen__ — 
 
 ## Pinout — confirmed from the part
 
-Eight pins, 0.1 in pitch, single row along one long edge, labels alternating above and below:
+Eight pins, __2.54 mm pitch__ (0.1 in), single row along one long edge, labels alternating above and below:
 
 | Pin | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
 |---|---|---|---|---|---|---|---|---|

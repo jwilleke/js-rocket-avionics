@@ -51,6 +51,14 @@ __Read off the photographs, not off calipers.__ Dimensions are still owed — se
 
 __The mounting conclusion survives the surprise.__ Screws on the Aux edge and the Primary header soldered on the opposite edge still gives __two-point restraint across the board__, which is what [module-pinouts.md](../docs/module-pinouts.md) wanted from flat mounting. The premise was wrong; the answer is unchanged.
 
+### Measured 2026-09-05
+
+__Mounting-hole spacing 20.58 mm__ (provisional — *"appears to be"*), __thickness over the Qwiic connectors 4.80 mm__, __header pitch 2.54 mm__.
+
+__That is the BMP388's pattern exactly__ — 20.58 mm centres and 4.79 mm thick — so __the carrier carries one hole pattern, placed twice__: two M2 clearance holes at 20.58 mm centres. What differs between the two boards is the rotation, not the drilling: the BMP388's holes are on the edge opposite its header, these are on the __Aux__ edge with the Primary row opposite.
+
+> __The holes are not on the end pins' centres.__ At 2.54 mm pitch the 9-pin Primary row spans __20.32 mm__ against __20.58 mm__ of hole spacing, so the holes sit __0.13 mm outboard on each side__. Invisible by eye, and a trap if the footprint snaps its holes to the end pads.
+
 ### What the silkscreen says
 
 __Primary row, 9 pins:__ `VIN 3Vo GND SCL SDA DO CS I1 I2`, labels alternating above and below the row.
