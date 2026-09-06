@@ -1,6 +1,6 @@
 # XIAO ESP32S3 — lora
 
-__The MCU of the [beacon](README.md#the-two-assemblies).__ The copy that arrived in the Wio-SX1262 kit.
+__The XIAO that carries the radio.__ The copy that arrived in the Wio-SX1262 kit.
 
 __This one has its 7-pin headers already soldered on.__ That is the only physical difference from [the cam copy](XIAO-ESP32S3-cam.md).
 
@@ -17,15 +17,17 @@ __Datum: the bottom of the XIAO's PCB.__ Headers add __2.50 mm__ below it.
 
 | | Height | Above the carrier |
 |---|---|---|
-| Bare module, to the top of the USB-C | __4.53 mm__ | 7.03 mm |
-| __beacon__ — XIAO + [Wio-SX1262](Wio-SX1262-LoRa.md) | __9.32 mm__ | __11.82 mm__ |
-| __recorder__ — XIAO + [camera board](Sense-camera-board.md), camera excluded | __10.70 mm__ | __13.20 mm__ |
+| A bare XIAO, to the top of the USB-C | __4.53 mm__ | 7.03 mm |
+| __XIAO-ESP32S3-lora__ + [Wio-SX1262](Wio-SX1262-LoRa.md) | __9.32 mm__ | __11.82 mm__ |
+| __XIAO-ESP32S3-cam__ + [Sense camera board](Sense-camera-board.md), camera excluded | __10.70 mm__ | __13.20 mm__ |
 
-So the radio board adds __4.79 mm__ to a XIAO and the camera board adds __6.17 mm__.
+So the Wio-SX1262 adds __4.79 mm__ to a XIAO and the Sense camera board adds __6.17 mm__.
 
 ```text
-beacon 11.82 + carrier 1.00 + recorder 13.20 = 26.02 mm
-available = 2 x sqrt(19.7^2 - 8.75^2)        = 35.30 mm     9.3 mm spare
+XIAO-ESP32S3-lora 11.82 + carrier 1.00 + XIAO-ESP32S3-cam 13.20 = 26.02 mm
+available = 2 x sqrt(19.7^2 - 8.75^2)                           = 35.30 mm
+
+9.3 mm spare
 ```
 
 ## Photograph

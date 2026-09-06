@@ -1,6 +1,6 @@
 # Wio-SX1262 — LoRa radio
 
-__The link that gets the rocket found.__ Sits beneath the plain XIAO on the beacon's stack and carries its own U.FL connector.
+__The link that gets the rocket found.__ Sits beneath the plain XIAO on XIAO-ESP32S3-lora's stack and carries its own U.FL connector.
 
 ## What it is for
 
@@ -8,7 +8,7 @@ GPS position out over LoRa, on stock Meshtastic. No firmware is written for it, 
 
 ## Buy it as the kit, never as two boards
 
-[BOM.md](../docs/BOM.md) is emphatic: __must be the matched B2B kit variant__ — buy the kit SKU, __never the two boards separately__. The kit is a supported Meshtastic device and __arrives pre-flashed__, which is the entire premise of the beacon. Bought separately, the radio ends up on non-standard pins and stock Meshtastic can no longer be flashed as a rescue.
+[BOM.md](../docs/BOM.md) is emphatic: __must be the matched B2B kit variant__ — buy the kit SKU, __never the two boards separately__. The kit is a supported Meshtastic device and __arrives pre-flashed__, which is the entire premise of XIAO-ESP32S3-lora. Bought separately, the radio ends up on non-standard pins and stock Meshtastic can no longer be flashed as a rescue.
 
 ## Photograph
 

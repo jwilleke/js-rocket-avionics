@@ -1,6 +1,6 @@
 # L76K GNSS
 
-__Position for the beacon.__ Plugs onto the XIAO's own 14 pads rather than presenting a header to the carrier, and ships with an active antenna.
+__Position for XIAO-ESP32S3-lora.__ Plugs onto the XIAO's own 14 pads rather than presenting a header to the carrier, and ships with an active antenna.
 
 ## Specification
 

@@ -6,21 +6,22 @@ __These pages are not a history and not a task list.__ They say what is, not wha
 
 __These pages hold no part numbers and no masses.__ [BOM.md](../docs/BOM.md) owns both and says so: *"anything else that quotes a part number or a mass is wrong — link here instead."* A number in two places is a number that will disagree with itself.
 
-| | Page | Assembly | Photos | What it is |
+| | Page | Goes with | Photos | What it is |
 |---|---|---|---|---|
-| MCU | [XIAO-ESP32S3-lora.md](XIAO-ESP32S3-lora.md) | __A__ | grid | Recovery beacon. Stock Meshtastic, no firmware written |
-| MCU | [Sense-camera-board.md](Sense-camera-board.md) | __B__ | grid ×2 | Flight recorder. Camera, microSD, PSRAM log |
-| Radio | [Wio-SX1262-LoRa.md](Wio-SX1262-LoRa.md) | beacon | grid | LoRa. Buy as the matched kit, never separately |
-| GNSS | [L76K-GNSS.md](L76K-GNSS.md) | beacon | grid | Position. Rides the XIAO stack, no carrier footprint |
-| Sensor | [LSM6DSO32.md](LSM6DSO32.md) | recorder | grid + back | ±32 g IMU with a 9 KB FIFO |
-| Sensor | [BMP388-barometer.md](BMP388-barometer.md) | recorder | grid + 2 close | Unported barometer, 0x77 |
-| Output | [PS1240-buzzer.md](PS1240-buzzer.md) | recorder | __none__ | Passive piezo. The only status channel on the pad |
-| Power | [LiPo-500mAh.md](LiPo-500mAh.md) | shared | __none__ | One cell, both MCUs |
-| Power | [Arming-switch.md](Arming-switch.md) | shared | __n/a__ | Pull-pin and microswitch, in the battery line |
-| Storage | [microSD.md](microSD.md) | recorder | __none__ | Video only |
-| RF | [Antennas.md](Antennas.md) | beacon | grid | Both off-board on U.FL. ≥50 mm apart |
-| Mechanical | [Stacking-headers.md](Stacking-headers.md) | both | __none__ | 2×7, ~14 mm standoff |
-| Mechanical | [PCB-carrier.md](PCB-carrier.md) | both | __n/a__ | The board, and the sled's structural span |
+| MCU | [XIAO-ESP32S3-lora.md](XIAO-ESP32S3-lora.md) | — | grid | The MCU module. __Headers already soldered on__ |
+| MCU | [XIAO-ESP32S3-cam.md](XIAO-ESP32S3-cam.md) | — | grid | The MCU module. __No headers soldered__ |
+| Payload | [Sense-camera-board.md](Sense-camera-board.md) | XIAO-ESP32S3-cam | grid ×2 | OV3660 camera and the microSD slot |
+| Radio | [Wio-SX1262-LoRa.md](Wio-SX1262-LoRa.md) | XIAO-ESP32S3-lora | grid | LoRa. Buy as the matched kit, never separately |
+| GNSS | [L76K-GNSS.md](L76K-GNSS.md) | XIAO-ESP32S3-lora | grid | Position. Rides the XIAO stack, no carrier footprint |
+| Sensor | [LSM6DSO32.md](LSM6DSO32.md) | carrier | grid + back | ±32 g IMU with a 9 KB FIFO |
+| Sensor | [BMP388-barometer.md](BMP388-barometer.md) | carrier | grid + 2 close | Unported barometer, 0x77 |
+| Output | [PS1240-buzzer.md](PS1240-buzzer.md) | carrier | __none__ | Passive piezo. The only status channel on the pad |
+| Power | [LiPo-500mAh.md](LiPo-500mAh.md) | carrier | __none__ | One cell, both XIAOs |
+| Power | [Arming-switch.md](Arming-switch.md) | carrier | __n/a__ | Pull-pin and microswitch, in the battery line |
+| Storage | [microSD.md](microSD.md) | Sense camera board | __none__ | Video only |
+| RF | [Antennas.md](Antennas.md) | Wio-SX1262, L76K | grid | Both off-board on U.FL. ≥50 mm apart |
+| Mechanical | [Stacking-headers.md](Stacking-headers.md) | both XIAOs | __none__ | 7-pin strips, ~2.50 mm standoff |
+| Mechanical | [PCB-carrier.md](PCB-carrier.md) | everything | __n/a__ | The board, and the sled's structural span |
 
 ## Photographs
 
@@ -39,18 +40,18 @@ Every image lives in [`docs/resources/`](../docs/resources/) and is embedded on 
 | [`XIAO-ESP32S3-module.jpg`](../docs/resources/XIAO-ESP32S3-module.jpg) | XIAO ×2 | The MCU board. USB-C, U.FL, B2B, 14 pads |
 | [`XIAO-ESP32S3-Sense-expansion.jpg`](../docs/resources/XIAO-ESP32S3-Sense-expansion.jpg) | Sense | Camera and microSD board |
 
-## The two assemblies
+## The two stacks
 
-__There is no "board A" and no "board B".__ Two stacks, named for what they do:
+__Name everything by its page.__ There is no "board A", no "board B", and no functional nickname — the two MCU modules are told apart by which expansion board is on them, which is what their filenames say.
 
-| | MCU | Mated to it | Firmware |
-|---|---|---|---|
-| __beacon__ | [XIAO-ESP32S3-lora](XIAO-ESP32S3-lora.md) | [Wio-SX1262](Wio-SX1262-LoRa.md) radio, [L76K](L76K-GNSS.md) GNSS | __none written__ — stock Meshtastic, pre-flashed |
-| __recorder__ | [XIAO-ESP32S3-cam](XIAO-ESP32S3-cam.md) | [Sense camera board](Sense-camera-board.md) | custom, not started |
+| | Mated to it | Firmware |
+|---|---|---|
+| __XIAO-ESP32S3-lora__ | [Wio-SX1262](Wio-SX1262-LoRa.md) radio, [L76K](L76K-GNSS.md) GNSS | __none written__ — stock Meshtastic, pre-flashed |
+| __XIAO-ESP32S3-cam__ | [Sense camera board](Sense-camera-board.md) | custom, not started |
 
 __The two XIAO modules are the same part but not interchangeable in practice__ — the lora one arrived with its 7-pin headers soldered on, the cam one did not.
 
-Both stacks ride the one [carrier PCB](PCB-carrier.md), on opposite faces. The IMU, barometer and buzzer sit on the carrier beside the recorder's XIAO, not on any expansion board.
+Both ride the one [carrier PCB](PCB-carrier.md), on opposite faces. The IMU, barometer and buzzer sit on the carrier itself, not on either expansion board.
 
 ## Fasteners — M2 everywhere
 

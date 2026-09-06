@@ -4,13 +4,13 @@ __The expansion board that carries the OV3660 camera and the microSD slot.__ Mat
 
 ## What it is for
 
-Camera and card. It is the recorder's only payload; everything else on that side — IMU, barometer, buzzer — sits on the carrier beside the XIAO, not on this board.
+Camera and card. It is XIAO-ESP32S3-cam's only payload; everything else on that side — IMU, barometer, buzzer — sits on the carrier beside the XIAO, not on this board.
 
 ## Interfaces
 
 | | |
 |---|---|
-| Carrier face | the recorder's — with LSM6DSO32, BMP388 and the buzzer |
+| Carrier face | XIAO-ESP32S3-cam's — with LSM6DSO32, BMP388 and the buzzer |
 | Position | __centred at carrier y = 18 mm__, which is what puts the camera at nose z 30..45 |
 | Camera | __OV3660__ on a __DVP parallel bus__ — 14 GPIO plus I2C/SCCB for control. Frames land in PSRAM by DMA |
 | microSD | SPI, on the expansion board |

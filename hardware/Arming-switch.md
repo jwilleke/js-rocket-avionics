@@ -6,7 +6,7 @@ __In the battery line, not on a GPIO.__ The one part in the flight build that is
 
 Once the nose is assembled __there is no way in__: USB is unreachable, Wi-Fi is off, and the status LED is sealed inside. A slide switch would need another hand-drilled hole in a part with no generator.
 
-Whatever the mechanism, the architecture is settled and worth restating because it is the part that survives every revision below: __the switch sits in series in the battery line, between the cell and the carrier's JST.__ That means it __physically cuts power__ rather than setting a firmware state a boot-loop could defeat, it costs __zero GPIO__, and it __cuts both boards at once__ — arming is all-or-nothing, __including the beacon__.
+Whatever the mechanism, the architecture is settled and worth restating because it is the part that survives every revision below: __the switch sits in series in the battery line, between the cell and the carrier's JST.__ That means it __physically cuts power__ rather than setting a firmware state a boot-loop could defeat, it costs __zero GPIO__, and it __cuts both XIAOs at once__ — arming is all-or-nothing, __including the radio__.
 
 ## A pull-pin and a subminiature microswitch
 
