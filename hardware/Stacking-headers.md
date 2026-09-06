@@ -14,6 +14,10 @@ The XIAO presents __14 pads, two rows of 7__, rows __17.0 mm apart__, pitch __2.
 
 > __A dual-row `2×7` header does not fit and never could__ — its two rows are 2.54 mm apart, not 17.0. The part is __two separate 1×7 strips__, spaced by the board. Where a document says "2×7", it means two 7-pin headers.
 
+## Mass
+
+__0.6 g for the four__ — a pair weighs 0.3 g on a 0.1 g scale, so ~0.15 g each. Weighed as pairs; the per-strip figure is derived.
+
 ## The kit headers are adequate
 
 __The expansion board sits above the XIAO, not below it__, so nothing has to fit in the gap under the board and no tall standoff is required. The kit's standard ~2.50 mm headers are the flight part.

@@ -23,11 +23,11 @@ Weights measured 2026-08-17 unless the row says `est`.
 | LiPo 3.7 V 500 mAh | 1578 | Adafruit | shared | 10.8 |
 | microSD card | — held | — | B | est ~0.4 |
 | Carrier PCB, 4-layer 1.0 mm, 24 × 95 | — not ordered | OSH Park | both | est 4.3 |
-| 7-pin header, 4 off — two per XIAO | in the Sense kit ×2; __2 more needed__ | Seeed | both | est 1.0 |
+| 7-pin header, 4 off — two per XIAO | Seeed kits — __2 pre-soldered on XIAO-ESP32S3-lora, 2 loose in the Sense kit__ | Seeed | both | __0.6__ |
 | Arming switch + wiring | — not bought | — | shared | est 1.5 |
-| __Avionics subtotal__ | | | | __45.4__ |
+| __Avionics subtotal__ | | | | __45.0__ |
 | ElectronicsSled, PLA | v7.7.0 | printed | — | __9.3?__ |
-| __Nose total__ | | | | __54.7__ |
+| __Nose total__ | | | | __54.3__ |
 
 __Also in the kits and not flying:__ the 2.4G A-02 antenna, 0.3 g — the XIAO's WiFi/BLE antenna — and the __two aluminium heat sinks__ shipped with the Sense kit. The heat sinks adhere to the XIAO's top face, which is the face the expansion board mates to, and a sealed nose has no airflow for them to work with. See [XIAO-ESP32S3-Sense.md](../hardware/Sense-camera-board.md#what-is-in-the-kit-and-what-flies).
 
@@ -37,11 +37,11 @@ __The sled's 9.3 g is disputed.__ The rocket repo weighed it at __7.1 g__ on 202
 
 | | g |
 |---|---|
-| Nose total | __54.7__ |
+| Nose total | __54.3__ |
 | Target | ~50 |
 | Weathercock limit | ~65 |
 
-__Over target, under the limit__ — a budget problem, not a grounding. 38.6 g of the total is weighed, 6.8 g still estimated. A payload gram displaces only __0.75 g__ of ballast, so overruns cost more than they look — see [payload-ballast.md](https://github.com/jwilleke/js-rocket/blob/main/docs/payload-ballast.md).
+__Over target, under the limit__ — a budget problem, not a grounding. 39.2 g of the total is weighed, __5.8 g still estimated__ — the carrier PCB, the arming switch, the microSD card. A payload gram displaces only __0.75 g__ of ballast, so overruns cost more than they look — see [payload-ballast.md](https://github.com/jwilleke/js-rocket/blob/main/docs/payload-ballast.md).
 
 __The L76K is the whole overrun.__ Estimated 5.0 g, weighs __14.2__ — heavier than the battery, and larger than the next two rows combined. Four rows came in *light* (Sense −3.5, Wio-SX1262 −2.4, buzzer −1.4, XIAO −0.6) and still did not cover it. __Weigh the module without its active antenna__: if the antenna is most of the mass this is a separable choice; if not, it was mis-specced 3×.
 
@@ -70,7 +70,7 @@ Both ride one carrier PCB, on opposite faces. __Two MCUs, not one__, so the beac
 | __BMP388__ | Unported: only jobs are timestamping ejection and detecting landing. Address __0x77__, no clash with the IMU. __Do not re-specify a BMP390__ — same driver, 8–12 week lead |
 | __Piezo buzzer__ | PWM from D0. __Passive, not active__ — a real GPIO can drive multiple tones, so beep patterns read as distinct status codes |
 | __Carrier PCB__ | The sled's structural span. See [README](../README.md) for the frozen interface. __Blocked behind breadboarding, deliberately__ — a layout error costs ~$33 and two weeks |
-| __7-pin headers__ | Two per XIAO, onto its 14 pads in two rows __17.0 mm apart__ — __not__ a dual-row 2×7, whose rows are 2.54 mm apart. The kit's are standard, __~2.50 mm standoff__. The expansion board mates to the XIAO's underside B2B and hangs below it, so the standoff must clear it; [design.md](design.md) assumes ~14 mm |
+| __7-pin headers__ | Two per XIAO, onto its 14 pads in two rows __17.0 mm apart__ — __not__ a dual-row 2×7, whose rows are 2.54 mm apart. Standard height, __~2.50 mm standoff__, which is all that is needed: the expansion board sits __above__ the XIAO, not below it |
 | __LiPo 500 mAh__ | One cell feeds both MCUs. Over an hour against ~300 mA |
 | __Arming switch__ | Sits __in the battery line__, not on a GPIO — physically cuts power, zero pins. __No longer a reed switch__: superseded 2026-08-15 by a __pull-pin plus a subminiature microswitch__. Nothing bought, no part number; the 1.5 g is inherited from the reed-switch design |
 | __microSD__ | __Video only, and in hand.__ The old A1/A2 / pSLC requirement was written when the sampler wrote to the card in flight; __PSRAM buffering removed that__. What is left is sequential video write — a speed-class question, not a random-IOPS one |
