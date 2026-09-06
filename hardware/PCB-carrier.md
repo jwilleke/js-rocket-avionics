@@ -66,14 +66,6 @@ __Do not order copper before breadboarding.__ A layout error costs ~$33 and __tw
 
 __The outline and mounting-hole pattern were frozen before the sled generator was written__, since the sled's rail bosses derive from them. Moving them reprints a part.
 
-## Open
-
-- __Which face is sled azimuth 270°__ — the camera's azimuth is now fixed by the Nosecone port and the gerbers predate the constraint — [#13](https://github.com/jwilleke/js-rocket-avionics/issues/13)
-- __Footprints__ for sensors, buzzer and `VBAT` — [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)
-- __Routing__ — [#15](https://github.com/jwilleke/js-rocket-avionics/issues/15)
-- Whatever [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) concludes the shared cell needs — bulk capacitance or separate regulation — must land __before__ the order
-- __Mass is estimated from FR4 density and has never been weighed.__ Weigh the board on arrival
-
 ---
 
 Part numbers, vendors and masses live in [BOM.md](../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../docs/shopping-list.md); the reasoning is in [design.md](../docs/design.md).

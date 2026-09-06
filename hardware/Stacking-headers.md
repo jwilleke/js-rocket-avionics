@@ -22,23 +22,11 @@ __Two millimetres of margin__ is the whole budget, and it is the same margin the
 
 [BOM.md](../docs/BOM.md) flags this explicitly: __stock 2×7 headers are far shorter__ than the ~14 mm needed. A drawer full of ordinary 2×7 strip does not satisfy this.
 
-The row reads __`unverified`__, with the note *"believed held; verify before assuming"*.
+[BOM.md](../docs/BOM.md) carries the row as __`unverified`__.
 
-## Why it matters more than a drawer check
+__The mated height sets two things:__ whether the stack fits the bore at all, against the ~2 mm margin above, and where the camera lens ends up.
 
-Three things fall out of the mated height:
-
-- __Whether the design fits the bore at all__, against the ~2 mm margin above
-- __Where the camera lens ends up__, which is the number [js-rocket](https://github.com/jwilleke/js-rocket) is waiting on — [#9](https://github.com/jwilleke/js-rocket-avionics/issues/9)
-- __Whether this becomes a purchase with a lead time__, which is much better discovered now than on assembly day
-
-__Solder or clamp the headers — no loose sockets.__ [design.md](../docs/design.md)'s shock rule.
-
-## Open
-
-- __Find them, mate them, measure the height__ — [#10](https://github.com/jwilleke/js-rocket-avionics/issues/10)
-- If not held, __identify a part and order it__ — one of only three unbought items
-- Replace the estimated mass in [BOM.md](../docs/BOM.md) with a weighing
+__Solder or clamp them — no loose sockets.__ [design.md](../docs/design.md)'s shock rule.
 
 ---
 

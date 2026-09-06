@@ -24,12 +24,6 @@ __If decoupling is the answer it lands in the layout before the board is ordered
 
 __An 18650__ would put nose mass near the ~65 g weathercock limit.
 
-## Open
-
-- __The brownout verdict__ — [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)
-- __Actual current draw and endurance unmeasured__ against the ~300 mA / over-an-hour claim
-- __No JST footprint on the carrier yet__ — `VBAT` is marked *"footprint not yet placed"*, [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)
-
 ---
 
 Part numbers, vendors and masses live in [BOM.md](../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../docs/shopping-list.md); the reasoning is in [design.md](../docs/design.md).

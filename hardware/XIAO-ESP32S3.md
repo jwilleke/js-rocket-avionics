@@ -36,12 +36,6 @@ __Reversing a LiPo into a XIAO destroys it.__ [design.md](../docs/design.md) req
 
 __The expansion board is the same outline as the XIAO__ (±8.75 mm against pads at ±8.5), which is what killed the twin-PCB plan: any cutout wide enough to clear it removes the copper the pads solder to.
 
-## Open
-
-- __Never powered up.__ Bring-up is [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6) — enumerate as Meshtastic, get a fix, and confirm the L76K clears the Wio-SX1262 on the B2B
-- __The 2×7 headers are unverified__ — [#10](https://github.com/jwilleke/js-rocket-avionics/issues/10). Stock 2×7 headers are far shorter than ~14 mm
-- __No beacon rides the booster.__ Flight 3 is two-stage and this board goes up with the sustainer — [#12](https://github.com/jwilleke/js-rocket-avionics/issues/12)
-
 ---
 
 Part numbers, vendors and masses live in [BOM.md](../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../docs/shopping-list.md); the reasoning is in [design.md](../docs/design.md).

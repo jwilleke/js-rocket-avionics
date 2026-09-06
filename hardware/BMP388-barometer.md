@@ -26,9 +26,9 @@ Because it is not the altimeter, __the part is interchangeable__: it shares the 
 
 __The grid shot is the dimensional record__ — board flat, square-on, calibration bar in frame, header row along the bottom and both mounting holes at the top corners. Measure it rather than the part; see [module-pinouts.md](../docs/module-pinouts.md#how-these-are-measured--photograph-on-the-grid-not-calipers).
 
-__The front photo confirms the pin order below on the physical silkscreen__ — VIN, 3Vo, GND, SCL, SDO, SDA, CS, INT, labels alternating above and below the row, both Qwiic connectors on the short edges, and both mounting holes on the long edge __opposite__ the header. The board is a blue clone, not an Adafruit black one, which is what makes the layout-clone claim worth having checked rather than assumed.
+Pin order is legible on the front silkscreen; both Qwiic connectors sit on the short edges and both mounting holes on the long edge __opposite__ the header. The board is a blue clone, not an Adafruit black one.
 
-## Pinout — confirmed from the part
+## Pinout
 
 Eight pins, __2.54 mm pitch__ (0.1 in), single row along one long edge, labels alternating above and below:
 
@@ -45,31 +45,23 @@ __Four are used: 1, 3, 4, 6__ — VIN, GND, SCL, SDA. Address __0x77__, no clash
 - __Power to VIN, never 3Vo.__ 3Vo is the on-board regulator's *output*; back-feeding it kills the LDO
 - __Ignore the seller's wiring diagram.__ It is SPI — SCL/SDO/SDA/CS to Arduino 13/12/11/10, the hardware SPI pins — and following it wastes a bench session
 
-## Measured 2026-08-08 — and why it matters
+## Dimensions
 
-| | Measured | Assumed | |
-|---|---|---|---|
 | Thickness over Qwiic connectors | __4.79 mm__ | 4.4 (Adafruit) | +0.4 |
 | Mounting-hole diameter | __Ø2.35 mm__ | 2.5 (Adafruit) | __undersize__ |
 | Mounting-hole spacing | __20.58 mm__ | — | now known |
 | Qwiic cables supplied | 2 × 110 mm | "two included" | — |
-| Board outline | __25.5 × 17.8 mm__ | 25.5 × 17.8 (Adafruit) | measured 2026-09-06, __matches__ |
 | Header row → near long edge | __2.54 mm__ | — | measured 2026-09-06 |
 | Mounting holes → far long edge | __14.65 mm__ | — | measured 2026-09-06 |
 | Mounting holes → each short side | __2.54 mm__ | — | measured 2026-09-06 |
 
 __Every figure above is identical on the LSM6DSO32__, so the carrier takes one outline and one hole pattern, placed twice and rotated. Two readings need care — the header's far-edge figure does not close on the width, and hole spacing has two routes 0.16 mm apart. Working in [module-pinouts.md](../docs/module-pinouts.md).
 
-__The mounting screw is M2, not M2.5.__ Ø2.35 passes an M2 with 0.35 mm of total clearance; __an M2.5 does not fit at all__. Anyone sizing this off the datasheet picks a screw that will not go in. This board is where the __M2-everywhere__ standard came from — see [Fasteners](README.md#fasteners--m2-everywhere).
+__The mounting screw is M2.__ Ø2.35 passes an M2 with 0.35 mm of total clearance; __an M2.5 does not fit at all__. See [Fasteners](README.md#fasteners--m2-everywhere).
 
-__The `3-5VDC` figure did not survive the part arriving.__ That is Adafruit's wording, which the listing copies; __the board in hand is marked 3 V__. The design runs +3V3 into VIN so nothing changes, but __5 V is no longer a documented fallback__.
+__The board is marked 3 V__, and the design runs +3V3 into VIN. __5 V is not a documented fallback for this board__, whatever the listing says.
 
 __Sled bosses must be modelled oversize__ — a hole modelled at nominal prints undersize by ~0.3 mm on that printer. Do not copy 2.35 straight into CAD.
-
-## Open
-
-- __Board length and width are still Adafruit's figures__, on a board already wrong twice. Two minutes with the calipers — folded into [#5](https://github.com/jwilleke/js-rocket-avionics/issues/5)
-- __Never enumerated__ — [#7](https://github.com/jwilleke/js-rocket-avionics/issues/7)
 
 ---
 

@@ -11,15 +11,15 @@ __Both leave via U.FL on the modules themselves__, so __no RF crosses the carrie
 
 A GPS patch needs a __30–40 mm ground plane__ and a 24 mm board never will be — which is why the patch is off-board rather than on the carrier.
 
-## Photograph — and the LoRa antenna is not a whip
+## The LoRa antenna is a flat strip, not a whip
 
 ![Both Seeed antennas on the measurement grid](../docs/resources/Wio-SX1262-LoRa-antennas.jpg)
 
-> __The "82 mm whip" is a flat flexible-PCB strip, roughly 40 × 10 mm, on a coaxial lead.__ [BOM.md](../docs/BOM.md) calls it a *"U.FL 82 mm whip"* and this page repeated it; the photograph shows __`seeed studio 860-930M A-03`__ — a printed antenna on a thin flexible substrate, not a wire. __The 82 mm is the U.FL lead, not the radiator.__
+__`seeed studio 860-930M A-03` — a printed antenna on a thin flexible substrate, roughly 40 × 10 mm, on an ~82 mm U.FL lead.__ The 82 mm is the lead, not the radiator.
 
-That changes how it is fitted rather than whether it works. A wire whip can be stood up the ogive; __a flat strip has to lie against something__, and it wants that surface to be non-conductive and clear of the GPS patch. It is also far less likely to foul the payload bore than a stiff wire — which is a point in its favour, once the routing is drawn rather than assumed.
+__A flat strip has to lie against something__, and that surface must be non-conductive and clear of the GPS patch. It cannot be stood up the ogive the way a wire could — but it is also far less likely to foul the payload bore.
 
-The other strip, __`seeed studio 2.4G A-02`__ (~37 × 23 mm), is the XIAO's WiFi/BLE antenna and __does not fly__.
+The other strip in the photograph, __`seeed studio 2.4G A-02`__ (~37 × 23 mm), is the XIAO's WiFi/BLE antenna and __does not fly__.
 
 ## The one hard rule: ≥50 mm apart
 
@@ -30,12 +30,6 @@ The separation must survive __routing and placement__, not just the placement st
 ## Does not fly
 
 The kit's __2.4G A-02 antenna__ — the XIAO's WiFi/BLE antenna — is in the box and is not part of the flight build.
-
-## Open
-
-- __Desense never observed__, in either direction — [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6)
-- __Whip routing up the ogive is untested__ against a Nosecone that has never been printed at its current revision
-- __LoRa range unmeasured.__ The beacon is the recovery system
 
 ---
 

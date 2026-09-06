@@ -1,6 +1,8 @@
 # Hardware
 
-__One page per part.__ What it is, what it is for, the interfaces, and the traps — the things that are true about the physical object rather than about the design as a whole.
+__One page per part, and the source of truth for the hardware in use.__ What each part is, its interfaces and dimensions, and the traps that are properties of the object.
+
+__These pages are not a history and not a task list.__ They say what is, not what changed or what to do next. Decisions and open work live in [issues](https://github.com/jwilleke/js-rocket-avionics/issues); what happened in a session lives in `private/project_log.md`; the reasoning behind the design lives in [design.md](../docs/design.md).
 
 __These pages hold no part numbers and no masses.__ [BOM.md](../docs/BOM.md) owns both and says so: *"anything else that quotes a part number or a mass is wrong — link here instead."* A number in two places is a number that will disagree with itself.
 
@@ -10,19 +12,19 @@ __These pages hold no part numbers and no masses.__ [BOM.md](../docs/BOM.md) own
 | MCU | [XIAO-ESP32S3-Sense.md](XIAO-ESP32S3-Sense.md) | __B__ | grid ×2 | Flight recorder. Camera, microSD, PSRAM log |
 | Radio | [Wio-SX1262-LoRa.md](Wio-SX1262-LoRa.md) | A | grid | LoRa. Buy as the matched kit, never separately |
 | GNSS | [L76K-GNSS.md](L76K-GNSS.md) | A | grid | Position. Rides the XIAO stack, no carrier footprint |
-| Sensor | [LSM6DSO32.md](LSM6DSO32.md) | B | grid + back | ±32 g IMU. __The part blocking every footprint__ |
-| Sensor | [BMP388-barometer.md](BMP388-barometer.md) | B | grid + 2 close | Unported barometer. The only module measured off the part |
+| Sensor | [LSM6DSO32.md](LSM6DSO32.md) | B | grid + back | ±32 g IMU with a 9 KB FIFO |
+| Sensor | [BMP388-barometer.md](BMP388-barometer.md) | B | grid + 2 close | Unported barometer, 0x77 |
 | Output | [PS1240-buzzer.md](PS1240-buzzer.md) | B | __none__ | Passive piezo. The only status channel on the pad |
 | Power | [LiPo-500mAh.md](LiPo-500mAh.md) | shared | __none__ | One cell, both MCUs |
-| Power | [Arming-switch.md](Arming-switch.md) | shared | __n/a__ | In the battery line. __Not chosen, not bought__ |
+| Power | [Arming-switch.md](Arming-switch.md) | shared | __n/a__ | Pull-pin and microswitch, in the battery line |
 | Storage | [microSD.md](microSD.md) | B | __none__ | Video only |
 | RF | [Antennas.md](Antennas.md) | A | grid | Both off-board on U.FL. ≥50 mm apart |
-| Mechanical | [Stacking-headers.md](Stacking-headers.md) | both | __none__ | ~14 mm standoff. __Unverified__ |
+| Mechanical | [Stacking-headers.md](Stacking-headers.md) | both | __none__ | 2×7, ~14 mm standoff |
 | Mechanical | [PCB-carrier.md](PCB-carrier.md) | both | __n/a__ | The board, and the sled's structural span |
 
 ## Photographs
 
-Every image lives in [`docs/resources/`](../docs/resources/) and is embedded on the part page above. __Shot on the printed measurement grid__ — part flat, square-on, calibration bar in frame — which is the house method for dimensioning these, and is documented with its real precision in [module-pinouts.md](../docs/module-pinouts.md#how-these-are-measured--photograph-on-the-grid-not-calipers).
+Every image lives in [`docs/resources/`](../docs/resources/) and is embedded on the part page above. __Shot on the printed measurement grid__ — part flat, square-on, calibration bar in frame. Method and its precision: [module-pinouts.md](../docs/module-pinouts.md#how-these-are-measured--photograph-on-the-grid-not-calipers).
 
 | Image | Part | What it is for |
 |---|---|---|
@@ -33,13 +35,9 @@ Every image lives in [`docs/resources/`](../docs/resources/) and is embedded on 
 | [`LSM6DSO32-back.jpg`](../docs/resources/LSM6DSO32-back.jpg) | LSM6DSO32 | Close-up. `ST LSM6DSO32`, ±32 g, `0x6A` |
 | [`L76K-GNSS.jpg`](../docs/resources/L76K-GNSS.jpg) | L76K | Module and its ≈25 mm patch antenna, to scale |
 | [`Wio-SX1262-LoRa.jpg`](../docs/resources/Wio-SX1262-LoRa.jpg) | Wio-SX1262 | FCC ID, U.FL, and the 2×5 header currently fitted |
-| [`Wio-SX1262-LoRa-antennas.jpg`](../docs/resources/Wio-SX1262-LoRa-antennas.jpg) | Antennas | Both Seeed strips. __Shows the LoRa antenna is not a whip__ |
+| [`Wio-SX1262-LoRa-antennas.jpg`](../docs/resources/Wio-SX1262-LoRa-antennas.jpg) | Antennas | Both Seeed strips, to scale |
 | [`XIAO-ESP32S3-module.jpg`](../docs/resources/XIAO-ESP32S3-module.jpg) | XIAO ×2 | The MCU board. USB-C, U.FL, B2B, 14 pads |
-| [`XIAO-ESP32S3-Sense-expansion.jpg`](../docs/resources/XIAO-ESP32S3-Sense-expansion.jpg) | Sense | Camera and microSD board. __Where the `OV36…` question came from__ |
-
-__Still unphotographed:__ the __buzzer__ and the __stacking headers__ — both wanted for [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14) and [#10](https://github.com/jwilleke/js-rocket-avionics/issues/10) — and the cell and card, which are lower value.
-
-__And one shot that does not exist in any form: an edge-on view of the assembled stack.__ Every photograph so far is plan view, so none of them can give a __height__ — which is what [#10](https://github.com/jwilleke/js-rocket-avionics/issues/10) needs for the header standoff and [#9](https://github.com/jwilleke/js-rocket-avionics/issues/9) needs for the camera lens. That one is worth taking as soon as a stack exists.
+| [`XIAO-ESP32S3-Sense-expansion.jpg`](../docs/resources/XIAO-ESP32S3-Sense-expansion.jpg) | Sense | Camera and microSD board |
 
 ## Fasteners — M2 everywhere
 
@@ -58,14 +56,6 @@ __Printed bosses are modelled oversize.__ A hole modelled at nominal prints unde
 - __Generators__ — `scripts/`, including `gen_carrier.py`
 - __Measured pin order and caliper readings__ — [module-pinouts.md](../docs/module-pinouts.md)
 - __Why it is built this way__ — [design.md](../docs/design.md)
-
-## The three things not bought
-
-Everything ordered is in hand. Three items are not:
-
-- __The carrier PCB__ — deliberately, behind [#4](https://github.com/jwilleke/js-rocket-avionics/issues/4)
-- __The 2×7 stacking headers__ — believed held, __unverified__, and not a generic part
-- __The arming switch__ — no part chosen
 
 ---
 
