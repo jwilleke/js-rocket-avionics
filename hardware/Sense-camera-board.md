@@ -41,6 +41,17 @@ From the mounting surface up: __7-pin headers → [XIAO](XIAO-ESP32S3-cam.md) �
 | This board | __above__ the XIAO |
 | Camera | on a flexible ribbon — __its position is not fixed by the stack__ |
 
+### The camera module
+
+| | |
+|---|---|
+| Module body | __8 × 8 mm__ |
+| Ribbon, free length | __~8.5 mm__ — connector face to the module edge |
+
+__The ribbon is what places the camera, and it just reaches the bore wall.__ The connector sits ~__r 11.2 mm__ from the airframe axis, the bore wall is at __r 20.0__, so the gap is __8.8 mm__ against 8.5 mm of ribbon. Dead straight it puts the lens at r 19.7; with a bend it lands r 17.7–18.7. Every one of those is a workable port.
+
+__The flex is not to be extended__ — the DVP bus runs a ~20 MHz XCLK. What is available is what is there.
+
 ### Optics
 
 | | Active area | Diagonal |
