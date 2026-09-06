@@ -29,7 +29,7 @@ Weights measured 2026-08-17 unless the row says `est`.
 | ElectronicsSled, PLA | v7.7.0 | printed | — | __9.3?__ |
 | __Nose total__ | | | | __54.7__ |
 
-Also in the kit, __does not fly__: 2.4G A-02 antenna, 0.3 g — the XIAO's WiFi/BLE antenna.
+__Also in the kits and not flying:__ the 2.4G A-02 antenna, 0.3 g — the XIAO's WiFi/BLE antenna — and the __two aluminium heat sinks__ shipped with the Sense kit. The heat sinks adhere to the XIAO's top face, which is the face the expansion board mates to, and a sealed nose has no airflow for them to work with. See [XIAO-ESP32S3-Sense.md](../hardware/XIAO-ESP32S3-Sense.md#what-is-in-the-kit-and-what-flies).
 
 __The sled's 9.3 g is disputed.__ The rocket repo weighed it at __7.1 g__ on 2026-08-07 ([sections.md](https://github.com/jwilleke/js-rocket/blob/main/docs/sections.md) note 6) and both figures claim the scale. Its geometry moved at v7.7.0, which may or may not explain 2.2 g. __Reweigh it__ — nose total is __52.5__ if 7.1 is right.
 

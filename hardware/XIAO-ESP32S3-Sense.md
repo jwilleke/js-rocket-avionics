@@ -49,6 +49,18 @@ __Do not extend the camera flex__ — the DVP bus runs a ~20 MHz XCLK. Board B's
 
 __Do not fit the wide-angle lens.__ The 120–160° M7 option cannot match the sensor's 25° chief ray angle, giving severe corner vignetting and colour crosstalk, and it would need a far larger hole in a load-bearing collar.
 
+## Specification
+
+[Specifications](https://www.seeedstudio.com/XIAO-ESP32S3-Sense-p-5639.html?srsltid=AfmBOoqlnJHk4DPgMnXNXsylaaDgI12FxYe6sk9a7pb1amkIAesnmNpG)
+
+Kit includes:
+
+- XIAO ESP32-S3 x1
+- Plug-in camera sensor board x1
+- Aluminum Heat Sink For XIAO x2
+- 7 Pin Header x2
+- Antenna x1
+
 The BAT-pad and one-USB-at-a-time rules from [XIAO-ESP32S3.md](XIAO-ESP32S3.md) apply identically here.
 
 - XIAO ESP32-S3 x1
