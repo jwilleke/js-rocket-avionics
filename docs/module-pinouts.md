@@ -51,7 +51,7 @@ __The mounting screw is M2, not M2.5.__ Ø2.35 mm passes an M2 (2.0 mm major) wi
 
 __The sled's bosses must be modelled oversize.__ Same rule as the anchor bore in the rocket repo's [sections.md](https://github.com/jwilleke/js-rocket/blob/main/docs/sections.md) — a hole modelled at nominal prints undersize by ~0.3 mm on that printer. Model for M2 clearance accordingly, and do not copy the 2.35 mm figure straight into CAD.
 
-__20.58 mm of spacing on a 25.5 mm edge__ puts the holes ~2.46 mm in from each end, which is the standard STEMMA QT placement and consistent with the clone claim. __Board length and width were not measured__ — the 25.5 × 17.8 mm figures are still Adafruit's. Worth two minutes with the calipers already out, since the footprint depends on them.
+__20.58 mm of spacing on a 25.5 mm edge__ puts the holes __2.46 mm in from each end__, which is the standard STEMMA QT placement and consistent with the clone claim. __Outline measured 2026-09-06: 25.5 × 17.8 mm__, matching Adafruit's published figures — the one dimension of theirs that survived contact with the part.
 
 ## LSM6DSO32 — read off photographs 2026-09-05, not off calipers
 
@@ -87,18 +87,34 @@ __`3-5VDC` appears on this board's back and is presumably true here__, unlike th
 | Mounting-hole spacing | __20.58 mm__ | *"appears to be"* — provisional |
 | Thickness over Qwiic connectors | __4.80 mm__ | *"about the same"* as the BMP388's 4.79 |
 | Header pitch | __2.54 mm__ | confirmed on the BMP388 and the XIAO |
+| Board outline | __25.5 × 17.8 mm__ | measured 2026-09-06, __same as the BMP388__ |
+
+__The two sensor boards are the same outline, the same hole pattern and the same thickness.__ 25.5 × 17.8, holes at 20.58 mm centres __2.46 mm in from each end__, 4.79/4.80 thick. For the carrier that means __one footprint outline and one hole pattern, placed twice and rotated__ — not two footprints.
 
 __Both sensors take the same mounting pattern.__ 20.58 mm centres on the LSM6DSO32 against 20.58 mm on the BMP388, and 4.80 mm thick against 4.79 — indistinguishable at this precision. __So the carrier needs one hole pattern, placed twice__: two M2 clearance holes at 20.58 mm centres.
 
 __What differs is not the pattern but its orientation.__ The BMP388's holes sit on the edge opposite its single 8-pin row; the LSM6DSO32's sit on its __Aux__ edge with the Primary row opposite. Same drill pattern, different rotation on the board.
 
+__X positions, derived from the outline and the 2.54 mm pitch — no further measuring:__
+
+| | Span | Inset per end, if centred |
+|---|---|---|
+| Mounting holes, both boards | __20.58__ | __2.46 mm__ |
+| LSM6DSO32 Primary row, 9 pins | 8 × 2.54 = __20.32__ | 2.59 mm |
+| BMP388 row, 8 pins | 7 × 2.54 = __17.78__ | 3.86 mm |
+
 > __The holes do not line up with the end pins, and it is close enough to assume they do.__ At 2.54 mm pitch the LSM6DSO32's 9-pin Primary row spans __8 × 2.54 = 20.32 mm__ against a hole spacing of __20.58__. The holes sit __0.13 mm outboard of the end pins on each side__ — a real offset, and one that will not be visible by eye. Do not snap the footprint's holes to the end pads.
 
 __Hole diameter is not an open question.__ The fastener is __M2 across the project__ (operator, 2026-09-05) — M3 does not fit these breakouts and nothing 2.5 mm is being bought. Footprints are drawn for __M2 clearance__, not for whatever a given board's hole measures.
 
-__Still owed: board length and width, and the two datum ties__ — one hole centre to its nearest board edges, and Primary pin 1 to its nearest board edges. Those locate the pattern and the header __on the outline__; spacing and thickness are now in hand, and pitch at 2.54 mm means nothing needs measuring pin by pin. Calipers: [#5](https://github.com/jwilleke/js-rocket-avionics/issues/5).
+__Still owed, and it is down to two numbers per board: the Y offsets.__ Everything along the 25.5 mm length now falls out of the outline and the pitch. What no measurement so far pins down is how far in from the __long__ edge the two rows sit:
 
-__The BMP388 owes the same outline readings.__ Its spacing and thickness are measured, but its __length and width are still Adafruit's published figures__ on a board that has disagreed with Adafruit twice.
+- __Long edge → header row centreline__ (Primary row on the LSM6DSO32; the single 8-pin row on the BMP388)
+- __Long edge → mounting-hole centreline__
+
+One optional third, as a symmetry check: __short edge → nearest hole centre__. If it reads __2.46 mm__, the pattern is centred along the length and every X position below is confirmed rather than assumed.
+
+Calipers: [#5](https://github.com/jwilleke/js-rocket-avionics/issues/5).
 
 ## Still needed
 

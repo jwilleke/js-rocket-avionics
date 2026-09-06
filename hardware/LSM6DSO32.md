@@ -53,9 +53,9 @@ __The mounting conclusion survives the surprise.__ Screws on the Aux edge and th
 
 ### Measured 2026-09-05
 
-__Mounting-hole spacing 20.58 mm__ (provisional — *"appears to be"*), __thickness over the Qwiic connectors 4.80 mm__, __header pitch 2.54 mm__.
+__Outline 25.5 × 17.8 mm__, __mounting-hole spacing 20.58 mm__ (provisional — *"appears to be"*), __thickness over the Qwiic connectors 4.80 mm__, __header pitch 2.54 mm__.
 
-__That is the BMP388's pattern exactly__ — 20.58 mm centres and 4.79 mm thick — so __the carrier carries one hole pattern, placed twice__: two M2 clearance holes at 20.58 mm centres. What differs between the two boards is the rotation, not the drilling: the BMP388's holes are on the edge opposite its header, these are on the __Aux__ edge with the Primary row opposite.
+__That is the BMP388 exactly__ — same 25.5 × 17.8 outline, same 20.58 mm centres, 4.79 mm thick — so __the carrier carries one hole pattern, placed twice__: two M2 clearance holes at 20.58 mm centres. What differs between the two boards is the rotation, not the drilling: the BMP388's holes are on the edge opposite its header, these are on the __Aux__ edge with the Primary row opposite.
 
 > __The holes are not on the end pins' centres.__ At 2.54 mm pitch the 9-pin Primary row spans __20.32 mm__ against __20.58 mm__ of hole spacing, so the holes sit __0.13 mm outboard on each side__. Invisible by eye, and a trap if the footprint snaps its holes to the end pads.
 

@@ -51,6 +51,7 @@ __Four are used: 1, 3, 4, 6__ — VIN, GND, SCL, SDA. Address __0x77__, no clash
 | Mounting-hole diameter | __Ø2.35 mm__ | 2.5 (Adafruit) | __undersize__ |
 | Mounting-hole spacing | __20.58 mm__ | — | now known |
 | Qwiic cables supplied | 2 × 110 mm | "two included" | — |
+| Board outline | __25.5 × 17.8 mm__ | 25.5 × 17.8 (Adafruit) | measured 2026-09-06, __matches__ |
 
 __The mounting screw is M2, not M2.5.__ Ø2.35 passes an M2 with 0.35 mm of total clearance; __an M2.5 does not fit at all__. Anyone sizing this off the datasheet picks a screw that will not go in. This board is where the __M2-everywhere__ standard came from — see [Fasteners](README.md#fasteners--m2-everywhere).
 
