@@ -34,7 +34,9 @@ From the mounting surface up: __7-pin headers → [XIAO](XIAO-ESP32S3-cam.md) �
 
 | | |
 |---|---|
-| Height, mounting surface to tallest point, __camera excluded__ | __10.7 mm__ |
+| Height, __bottom of the XIAO's PCB__ to tallest point, camera excluded | __10.70 mm__ |
+| Above the carrier, headers included | __13.20 mm__ |
+| What this board adds to a bare XIAO | __6.17 mm__ |
 | Header standoff | ~2.50 mm, the kit's standard 7-pin headers |
 | This board | __above__ the XIAO |
 | Camera | on a flexible ribbon — __its position is not fixed by the stack__ |

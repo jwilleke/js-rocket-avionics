@@ -25,6 +25,7 @@ Silkscreen: __`Wio-SX1262`, `FCC ID: Z4T-WIO-SX1262`__, CE and MIC marks. Outlin
 | Connection | __B2B__ beneath the XIAO ESP32S3 (plain), in the same stack as the L76K |
 | Antenna | __U.FL on the module itself__ — 82 mm whip, up the ogive |
 | Carrier | __Nothing.__ No footprint, no RF across the board |
+| Height added to a XIAO | __4.79 mm__ — 9.32 mm for the pair against 4.53 bare |
 
 __No RF crosses the carrier at all.__ Both antennas leave via U.FL on their own modules, which is what makes the carrier a purely digital and power board and the layout tractable.
 

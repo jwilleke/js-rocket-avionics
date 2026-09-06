@@ -11,13 +11,22 @@ __This one has its 7-pin headers already soldered on.__ That is the only physica
 
 Runs __stock Meshtastic__, pre-flashed. No firmware is written for it.
 
-## Height
+## Heights
 
-| | |
-|---|---|
-| Board, tallest point | __9.32 mm__ |
-| Header standoff | __2.50 mm__ |
-| __Above the carrier__ | __11.82 mm__ |
+__Datum: the bottom of the XIAO's PCB.__ Headers add __2.50 mm__ below it.
+
+| | Height | Above the carrier |
+|---|---|---|
+| Bare module, to the top of the USB-C | __4.53 mm__ | 7.03 mm |
+| __beacon__ — XIAO + [Wio-SX1262](Wio-SX1262-LoRa.md) | __9.32 mm__ | __11.82 mm__ |
+| __recorder__ — XIAO + [camera board](Sense-camera-board.md), camera excluded | __10.70 mm__ | __13.20 mm__ |
+
+So the radio board adds __4.79 mm__ to a XIAO and the camera board adds __6.17 mm__.
+
+```text
+beacon 11.82 + carrier 1.00 + recorder 13.20 = 26.02 mm
+available = 2 x sqrt(19.7^2 - 8.75^2)        = 35.30 mm     9.3 mm spare
+```
 
 ## Photograph
 

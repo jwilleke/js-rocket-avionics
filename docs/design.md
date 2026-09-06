@@ -69,17 +69,19 @@ Seeed's own figure confirms the stack: __21 × 17.5 × 15 mm__ with the expansio
 
 __The expansion board — Sense or Wio-SX1262 — mates to the XIAO and sits __above__ it__, not beneath. The XIAO sits on __two 7-pin headers__, one down each long edge, onto the carrier.
 
-__Measured on the assembled stack, 2026-09-06__ — carrier face to the tallest point, camera excluded:
+__Measured on the assembled stacks__ — heights from the bottom of the XIAO's PCB, camera excluded, with the headers' 2.50 mm added:
 
 ```text
 at the XIAO's edge (x = +/-8.75 from centre):
   available depth = sqrt(19.7^2 - 8.75^2) = 17.6 mm each side
 
-two stacks + carrier = 10.7 + 1.0 + 10.7 = 22.4 mm
-available            = 2 x 17.6          = 35.3 mm     12.9 mm spare
+beacon   = 9.32 + 2.50 headers = 11.82 mm
+recorder = 10.70 + 2.50        = 13.20 mm
+total    = 11.82 + 1.0 carrier + 13.20 = 26.02 mm
+available = 2 x 17.6                   = 35.3 mm     9.3 mm spare
 ```
 
-> __An earlier revision of this section had the expansion board hanging __below__ the XIAO in a ~14 mm header gap, giving a 15 mm stack and 31.0 mm total.__ That is not how the parts assemble. The kit's standard 7-pin headers — ~2.50 mm standoff — are adequate, no tall stacking headers are needed, and __the bore margin is 12.9 mm rather than ~4__.
+> __An earlier revision of this section had the expansion board hanging __below__ the XIAO in a ~14 mm header gap, giving a 15 mm stack and 31.0 mm total.__ That is not how the parts assemble. The kit's standard 7-pin headers — ~2.50 mm standoff — are adequate, no tall stacking headers are needed, and __the bore margin is 9.3 mm rather than ~4__.
 
 The camera hangs off the expansion board __on a flexible ribbon__, so its position is not fixed by the stack.
 
