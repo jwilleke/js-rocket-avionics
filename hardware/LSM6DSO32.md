@@ -59,6 +59,12 @@ __That is the BMP388 exactly__ — same 25.5 × 17.8 outline, same 20.58 mm cent
 
 > __The holes are not on the end pins' centres.__ At 2.54 mm pitch the 9-pin Primary row spans __20.32 mm__ against __20.58 mm__ of hole spacing, so the holes sit __0.13 mm outboard on each side__. Invisible by eye, and a trap if the footprint snaps its holes to the end pads.
 
+### Y offsets, measured 2026-09-06
+
+Header row centreline __2.54 mm__ from its near long edge; mounting-hole centreline __14.65 mm__ from the far long edge, __3.15__ from the near; holes __2.54 mm__ in from each short side. __Identical on the BMP388.__
+
+The hole readings close on the 17.80 width exactly. The header pair does not — 2.54 + 15.75 = 18.29, so __use the 2.54__ and derive 15.26. Full working, and the 0.16 mm hole-spacing discrepancy worth one tie-break reading before fabrication, in [module-pinouts.md](../docs/module-pinouts.md).
+
 ### What the silkscreen says
 
 __Primary row, 9 pins:__ `VIN 3Vo GND SCL SDA DO CS I1 I2`, labels alternating above and below the row.

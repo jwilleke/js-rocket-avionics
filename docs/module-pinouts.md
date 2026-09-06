@@ -107,14 +107,37 @@ __X positions, derived from the outline and the 2.54 mm pitch — no further mea
 
 __Hole diameter is not an open question.__ The fastener is __M2 across the project__ (operator, 2026-09-05) — M3 does not fit these breakouts and nothing 2.5 mm is being bought. Footprints are drawn for __M2 clearance__, not for whatever a given board's hole measures.
 
-__Still owed, and it is down to two numbers per board: the Y offsets.__ Everything along the 25.5 mm length now falls out of the outline and the pitch. What no measurement so far pins down is how far in from the __long__ edge the two rows sit:
+## The Y offsets — measured 2026-09-06, both boards the same
 
-- __Long edge → header row centreline__ (Primary row on the LSM6DSO32; the single 8-pin row on the BMP388)
-- __Long edge → mounting-hole centreline__
+Read off the parts by the operator, *"as best as I can do on these parts"*:
 
-One optional third, as a symmetry check: __short edge → nearest hole centre__. If it reads __2.46 mm__, the pattern is centred along the length and every X position below is confirmed rather than assumed.
+| | Reading |
+|---|---|
+| Header row centreline → near long edge | __2.54 mm__ |
+| Header row centreline → far long edge | 15.75 mm |
+| Mounting-hole centreline → far long edge | __14.65 mm__ (so __3.15__ from the near edge) |
+| Mounting hole → each short side | __2.54 mm__ |
 
-Calipers: [#5](https://github.com/jwilleke/js-rocket-avionics/issues/5).
+__Both boards read the same__, which is consistent with everything else: same outline, same pattern, same thickness.
+
+### One pair closes and one does not
+
+__The mounting-hole readings close exactly.__ 14.65 + 3.15 = __17.80__, the measured width. Take those as good.
+
+__The header pair does not.__ 2.54 + 15.75 = __18.29__ against a 17.80 width — __0.49 mm over__, so one of the two is not an edge-to-centre reading. __Use the 2.54__: it is the short, easy reading, it sits on the 0.1 in grid these boards are laid out to, and the far edge then derives as __15.26 mm__. The 15.75 is most likely taken to the far side of the hole rather than its centre.
+
+### The hole spacing has two routes and they differ by 0.16 mm
+
+- From the short-side inset: 25.50 − 2 × 2.54 = __20.42 mm__
+- Measured across the holes directly: __20.58 mm__
+
+__0.16 mm, and that matters more than it looks.__ An M2 in a Ø2.35 hole has __0.35 mm of total clearance__, so a 0.16 mm error in hole spacing consumes __46% of it__ before any fabrication or print tolerance is added. It will very likely still assemble; it is not comfortable.
+
+__Worth one tie-break reading before the board is fabricated__, not before the footprint is drawn: outside-edge to outside-edge across both mounting holes, minus one hole diameter. Whichever number that supports becomes the footprint's. Until then the footprint is drawn on __20.58__, the direct measurement of the thing that actually matters.
+
+__Nothing further is needed to draw the footprint.__ Outline, pitch, hole pattern and both Y offsets are in hand, and every X position falls out of the outline and the 2.54 mm pitch.
+
+__One reading is still worth taking before fabrication__ — the hole-spacing tie-break above. It does not block [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14).
 
 ## Still needed
 

@@ -52,6 +52,11 @@ __Four are used: 1, 3, 4, 6__ — VIN, GND, SCL, SDA. Address __0x77__, no clash
 | Mounting-hole spacing | __20.58 mm__ | — | now known |
 | Qwiic cables supplied | 2 × 110 mm | "two included" | — |
 | Board outline | __25.5 × 17.8 mm__ | 25.5 × 17.8 (Adafruit) | measured 2026-09-06, __matches__ |
+| Header row → near long edge | __2.54 mm__ | — | measured 2026-09-06 |
+| Mounting holes → far long edge | __14.65 mm__ | — | measured 2026-09-06 |
+| Mounting holes → each short side | __2.54 mm__ | — | measured 2026-09-06 |
+
+__Every figure above is identical on the LSM6DSO32__, so the carrier takes one outline and one hole pattern, placed twice and rotated. Two readings need care — the header's far-edge figure does not close on the width, and hole spacing has two routes 0.16 mm apart. Working in [module-pinouts.md](../docs/module-pinouts.md).
 
 __The mounting screw is M2, not M2.5.__ Ø2.35 passes an M2 with 0.35 mm of total clearance; __an M2.5 does not fit at all__. Anyone sizing this off the datasheet picks a screw that will not go in. This board is where the __M2-everywhere__ standard came from — see [Fasteners](README.md#fasteners--m2-everywhere).
 
