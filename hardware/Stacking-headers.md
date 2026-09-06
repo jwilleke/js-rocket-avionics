@@ -14,11 +14,11 @@ The XIAO presents __14 pads, two rows of 7__, rows __17.0 mm apart__, pitch __2.
 
 > __A dual-row `2×7` header does not fit and never could__ — its two rows are 2.54 mm apart, not 17.0. The part is __two separate 1×7 strips__, spaced by the board. Where a document says "2×7", it means two 7-pin headers.
 
-## The gap under the XIAO is the open question
+## The kit headers are adequate
 
-The expansion board — Sense camera or Wio-SX1262 — mates to the XIAO's __B2B connector on its underside__ and therefore hangs __below__ the XIAO. Whatever the headers stand the XIAO off by has to clear it.
+__The expansion board sits above the XIAO, not below it__, so nothing has to fit in the gap under the board and no tall standoff is required. The kit's standard ~2.50 mm headers are the flight part.
 
-__2.50 mm of standard header does not.__ [design.md](../docs/design.md) assumes ~14 mm of standoff for exactly this reason, and the kit part does not supply it.
+Measured on the assembled stack: __10.7 mm__ from the mounting surface to the tallest point, camera excluded.
 
 __Solder or clamp them — no loose sockets.__ [design.md](../docs/design.md)'s shock rule.
 

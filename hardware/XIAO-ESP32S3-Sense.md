@@ -10,11 +10,26 @@ Splitting it from board A buys failure isolation, and dissolves two problems as 
 
 ## Photographs
 
-| [Expansion board, camera fitted](../docs/resources/XIAO-ESP32S3-Sense-expansion.jpg) | [MCU module](../docs/resources/XIAO-ESP32S3-module.jpg) |
+| [Expansion board](../docs/resources/XIAO-ESP32S3-Sense-expansion.jpg) | [MCU module](../docs/resources/XIAO-ESP32S3-module.jpg) |
 |---|---|
 | ![Sense expansion board with the camera fitted](../docs/resources/XIAO-ESP32S3-Sense-expansion.jpg) | ![XIAO ESP32S3 module](../docs/resources/XIAO-ESP32S3-module.jpg) |
 
-The pair is the whole of board B: the MCU module, and the Sense expansion board carrying the camera and the microSD slot. __The lens barrel stands proud of the board, and that standoff is unmeasured__ — it needs an __edge-on__ shot against the grid with the stack assembled, which no photograph here is ([#9](https://github.com/jwilleke/js-rocket-avionics/issues/9)).
+| [Stack, side](../docs/resources/XIAO-ESP32S3-Sense-stack-side.jpg) | [Stack, end](../docs/resources/XIAO-ESP32S3-Sense-stack-end.jpg) |
+|---|---|
+| ![Assembled stack from the side](../docs/resources/XIAO-ESP32S3-Sense-stack-side.jpg) | ![Assembled stack end-on](../docs/resources/XIAO-ESP32S3-Sense-stack-end.jpg) |
+
+## The stack
+
+From the mounting surface up: __7-pin headers → XIAO → Sense expansion board → FPC connector__, with the camera on a __flexible ribbon__ above it.
+
+| | |
+|---|---|
+| Height, mounting surface to tallest point, __camera excluded__ | __10.7 mm__ |
+| Header standoff | ~2.50 mm, the kit's standard 7-pin headers |
+| Expansion board | __above__ the XIAO |
+| Camera | on a flexible ribbon — __its position is not fixed by the stack__ |
+
+The MCU module and the Sense expansion board carrying the camera and the microSD slot.
 
 ### Optics
 
