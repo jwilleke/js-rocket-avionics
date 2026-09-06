@@ -8,6 +8,21 @@ Board B does the work that cannot be bought pre-flashed: camera, IMU, barometer,
 
 Splitting it from board A buys failure isolation, and dissolves two problems as a side effect ([design.md](../docs/design.md)): board B sheds LoRa and the GPS UART, so __an I2C GPIO expander is no longer needed__, and its SPI carries only the microSD, so __no "do not transmit while recording" scheduling rule is required__ — different MCU, different bus.
 
+## Interfaces
+
+| | |
+|---|---|
+| Carrier face | __Bottom__ — with LSM6DSO32, BMP388 and the buzzer |
+| Position | __centred at carrier y = 18 mm__, which is what puts the camera at nose z 30..45 |
+| Sensors | I2C on __D4/D5__ |
+| Buzzer | PWM on __D0__ |
+| Camera | __OV3660__ on a __DVP parallel bus__ — 14 GPIO plus I2C/SCCB for control. Frames land in PSRAM by DMA |
+| microSD | SPI, on the expansion board |
+| PSRAM | __8 MB__ (ESP32-S3R8) |
+| Battery | __BAT+/BAT− are underside pads__, not on the castellated edge — soldered pigtail, fitted before the expansion board goes on |
+
+__Which carrier face is which sled azimuth is unsettled__, and it now matters: the Nosecone port is at azimuth 270° ([#13](https://github.com/jwilleke/js-rocket-avionics/issues/13)).
+
 ## Photographs
 
 | [Expansion board](../docs/resources/XIAO-ESP32S3-Sense-expansion.jpg) | [MCU module](../docs/resources/XIAO-ESP32S3-module.jpg) |
@@ -29,8 +44,6 @@ From the mounting surface up: __7-pin headers → XIAO → Sense expansion board
 | Expansion board | __above__ the XIAO |
 | Camera | on a flexible ribbon — __its position is not fixed by the stack__ |
 
-The MCU module and the Sense expansion board carrying the camera and the microSD slot.
-
 ### Optics
 
 | | Active area | Diagonal |
@@ -42,12 +55,6 @@ __The focal length of the fitted lens is not known__, and it is what sets the fi
 __The sensor reports PID `0x3660`__ over I2C at registers 0x300A/0x300B, which is how its identity is established from the die rather than from a label. An OV2640 reports `0x26`. It also does __QXGA 2048 × 1536__, where an OV2640 tops out at UXGA 1600 × 1200.
 
 __Focus is adjustable__ via the M5/M6 lens thread. Hyperfocal at f/2.8 with a ~4.4 µm circle of confusion is ~1.9 m, so everything past ~1 m is sharp.
-
-## Things that will catch you
-
-__Do not extend the camera flex__ — the DVP bus runs a ~20 MHz XCLK. Board B's position on the carrier is what places the camera, not a longer ribbon.
-
-__Do not fit the wide-angle lens.__ The 120–160° M7 option cannot match the sensor's 25° chief ray angle, giving severe corner vignetting and colour crosstalk, and it would need a far larger hole in a load-bearing collar.
 
 ## Specification
 
@@ -73,6 +80,12 @@ __The heat sinks are not used, and nothing in the design calls for them.__ Two r
 If heat becomes a real question it will show up at bench bring-up, where both boards run on one cell with the camera active ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)). Until then they stay in the box.
 
 The BAT-pad and one-USB-at-a-time rules from [XIAO-ESP32S3.md](XIAO-ESP32S3.md) apply identically here.
+
+## Things that will catch you
+
+__Do not extend the camera flex__ — the DVP bus runs a ~20 MHz XCLK. The camera may be __repositioned within the ribbon's existing reach__; it may not be given a longer one.
+
+__Do not fit the wide-angle lens.__ The 120–160° M7 option cannot match the sensor's 25° chief ray angle, giving severe corner vignetting and colour crosstalk, and it would need a far larger hole in a load-bearing collar.
 
 ---
 
