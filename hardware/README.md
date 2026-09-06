@@ -4,21 +4,42 @@ __One page per part.__ What it is, what it is for, the interfaces, and the traps
 
 __These pages hold no part numbers and no masses.__ [BOM.md](../docs/BOM.md) owns both and says so: *"anything else that quotes a part number or a mass is wrong — link here instead."* A number in two places is a number that will disagree with itself.
 
-| | Page | Board | Role |
-|---|---|---|---|
-| MCU | [XIAO-ESP32S3.md](XIAO-ESP32S3.md) | __A__ | Recovery beacon. Stock Meshtastic, no firmware written |
-| MCU | [XIAO-ESP32S3-Sense.md](XIAO-ESP32S3-Sense.md) | __B__ | Flight recorder. Camera, microSD, PSRAM log |
-| Radio | [Wio-SX1262-LoRa.md](Wio-SX1262-LoRa.md) | A | LoRa. Buy as the matched kit, never separately |
-| GNSS | [L76K-GNSS.md](L76K-GNSS.md) | A | Position. Rides the XIAO stack, no carrier footprint |
-| Sensor | [LSM6DSO32.md](LSM6DSO32.md) | B | ±32 g IMU. __The part blocking every footprint__ |
-| Sensor | [BMP388-barometer.md](BMP388-barometer.md) | B | Unported barometer. The only module measured off the part |
-| Output | [PS1240-buzzer.md](PS1240-buzzer.md) | B | Passive piezo. The only status channel on the pad |
-| Power | [LiPo-500mAh.md](LiPo-500mAh.md) | shared | One cell, both MCUs |
-| Power | [Arming-switch.md](Arming-switch.md) | shared | In the battery line. __Not chosen, not bought__ |
-| Storage | [microSD.md](microSD.md) | B | Video only |
-| RF | [Antennas.md](Antennas.md) | A | Both off-board on U.FL. ≥50 mm apart |
-| Mechanical | [Stacking-headers.md](Stacking-headers.md) | both | ~14 mm standoff. __Unverified__ |
-| Mechanical | [PCB-carrier.md](PCB-carrier.md) | both | The board, and the sled's structural span |
+| | Page | Board | Photos | Role |
+|---|---|---|---|---|
+| MCU | [XIAO-ESP32S3.md](XIAO-ESP32S3.md) | __A__ | grid | Recovery beacon. Stock Meshtastic, no firmware written |
+| MCU | [XIAO-ESP32S3-Sense.md](XIAO-ESP32S3-Sense.md) | __B__ | grid ×2 | Flight recorder. Camera, microSD, PSRAM log |
+| Radio | [Wio-SX1262-LoRa.md](Wio-SX1262-LoRa.md) | A | grid | LoRa. Buy as the matched kit, never separately |
+| GNSS | [L76K-GNSS.md](L76K-GNSS.md) | A | grid | Position. Rides the XIAO stack, no carrier footprint |
+| Sensor | [LSM6DSO32.md](LSM6DSO32.md) | B | grid + back | ±32 g IMU. __The part blocking every footprint__ |
+| Sensor | [BMP388-barometer.md](BMP388-barometer.md) | B | grid + 2 close | Unported barometer. The only module measured off the part |
+| Output | [PS1240-buzzer.md](PS1240-buzzer.md) | B | __none__ | Passive piezo. The only status channel on the pad |
+| Power | [LiPo-500mAh.md](LiPo-500mAh.md) | shared | __none__ | One cell, both MCUs |
+| Power | [Arming-switch.md](Arming-switch.md) | shared | __n/a__ | In the battery line. __Not chosen, not bought__ |
+| Storage | [microSD.md](microSD.md) | B | __none__ | Video only |
+| RF | [Antennas.md](Antennas.md) | A | grid | Both off-board on U.FL. ≥50 mm apart |
+| Mechanical | [Stacking-headers.md](Stacking-headers.md) | both | __none__ | ~14 mm standoff. __Unverified__ |
+| Mechanical | [PCB-carrier.md](PCB-carrier.md) | both | __n/a__ | The board, and the sled's structural span |
+
+## Photographs
+
+Every image lives in [`docs/resources/`](../docs/resources/) and is embedded on the part page above. __Shot on the printed measurement grid__ — part flat, square-on, calibration bar in frame — which is the house method for dimensioning these, and is documented with its real precision in [module-pinouts.md](../docs/module-pinouts.md#how-these-are-measured--photograph-on-the-grid-not-calipers).
+
+| Image | Part | What it is for |
+|---|---|---|
+| [`BMP388-front-grid.jpg`](../docs/resources/BMP388-front-grid.jpg) | BMP388 | __Dimensional record.__ Header row along the bottom, mounting holes at the top corners |
+| [`BMP388-front.jpg`](../docs/resources/BMP388-front.jpg) | BMP388 | Close-up. Confirms pin order on the silkscreen |
+| [`BMP388-back.jpg`](../docs/resources/BMP388-back.jpg) | BMP388 | Close-up. Address jumper, `3 V` marking |
+| [`LSM6DSO32-front.jpg`](../docs/resources/LSM6DSO32-front.jpg) | LSM6DSO32 | __Dimensional record.__ Both header rows and both mounting holes |
+| [`LSM6DSO32-back.jpg`](../docs/resources/LSM6DSO32-back.jpg) | LSM6DSO32 | Close-up. `ST LSM6DSO32`, ±32 g, `0x6A` |
+| [`L76K-GNSS.jpg`](../docs/resources/L76K-GNSS.jpg) | L76K | Module and its ≈25 mm patch antenna, to scale |
+| [`Wio-SX1262-LoRa.jpg`](../docs/resources/Wio-SX1262-LoRa.jpg) | Wio-SX1262 | FCC ID, U.FL, and the 2×5 header currently fitted |
+| [`Wio-SX1262-LoRa-antennas.jpg`](../docs/resources/Wio-SX1262-LoRa-antennas.jpg) | Antennas | Both Seeed strips. __Shows the LoRa antenna is not a whip__ |
+| [`XIAO-ESP32S3-module.jpg`](../docs/resources/XIAO-ESP32S3-module.jpg) | XIAO ×2 | The MCU board. USB-C, U.FL, B2B, 14 pads |
+| [`XIAO-ESP32S3-Sense-expansion.jpg`](../docs/resources/XIAO-ESP32S3-Sense-expansion.jpg) | Sense | Camera and microSD board. __Where the `OV36…` question came from__ |
+
+__Still unphotographed:__ the __buzzer__ and the __stacking headers__ — both wanted for [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14) and [#10](https://github.com/jwilleke/js-rocket-avionics/issues/10) — and the cell and card, which are lower value.
+
+__And one shot that does not exist in any form: an edge-on view of the assembled stack.__ Every photograph so far is plan view, so none of them can give a __height__ — which is what [#10](https://github.com/jwilleke/js-rocket-avionics/issues/10) needs for the header standoff and [#9](https://github.com/jwilleke/js-rocket-avionics/issues/9) needs for the camera lens. That one is worth taking as soon as a stack exists.
 
 ## Fasteners — M2 everywhere
 
