@@ -13,21 +13,21 @@ Runs __stock Meshtastic__, pre-flashed. No firmware is written for it.
 
 ## Heights
 
-__Datum: the bottom of the XIAO's PCB.__ Headers add __2.50 mm__ below it.
+__Datum: the bottom of the XIAO's PCB.__ Headers add __2.50 mm__ below it. Camera excluded.
 
 | | Height | Above the carrier |
 |---|---|---|
 | A bare XIAO, to the top of the USB-C | __4.53 mm__ | 7.03 mm |
+| __XIAO-ESP32S3-cam__ + [Sense camera board](Sense-camera-board.md) | __8.22 mm__ | __10.72 mm__ |
 | __XIAO-ESP32S3-lora__ + [Wio-SX1262](Wio-SX1262-LoRa.md) | __9.32 mm__ | __11.82 mm__ |
-| __XIAO-ESP32S3-cam__ + [Sense camera board](Sense-camera-board.md), camera excluded | __10.70 mm__ | __13.20 mm__ |
 
-So the Wio-SX1262 adds __4.79 mm__ to a XIAO and the Sense camera board adds __6.17 mm__.
+So the Sense camera board adds __3.69 mm__ to a XIAO and the Wio-SX1262 adds __4.79 mm__.
 
 ```text
-XIAO-ESP32S3-lora 11.82 + carrier 1.00 + XIAO-ESP32S3-cam 13.20 = 26.02 mm
+XIAO-ESP32S3-cam 10.72 + carrier 1.00 + XIAO-ESP32S3-lora 11.82 = 23.54 mm
 available = 2 x sqrt(19.7^2 - 8.75^2)                           = 35.30 mm
 
-9.3 mm spare
+11.76 mm spare
 ```
 
 ## Photograph

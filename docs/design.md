@@ -75,13 +75,13 @@ __Measured on the assembled stacks__ — heights from the bottom of the XIAO's P
 at the XIAO's edge (x = +/-8.75 from centre):
   available depth = sqrt(19.7^2 - 8.75^2) = 17.6 mm each side
 
-beacon   = 9.32 + 2.50 headers = 11.82 mm
-recorder = 10.70 + 2.50        = 13.20 mm
-total    = 11.82 + 1.0 carrier + 13.20 = 26.02 mm
-available = 2 x 17.6                   = 35.3 mm     9.3 mm spare
+XIAO-ESP32S3-cam  = 8.22 + 2.50 headers = 10.72 mm
+XIAO-ESP32S3-lora = 9.32 + 2.50         = 11.82 mm
+total             = 10.72 + 1.0 carrier + 11.82 = 23.54 mm
+available         = 2 x 17.6                    = 35.30 mm     11.76 mm spare
 ```
 
-> __An earlier revision of this section had the expansion board hanging __below__ the XIAO in a ~14 mm header gap, giving a 15 mm stack and 31.0 mm total.__ That is not how the parts assemble. The kit's standard 7-pin headers — ~2.50 mm standoff — are adequate, no tall stacking headers are needed, and __the bore margin is 9.3 mm rather than ~4__.
+> __An earlier revision of this section had the expansion board hanging __below__ the XIAO in a ~14 mm header gap, giving a 15 mm stack and 31.0 mm total.__ That is not how the parts assemble. The kit's standard 7-pin headers — ~2.50 mm standoff — are adequate, no tall stacking headers are needed, and __the bore margin is 11.8 mm rather than ~4__.
 
 The camera hangs off the expansion board __on a flexible ribbon__, so its position is not fixed by the stack.
 
