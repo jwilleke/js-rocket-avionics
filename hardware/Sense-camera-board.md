@@ -47,11 +47,14 @@ From the mounting surface up: __7-pin headers → [XIAO](XIAO-ESP32S3-cam.md) �
 |---|---|
 | Module body | __8 × 8 mm__ |
 | Thickness | __5.52 mm__ — base, including its adhesive pad, to the top of the lens |
+| Lens barrel | __6.9 mm OD at the base__, stepped to __~5 mm__ at the top |
 | Ribbon, free length | __~8.5 mm__ — connector face to the module edge |
 
 __The module's own thickness covers most of the gap.__ The connector sits ~__r 11.2 mm__ from the airframe axis and the bore wall is at __r 20.0__. With the lens at the bore face the module's base sits at __r 14.48__, so the ribbon has to travel only __3.28 mm__ radially — against 8.5 mm free, leaving __5.2 mm for the bend__. Comfortable.
 
 __It is adhesive-backed__, so the 5.52 mm includes the pad and retention can be the pad plus a pocket lip.
+
+> __The port is sized by the lens's clear aperture — the glass — not by the barrel.__ Light leaves only through the glass, so the barrel's 6.9 mm base and ~5 mm top are what the __pocket__ has to clear, not what the __hole__ has to be. Across a 4.2 mm collar wall a 25° half-angle cone widens by __3.92 mm__, so the port is `clear aperture + clearance` at the bore face and that plus 3.92 mm at the outer face. __The glass diameter is not yet measured.__
 
 __The flex is not to be extended__ — the DVP bus runs a ~20 MHz XCLK. What is available is what is there.
 
