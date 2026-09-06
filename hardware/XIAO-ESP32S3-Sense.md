@@ -36,6 +36,12 @@ __Do not fit the wide-angle lens.__ The 120–160° M7 option cannot match the s
 
 The BAT-pad and one-USB-at-a-time rules from [XIAO-ESP32S3.md](XIAO-ESP32S3.md) apply identically here.
 
----
+- XIAO ESP32-S3 x1
+- Plug-in camera sensor board x1
+- Aluminum Heat Sink For XIAO x2
+- 7 Pin Header x2
+- Antenna x1
+
+Note: From Sep 2, 2024, XIAO ESP32S3 Sense (113991115) ships with 2 heat sinks in China Warehouse. US&Germany warehouses ships new version from 2025.
 
 Part numbers, vendors and masses live in [BOM.md](../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../docs/shopping-list.md); the reasoning is in [design.md](../docs/design.md).

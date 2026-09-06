@@ -1,30 +1,24 @@
-# 2×7 stacking headers
+# Headers
 
-__The part everything else assumes and nobody has confirmed.__
+__Two 7-pin strips per XIAO__, one down each long edge, connecting the XIAO's 14 castellated pads to the carrier.
 
-## What they do
+## What is in the kit
 
-Each XIAO mounts on a pair of __2×7 headers with ~14 mm standoff__, the expansion board — Sense or Wio-SX1262 — __hanging in the gap__ beneath it. Total stack is ~__15 mm__ above the carrier.
+The XIAO ESP32S3 Sense kit ships __`7 Pin Header × 2`__ — one pair, for one XIAO. Two XIAOs need __four strips__.
 
-That standoff is not a convenience. It is the reason the carrier is a single centre-plane card at all:
+__They are standard male headers: the board sits ~2.50 mm above whatever they are soldered to.__
 
-```text
-at the XIAO's edge (x = ±8.75 from centre):
-  available depth = sqrt(19.7² − 8.75²) = 17.6 mm each side
+## The pad geometry they have to match
 
-two stacks + carrier = 15 + 1.0 + 15 = 31.0 mm
-available            = 2 × 17.6       = 35.2 mm     fits, ~2 mm margin
-```
+The XIAO presents __14 pads, two rows of 7__, rows __17.0 mm apart__, pitch __2.54 mm__.
 
-__Two millimetres of margin__ is the whole budget, and it is the same margin the L76K's stack collision eats into.
+> __A dual-row `2×7` header does not fit and never could__ — its two rows are 2.54 mm apart, not 17.0. The part is __two separate 1×7 strips__, spaced by the board. Where a document says "2×7", it means two 7-pin headers.
 
-## They are not a generic part
+## The gap under the XIAO is the open question
 
-[BOM.md](../docs/BOM.md) flags this explicitly: __stock 2×7 headers are far shorter__ than the ~14 mm needed. A drawer full of ordinary 2×7 strip does not satisfy this.
+The expansion board — Sense camera or Wio-SX1262 — mates to the XIAO's __B2B connector on its underside__ and therefore hangs __below__ the XIAO. Whatever the headers stand the XIAO off by has to clear it.
 
-[BOM.md](../docs/BOM.md) carries the row as __`unverified`__.
-
-__The mated height sets two things:__ whether the stack fits the bore at all, against the ~2 mm margin above, and where the camera lens ends up.
+__2.50 mm of standard header does not.__ [design.md](../docs/design.md) assumes ~14 mm of standoff for exactly this reason, and the kit part does not supply it.
 
 __Solder or clamp them — no loose sockets.__ [design.md](../docs/design.md)'s shock rule.
 

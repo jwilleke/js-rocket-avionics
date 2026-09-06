@@ -23,7 +23,7 @@ Weights measured 2026-08-17 unless the row says `est`.
 | LiPo 3.7 V 500 mAh | 1578 | Adafruit | shared | 10.8 |
 | microSD card | — held | — | B | est ~0.4 |
 | Carrier PCB, 4-layer 1.0 mm, 24 × 95 | — not ordered | OSH Park | both | est 4.3 |
-| 2× 2×7 stacking header, ~14 mm | — unverified | — | both | est 1.0 |
+| 7-pin header, 4 off — two per XIAO | in the Sense kit ×2; __2 more needed__ | Seeed | both | est 1.0 |
 | Arming switch + wiring | — not bought | — | shared | est 1.5 |
 | __Avionics subtotal__ | | | | __45.4__ |
 | ElectronicsSled, PLA | v7.7.0 | printed | — | __9.3?__ |
@@ -70,7 +70,7 @@ Both ride one carrier PCB, on opposite faces. __Two MCUs, not one__, so the beac
 | __BMP388__ | Unported: only jobs are timestamping ejection and detecting landing. Address __0x77__, no clash with the IMU. __Do not re-specify a BMP390__ — same driver, 8–12 week lead |
 | __Piezo buzzer__ | PWM from D0. __Passive, not active__ — a real GPIO can drive multiple tones, so beep patterns read as distinct status codes |
 | __Carrier PCB__ | The sled's structural span. See [README](../README.md) for the frozen interface. __Blocked behind breadboarding, deliberately__ — a layout error costs ~$33 and two weeks |
-| __2×7 stacking headers__ | The expansion board hangs in the gap; __15 mm__ total stack above the carrier. __Not a generic part__ — stock 2×7 headers are far shorter. Believed held; __verify before assuming__ |
+| __7-pin headers__ | Two per XIAO, onto its 14 pads in two rows __17.0 mm apart__ — __not__ a dual-row 2×7, whose rows are 2.54 mm apart. The kit's are standard, __~2.50 mm standoff__. The expansion board mates to the XIAO's underside B2B and hangs below it, so the standoff must clear it; [design.md](design.md) assumes ~14 mm |
 | __LiPo 500 mAh__ | One cell feeds both MCUs. Over an hour against ~300 mA |
 | __Arming switch__ | Sits __in the battery line__, not on a GPIO — physically cuts power, zero pins. __No longer a reed switch__: superseded 2026-08-15 by a __pull-pin plus a subminiature microswitch__. Nothing bought, no part number; the 1.5 g is inherited from the reed-switch design |
 | __microSD__ | __Video only, and in hand.__ The old A1/A2 / pSLC requirement was written when the sampler wrote to the card in flight; __PSRAM buffering removed that__. What is left is sequential video write — a speed-class question, not a random-IOPS one |
