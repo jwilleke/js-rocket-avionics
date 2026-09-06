@@ -20,9 +20,11 @@ Because it is not the altimeter, __the part is interchangeable__: it shares the 
 
 ## Photographs
 
-| [Front](../docs/resources/BMP388-front.jpg) | [Back](../docs/resources/BMP388-back.jpg) |
-|---|---|
-| ![BMP388 front](../docs/resources/BMP388-front.jpg) | ![BMP388 back](../docs/resources/BMP388-back.jpg) |
+| [Front](../docs/resources/BMP388-front.jpg) | [Back](../docs/resources/BMP388-back.jpg) | [On the grid](../docs/resources/BMP388-front-grid.jpg) |
+|---|---|---|
+| ![BMP388 front](../docs/resources/BMP388-front.jpg) | ![BMP388 back](../docs/resources/BMP388-back.jpg) | ![BMP388 on the measurement grid](../docs/resources/BMP388-front-grid.jpg) |
+
+__The grid shot is the dimensional record__ — board flat, square-on, calibration bar in frame, header row along the bottom and both mounting holes at the top corners. Measure it rather than the part; see [module-pinouts.md](../docs/module-pinouts.md#how-these-are-measured--photograph-on-the-grid-not-calipers).
 
 __The front photo confirms the pin order below on the physical silkscreen__ — VIN, 3Vo, GND, SCL, SDO, SDA, CS, INT, labels alternating above and below the row, both Qwiic connectors on the short edges, and both mounting holes on the long edge __opposite__ the header. The board is a blue clone, not an Adafruit black one, which is what makes the layout-clone claim worth having checked rather than assumed.
 

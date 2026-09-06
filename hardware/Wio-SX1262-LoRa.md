@@ -10,6 +10,14 @@ GPS position out over LoRa, on stock Meshtastic. No firmware is written for it, 
 
 [BOM.md](../docs/BOM.md) is emphatic: __must be the matched B2B kit variant__ — buy the kit SKU, __never the two boards separately__. The kit is a supported Meshtastic device and __arrives pre-flashed__, which is the entire premise of board A. Bought separately, the radio ends up on non-standard pins and stock Meshtastic can no longer be flashed as a rescue.
 
+## Photograph
+
+![Wio-SX1262 on the measurement grid](../docs/resources/Wio-SX1262-LoRa.jpg)
+
+Silkscreen confirms the genuine Seeed part — __`Wio-SX1262`, `FCC ID: Z4T-WIO-SX1262`__, CE and MIC marks — which is the check that matters here, because [BOM.md](../docs/BOM.md) requires the __matched kit__ and a separately-bought radio defeats board A's whole premise. The __U.FL connector is on the module__, as the design assumes, and the outline is the XIAO's ~17.5 × 21 mm with 14 castellated pads, 7 a side.
+
+> __A 2×5 header is fitted to it, standing off one edge.__ That is not the __2×7, ~14 mm standoff__ stack the carrier is designed around ([Stacking-headers.md](Stacking-headers.md)), so it is presumably bench kit rather than the flight fit. Worth confirming before [#10](https://github.com/jwilleke/js-rocket-avionics/issues/10) concludes what is held.
+
 ## Interfaces
 
 | | |

@@ -40,7 +40,7 @@ __The screw is M2__ — the project standard, see [Fasteners](README.md#fastener
 |---|---|
 | ![LSM6DSO32 front](../docs/resources/LSM6DSO32-front.jpg) | ![LSM6DSO32 back](../docs/resources/LSM6DSO32-back.jpg) |
 
-__Read off the photographs, not off calipers.__ Dimensions are still owed — see Open below.
+__The front shot is now on the measurement grid__ — square-on, calibration bar in frame — so it is the dimensional record for this part. Measure the image, do not eyeball it: see [module-pinouts.md](../docs/module-pinouts.md#how-these-are-measured--photograph-on-the-grid-not-calipers).
 
 > __It does not share the BMP388's form factor.__ [module-pinouts.md](../docs/module-pinouts.md) expected it to: *"the LSM6DSO32 shares this form factor and is expected to match."* __It has two header rows, not one__, and __both mounting holes sit on the same edge as one of them__, where the BMP388's sit on the edge opposite its single row.
 

@@ -6,10 +6,20 @@ __Both leave via U.FL on the modules themselves__, so __no RF crosses the carrie
 
 | | Where | Rule |
 |---|---|---|
-| __LoRa, 82 mm whip__ | U.FL on the Wio-SX1262, run forward __up the ogive__ | Included in the kit |
+| __LoRa, `860-930M A-03`__ — a flat flexible-PCB strip ≈40 × 10 mm on an ~82 mm U.FL lead, __not a wire whip__ | U.FL on the Wio-SX1262, run forward __up the ogive__ | Included in the kit |
 | __GPS active patch__ | U.FL on the L76K, at the sled's __forward end, facing up__ | Satisfies the "no metal above the patch" rule |
 
 A GPS patch needs a __30–40 mm ground plane__ and a 24 mm board never will be — which is why the patch is off-board rather than on the carrier.
+
+## Photograph — and the LoRa antenna is not a whip
+
+![Both Seeed antennas on the measurement grid](../docs/resources/Wio-SX1262-LoRa-antennas.jpg)
+
+> __The "82 mm whip" is a flat flexible-PCB strip, roughly 40 × 10 mm, on a coaxial lead.__ [BOM.md](../docs/BOM.md) calls it a *"U.FL 82 mm whip"* and this page repeated it; the photograph shows __`seeed studio 860-930M A-03`__ — a printed antenna on a thin flexible substrate, not a wire. __The 82 mm is the U.FL lead, not the radiator.__
+
+That changes how it is fitted rather than whether it works. A wire whip can be stood up the ogive; __a flat strip has to lie against something__, and it wants that surface to be non-conductive and clear of the GPS patch. It is also far less likely to foul the payload bore than a stiff wire — which is a point in its favour, once the routing is drawn rather than assumed.
+
+The other strip, __`seeed studio 2.4G A-02`__ (~37 × 23 mm), is the XIAO's WiFi/BLE antenna and __does not fly__.
 
 ## The one hard rule: ≥50 mm apart
 

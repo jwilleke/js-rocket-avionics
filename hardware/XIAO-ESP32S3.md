@@ -8,6 +8,12 @@ Board A exists so that __recovery does not depend on firmware anyone here has wr
 
 It arrives __pre-flashed as a supported Meshtastic device__ when bought as the matched kit, so nothing is written for it. That is the whole premise of the board, and it is why the kit SKU matters more than the individual parts — see [Wio-SX1262-LoRa.md](Wio-SX1262-LoRa.md).
 
+## Photograph
+
+![XIAO ESP32S3 module on the measurement grid](../docs/resources/XIAO-ESP32S3-module.jpg)
+
+__`Model: XIAO-ESP32-S3`, `FCC ID: Z4T-XIAOESP32S3`__, and the outline reads ~__17.5 × 21 mm__ on the grid, matching Seeed's package spec that the carrier's footprint was drawn from. Visible on the part: USB-C, the __U.FL connector__, the B2B connector along the bottom edge, and 14 castellated pads, 7 a side.
+
 ## Interfaces
 
 | | |

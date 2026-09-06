@@ -8,6 +8,16 @@ Board B does the work that cannot be bought pre-flashed: camera, IMU, barometer,
 
 Splitting it from board A buys failure isolation, and dissolves two problems as a side effect ([design.md](../docs/design.md)): board B sheds LoRa and the GPS UART, so __an I2C GPIO expander is no longer needed__, and its SPI carries only the microSD, so __no "do not transmit while recording" scheduling rule is required__ — different MCU, different bus.
 
+## Photographs
+
+| [Expansion board, camera fitted](../docs/resources/XIAO-ESP32S3-Sense-expansion.jpg) | [MCU module](../docs/resources/XIAO-ESP32S3-module.jpg) |
+|---|---|
+| ![Sense expansion board with the camera fitted](../docs/resources/XIAO-ESP32S3-Sense-expansion.jpg) | ![XIAO ESP32S3 module](../docs/resources/XIAO-ESP32S3-module.jpg) |
+
+The pair is the whole of board B: the MCU module, and the Sense expansion board carrying the camera and the microSD slot. The expansion shot shows the FPC connector, the folded camera ribbon, and __the lens barrel standing proud of the board__ — which is the dimension [#9](https://github.com/jwilleke/js-rocket-avionics/issues/9) needs and which __this photograph cannot give__: standoff is a height, so it wants an __edge-on__ shot against the grid, with the stack assembled on its headers.
+
+> __Verify which sensor this is before trusting any field-of-view number.__ The camera ribbon appears to carry an __`OV36…`__ marking rather than `OV2640`. It is partly obscured by the fold and I would not act on it from this image — __but if the part is an OV3660, every figure in the camera analysis moves__: the 4.482 mm active-area diagonal, the f = 4.8 mm lens, the __50.1° cone__, and therefore the port sizing in [js-rocket#88](https://github.com/jwilleke/js-rocket/issues/88) and the shelf radius in [js-rocket#89](https://github.com/jwilleke/js-rocket/issues/89). This repo already has the rule — *confirm the silicon matches the label* — and it has caught two parts already. __Read the marking with the ribbon unfolded, or query the sensor ID over I2C during [#7](https://github.com/jwilleke/js-rocket-avionics/issues/7).__
+
 ## Interfaces
 
 | | |

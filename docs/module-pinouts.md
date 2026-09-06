@@ -19,7 +19,9 @@ Why it is better here:
 - __It reads every dimension at once__, rather than one careful reading at a time
 - __Its error is honest__ — perspective, and how squarely the shot was taken. Keep the camera above the part, not off to one side
 
-__Realistic precision is ±0.2–0.3 mm__ on a square-on shot, and that is the number to quote. It is worse than a caliper's theoretical resolution and __better than a caliper's actual result on parts this size__. Where a dimension genuinely needs tighter than that, say so explicitly rather than implying the photograph gave it.
+__Realistic precision is ±0.2–0.3 mm__ on a square-on shot — __but only when the image is actually measured__, in an editor or a script that calibrates off the bar and reads pixel coordinates. It is worse than a caliper's theoretical resolution and __better than a caliper's actual result on parts this size__.
+
+> __Eyeballing a photograph is not the same thing and does not get there.__ Reading these images by eye lands at roughly __±1 mm__, which is fine for confirming a pin count, a marking or a rough outline, and __not__ fine for a footprint. Two eyeball reads of the same LSM6DSO32 grid shot gave 24.3 and 24.7 mm against a board known to be 25.5. Where a number is going into copper, measure the image; do not squint at it.
 
 ## BMP388 — confirmed from the part
 
