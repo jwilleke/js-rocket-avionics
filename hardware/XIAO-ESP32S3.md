@@ -14,6 +14,16 @@ It arrives __pre-flashed as a supported Meshtastic device__ when bought as the m
 
 __`Model: XIAO-ESP32-S3`, `FCC ID: Z4T-XIAOESP32S3`__, and the outline reads ~__17.5 × 21 mm__ on the grid, matching Seeed's package spec that the carrier's footprint was drawn from. Visible on the part: USB-C, the __U.FL connector__, the B2B connector along the bottom edge, and 14 castellated pads, 7 a side.
 
+## Height
+
+| | |
+|---|---|
+| Board, tallest point | __9.32 mm__ |
+| Header standoff | __2.50 mm__ — the kit's standard 7-pin headers |
+| __Above the carrier__ | __11.82 mm__ |
+
+Board B's stack is [10.7 mm](XIAO-ESP32S3-Sense.md#the-stack) on the same basis. Two stacks plus a 1.0 mm carrier is __26.0 mm__ against __35.3 mm__ available at the XIAO's edge — `2 × √(19.7² − 8.75²)` — leaving __9.3 mm__.
+
 ## Interfaces
 
 | | |
