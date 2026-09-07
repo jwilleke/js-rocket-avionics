@@ -48,17 +48,24 @@ From the mounting surface up: __7-pin headers → [XIAO](XIAO-ESP32S3-cam.md) �
 | Module body | __8 × 8 mm__ |
 | Thickness | __5.52 mm__ — base, including its adhesive pad, to the top of the lens |
 | Lens barrel | __6.9 mm OD at the base__, stepped to __~5 mm__ at the top |
-| Glass | __~3.5 mm__, __recessed__ inside the barrel |
+| Glass, __across__ | __~3.5 mm__ — the clear aperture, and what sizes the port |
+| Glass, __recess__ | __0.5–1.0 mm__ back inside the barrel. __A bracket, not a measurement__ — a depth down a 5 mm barrel is not a caliper reading and no point value is obtainable |
 | Mounting | __adhesive pad on the module's base__ — the face opposite the lens |
 | Ribbon, free length | __~8.5 mm__ — connector face to the module edge |
 
-__The module's own thickness covers most of the gap.__ The connector sits ~__r 11.2 mm__ from the airframe axis and the bore wall is at __r 20.0__. With the lens at the bore face the module's base sits at __r 14.48__, so the ribbon has to travel only __3.28 mm__ radially — against 8.5 mm free, leaving __5.2 mm for the bend__. Comfortable.
+__The module's own thickness covers most of the gap.__ The connector sits ~__r 11.2 mm__ from the airframe axis and the bore wall is at __r 20.0__. With the barrel seated in the port's counterbore the module's base sits at __r 16.086__ (nose z 43.435), so the ribbon travels __4.886 mm__ radially against 8.5 mm free. Comfortable.
+
+> __Read `r 14.48` in an older revision of this page as wrong.__ It assumed a *radial* port and no counterbore: 20.0 − 5.52. The port is tilted 30° aft, so the module's thickness costs only 5.52·cos 30 = 4.78 mm of radius, and the 1.0 mm counterbore puts the barrel a further 0.87 mm out.
 
 __It is adhesive-backed__, so the 5.52 mm includes the pad and retention can be the pad plus a pocket lip.
 
-> __The port is sized by the glass, not by the barrel.__ Light leaves only through the glass, so the barrel's 6.9 mm base and ~5 mm top are what a __pocket__ has to clear, not what the __hole__ has to be. Across a 4.2 mm collar wall a 25° half-angle cone widens by __3.92 mm__.
+> __The port is sized by the glass, not by the barrel.__ Light leaves only through the glass, so the barrel's 6.9 mm base and ~5 mm top are what a __pocket__ has to clear, not what the __hole__ has to be. Across a 4.2 mm collar wall a 25° half-angle cone widens by __3.92 mm__; on the tilted axis the path is 4.85 mm and it widens by 4.52.
 >
-> With a 3.5 mm glass that gives a port of __Ø4.0 at the bore face opening to Ø7.9 outside__ — and __the barrel's 5 mm top face then seats on the wall around the hole__, which locates the camera without a clamp. Every 1 mm the glass sits back inside the barrel adds 0.93 mm to the outer diameter.
+> With a 3.5 mm glass that gives a port of __Ø4.0 at the bore face opening to Ø8.423 × 10.258 at the collar__ ([js-rocket#88](https://github.com/jwilleke/js-rocket/issues/88), cut 2026-09-06).
+>
+> __The recess is taken up by a counterbore, so it never reaches the cone.__ Every 1 mm the glass sits back would otherwise add 0.93 mm to the outer diameter — at the top of the bracket that is a cone short 0.93 mm at *both* faces, clipping the corners of the frame. Instead the port is counterbored __Ø7.2 × 1.0 mm__ at the bore face to receive the barrel's ~5 mm top step, cut for the top of the bracket so a 0.5 mm part just leaves the glass 0.5 mm outboard of the floor. The bracket stops mattering.
+>
+> __The counterbore floor is also what locates the camera__, and this page used to credit the bore wall. That was true while the port was radial; a barrel on a 30°-tilted axis meets the *cylindrical* bore on an ellipse and rocks on it. The counterbore floor is normal to the port axis, so the barrel seats flat — no clamp, nothing proud.
 
 __The flex is not to be extended__ — the DVP bus runs a ~20 MHz XCLK. What is available is what is there.
 
