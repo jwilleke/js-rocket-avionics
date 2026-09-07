@@ -24,8 +24,8 @@ These numbers are what the rocket's sled generator derives its rail bosses from.
 | Mounting holes | __4 × Ø2.200 mm__ (M2 clearance) at __(3, 3), (21, 3), (3, 92), (21, 92)__ |
 | Mounting pattern | 18.0 mm × 89.0 mm centres |
 | Mass | see [BOM.md](docs/BOM.md) — estimated from FR4 at 1.9 g/cm³, and __not yet weighed__ |
-| XIAO B centre | y = 18.0 mm — the Sense, so the camera lands at nose z 30..45 |
-| XIAO A centre | y = 46.0 mm |
+| XIAO-ESP32S3-cam centre | y = 18.0 mm — the Sense, so the camera lands at nose z 30..45 |
+| XIAO-ESP32S3-lora centre | y = 46.0 mm |
 
 Verified from the exported Gerber and drill files, not from the generator's own console output.
 
@@ -33,16 +33,16 @@ __Why 1.0 mm and not 0.8.__ The card is the sled's structural span over ~70 mm. 
 
 __Why 24 mm wide.__ The card sits on a *diameter* of the 40.0 mm payload bore, so its width is not chord-limited and could go to ~38 mm. 24 mm is set by the parts, not the bore.
 
-__Why it grew from 70 to 95 mm.__ The 70 mm figure assumed the two XIAOs could overlap in plan view, one per face. They cannot — these are *through-hole* headers, so the holes pass through the board, and XIAO A uses D6/D7 for the GPS UART while XIAO B uses D4/D5 for I2C. Different nets, same holes. They must sit end to end:
+__Why it grew from 70 to 95 mm.__ The 70 mm figure assumed the two XIAOs could overlap in plan view, one per face. They cannot — these are *through-hole* headers, so the holes pass through the board, and XIAO-ESP32S3-lora uses D6/D7 for the GPS UART while XIAO-ESP32S3-cam uses D4/D5 for I2C. Different nets, same holes. They must sit end to end:
 
 ```text
-top face     XIAO A 21 + GPS in the stack, not end to end     = 21 mm
-bottom face  XIAO B 21 + LSM6DSO32 25.5 + BMP388 25.5 + buzzer = 84 mm
+top face     XIAO-ESP32S3-lora 21 + GPS in the stack, not end to end    = 21 mm
+bottom face  XIAO-ESP32S3-cam 21 + LSM6DSO32 25.5 + BMP388 25.5 + buzzer = 84 mm
 ```
 
 At 24 mm wide against 17.8 mm sensors, no two sit side by side. 95 mm gives the bottom face its 84 mm plus spacing. Costs 1.1 g and lands the sled inside 150 mm with 36 mm to spare.
 
-__The bottom face sets the length.__ The top-face line above once read `XIAO A 21 + GPS ~25 = 46 mm`, from a MAX-M10S breakout that has since been rejected — see [The GPS is an L76K](#the-gps-is-an-l76k-and-it-is-not-a-carrier-part). The top face now needs only 21 mm, __the 84 mm bottom face is unchanged, and so is every number in the frozen interface above__. Nothing reprints.
+__The bottom face sets the length.__ The top-face line above once read `XIAO-ESP32S3-lora 21 + GPS ~25 = 46 mm`, from a MAX-M10S breakout that has since been rejected — see [The GPS is an L76K](#the-gps-is-an-l76k-and-it-is-not-a-carrier-part). The top face now needs only 21 mm, __the 84 mm bottom face is unchanged, and so is every number in the frozen interface above__. Nothing reprints.
 
 ## The XIAO stack, and why there is no cutout
 
@@ -71,7 +71,7 @@ available         = 2 x 17.6      = 35.2 mm     fits, ~2 mm margin
 
 There is __no schematic file__. Nets are assigned to pads directly in the generator, which is more robust than hand-authoring schematic s-expressions for ~9 nets and keeps one generator as the single source of truth. The cost is no ERC and no drawn diagram — so this table *is* the wiring diagram. __Keep it in step with `gen_carrier.py`.__
 
-| Net | XIAO A (plain, beacon) | XIAO B (Sense, recorder) | Also reaches |
+| Net | XIAO-ESP32S3-lora | XIAO-ESP32S3-cam | Also reaches |
 |---|---|---|---|
 | `GND` | pin 13 | pin 13 | In1 plane, every module, JST − |
 | `+3V3` | pin 12 | pin 12 | In2 plane, every module |

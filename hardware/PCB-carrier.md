@@ -15,11 +15,11 @@ The frozen interface is in [README.md](../README.md). This page is what the boar
 
 __Why not two smaller boards.__ The twin-PCB plan assumed each XIAO could sit flat on its own card with a cutout clearing the expansion board underneath. The XIAO's own footprint kills it: pads at __±8.5 mm__, expansion board at __±8.75 mm__. __The thing needing clearance is wider than the pads are apart__, so any cutout large enough to pass it removes the copper the pads solder to. No geometry satisfies both.
 
-__Why not 24 × 70.__ The two XIAOs cannot overlap in plan view — they mount on __through-hole__ headers, and XIAO A uses D6/D7 for the GPS UART where XIAO B uses D4/D5 for I2C. Different nets, same holes. So they sit end to end, and at 24 mm wide against 17.8 mm sensors nothing sits side by side:
+__Why not 24 × 70.__ The two XIAOs cannot overlap in plan view — they mount on __through-hole__ headers, and XIAO-ESP32S3-lora uses D6/D7 for the GPS UART where XIAO-ESP32S3-cam uses D4/D5 for I2C. Different nets, same holes. So they sit end to end, and at 24 mm wide against 17.8 mm sensors nothing sits side by side:
 
 ```text
-top face     XIAO A 21, GPS in the stack, not end to end   = 21 mm
-bottom face  XIAO B 21 + LSM6DSO32 25.5 + BMP388 25.5 + buzzer = 84 mm
+top face     XIAO-ESP32S3-lora 21, GPS in the stack, not end to end  = 21 mm
+bottom face  XIAO-ESP32S3-cam 21 + LSM6DSO32 25.5 + BMP388 25.5 + buzzer = 84 mm
 ```
 
 __The bottom face sets the length.__ The top-face figure once read 46 mm, from a MAX-M10S that would have sat on the carrier; that part is gone and the L76K rides the XIAO stack instead. 84 mm on the bottom still drives the board, so __nothing about the frozen interface moves and the sled does not reprint__.

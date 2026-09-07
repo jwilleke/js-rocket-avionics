@@ -64,7 +64,7 @@ Both ride one carrier PCB, on opposite faces. __Two MCUs, not one__, so the beac
 
 | Part | Why this one |
 |---|---|
-| __XIAO ESP32S3 + Wio-SX1262__ | Supported Meshtastic device out of the box. __Must be the matched B2B kit variant__ — buy SKU 102010611 as a kit, never the two boards separately. It arrives pre-flashed, which is the entire premise of board A |
+| __XIAO ESP32S3 + Wio-SX1262__ | Supported Meshtastic device out of the box. __Must be the matched B2B kit variant__ — buy SKU 102010611 as a kit, never the two boards separately. It arrives pre-flashed, which is the entire premise of XIAO-ESP32S3-lora |
 | __U.FL 82 mm whip__ | LoRa antenna, runs forward up the ogive. Included in the kit |
 | __L76K GNSS__ | __Active antenna included.__ Plugs onto the XIAO's own 14 pads and talks UART on D6/D7 — __no carrier footprint needed__. Replaced a MAX-M10S that was 44.2 × 30.5 mm and ~$60 |
 | __XIAO ESP32S3 Sense__ | Recorder MCU. Carries the camera — an __OV3660__, confirmed off the ribbon 2026-09-06, not the OV2640 assumed throughout — and the microSD slot on its expansion board |

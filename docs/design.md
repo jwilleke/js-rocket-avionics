@@ -10,10 +10,10 @@ Related: [BOM.md](BOM.md) (parts and masses) · [shopping-list.md](shopping-list
 
 | Decision | Value | Why |
 |---|---|---|
-| MCU | __Two__ XIAO ESP32S3 — one plain (__A__), one __Sense__ (__B__) | Restores a zero-firmware recovery beacon and isolates it from flight-firmware failure |
+| MCU | __Two__ XIAO ESP32S3, told apart by the expansion board on each — __XIAO-ESP32S3-lora__ and __XIAO-ESP32S3-cam__ | Restores a zero-firmware recovery beacon and isolates it from flight-firmware failure |
 | Interconnect | __One carrier PCB__ on the sled's centre plane, parts on both faces, 1.0 mm FR4, 4-layer, __24 × 95 mm__ | A XIAO stack is 15 mm tall, which no 11 mm face channel holds |
-| Board A firmware | __Stock Meshtastic__, pre-flashed by Seeed. No code written | The Wio-SX1262 + XIAO ESP32S3 kit is a supported Meshtastic device out of the box |
-| Board B firmware | Custom — camera, sensors, PSRAM logging, Wi-Fi | Not yet started |
+| XIAO-ESP32S3-lora firmware | __Stock Meshtastic__, pre-flashed by Seeed. No code written | The Wio-SX1262 + XIAO ESP32S3 kit is a supported Meshtastic device out of the box |
+| XIAO-ESP32S3-cam firmware | Custom — camera, sensors, PSRAM logging, Wi-Fi | Not yet started |
 | Camera | __OV3660__ on the Sense expansion board — __confirmed off the ribbon 2026-09-06__, having been recorded as an OV2640 throughout | Estes AstroCam was considered and dropped |
 | Barometric static port | __Dropped__ | See below |
 | Apogee method | __Inertial primary__; GPS anchor by __offline timestamp merge__, not real time | The cost of putting GPS on the stock-Meshtastic board |
@@ -30,7 +30,7 @@ A single board collapsed everything into one custom firmware image: DVP camera, 
 - a boot-loop at the pad requires removing the M3 × 55, the nose and the sled, with a laptop present, because USB is unreachable assembled and OTA needs firmware that boots;
 - stock Meshtastic could not be flashed as a rescue, because the radio would be on custom pins.
 
-Two boards restore the fallback and, as a side effect, dissolve two other problems: board B sheds LoRa (4 pads) and GPS UART (2), so __an I2C GPIO expander is no longer needed__, and board B's SPI carries only the microSD, so __a "no transmit while recording" scheduling rule is unnecessary__ — different MCU, different bus.
+Two boards restore the fallback and, as a side effect, dissolve two other problems: XIAO-ESP32S3-cam sheds LoRa (4 pads) and GPS UART (2), so __an I2C GPIO expander is no longer needed__, and XIAO-ESP32S3-cam's SPI carries only the microSD, so __a "no transmit while recording" scheduling rule is unnecessary__ — different MCU, different bus.
 
 Two boards cost __~3 g__ against a single-MCU design, and buy the zero-firmware beacon, failure isolation, the end of pin scarcity, and the end of SPI contention.
 
@@ -97,16 +97,16 @@ Net list is small — roughly __9 nets__: GPS TX, GPS RX, SDA, SCL, buzzer, 3V3,
 
 ### The board could not stay 24 × 70
 
-The two XIAOs cannot overlap in plan view. They mount on __through-hole__ headers, so the holes pass through the card, and XIAO A uses D6/D7 for the GPS UART while XIAO B uses D4/D5 for I2C — different nets on the same holes. They sit end to end:
+The two XIAOs cannot overlap in plan view. They mount on __through-hole__ headers, so the holes pass through the card, and XIAO-ESP32S3-lora uses D6/D7 for the GPS UART while XIAO-ESP32S3-cam uses D4/D5 for I2C — different nets on the same holes. They sit end to end:
 
 ```text
-top face     XIAO A 21 + GPS in the stack, not end to end     = 21 mm
-bottom face  XIAO B 21 + LSM6DSO32 25.5 + BMP388 25.5 + buzzer = 84 mm
+top face     XIAO-ESP32S3-lora 21 + GPS in the stack, not end to end    = 21 mm
+bottom face  XIAO-ESP32S3-cam 21 + LSM6DSO32 25.5 + BMP388 25.5 + buzzer = 84 mm
 ```
 
-At 24 mm wide against 17.8 mm sensors, no two parts sit side by side. __24 × 95 mm__, costing 1.1 g, and still inside the sled with room to spare. XIAO B centres at carrier y = 18 mm so the camera lands at nose z 30..45.
+At 24 mm wide against 17.8 mm sensors, no two parts sit side by side. __24 × 95 mm__, costing 1.1 g, and still inside the sled with room to spare. XIAO-ESP32S3-cam centres at carrier y = 18 mm so the camera lands at nose z 30..45.
 
-__The bottom face sets the length.__ The top-face figure once read `XIAO A 21 + GPS ~25 = 46 mm`, from a MAX-M10S breakout that would have sat on the carrier end to end. That part is gone and the L76K rides the XIAO stack instead, so the top face needs only its 21 mm — but 84 mm on the bottom still drives the board, so __nothing about the frozen interface moves and the sled does not reprint__.
+__The bottom face sets the length.__ The top-face figure once read `XIAO-ESP32S3-lora 21 + GPS ~25 = 46 mm`, from a MAX-M10S breakout that would have sat on the carrier end to end. That part is gone and the L76K rides the XIAO stack instead, so the top face needs only its 21 mm — but 84 mm on the bottom still drives the board, so __nothing about the frozen interface moves and the sled does not reprint__.
 
 ### The GPS is an L76K, not a MAX-M10S
 
@@ -182,7 +182,7 @@ The whole flight fits roughly nine times over. Zero flash writes and zero SD wri
 - __Use the IMU's FIFO — do not poll at 500 Hz.__ The LSM6DSO32 carries a 9 KB FIFO. Batch-reading cuts ISR load, relieves the PSRAM path, and means a brief stall queues samples in the sensor instead of losing them. __Treat a FIFO as a hard requirement on any substitute.__
 - __The buzzer does three jobs.__ (1) Last-20-metre locator — GPS lands you in a 3–10 m circle and a white PLA rocket vanishes in tall grass at 2 m. (2) __The only status channel on the pad__ — with the nose assembled, USB is unreachable, Wi-Fi is off, and the GPIO21 LED is sealed inside, so beep patterns are the only way the rocket reports booted / armed / sensors alive. (3) Beeping apogee in digits after landing, needing no phone.
 - __The buzzer is *passive*, PWM-driven from D0.__ An earlier revision specified an active self-oscillating part, because the buzzer then hung off an I2C GPIO expander where a ~3 kHz tone meant 6000 bus transactions a second. Two boards freed the pins, the expander went, and a real GPIO can PWM a passive element directly — giving __multiple tones__ rather than one, which is what makes beep patterns readable as distinct codes.
-- __The buzzer is not radio redundancy__ — it shares board B's MCU. Only a self-powered beeper with its own cell (~5 g, zero pins) is immune to firmware and MCU failure. Not adopted; revisit if recovery confidence matters more than grams.
+- __The buzzer is not radio redundancy__ — it shares XIAO-ESP32S3-cam's MCU. Only a self-powered beeper with its own cell (~5 g, zero pins) is immune to firmware and MCU failure. Not adopted; revisit if recovery confidence matters more than grams.
 - __Sound must escape a sealed PLA cone.__ A piezo in a closed cavity loses 20–30 dB. Mount the disc __against the nose wall__ so the shell acts as a soundboard; the camera port is a free acoustic leak, and the bay is open at its base.
 - __The barometer is interchangeable.__ With the static port dropped it is not the altimeter. __BMP388__ shares the BMP3xx driver so it is a drop-in for the out-of-stock BMP390, and a generic BMP280 would serve.
 
@@ -223,7 +223,7 @@ __8 mm it is__, and the assembly constraint that follows: keep the lens front el
 
 - __Do not fit the wide-angle lens.__ The 120–160° M7 option cannot match the 25° CRA, producing severe corner vignetting and colour crosstalk, and it would need a far larger hole in a load-bearing collar.
 - __Focus is adjustable__ via the M5/M6 lens thread. Hyperfocal at f/2.8 with a ~4.4 µm circle of confusion is ~1.9 m, so everything past ~1 m is sharp.
-- __Do not extend the camera flex__ — the DVP bus runs a ~20 MHz XCLK. Board B's position on the carrier is what puts the XIAO at nose z 30..45 instead.
+- __Do not extend the camera flex__ — the DVP bus runs a ~20 MHz XCLK. XIAO-ESP32S3-cam's position on the carrier is what puts the XIAO at nose z 30..45 instead.
 
 ## PCB staging
 
@@ -264,32 +264,32 @@ __Board B's flight firmware does not exist yet.__ Camera, sensors, PSRAM bufferi
 Do not fly all the variables at once.
 
 ```text
-flight 1   board A only, stock Meshtastic, no camera
+flight 1   XIAO-ESP32S3-lora only, stock Meshtastic, no camera
            validates: airframe, recovery, GPS lock through PLA, LoRa range from altitude
-flight 2   + board B flight recorder (sensors, PSRAM log)
+flight 2   + XIAO-ESP32S3-cam flight recorder (sensors, PSRAM log)
 flight 3   + video
 ```
 
-Each flight adds one thing, and the recovery beacon is proven before anything expensive rides on it. __This is only possible because board A needs no firmware.__
+Each flight adds one thing, and the recovery beacon is proven before anything expensive rides on it. __This is only possible because XIAO-ESP32S3-lora needs no firmware.__
 
 ## Verification
 
-1. __Bench prototype before layout.__ Breadboard both populations. Prove board A enumerates as a Meshtastic device untouched, and that board B boots with camera, SD and I2C sensors live, with the strapping pins (GPIO3, 43, 44) behaving.
+1. __Bench prototype before layout.__ Breadboard both populations. Prove XIAO-ESP32S3-lora enumerates as a Meshtastic device untouched, and that XIAO-ESP32S3-cam boots with camera, SD and I2C sensors live, with the strapping pins (GPIO3, 43, 44) behaving.
 2. __Confirm the silicon matches the label__ before designing footprints round it — see [module-pinouts.md](module-pinouts.md).
-3. __PCB bring-up__ — power, then board A: GPS UART and LoRa; then board B: I2C enumeration and camera. __Measure GPS lock time with the LoRa transmitting__, since desense cannot be reasoned about from a schematic.
-4. __Sample-rate integrity under load__ — run board B's 500 Hz sampler with the camera recording to SD and confirm __zero dropped samples__ by checking timestamp deltas, not by trusting the loop.
-5. __Shared-cell behaviour__ — confirm the camera's inrush on board B does not brown out board A, and that charging through one USB port with both BAT pads connected behaves.
+3. __PCB bring-up__ — power, then XIAO-ESP32S3-lora: GPS UART and LoRa; then XIAO-ESP32S3-cam: I2C enumeration and camera. __Measure GPS lock time with the LoRa transmitting__, since desense cannot be reasoned about from a schematic.
+4. __Sample-rate integrity under load__ — run XIAO-ESP32S3-cam's 500 Hz sampler with the camera recording to SD and confirm __zero dropped samples__ by checking timestamp deltas, not by trusting the loop.
+5. __Shared-cell behaviour__ — confirm the camera's inrush on XIAO-ESP32S3-cam does not brown out XIAO-ESP32S3-lora, and that charging through one USB port with both BAT pads connected behaves.
 6. __Buzzer audibility, assembled__ — beep inside a closed Nosecone and listen from 20 m. A sealed cavity costs 20–30 dB; couple the disc harder to the shell before considering a dedicated sound hole.
 7. __Mass__ — weigh the loaded sled and hand the real number to the rocket's stability re-run, [#9](https://github.com/jwilleke/js-rocket/issues/9). __Do not fly on the estimate.__
 
 ## Risks
 
 - __One board carries both MCUs.__ A layout bug takes the beacon and the recorder together — the cost of a single carrier. Firmware and MCU failures are still isolated; only the copper is shared.
-- __No real-time GPS anchor for the inertial log.__ GPS sits on the stock-Meshtastic board, which broadcasts position at a low rate and will not set the `airborne <4g` dynamic model, so lock may drop under boost. Altitude integration is anchored by an __offline timestamp merge__, which is weaker. Cross-linking a UART would fix it and would stop board A being stock, defeating the purpose.
-- __A PSRAM-only log is lost if board B resets.__ Nothing is on non-volatile media until the landing flush. A brownout, watchdog reset or hard landing costs the whole flight's telemetry while the SD video survives. Mitigate with checkpoint flushes during the low-rate descent phase, never during boost.
+- __No real-time GPS anchor for the inertial log.__ GPS sits on the stock-Meshtastic board, which broadcasts position at a low rate and will not set the `airborne <4g` dynamic model, so lock may drop under boost. Altitude integration is anchored by an __offline timestamp merge__, which is weaker. Cross-linking a UART would fix it and would stop XIAO-ESP32S3-lora being stock, defeating the purpose.
+- __A PSRAM-only log is lost if XIAO-ESP32S3-cam resets.__ Nothing is on non-volatile media until the landing flush. A brownout, watchdog reset or hard landing costs the whole flight's telemetry while the SD video survives. Mitigate with checkpoint flushes during the low-rate descent phase, never during boost.
 - __The PCB is on the critical path.__ Sled geometry derives from its outline and mounting holes, so a layout revision reprints the sled. Freeze the outline early; breadboard before committing to copper.
 - __GPS desense from the LoRa transmitter__ cannot be reasoned away on paper. ≥50 mm antenna separation and both antennas on U.FL are the mitigations; verification step 3 is the proof.
-- __Shared cell couples the boards.__ A camera brownout could disturb board A. Separate cells would isolate them at +8 g, which the mass budget cannot afford.
+- __Shared cell couples the boards.__ A camera brownout could disturb XIAO-ESP32S3-lora. Separate cells would isolate them at +8 g, which the mass budget cannot afford.
 - __A welded reed switch is an armed rocket that cannot be safed.__ Contacts are small and the camera's inrush is unquantified; the mitigation is to switch a MOSFET rather than the load. Unresolved — see [Arming](#arming--the-reed-switch-and-two-things-not-yet-decided).
 - __Estimated masses were unreliable in both directions.__ Nine parts weighed 2026-08-17: the __L76K came in +184%__ and is now the heaviest object in the nose, while the Sense and the radio came in light. Net __+4.1 g__, putting the nose over its ~50 g target — see [BOM.md](BOM.md), which owns every weight.
 - __The rocket's stability re-run ([#9](https://github.com/jwilleke/js-rocket/issues/9)) is P0 and blocking.__ This payload can be built and bench-tested now, but __it cannot be flown__ until that clears.

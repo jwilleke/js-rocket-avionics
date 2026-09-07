@@ -7,17 +7,17 @@ Supersedes gen_outline.py (stage 2a), which produced outline and holes only.
 
 WHY THE BOARD GREW FROM 24x70 TO 24x95. The 70 mm figure assumed the two XIAOs
 could overlap in plan view, one per face. They cannot: these are *through-hole*
-stacking headers, so the holes pass through the board, and XIAO A uses D6/D7
-for the GPS UART while XIAO B uses D4/D5 for I2C -- different nets on the same
+stacking headers, so the holes pass through the board, and XIAO-ESP32S3-lora uses D6/D7
+for the GPS UART while XIAO-ESP32S3-cam uses D4/D5 for I2C -- different nets on the same
 holes. They have to sit end to end. Laying the real parts out:
 
-    top face     XIAO A 21 + GPS in the stack, not end to end    = 21 mm
-    bottom face  XIAO B 21 + LSM6DSO32 25.5 + BMP388 25.5 + buzzer = 84 mm
+    top face     XIAO-ESP32S3-lora 21 + GPS in the stack, not end to end   = 21 mm
+    bottom face  XIAO-ESP32S3-cam 21 + LSM6DSO32 25.5 + BMP388 25.5 + buzzer = 84 mm
 
 and the board is 24 mm wide against 17.8 mm sensors, so no two sit side by
 side. 95 mm gives the bottom face its 84 mm plus spacing.
 
-The top-face line above once read "XIAO A 21 + GPS ~25 = 46 mm", from a
+The top-face line above once read "XIAO-ESP32S3-lora 21 + GPS ~25 = 46 mm", from a
 MAX-M10S breakout that was rejected on 2026-08-06 (44.2 x 30.5 mm -- wider
 than this board -- and ~$60). The GPS is a Seeed L76K for XIAO (109100021),
 which plugs onto the XIAO's own 14 pads and needs no footprint here. The

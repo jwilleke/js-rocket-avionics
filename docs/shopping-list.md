@@ -64,7 +64,7 @@ __Nothing is on a truck any more.__ Every ordered part is on the bench as of __2
 
 ### What can be done now, without waiting
 
-1. __Breadboard board B in full.__ Sense, BMP388, LSM6DSO32, buzzer and cell are all here. Qwiic cables ship with both sensors, so the I2C bus needs no soldering. Confirm the camera, the microSD slot and both sensors enumerate, and that the strapping pins (GPIO3, 43, 44) behave.
+1. __Breadboard XIAO-ESP32S3-cam in full.__ Sense, BMP388, LSM6DSO32, buzzer and cell are all here. Qwiic cables ship with both sensors, so the I2C bus needs no soldering. Confirm the camera, the microSD slot and both sensors enumerate, and that the strapping pins (GPIO3, 43, 44) behave.
 2. __Measure and photograph every header__ before drawing a footprint — see [module-pinouts.md](module-pinouts.md). Only the BMP388 has been through this. __A wrong pin order scraps a board rather than costing a re-solder.__
 3. __Check the L76K's own geometry.__ It is documented as plugging onto the XIAO's 14 pads rather than presenting a header to the carrier, which is why no GPS footprint is planned. That claim can be checked against the part directly.
 
