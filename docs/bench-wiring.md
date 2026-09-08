@@ -40,13 +40,36 @@ Two module stacks and a breadboard. The stacks are already assembled by their B2
 
 __Only stack 1 gets sensors and a buzzer.__ Stack 2 has nothing wired to it at all except the two battery wires.
 
-__And stack 2 does not go into the breadboard either__ — not as a simplification, but because it cannot: [L76K-GNSS](../hardware/L76K-GNSS.md) rides the XIAO's own 14 pads and the [Wio-SX1262](../hardware/Wio-SX1262-LoRa.md) is on its B2B connector, so there is nothing left to push into a board. Whether those two coexist at all is the open question the bench is there to settle — [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6), and it is why the stack check comes before any power.
+__Stack 2 needs no breadboard for its own sake__ — [L76K-GNSS](../hardware/L76K-GNSS.md) rides the XIAO's own 14 pads and the [Wio-SX1262](../hardware/Wio-SX1262-LoRa.md) is on its B2B connector, so once those are stacked there is nothing left to push into a board. Whether those two coexist at all is the open question the bench is there to settle — [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6), and it is why the stack check comes before any power.
+
+### As actually set up: two boards, one XIAO each
+
+![Two 30-row breadboards, one bare XIAO ESP32-S3 seated across the centre channel on each, no other parts fitted](resources/bench-breadbooards.jpg)
+
+__Each XIAO is on its own 30-row A–J board__, seated across the centre channel, and neither has its expansion board mated yet. That is a better arrangement than the single board this page first assumed, and nothing in the wiring below has to change for it — because __stack 2 was never going to share a rail anyway__. It takes only the two battery wires, and those are soldered pigtails to underside pads, not breadboard holes.
+
+Two consequences worth stating, because "rail" now means two different things:
+
+- __Every rail reference below is the *cam* board's rails.__ The lora board's rails are unused. Do not run a jumper between the two boards' rails: the only intended path between the stacks is the battery junction, and a second one turns a measurement into a guess when [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) looks for sag
+- __The grounds are still common__, through the battery pigtail junction on battery, and through the host on USB if both are plugged into the same machine. That is expected; it is what makes a shared-battery brownout measurable at all
+
+__Both XIAOs are bare in the photograph__, which is the moment to check item 3 below: the `BAT` pads are reachable now and will not be once the expansion boards go on.
 
 ## Check three things on the parts before wiring anything
 
 __1 — The cam copy has no headers soldered on.__ [XIAO-ESP32S3-cam](../hardware/XIAO-ESP32S3-cam.md) ships its two 7-pin strips loose; [the lora copy](../hardware/XIAO-ESP32S3-lora.md) already has its soldered. No headers means nothing to push into a breadboard, so those two strips have to go on first — pins pointing __down__, because the Sense camera board sits on top.
 
-__2 — Test-fit the header strips in the breadboard before you solder them.__ Push both strips into the board, holes six apart across the centre channel, then lay the XIAO on top and check every pad lines up. [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md) records the two rows as __17.0 mm apart__, and a breadboard's holes are 2.54 mm apart, so the pads have to land on a whole number of holes — 6 holes is 15.24 mm, 7 is 17.78. __Whichever it is, find out with the parts dry-fitted, not with solder on them.__ If the recorded 17.0 is edge-to-edge rather than centre-to-centre, that page needs correcting and it is worth doing while the calipers are out.
+__2 — Test-fit the header strips in the breadboard before you solder them.__ [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md) records the two pad rows as __17.0 mm apart__, and breadboard holes are 2.54 mm apart, so the strips have to land on a whole number of pitches.
+
+__Count in millimetres, not in holes.__ The centre channel is 7.62 mm wide — three pitches, not one — so counting letters gives the wrong answer. Measuring from column `a`:
+
+```text
+a 0.00   b 2.54   c 5.08   d 7.62   e 10.16  | channel |  f 17.78  g 20.32  h 22.86  i 25.40  j 27.94
+```
+
+__7 pitches = 17.78 mm is the fit__, 0.78 mm wider than the pads, which the pins take up without complaint. 6 pitches is 15.24 mm and 1.76 mm short — too far to spring. Any pair 17.78 mm apart works: __`c` and `h`__, or equally `a`/`f`, `b`/`g`, `d`/`i`, `e`/`j`. Note that `c` to `h` is only five letters but seven pitches; that is the channel, and it is why an earlier revision of this line said "six apart" and was ambiguous at best.
+
+__Confirmed on the bench__ — both XIAOs are seated across the channel in the photograph below. If the recorded 17.0 turns out to be edge-to-edge rather than centre-to-centre, correct `XIAO-ESP32S3-cam.md` while the calipers are out.
 
 __3 — Can you still reach the BAT pads?__ `BAT+`/`BAT−` are __pads on the underside of the XIAO__, not on the edge, and [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md) warns they are __inaccessible once the expansion board is fitted__. If the Sense board is already mated, the battery cannot reach that XIAO without unmating it. Look before planning the session around it.
 
@@ -84,24 +107,39 @@ __That is a mirror of [module-pinouts.md](module-pinouts.md#xiao-esp32s3--read-o
 
 ### Every connection, as a list
 
+__Every rail named here is on the *cam* board__ — see the two-board note above. The lora board's rails stay empty.
+
 | From | To | Note |
 |---|---|---|
 | Battery red (+) | `BAT+` pad, __cam__ XIAO underside | soldered pigtail |
 | Battery red (+) | `BAT+` pad, __lora__ XIAO underside | soldered pigtail, same wire junction |
 | Battery black (−) | `BAT−` pad, both XIAOs | soldered pigtails |
-| cam pin 12 `3V3` | red rail | the only thing feeding the red rail |
-| cam pin 13 `GND` | blue rail | |
-| red rail | BMP388 `VIN` | __not `3Vo`__ — that pin is the sensor's own regulator output and back-feeding it kills the part |
-| blue rail | BMP388 `GND` | |
+| cam pin 12 `3V3` | cam board red rail | the only thing feeding it — __never `5V`__, which is dead on battery |
+| cam pin 13 `GND` | cam board blue rail | |
+| cam red rail | BMP388 `VIN` | __not `3Vo`__ — that pin is the sensor's own regulator output and back-feeding it kills the part |
+| cam blue rail | BMP388 `GND` | |
 | cam pin 5 `D4` | BMP388 `SDA` | |
 | cam pin 6 `D5` | BMP388 `SCL` | |
-| red rail | LSM6DSO32 `VIN` | Primary row, __not__ the 5-pin Aux row |
-| blue rail | LSM6DSO32 `GND` | |
+| cam red rail | LSM6DSO32 `VIN` | Primary row, __not__ the 5-pin Aux row |
+| cam blue rail | LSM6DSO32 `GND` | |
 | cam pin 5 `D4` | LSM6DSO32 `SDA` | same wire as the BMP388's — two sensors, one bus |
 | cam pin 6 `D5` | LSM6DSO32 `SCL` | same wire as the BMP388's |
 | cam pin 1 `D0` | buzzer, either leg | |
-| blue rail | buzzer, other leg | |
+| cam blue rail | buzzer, other leg | |
 | — | __XIAO-ESP32S3-lora, everything else__ | __nothing.__ Only the two battery wires |
+| — | BMP388 `CS`, `SDO`, `3Vo`, `INT` | left alone. `CS` is [#19](https://github.com/jwilleke/js-rocket-avionics/issues/19) — if the part does not answer at `0x77`, that pin is the first suspect |
+| — | LSM6DSO32 `DO`, `CS`, `I1`, `I2`, and the whole 5-pin Aux row | left alone. No interrupt line exists in this design; the FIFO is read by polling |
+
+__It fits on 30 rows, with the XIAO across the channel at the top:__
+
+```text
+rows  1..7    XIAO-ESP32S3-cam, pads in c and h
+rows  9..16   BMP388, 8-pin row
+rows 18..26   LSM6DSO32, 9-pin Primary row
+rows 28..29   buzzer
+```
+
+A sensor on one header row stands on that row alone and will tilt — that is cosmetic, not electrical. If the Qwiic cables have loose pins on one end, the sensors need not go into the board at all.
 
 ### The sensor cables, which may or may not save you the soldering
 

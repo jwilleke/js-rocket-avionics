@@ -120,7 +120,7 @@ __XIAO B centres at carrier y = 18 mm__, which is what puts the camera at nose z
 | Stage | State |
 |---|---|
 | 2a — outline, mounting holes, stackup | __done__ |
-| 2b — nets and footprints | __BROKEN__ — XIAOs placed, but __5 of 9 nets land on the wrong pin__ ([#18](https://github.com/jwilleke/js-rocket-avionics/issues/18)); sensors, buzzer and JST deferred |
+| 2b — nets and footprints | __partial__ — XIAOs placed and netted, [#18](https://github.com/jwilleke/js-rocket-avionics/issues/18) fixed and closed 2026-09-08 (`c2468eb`: the +8.5 row unmirrored, and `verify_pins()` now asserts every net against the footprint's own pin table on each run). Sensors, buzzer and JST still deferred to [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14) |
 | 2c — placement | blocked on measured module pinouts — [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14) |
 | 2d — routing | __not started__. Autorouting is wrong here — [#15](https://github.com/jwilleke/js-rocket-avionics/issues/15) |
 | 2e — gerber + drill export | chain proven; needs a finished board |
@@ -133,7 +133,9 @@ An earlier generator revision put GPS on pins 6/7 and I2C on 4/5 — __D5/D6 and
 
 > __It happened again, and this section is why that stings.__ [#18](https://github.com/jwilleke/js-rocket-avionics/issues/18), found 2026-09-08: the whole `+8.5 mm` row is mirrored end for end, so `+3V3` and `GND` land on __D9 and D8__ and `GPS_RX` on the __5V pin__. Naming the pins fixed the arithmetic and did nothing about the row order.
 >
-> __The read-back was written down as the check and never made routine.__ That is the actual defect — a check that only runs when someone remembers is a check that catches the first instance and not the second. #18 asks for it as an assertion against the footprint's own pin table, so the third instance is caught by CI.
+> __The read-back was written down as the check and never made routine.__ That is the actual defect — a check that only runs when someone remembers is a check that catches the first instance and not the second.
+>
+> __Now it runs.__ `c2468eb` closed [#18](https://github.com/jwilleke/js-rocket-avionics/issues/18) by unmirroring the row *and* adding `verify_pins()`, which asserts every placed net against `MCU_Seeed_ESP32C3`'s own pin coordinates on every generate — checking __both__ x and y, because pins 7 and 8 share a y and only x tells the two rows apart. A third instance fails the build rather than waiting for someone to read the board.
 
 ## Ordering
 

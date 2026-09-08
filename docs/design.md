@@ -220,7 +220,7 @@ Fab-ready Gerbers are the *output* of a routed board, not something authored dir
 | Stage | Deliverable | State |
 |---|---|---|
 | 2a | Board outline, mounting holes, stackup | __done__, DRC clean |
-| 2b | Nets and footprints | __partial__ — XIAOs placed and netted; sensors, buzzer, JST deferred |
+| 2b | Nets and footprints | __partial__ — XIAOs placed and netted, pin mapping now asserted on every generate ([#18](https://github.com/jwilleke/js-rocket-avionics/issues/18), closed `c2468eb`); sensors, buzzer, JST deferred |
 | 2c | Placement — module positions, keepouts, ≥50 mm antenna separation | blocked on confirming real module pinouts |
 | 2d | Routing — 4-layer. Autorouting is wrong here; needs interactive KiCad | not started |
 | 2e | Gerber RS-274X + Excellon drill export | chain proven; needs a finished board |
