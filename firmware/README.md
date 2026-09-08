@@ -7,14 +7,14 @@ A sketch carries its build configuration in IDE menu state — which board, whet
 | Project | For | State |
 |---|---|---|
 | [`bringup-cam/`](bringup-cam/) | [XIAO-ESP32S3-cam](../hardware/XIAO-ESP32S3-cam.md) + [Sense-camera-board](../hardware/Sense-camera-board.md) bench bring-up, [#7](https://github.com/jwilleke/js-rocket-avionics/issues/7) | __untested — no hardware has run it__ |
-| [`soak-power/`](soak-power/) | the shared-cell load test, [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) — drives capture + SD write bursts and logs every cycle and every reset to the card | __untested — no hardware has run it__ |
+| [`soak-power/`](soak-power/) | the shared-battery load test, [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) — drives capture + SD write bursts and logs every cycle and every reset to the card | __untested — no hardware has run it__ |
 
 ```sh
 cd firmware/bringup-cam
 pio run -t upload && pio device monitor
 ```
 
-__`soak-power` is flashed the same way and then run with the USB unplugged__, because USB-C powers the board and a monitored run measures the bench supply rather than the cell. Its record is `/soak-power.csv` on the card, read after the run.
+__`soak-power` is flashed the same way and then run with the USB unplugged__, because USB-C powers the board and a monitored run measures the bench supply rather than the battery. Its record is `/soak-power.csv` on the card, read after the run.
 
 __None of this is flight firmware.__ Bring-up proves the parts are alive and talking. Apogee, staging and landing detection need the flight profile settled first — see [design.md](../docs/design.md).
 

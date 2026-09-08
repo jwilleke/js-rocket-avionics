@@ -73,7 +73,7 @@ Both ride one carrier PCB, on opposite faces. __Two MCUs, not one__, so the beac
 | __Piezo buzzer__ | PWM from D0. __Passive, not active__ — a real GPIO can drive multiple tones, so beep patterns read as distinct status codes |
 | __Carrier PCB__ | The sled's structural span. See [README](../README.md) for the frozen interface. __Blocked behind breadboarding, deliberately__ — a layout error costs ~$33 and two weeks |
 | __7-pin headers__ | Two per XIAO, onto its 14 pads in two rows __17.0 mm apart__ — __not__ a dual-row 2×7, whose rows are 2.54 mm apart. Standard height, __~2.50 mm standoff__, which is all that is needed: the expansion board sits __above__ the XIAO, not below it |
-| __LiPo 500 mAh__ | One cell feeds both MCUs. Over an hour against ~300 mA |
+| __LiPo 500 mAh__ | One battery feeds both MCUs. Over an hour against ~300 mA |
 | __Arming switch__ | Sits __in the battery line__, not on a GPIO — physically cuts power, zero pins. __No longer a reed switch__: superseded 2026-08-15 by a __pull-pin plus a subminiature microswitch__. Nothing bought, no part number; the 1.5 g is inherited from the reed-switch design |
 | __microSD__ | __Video only, and in hand.__ The old A1/A2 / pSLC requirement was written when the sampler wrote to the card in flight; __PSRAM buffering removed that__. What is left is sequential video write — a speed-class question, not a random-IOPS one |
 
@@ -88,7 +88,7 @@ Both ride one carrier PCB, on opposite faces. __Two MCUs, not one__, so the beac
 | __TeleMega__ | 31.75 mm will not enter the 40 mm bore with its battery. ~$400. Six pyro channels this rocket cannot use, and 70 cm telemetry needs an amateur licence |
 | __LILYGO T-Beam__ | 33 mm wide × ~30 mm with the 18650 holder, against 22.6 mm of available depth at that width |
 | __18650 cell__ | Would put nose mass near 65 g |
-| __Second cell for isolation__ | +8 g the budget cannot afford. Cost: a camera brownout on B can disturb A |
+| __Second battery for isolation__ | +8 g the budget cannot afford. Cost: a camera brownout on B can disturb A |
 | __Self-powered beeper__ | ~5 g, zero pins, and immune to MCU failure — but the buzzer already shares B's MCU. Revisit if recovery confidence outranks grams |
 
 ## Fallbacks worth remembering

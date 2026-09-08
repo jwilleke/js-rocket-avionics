@@ -4,6 +4,8 @@ __One page per part, and the source of truth for the hardware in use.__ What eac
 
 __These pages are not a history and not a task list.__ They say what is, not what changed or what to do next. Decisions and open work live in [issues](https://github.com/jwilleke/js-rocket-avionics/issues); what happened in a session lives in `private/project_log.md`; the reasoning behind the design lives in [design.md](../docs/design.md).
 
+__These pages also fix the vocabulary.__ A part is called by the name of its page here — [XIAO-ESP32S3-cam](XIAO-ESP32S3-cam.md) and [XIAO-ESP32S3-lora](XIAO-ESP32S3-lora.md), never "board A" and "board B" — and where a page has a plain-English word for the thing, that word is the one to use. __The [LiPo-500mAh](LiPo-500mAh.md) is the battery.__ It is not "the cell": that is a word from datasheets, it reads as jargon to everyone who has to work on this, and one battery made of one cell gains nothing by the distinction.
+
 __These pages hold no part numbers and no masses.__ [BOM.md](../docs/BOM.md) owns both and says so: *"anything else that quotes a part number or a mass is wrong — link here instead."* A number in two places is a number that will disagree with itself.
 
 | | Page | Goes with | Photos | What it is |
@@ -16,7 +18,7 @@ __These pages hold no part numbers and no masses.__ [BOM.md](../docs/BOM.md) own
 | Sensor | [LSM6DSO32.md](LSM6DSO32.md) | carrier | grid + back | ±32 g IMU with a 9 KB FIFO |
 | Sensor | [BMP388-barometer.md](BMP388-barometer.md) | carrier | grid + 2 close | Unported barometer, 0x77 |
 | Output | [PS1240-buzzer.md](PS1240-buzzer.md) | carrier | __none__ | Passive piezo. The only status channel on the pad |
-| Power | [LiPo-500mAh.md](LiPo-500mAh.md) | carrier | __none__ | One cell, both XIAOs |
+| Power | [LiPo-500mAh.md](LiPo-500mAh.md) | carrier | __none__ | One battery, both XIAOs |
 | Power | [Arming-switch.md](Arming-switch.md) | carrier | __n/a__ | Pull-pin and microswitch, in the battery line |
 | Storage | [microSD.md](microSD.md) | Sense camera board | __none__ | Video only |
 | RF | [Antennas.md](Antennas.md) | Wio-SX1262, L76K | grid | Both off-board on U.FL. ≥50 mm apart |

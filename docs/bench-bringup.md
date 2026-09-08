@@ -5,7 +5,7 @@ description: One session that closes #6, #7 and #8 — the epic that gates order
 
 # Bench bring-up
 
-__Wire it first.__ This page is the run order and it assumes the bench is already built. What plugs into what, in plain words and with the battery handling spelled out, is [bench-wiring.md](bench-wiring.md) — start there. "The cell" throughout this page means __the one LiPo battery__ feeding both boards.
+__Wire it first.__ This page is the run order and it assumes the bench is already built. What plugs into what, in plain words and with the battery handling spelled out, is [bench-wiring.md](bench-wiring.md) — start there. "The battery" throughout this page means __the one LiPo battery__ feeding both boards.
 
 __One session, three issues.__ [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6), [#7](https://github.com/jwilleke/js-rocket-avionics/issues/7) and [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) all block [#4](https://github.com/jwilleke/js-rocket-avionics/issues/4), which blocks [#11](https://github.com/jwilleke/js-rocket-avionics/issues/11), which is the order. They are written as three issues because they fail differently; they are __one bench session__ because the setup is the same and #8 cannot run until the other two have.
 
@@ -22,13 +22,13 @@ Each step is cheap to fail and tells you something the next one assumes. Running
 | 1 | __Stack check__, no power | A mechanical collision is not a bench nuisance, it is a design change |
 | 2 | [__#6__](https://github.com/jwilleke/js-rocket-avionics/issues/6) XIAO-ESP32S3-lora alone | No firmware to write. If it does not enumerate, nothing downstream matters |
 | 3 | [__#7__](https://github.com/jwilleke/js-rocket-avionics/issues/7) XIAO-ESP32S3-cam alone | Sensors before camera; I2C before SD. Each layer rules out the one below |
-| 4 | [__#8__](https://github.com/jwilleke/js-rocket-avionics/issues/8) both on one cell | Only meaningful once each half is known good |
+| 4 | [__#8__](https://github.com/jwilleke/js-rocket-avionics/issues/8) both on one battery | Only meaningful once each half is known good |
 
 ## 1 — Stack check, before any power
 
 __The one genuinely open question on [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6) is mechanical.__ The [L76K](../hardware/L76K-GNSS.md) plugs onto the XIAO's own 14 pads rather than presenting a header, so it and the [Wio-SX1262](../hardware/Wio-SX1262-LoRa.md) compete for the same B2B space. The two parcels arrived weeks apart and __nobody has ever stacked them__.
 
-- Fit [XIAO-ESP32S3-lora](../hardware/XIAO-ESP32S3-lora.md) + Wio-SX1262 + L76K, dry, no cell
+- Fit [XIAO-ESP32S3-lora](../hardware/XIAO-ESP32S3-lora.md) + Wio-SX1262 + L76K, dry, no battery
 - __If they foul, stop and write it down.__ That is a layout change: the L76K returns to the carrier as a footprint needing ~21 mm, which the 95 mm board has but [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14) has not allowed for
 - Check the __≥50 mm antenna separation__ from [design.md](design.md) is physically achievable in the stack you just built. 915 MHz TX desenses a 1575 MHz front end by broadband noise, and the bench is where that first becomes observable
 
@@ -71,24 +71,24 @@ __Three traps, already paid for once__ and recorded in [module-pinouts.md](modul
 
 __One trap that is new and not in any issue:__ the LSM6DSO32's full-scale bits are __not__ the LSM6DSO's. On the -32 part, `FS = 01` is ±32 g and `11` is ±16 — so assuming the top code is the top range gives you half the range and a plausible-looking number. If every axis reads near zero at rest, that is the first thing to check.
 
-## 4 — #8, both on one cell
+## 4 — #8, both on one battery
 
 __This is the one that can change the copper__, so run it last and run it properly.
 
 - Both modules powered from __the one battery at the same time__ — not one each, and not off USB — with the camera capturing and the LoRa transmitting. Wiring: [bench-wiring.md](bench-wiring.md)
 - Scope the rail through __camera inrush and SD write bursts__; failing a scope, watch the beacon for resets and read its log
 - Measure __actual current draw__ against the ~300 mA estimate
-- __Repeat on a partially discharged cell.__ A full cell is the easy case and sag is worst near the bottom
+- __Repeat on a partially discharged battery.__ A full battery is the easy case and sag is worst near the bottom
 
 __The load and the record are firmware now:__ [`firmware/soak-power/`](../firmware/soak-power/), a PlatformIO project. It drives the worst case the flight build can produce — capture, then an SD write burst, as fast as the card takes it — and appends __one CSV line per cycle__ to `/soak-power.csv`, plus a line per boot carrying `esp_reset_reason()`. __It is untested — no hardware has run it.__
 
 ```sh
 cd firmware/soak-power
-pio run -t upload          # then UNPLUG the USB and run from the cell
+pio run -t upload          # then UNPLUG the USB and run from the battery
 ```
 
-- __USB-C powers the board.__ A run with the monitor attached measures the bench supply and says nothing about the cell. Flash, unplug, run, then read the card
-- __A brownout names itself.__ The ESP32-S3's own detector fires before the CPU misbehaves, so `BROWNOUT` in the reset column is the observation this issue is missing — and a `PANIC` in that column is a bug in the firmware rather than evidence about the cell, which is why every reason is logged and not just the interesting one
+- __USB-C powers the board.__ A run with the monitor attached measures the bench supply and says nothing about the battery. Flash, unplug, run, then read the card
+- __A brownout names itself.__ The ESP32-S3's own detector fires before the CPU misbehaves, so `BROWNOUT` in the reset column is the observation this issue is missing — and a `PANIC` in that column is a bug in the firmware rather than evidence about the battery, which is why every reason is logged and not just the interesting one
 - __The log is on the card because the event is a reset.__ Each line is opened, written and closed, so a run loses at most one line to the thing it is measuring
 - __Endurance falls out of the same file.__ Count boot lines, read the last uptime before each; no separate test and no trust in the ~300 mA estimate
 - __The voltage columns are optional and worth the two resistors.__ The XIAO has no battery divider — BAT+/BAT− are bare pads — so without one the reset is caught and attributed but the shape of the sag is missing. Two 100k from BAT+ to D1 (GPIO2) fills in `vbat/vmin/vmax`, sampled by a task on the other core so a blocking SD write cannot hide its own dip. Wiring and build flags are in [`platformio.ini`](../firmware/soak-power/platformio.ini)
@@ -100,7 +100,7 @@ __XIAO-ESP32S3-lora is the other half of the test and takes no firmware__: it ru
 
 Neither is in #8 as written, and both are nearly free once the setup exists.
 
-__Actual runtime.__ 500 mAh against a ~300 mA *estimate* gives ~100 minutes. That figure now carries weight it did not before: with arming settled as a convenience, __"how long from connecting the cell to recovery"__ is the real operational limit on a launch day. Measure the draw rather than trusting the estimate, and correct [BOM.md](BOM.md).
+__Actual runtime.__ 500 mAh against a ~300 mA *estimate* gives ~100 minutes. That figure now carries weight it did not before: with arming settled as a convenience, __"how long from connecting the battery to recovery"__ is the real operational limit on a launch day. Measure the draw rather than trusting the estimate, and correct [BOM.md](BOM.md).
 
 __The two regulators.__ Both modules' `3V3` pins land on the __same plane__ on the carrier, so their regulators run __in parallel__ — see [PCB-carrier.md](../hardware/PCB-carrier.md#how-power-actually-reaches-everything). Linear regulators do not share load: whichever holds the marginally higher output does all the work until it current-limits, and if one module loses its pigtail the other back-feeds into its regulator output. __This is a consequence of the layout rather than a decision anyone made.__ Put a meter on both 3V3 pins with the camera running and write down what you see. The regulator type is assumed rather than read off Seeed's schematic, so read that too if the numbers look odd.
 

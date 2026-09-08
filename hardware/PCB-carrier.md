@@ -23,7 +23,7 @@ The frozen interface is in [README.md](../README.md). This page is what the boar
 
 __So the carrier is a 3.3 V board.__ 5 V appears on it only if something is wired to a XIAO's `5V` pin, and nothing should be: the [LSM6DSO32](LSM6DSO32.md) and [BMP388](BMP388-barometer.md) are 3.3 V parts, and [module-pinouts.md](../docs/module-pinouts.md) records that the BMP388 in hand is __marked 3 V__ with 5 V no longer a documented fallback.
 
-__Charging is 5 V, and it is not this board's business.__ Both XIAOs carry their own charger and sit in parallel on the one cell — charge through one USB port at a time. No charge IC is added here.
+__Charging is 5 V, and it is not this board's business.__ Both XIAOs carry their own charger and sit in parallel on the one battery — charge through one USB port at a time. No charge IC is added here.
 
 ## How power actually reaches everything
 
@@ -54,7 +54,7 @@ __Nothing on this board is powered by the battery. Everything is powered by a XI
                          LSM6DSO32                 BMP388
 ```
 
-__Why the pigtails exist.__ `BAT+`/`BAT−` are __centre pads on the XIAO's underside__ ([module-pinouts.md](../docs/module-pinouts.md#xiao-esp32s3--read-off-the-underside-2026-09-08)), not on the castellated edge, so the cell cannot reach a XIAO through the header. Two soldered wires are forced, not chosen.
+__Why the pigtails exist.__ `BAT+`/`BAT−` are __centre pads on the XIAO's underside__ ([module-pinouts.md](../docs/module-pinouts.md#xiao-esp32s3--read-off-the-underside-2026-09-08)), not on the castellated edge, so the battery cannot reach a XIAO through the header. Two soldered wires are forced, not chosen.
 
 __What the +3V3 plane actually feeds: two parts.__ [LSM6DSO32](LSM6DSO32.md) and [BMP388](BMP388-barometer.md). The [PS1240 buzzer](PS1240-buzzer.md) is not on that list — a passive piezo is driven straight off `D0` and GND and takes no supply rail.
 
@@ -69,20 +69,20 @@ __Everything else is powered by the XIAO it plugs onto__, through that module's 
 
 ### Charge through the Sense stack, and only that one
 
-__Operator, 2026-09-08.__ For charging alone it makes no difference — both XIAOs have a charger and both sit on the same cell. __The decision is about which port is permanently committed__, because [#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)'s service pigtail occupies whichever one it is wired to:
+__Operator, 2026-09-08.__ For charging alone it makes no difference — both XIAOs have a charger and both sit on the same battery. __The decision is about which port is permanently committed__, because [#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)'s service pigtail occupies whichever one it is wired to:
 
 - __[XIAO-ESP32S3-cam](XIAO-ESP32S3-cam.md), the Sense stack__ — the aft module, so the shortest cable run; the only one that reaches the microSD; and the one being reflashed constantly, since its firmware does not exist yet
 - __[XIAO-ESP32S3-lora](XIAO-ESP32S3-lora.md)__ — runs __stock Meshtastic and must never be reflashed__. That is the whole reason there are two modules. A service port on it invites exactly what the two-module split exists to prevent
 
 __So XIAO-ESP32S3-lora's USB-C is not used in the flight build.__ It is reachable only by taking the nose apart.
 
-__And still one at a time.__ Two chargers on one cell will argue; nothing enforces this but the build order.
+__And still one at a time.__ Two chargers on one battery will argue; nothing enforces this but the build order.
 
 ### Two regulators on one net, which nobody chose deliberately
 
 Both XIAOs' `3V3` pins land on the __same +3V3 plane__, so their regulators run __in parallel__. Linear regulators do not share load: whichever holds the marginally higher output supplies everything until it current-limits, and if one module ever loses its pigtail the other back-feeds into its regulator output.
 
-It will very likely be fine at these currents. __It is recorded here because it is a consequence of the layout rather than a decision__, and [#4](https://github.com/jwilleke/js-rocket-avionics/issues/4) is benching the shared cell anyway — it costs nothing to measure both rails in the same sitting. The regulator type is assumed rather than read off Seeed's schematic.
+It will very likely be fine at these currents. __It is recorded here because it is a consequence of the layout rather than a decision__, and [#4](https://github.com/jwilleke/js-rocket-avionics/issues/4) is benching the shared battery anyway — it costs nothing to measure both rails in the same sitting. The regulator type is assumed rather than read off Seeed's schematic.
 
 __Why not two smaller boards.__ The twin-PCB plan assumed each XIAO could sit flat on its own card with a cutout clearing the expansion board underneath. The XIAO's own footprint kills it: pads at __±8.5 mm__, expansion board at __±8.75 mm__. __The thing needing clearance is wider than the pads are apart__, so any cutout large enough to pass it removes the copper the pads solder to. No geometry satisfies both.
 
@@ -101,7 +101,7 @@ __The bottom face sets the length.__ The top-face figure once read 46 mm, from a
 |---|---|
 | Top | XIAO ESP32S3 (plain) + Wio-SX1262 beneath it; __L76K in the XIAO stack, not on the carrier__ |
 | Bottom | XIAO ESP32S3 Sense + camera/microSD board beneath it; LSM6DSO32; BMP388; buzzer |
-| Either | Battery JST, arming switch in the cell line, mounting holes |
+| Either | Battery JST, arming switch in the battery line, mounting holes |
 
 __XIAO B centres at carrier y = 18 mm__, which is what puts the camera at nose z 30..45.
 

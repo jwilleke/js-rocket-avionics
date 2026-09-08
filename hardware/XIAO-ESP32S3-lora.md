@@ -48,11 +48,11 @@ Both copies are the same part — `Model: XIAO-ESP32-S3`, `FCC ID: Z4T-XIAOESP32
 
 ## Things that will catch you
 
-__The BAT pads are not on the castellated edge__, so the cell cannot reach this board through the headers. A soldered pigtail runs from the carrier's JST to those pads — and __solder the pigtail before the expansion board goes on__, because the pads are inaccessible afterwards.
+__The BAT pads are not on the castellated edge__, so the battery cannot reach this board through the headers. A soldered pigtail runs from the carrier's JST to those pads — and __solder the pigtail before the expansion board goes on__, because the pads are inaccessible afterwards.
 
 __On battery power there is no voltage on the 5V pin__, so nothing can be fed from this board's 5V rail.
 
-__Both XIAO chargers sit in parallel on one cell — charge through one USB port at a time.__
+__Both XIAO chargers sit in parallel on one battery — charge through one USB port at a time.__
 
 > __This module's USB-C is not used in the flight build__ (operator, 2026-09-08). Charging and service go through the [Sense stack](XIAO-ESP32S3-cam.md) instead, because __this module runs stock Meshtastic and must never be reflashed__ — which is the whole reason there are two of them. Its port is reachable only by taking the nose apart. See [PCB-carrier.md](PCB-carrier.md#charge-through-the-sense-stack-and-only-that-one).
 

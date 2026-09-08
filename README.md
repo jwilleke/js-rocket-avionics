@@ -117,11 +117,11 @@ The BMP388 is the one exception on pin order — __confirmed from the part in ha
 
 ## Battery — read before assembling
 
-__BAT+/BAT− are underside pads on the XIAO__, not brought out to the castellated edge, so the cell cannot reach a XIAO through the headers. The cell lands on a JST-PH on this card and reaches each XIAO by a short __soldered pigtail__.
+__BAT+/BAT− are underside pads on the XIAO__, not brought out to the castellated edge, so the battery cannot reach a XIAO through the headers. The battery lands on a JST-PH on this card and reaches each XIAO by a short __soldered pigtail__.
 
 - __Solder the pigtails before fitting the expansion board.__ Seeed's documentation implies the pads are inaccessible once it is on.
 - __On battery power there is no voltage on the 5V pin__ — nothing can be fed from a XIAO's 5V rail.
-- Both XIAO chargers sit in parallel on one cell. __Charge through one USB port at a time.__
+- Both XIAO chargers sit in parallel on one battery. __Charge through one USB port at a time.__
 - Mark the pigtail polarity on the silkscreen. Reversing a LiPo into a XIAO destroys it.
 
 ## No RF on this board

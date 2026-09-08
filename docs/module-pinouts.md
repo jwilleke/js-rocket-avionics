@@ -185,7 +185,7 @@ __Three things this confirms, none of which had been checked:__
 - __`XIAO_PIN` in `gen_carrier.py` matches the silkscreen__, so [#18](https://github.com/jwilleke/js-rocket-avionics/issues/18)'s fix lands the nets on the right physical pins, not merely on the right footprint pads.
 - __Pin 1 = D0 sits at the USB-C end__, so the USB-C faces __aft__ on the carrier. [#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)'s charging pigtail depends on that and had been resting on an inference.
 
-__Also visible and consistent with [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md):__ `BAT+`/`BAT−` are __centre pads on the underside__, not on the castellated edge — which is why the cell reaches each board by soldered pigtail rather than through the headers. The JTAG pads (`MTCK`, `MTDO`, `MTDI`, `MTMS`) sit between them.
+__Also visible and consistent with [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md):__ `BAT+`/`BAT−` are __centre pads on the underside__, not on the castellated edge — which is why the battery reaches each board by soldered pigtail rather than through the headers. The JTAG pads (`MTCK`, `MTDO`, `MTDI`, `MTMS`) sit between them.
 
 ## Still needed
 

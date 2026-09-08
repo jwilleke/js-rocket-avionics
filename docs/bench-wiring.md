@@ -11,7 +11,7 @@ __This page is the first one.__ [bench-bringup.md](bench-bringup.md) says what t
 
 | Word used here | What it actually is |
 |---|---|
-| __cell__ | __The battery.__ One LiPo pouch — [Adafruit 1578](../hardware/LiPo-500mAh.md), 500 mAh, 3.7 V, 29 × 36 × 4.75 mm, a red and a black wire ending in a small white 2-pin plug. "One cell" means __both boards run off that one battery__ rather than one each. A "second cell" would mean a second battery, and it was rejected for weighing 8 g |
+| __battery__ | [LiPo-500mAh](../hardware/LiPo-500mAh.md) — one LiPo pouch, 500 mAh, 3.7 V, 29 × 36 × 4.75 mm, a red and a black wire ending in a small white 2-pin plug. __One battery, feeding both boards__, rather than one each. Older commits and GitHub issues call this "the cell"; it is the same object and the word has been dropped |
 | __rail__ | One of the long red/blue strips down the edge of a breadboard. Every hole in a rail is connected to every other hole in that rail. Used so ten things can share one supply wire |
 | __pigtail__ | A short wire soldered directly to a board, ending free, because there is no connector to plug into |
 | __castellated pads__ | The 14 half-holes along a XIAO's two long edges. Header pins solder into these. This is the only edge you can reach with jumper wires |
@@ -35,7 +35,7 @@ Two module stacks and a breadboard. The stacks are already assembled by their B2
   breadboard hangs off this one.              Nothing wires to it but power.
                 \                            /
                  \                          /
-                  ----- ONE CELL (battery) -
+                  ------- ONE BATTERY -------
 ```
 
 __Only stack 1 gets sensors and a buzzer.__ Stack 2 has nothing wired to it at all except the two battery wires. Its radio and GPS are on the stack itself.
@@ -46,9 +46,9 @@ __1 — The cam copy has no headers soldered on.__ [XIAO-ESP32S3-cam](../hardwar
 
 __2 — Test-fit the header strips in the breadboard before you solder them.__ Push both strips into the board, holes six apart across the centre channel, then lay the XIAO on top and check every pad lines up. [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md) records the two rows as __17.0 mm apart__, and a breadboard's holes are 2.54 mm apart, so the pads have to land on a whole number of holes — 6 holes is 15.24 mm, 7 is 17.78. __Whichever it is, find out with the parts dry-fitted, not with solder on them.__ If the recorded 17.0 is edge-to-edge rather than centre-to-centre, that page needs correcting and it is worth doing while the calipers are out.
 
-__3 — Can you still reach the BAT pads?__ `BAT+`/`BAT−` are __pads on the underside of the XIAO__, not on the edge, and [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md) warns they are __inaccessible once the expansion board is fitted__. If the Sense board is already mated, the cell cannot reach that XIAO without unmating it. Look before planning the session around it.
+__3 — Can you still reach the BAT pads?__ `BAT+`/`BAT−` are __pads on the underside of the XIAO__, not on the edge, and [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md) warns they are __inaccessible once the expansion board is fitted__. If the Sense board is already mated, the battery cannot reach that XIAO without unmating it. Look before planning the session around it.
 
-> __The cell reaches a XIAO only by soldered wire.__ There is no battery connector on these modules. This is the one soldering job the bench build cannot avoid, and [BOM.md](BOM.md)'s "the bench build needs no soldering" is true only of the I2C sensors, which have plug-in cables.
+> __The battery reaches a XIAO only by soldered wire.__ There is no battery connector on these modules. This is the one soldering job the bench build cannot avoid, and [BOM.md](BOM.md)'s "the bench build needs no soldering" is true only of the I2C sensors, which have plug-in cables.
 
 ## The breadboard
 
@@ -91,7 +91,7 @@ Full picture. Two jumpers make the rails, then everything shares them:
                                  |                      (a bare disc has no
                                  |                       + or -, either way)
                                  |
-        ---------------- the cell (battery) ----------------
+        --------- the battery (LiPo-500mAh) ---------
                                  |
         red wire  --> BAT+ pad, underside of BOTH XIAOs
         black wire --> BAT- pad, underside of BOTH XIAOs
@@ -104,9 +104,9 @@ __The battery does not go on the breadboard rails.__ The red rail is 3.3 V comin
 
 | From | To | Note |
 |---|---|---|
-| Cell red (+) | `BAT+` pad, __cam__ XIAO underside | soldered pigtail |
-| Cell red (+) | `BAT+` pad, __lora__ XIAO underside | soldered pigtail, same wire junction |
-| Cell black (−) | `BAT−` pad, both XIAOs | soldered pigtails |
+| Battery red (+) | `BAT+` pad, __cam__ XIAO underside | soldered pigtail |
+| Battery red (+) | `BAT+` pad, __lora__ XIAO underside | soldered pigtail, same wire junction |
+| Battery black (−) | `BAT−` pad, both XIAOs | soldered pigtails |
 | cam pin 12 `3V3` | red rail | the only thing feeding the red rail |
 | cam pin 13 `GND` | blue rail | |
 | red rail | BMP388 `VIN` | __not `3Vo`__ — that pin is the sensor's own regulator output and back-feeding it kills the part |
@@ -130,15 +130,15 @@ Both sensors have a Qwiic socket on each short edge __and__ a row of header hole
 
 Either way the four wires are the same four: `VIN`, `GND`, `SDA`, `SCL`. On a Qwiic cable they are conventionally red, black, blue (SDA) and yellow (SCL) — __confirm against the sensor's own silkscreen rather than trusting the colours__.
 
-## Rules for handling the cell
+## Rules for handling the battery
 
 Read these once. They are the only part of this page that can hurt you or destroy a part.
 
 - __Do not let the two battery wires touch each other.__ A LiPo has no fuse and will happily deliver tens of amps into a short, hot enough to set the pouch on fire. Cut and strip __one wire at a time__, and insulate each before starting the other
 - __Red to `BAT+`, black to `BAT−`. Reversed destroys the XIAO instantly__ — [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md) records this, and it is why the carrier will silkscreen the polarity
-- __Charge through one USB port at a time.__ Both XIAOs have their own charger and both sit on the same cell; two chargers on one cell will argue
-- __USB powers the board.__ Anything plugged into USB is running off the computer, not the battery. A test of the cell with a USB cable attached is a test of the computer
-- __Do not discharge the cell below about 3.0 V__, and stop the test there rather than running it flat. A LiPo taken deeply flat may not come back
+- __Charge through one USB port at a time.__ Both XIAOs have their own charger and both sit on the same battery; two chargers on one battery will argue
+- __USB powers the board.__ Anything plugged into USB is running off the computer, not the battery. A test of the battery with a USB cable attached is a test of the computer
+- __Do not discharge the battery below about 3.0 V__, and stop the test there rather than running it flat. A LiPo taken deeply flat may not come back
 
 ## The one thing worth doing twice
 
@@ -146,7 +146,7 @@ The carrier PCB ties __both XIAOs' `3V3` pins to the same plane__, so on the fin
 
 The bench does not have to reproduce that on the first run, and should not:
 
-1. __First, cell only.__ Battery to both boards' BAT pads, `3V3` rails kept separate — the wiring above. Any disturbance the beacon shows now travelled through __the battery__, which is exactly the coupling [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) is about
+1. __First, battery only.__ Battery to both boards' BAT pads, `3V3` rails kept separate — the wiring above. Any disturbance the beacon shows now travelled through __the battery__, which is exactly the coupling [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) is about
 2. __Then, if you want the carrier's own case__, add one wire joining the two `3V3` pins and repeat. Different question, different failure, and __a bad result here is cheap to fix in copper and expensive to fix after ordering__
 
 Two runs, one wire apart. Write down which one each set of numbers came from.
@@ -165,4 +165,4 @@ Two ordinary 100k resistors. The junction between them sits at half the battery 
 
 ## Then, and only then
 
-Once this is wired and a XIAO enumerates over USB, [bench-bringup.md](bench-bringup.md) has the run order — stack check, beacon, recorder, both on one cell. Nothing there works before this page does.
+Once this is wired and a XIAO enumerates over USB, [bench-bringup.md](bench-bringup.md) has the run order — stack check, beacon, recorder, both on one battery. Nothing there works before this page does.

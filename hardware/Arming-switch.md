@@ -10,7 +10,7 @@ __This payload has no pyro.__ [design.md](../docs/design.md) is explicit: *"No p
 
 So the sentence this page used to carry — *a welded switch is an armed rocket that cannot be safed, the failure mode that matters because it happens on the pad with people nearby* — __described a hazard this design does not have__. It was inherited from rocketry convention rather than derived from this rocket, and it is what produced the MOSFET, the welding analysis and the demand for a hole in the Nosecone collar.
 
-__What is real is runtime.__ 500 mAh against ~300 mA is roughly __100 minutes__ from the moment the cell is connected, and it cannot be managed in firmware: [XIAO-ESP32S3-lora](XIAO-ESP32S3-lora.md) runs __stock Meshtastic with no code written__, which was a deliberate choice and means it cannot sleep. It draws from the instant it has power.
+__What is real is runtime.__ 500 mAh against ~300 mA is roughly __100 minutes__ from the moment the battery is connected, and it cannot be managed in firmware: [XIAO-ESP32S3-lora](XIAO-ESP32S3-lora.md) runs __stock Meshtastic with no code written__, which was a deliberate choice and means it cannot sleep. It draws from the instant it has power.
 
 __So a disconnect is needed. A switch in the nose wall is not.__ The JST already is one; the only question is when it can be reached:
 
@@ -27,7 +27,7 @@ __What would overrule this:__ a club or field rule requiring a visible external 
 
 Once the nose is assembled __there is no way in__: USB is unreachable, Wi-Fi is off, and the status LED is sealed inside. A slide switch would need another hand-drilled hole in a part with no generator.
 
-Whatever the mechanism, the architecture is settled and worth restating because it is the part that survives every revision below: __the switch sits in series in the battery line, between the cell and the carrier's JST.__ That means it __physically cuts power__ rather than setting a firmware state a boot-loop could defeat, it costs __zero GPIO__, and it __cuts both XIAOs at once__ — arming is all-or-nothing, __including the radio__.
+Whatever the mechanism, the architecture is settled and worth restating because it is the part that survives every revision below: __the switch sits in series in the battery line, between the battery and the carrier's JST.__ That means it __physically cuts power__ rather than setting a firmware state a boot-loop could defeat, it costs __zero GPIO__, and it __cuts both XIAOs at once__ — arming is all-or-nothing, __including the radio__.
 
 ## A pull-pin and a subminiature microswitch
 

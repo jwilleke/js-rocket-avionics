@@ -102,7 +102,7 @@ __The heat sinks are not used, and nothing in the design calls for them.__ Two r
 - __The face they are made for is occupied.__ They adhere to the module can on the XIAO's top face, and that is the face the expansion board mates to
 - __A sealed PLA nose has no airflow.__ Fin area does nothing without convection; what a lump of aluminium would actually contribute is thermal __mass__, and the nose budget is already over target
 
-If heat becomes a real question it will show up at bench bring-up, where both boards run on one cell with the camera active ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)). Until then they stay in the box.
+If heat becomes a real question it will show up at bench bring-up, where both boards run on one battery with the camera active ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)). Until then they stay in the box.
 
 The BAT-pad and one-USB-at-a-time rules are on [XIAO-ESP32S3-cam.md](XIAO-ESP32S3-cam.md).
 

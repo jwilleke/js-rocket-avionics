@@ -1,6 +1,6 @@
-# LiPo cell
+# LiPo battery
 
-__One cell feeds both MCUs.__ Over an hour against a ~300 mA draw.
+__One battery feeds both MCUs.__ Over an hour against a ~300 mA draw.
 
 ## The part
 
@@ -31,9 +31,9 @@ The face carries only XIAO-ESP32S3-lora's 21 mm of the carrier's 95, so __74.0 m
 About __adapter z 2..38__ — nose z −38..−2, station __242..278__ from the tip. __It fits with room to spare__: the adapter's bore is __Ø35.75__ over adapter z 0..30, opening to Ø39.98 at z 34..40, so a 29 mm wide slab has __20.91 mm__ of thickness available against the battery's 4.75, and the 36 mm length sits inside the ~40 mm of clear bore below the Nosecone's tenon.
 
 - __Buys the access outright.__ Pull the nose, unclip the JST, battery out, __sled untouched__ — [#1](https://github.com/jwilleke/js-rocket-avionics/issues/1) answered rather than mitigated
-- __Takes arming off the sled with it.__ The switch sits __in series in the battery line between the cell and the carrier JST__ ([Arming-switch.md](Arming-switch.md)), so the switch follows the battery onto the airframe, and the sled's 180° flip — which [js-rocket#90](https://github.com/jwilleke/js-rocket/issues/90)'s loop reduced but did not remove — stops bearing on arming at all
+- __Takes arming off the sled with it.__ The switch sits __in series in the battery line between the battery and the carrier JST__ ([Arming-switch.md](Arming-switch.md)), so the switch follows the battery onto the airframe, and the sled's 180° flip — which [js-rocket#90](https://github.com/jwilleke/js-rocket/issues/90)'s loop reduced but did not remove — stops bearing on arming at all
 - __Nothing retains it.__ The M3 × 55 cross-bar is at adapter z 55, __17 mm above__ the battery's top, so it does not hold it down, and below the battery the bore runs straight through into the Tube. The Nosecone page already records the general case — *"the bay is open at its base, so with the nose fitted a payload drops through into the Tube. Needs a retainer (plug, foam, tape) or a lip"*
-- __It sits in the recovery cord's path.__ The M3 is the cord's upper anchor and the cord runs down that bore, so ejection whips the bungee past exactly where the battery is. A LiPo pouch is 4.75 mm of soft foil, and a crushed or punctured cell is a fire inside a sealed nose on a rocket that has to be picked up by hand. __Any retainer here must also shield it from the cord__ — a sleeve, a tube or a hard divider — not merely stop it falling
+- __It sits in the recovery cord's path.__ The M3 is the cord's upper anchor and the cord runs down that bore, so ejection whips the bungee past exactly where the battery is. A LiPo pouch is 4.75 mm of soft foil, and a crushed or punctured battery is a fire inside a sealed nose on a rocket that has to be picked up by hand. __Any retainer here must also shield it from the cord__ — a sleeve, a tube or a hard divider — not merely stop it falling
 - __It contradicts [`payload-adapter.md`](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-adapter.md)__, which states twice that *"it is an adapter, not a payload bay — the payload lives entirely in the Nosecone."* That sentence has to be replaced deliberately, not simply overtaken
 
 #### What decides it
@@ -62,19 +62,19 @@ __The free web.__ The web is 124.0 mm and the carrier takes 95.0, leaving __29.0
 
 ## Distribution
 
-The cell lands on a __JST-PH on the carrier__ — put it in the carrier's aft third, which serves both candidate positions above — and short __soldered pigtails__ run to each XIAO's underside BAT pads. That indirection is forced, not chosen: __BAT+/BAT− are not on the castellated edge__, so the cell cannot reach a XIAO through the headers.
+The battery lands on a __JST-PH on the carrier__ — put it in the carrier's aft third, which serves both candidate positions above — and short __soldered pigtails__ run to each XIAO's underside BAT pads. That indirection is forced, not chosen: __BAT+/BAT− are not on the castellated edge__, so the battery cannot reach a XIAO through the headers.
 
 - __Solder the pigtails before fitting the expansion board.__ Seeed's wiki implies the pads are inaccessible afterwards
-- __Both XIAO chargers sit in parallel on one cell — charge through one USB port at a time.__ This avoids adding a charge IC
+- __Both XIAO chargers sit in parallel on one battery — charge through one USB port at a time.__ This avoids adding a charge IC
 - __On battery power there is no voltage on the 5V pin__
 - __Reversing a LiPo into a XIAO destroys it__ — [design.md](../docs/design.md) requires the pigtail polarity be silkscreened
 - __The battery is mechanically restrained, never hangs off the JST.__ On the sled that is the straps; in the adapter nothing does it yet. __The JST is a connector, not a mount__, whichever position wins
 
 ## The known risk, still unobserved
 
-[BOM.md](../docs/BOM.md) accepts a coupling failure in writing: __*"a camera brownout on B can disturb A."*__ [design.md](../docs/design.md) repeats it — separate cells would isolate the boards but cost ~8 g the mass budget cannot afford.
+[BOM.md](../docs/BOM.md) accepts a coupling failure in writing: __*"a camera brownout on B can disturb A."*__ [design.md](../docs/design.md) repeats it — separate batteries would isolate the boards but cost ~8 g the mass budget cannot afford.
 
-__That is a prediction, not a measurement, and the thing it threatens is the radio link.__ A camera write that resets XIAO-ESP32S3-lora mid-descent costs the rocket, not the video. Settling it is [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) — run both boards off one cell with the camera active, on a __partially discharged cell__ where sag is worst, and produce a verdict: acceptable, needs decoupling on the carrier, or needs the second cell after all.
+__That is a prediction, not a measurement, and the thing it threatens is the radio link.__ A camera write that resets XIAO-ESP32S3-lora mid-descent costs the rocket, not the video. Settling it is [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) — run both boards off one battery with the camera active, on a __partially discharged cell__ where sag is worst, and produce a verdict: acceptable, needs decoupling on the carrier, or needs the second battery after all.
 
 __If decoupling is the answer it lands in the layout before the board is ordered__, not after.
 

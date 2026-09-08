@@ -3,7 +3,7 @@
 //
 // NOT FLIGHT FIRMWARE, and not a bring-up either -- run bringup-cam first and
 // get four PASSes out of it. This project assumes the parts are known good and
-// asks one question instead: what does the shared cell do when the camera is
+// asks one question instead: what does the shared battery do when the camera is
 // working, and does XIAO-ESP32S3-lora survive it.
 //
 // #8 exists because BOM.md accepts "a camera brownout on B can disturb A" in
@@ -19,8 +19,8 @@
 //
 // THE TRAP THAT WOULD WASTE THE SESSION
 //   USB-C powers the board. A run with the monitor attached is a run on the
-//   bench supply, and it measures nothing about the cell. Flash over USB,
-//   UNPLUG, then run from the cell and read the card afterwards.
+//   bench supply, and it measures nothing about the battery. Flash over USB,
+//   UNPLUG, then run from the battery and read the card afterwards.
 //
 // WHAT COMES OUT
 //   /soak-power.csv, one line per cycle plus a line per boot. Every boot line
@@ -125,7 +125,7 @@ static void vbat_window(int *lo, int *hi) {
 // ---- reset reason ----------------------------------------------------------
 // ESP_RST_BROWNOUT is the whole point of this firmware. The others are here so
 // that a reset which is NOT a brownout cannot be mistaken for one -- a panic
-// caused by a bug in this file would otherwise read as evidence about the cell.
+// caused by a bug in this file would otherwise read as evidence about the battery.
 static const char *reset_name(esp_reset_reason_t r) {
   switch (r) {
     case ESP_RST_POWERON:  return "POWERON";
@@ -164,7 +164,7 @@ static void soak_open_log() {
   // cycle     0 on a boot row, then 1.. for each capture+write
   // uptime_ms millis() at the row -- resets to 0 on every boot line
   // reset     esp_reset_reason() for this boot. BROWNOUT is the finding
-  // vbat/vmin/vmax_mv  cell voltage, and the min/max seen across the cycle.
+  // vbat/vmin/vmax_mv  battery voltage, and the min/max seen across the cycle.
   //           Empty when no divider is fitted
   // cap_ms    esp_camera_fb_get()
   // write_ms  the SD burst alone -- this is where the current spike lives
@@ -220,13 +220,13 @@ void setup() {
   }
   boot_id = ++rtc_boots;
 
-  Serial.println(F("\n=== soak-power : shared-cell load test, #8 ==="));
+  Serial.println(F("\n=== soak-power : shared-battery load test, #8 ==="));
   Serial.printf("reset reason %s, boot %u\n", reset_name(why), (unsigned)boot_id);
   if (why == ESP_RST_BROWNOUT) {
     Serial.println(F("*** BROWNOUT. That is the finding #8 is looking for. ***"));
   }
   Serial.println(F("USB-C powers the board -- a monitored run measures the bench,"));
-  Serial.println(F("not the cell. Unplug and read /soak-power.csv afterwards."));
+  Serial.println(F("not the battery. Unplug and read /soak-power.csv afterwards."));
 
 #ifdef SOAK_VBAT_PIN
   analogSetPinAttenuation(SOAK_VBAT_PIN, ADC_11db);   // full range to ~3.1 V in
@@ -237,7 +237,7 @@ void setup() {
   have_sd = SD_MMC.begin("/sdcard", true);            // true = 1-bit mode
   if (!have_sd) {
     Serial.println(F("microSD did not mount -- serial only, so a reset loses"));
-    Serial.println(F("the run. Fix the card before spending a cell on this."));
+    Serial.println(F("the run. Fix the card before spending a charge on this."));
   }
   soak_open_log();
 

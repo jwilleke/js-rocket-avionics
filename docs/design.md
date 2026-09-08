@@ -91,7 +91,7 @@ The camera hangs off the expansion board __on a flexible ribbon__, so its positi
 |---|---|
 | Top | XIAO ESP32S3 (plain) + Wio-SX1262 beneath it; __L76K GNSS__ — in the XIAO stack, __not on the carrier__ |
 | Bottom | XIAO ESP32S3 Sense + camera/microSD board beneath it; LSM6DSO32; BMP388; buzzer |
-| Either | Battery JST, reed switch in the cell line, mounting holes |
+| Either | Battery JST, reed switch in the battery line, mounting holes |
 
 Net list is small — roughly __9 nets__: GPS TX, GPS RX, SDA, SCL, buzzer, 3V3, GND, BAT+, BAT−. The wiring table is in the [README](../README.md).
 
@@ -119,18 +119,18 @@ __It plugs onto the XIAO's own 14 pads rather than presenting a header to the ca
 
 ### Power, and the pigtail constraint
 
-__BAT+/BAT− are underside pads on the XIAO__ (footprint pads 16/17, 2.3 × 1.3 mm at x = −4.5), not brought out to the castellated edge — so the cell __cannot__ reach a XIAO through the headers.
+__BAT+/BAT− are underside pads on the XIAO__ (footprint pads 16/17, 2.3 × 1.3 mm at x = −4.5), not brought out to the castellated edge — so the battery __cannot__ reach a XIAO through the headers.
 
-- Cell lands on a __JST-PH on the carrier__; short __soldered pigtails__ run to each XIAO's BAT pads.
+- Battery lands on a __JST-PH on the carrier__; short __soldered pigtails__ run to each XIAO's BAT pads.
 - __Solder those pigtails before fitting the expansion board.__ Seeed's wiki implies the pads are inaccessible afterwards.
 - __On battery power there is no voltage on the 5V pin__, so nothing can be fed from a XIAO's 5V rail.
-- Both XIAO chargers sit in parallel on one cell. __Charge through one USB port at a time.__
+- Both XIAO chargers sit in parallel on one battery. __Charge through one USB port at a time.__
 
 ### Arming — the reed switch, and two things not yet decided
 
 __The problem it solves is access, not convenience.__ Once the nose is assembled there is no way in: USB is unreachable, Wi-Fi is off, and the status LED is sealed inside. A slide switch would need another hand-drilled hole in a part with no generator. A reed switch responds to a magnet __through__ the PLA, so the switch lives inside and the magnet stays outside — no hole, no connector, no pin.
 
-It sits __in series in the battery line__, between the cell and the carrier's JST. That means it __physically cuts power__ rather than setting a firmware state a boot-loop could defeat, it costs __zero GPIO__, and it __cuts both boards at once__ — arming is all-or-nothing, including the beacon.
+It sits __in series in the battery line__, between the battery and the carrier's JST. That means it __physically cuts power__ rather than setting a firmware state a boot-loop could defeat, it costs __zero GPIO__, and it __cuts both boards at once__ — arming is all-or-nothing, including the beacon.
 
 > __OPEN 1 — polarity. Does the magnet arm or safe?__ Not decided, and it inverts the field procedure and the part number.
 >
@@ -182,7 +182,7 @@ The whole flight fits roughly nine times over. Zero flash writes and zero SD wri
 - __Use the IMU's FIFO — do not poll at 500 Hz.__ The LSM6DSO32 carries a 9 KB FIFO. Batch-reading cuts ISR load, relieves the PSRAM path, and means a brief stall queues samples in the sensor instead of losing them. __Treat a FIFO as a hard requirement on any substitute.__
 - __The buzzer does three jobs.__ (1) Last-20-metre locator — GPS lands you in a 3–10 m circle and a white PLA rocket vanishes in tall grass at 2 m. (2) __The only status channel on the pad__ — with the nose assembled, USB is unreachable, Wi-Fi is off, and the GPIO21 LED is sealed inside, so beep patterns are the only way the rocket reports booted / armed / sensors alive. (3) Beeping apogee in digits after landing, needing no phone.
 - __The buzzer is *passive*, PWM-driven from D0.__ An earlier revision specified an active self-oscillating part, because the buzzer then hung off an I2C GPIO expander where a ~3 kHz tone meant 6000 bus transactions a second. Two boards freed the pins, the expander went, and a real GPIO can PWM a passive element directly — giving __multiple tones__ rather than one, which is what makes beep patterns readable as distinct codes.
-- __The buzzer is not radio redundancy__ — it shares XIAO-ESP32S3-cam's MCU. Only a self-powered beeper with its own cell (~5 g, zero pins) is immune to firmware and MCU failure. Not adopted; revisit if recovery confidence matters more than grams.
+- __The buzzer is not radio redundancy__ — it shares XIAO-ESP32S3-cam's MCU. Only a self-powered beeper with its own battery (~5 g, zero pins) is immune to firmware and MCU failure. Not adopted; revisit if recovery confidence matters more than grams.
 - __Sound must escape a sealed PLA cone.__ A piezo in a closed cavity loses 20–30 dB. Mount the disc __against the nose wall__ so the shell acts as a soundboard; the camera port is a free acoustic leak, and the bay is open at its base.
 - __The barometer is interchangeable.__ With the static port dropped it is not the altimeter. __BMP388__ shares the BMP3xx driver so it is a drop-in for the out-of-stock BMP390, and a generic BMP280 would serve.
 
@@ -278,7 +278,7 @@ Each flight adds one thing, and the recovery beacon is proven before anything ex
 2. __Confirm the silicon matches the label__ before designing footprints round it — see [module-pinouts.md](module-pinouts.md).
 3. __PCB bring-up__ — power, then XIAO-ESP32S3-lora: GPS UART and LoRa; then XIAO-ESP32S3-cam: I2C enumeration and camera. __Measure GPS lock time with the LoRa transmitting__, since desense cannot be reasoned about from a schematic.
 4. __Sample-rate integrity under load__ — run XIAO-ESP32S3-cam's 500 Hz sampler with the camera recording to SD and confirm __zero dropped samples__ by checking timestamp deltas, not by trusting the loop.
-5. __Shared-cell behaviour__ — confirm the camera's inrush on XIAO-ESP32S3-cam does not brown out XIAO-ESP32S3-lora, and that charging through one USB port with both BAT pads connected behaves.
+5. __Shared-battery behaviour__ — confirm the camera's inrush on XIAO-ESP32S3-cam does not brown out XIAO-ESP32S3-lora, and that charging through one USB port with both BAT pads connected behaves.
 6. __Buzzer audibility, assembled__ — beep inside a closed Nosecone and listen from 20 m. A sealed cavity costs 20–30 dB; couple the disc harder to the shell before considering a dedicated sound hole.
 7. __Mass__ — weigh the loaded sled and hand the real number to the rocket's stability re-run, [#9](https://github.com/jwilleke/js-rocket/issues/9). __Do not fly on the estimate.__
 
@@ -289,7 +289,7 @@ Each flight adds one thing, and the recovery beacon is proven before anything ex
 - __A PSRAM-only log is lost if XIAO-ESP32S3-cam resets.__ Nothing is on non-volatile media until the landing flush. A brownout, watchdog reset or hard landing costs the whole flight's telemetry while the SD video survives. Mitigate with checkpoint flushes during the low-rate descent phase, never during boost.
 - __The PCB is on the critical path.__ Sled geometry derives from its outline and mounting holes, so a layout revision reprints the sled. Freeze the outline early; breadboard before committing to copper.
 - __GPS desense from the LoRa transmitter__ cannot be reasoned away on paper. ≥50 mm antenna separation and both antennas on U.FL are the mitigations; verification step 3 is the proof.
-- __Shared cell couples the boards.__ A camera brownout could disturb XIAO-ESP32S3-lora. Separate cells would isolate them at +8 g, which the mass budget cannot afford.
+- __Shared battery couples the boards.__ A camera brownout could disturb XIAO-ESP32S3-lora. Separate batteries would isolate them at +8 g, which the mass budget cannot afford.
 - __A welded reed switch is an armed rocket that cannot be safed.__ Contacts are small and the camera's inrush is unquantified; the mitigation is to switch a MOSFET rather than the load. Unresolved — see [Arming](#arming--the-reed-switch-and-two-things-not-yet-decided).
 - __Estimated masses were unreliable in both directions.__ Nine parts weighed 2026-08-17: the __L76K came in +184%__ and is now the heaviest object in the nose, while the Sense and the radio came in light. Net __+4.1 g__, putting the nose over its ~50 g target — see [BOM.md](BOM.md), which owns every weight.
 - __The rocket's stability re-run ([#9](https://github.com/jwilleke/js-rocket/issues/9)) is P0 and blocking.__ This payload can be built and bench-tested now, but __it cannot be flown__ until that clears.
