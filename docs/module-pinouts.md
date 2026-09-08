@@ -2,7 +2,7 @@
 
 __Footprints cannot be drawn until these are read off the physical parts.__ Vendor listings copy Adafruit's product text verbatim, and this project has already caught two places where the board in hand disagreed with the datasheet it was sold under. A wrong pin order scraps a board rather than costing a re-solder.
 
-__BMP388 is confirmed from the part. The LSM6DSO32's pin order and markings are confirmed from photographs — its dimensions are not.__ Nothing else is.
+__Both sensor boards are confirmed from the parts__ — the BMP388 by caliper, the LSM6DSO32 by pin order and markings off photographs and by every dimension a footprint needs ([#5](https://github.com/jwilleke/js-rocket-avionics/issues/5), closed 2026-09-06). __Nothing else is.__
 
 Moved here from the rocket repo's `electronics-plan.md` — this is footprint input for the carrier PCB, so it belongs with the copper. What each part *is* and why it was chosen stays in [BOM.md](BOM.md); the design record stays in [electronics-plan.md](https://github.com/jwilleke/js-rocket/blob/main/docs/planing/electronics-plan.md).
 
@@ -189,7 +189,7 @@ __Also visible and consistent with [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S
 
 ## Still needed
 
-- __LSM6DSO32__ (Adafruit 4692) — __header order now read off photographs__ (above); __every dimension is still missing__, and it remains the last unknown blocking sensor footprints. Calipers: [#5](https://github.com/jwilleke/js-rocket-avionics/issues/5)
+- __LSM6DSO32__ (Adafruit 4692) — __measured, and no longer blocking anything__ ([#5](https://github.com/jwilleke/js-rocket-avionics/issues/5)). One reading is still owed __before fabrication, not before the footprint__: the hole-spacing tie-break above, which moved to [#16](https://github.com/jwilleke/js-rocket-avionics/issues/16)
 - __L76K GNSS__ — it plugs onto the XIAO's 14 pads rather than using its own header, so the question is __stack collision with the Wio-SX1262 on the B2B__, not pin order. Needs both Seeed parcels, and they arrive weeks apart
 - __Buzzer, reed switch__ — trivial, two pins each
 
