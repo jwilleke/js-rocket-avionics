@@ -1,14 +1,14 @@
 # Arming switch
 
-__No arming switch on flight 3__ (operator, 2026-09-08). In the battery line, not on a GPIO — but not on this flight. Nothing was chosen, nothing was bought, and nothing was waiting on it.
+__Flight 3 flies without one__ (operator, 2026-09-08). In the battery line, not on a GPIO, whenever a flight does carry one. Nothing was chosen, nothing was bought, and nothing was waiting on it.
 
-> __The JST is the arming device.__ Connecting it arms the rocket; unplugging it safes the rocket. That was already true — this decision is that no second mechanism is added in front of it for flight 3.
+> __So flight 3 has no arming device at all__ — the part named by this page is the arming device, and it is deferred rather than replaced. __Nothing else is promoted into the role.__ Power is made and broken by plugging and unplugging the [battery](LiPo-500mAh.md)'s JST, which is a __connector__ and stays one; giving it a second name would put a safety role on a part that was never designed to carry it, and this project keeps one name per part.
 >
-> __What that costs is turnaround, not safety.__ This payload has no pyro, so an "armed" rocket here is one that is recording video. The switch only ever bought a faster way to reach the disconnect; the argument below is unchanged and is kept for whenever a flight wants it.
+> __What that costs is turnaround, not safety.__ This payload has no pyro, so an "armed" rocket here is one that is recording video. The switch only ever bought a faster way to reach the disconnect; the argument below is unchanged and kept for whenever a flight wants it.
 >
-> __What it buys back, today:__ the 80 mm battery lead no longer has to carry an inline switch, so __JST position is decided on its own__ rather than jointly — see [LiPo-500mAh.md](LiPo-500mAh.md). One less coupling in [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14) stage 2c.
+> __What it buys back, today:__ the 80 mm battery lead no longer has to carry an inline switch, so __the JST's position is decided on its own__ rather than jointly — see [LiPo-500mAh.md](LiPo-500mAh.md). One less coupling in [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14) stage 2c.
 >
-> __The pad procedure this forces:__ runtime is ~100 minutes from the moment the JST is connected and it cannot be managed in firmware, so __the JST is connected last__, on the pad, and the clock starts there.
+> __The pad procedure this forces:__ runtime is ~100 minutes from the moment the battery is connected and it cannot be managed in firmware, so __the JST goes on last__, on the pad, and the clock starts there.
 >
 > __What would overrule it__ is unchanged and still unchecked: a club or field rule requiring a visible external arming switch for any powered electronics. A rule beats an argument.
 
