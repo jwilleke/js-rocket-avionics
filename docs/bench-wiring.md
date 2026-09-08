@@ -52,53 +52,33 @@ __3 — Can you still reach the BAT pads?__ `BAT+`/`BAT−` are __pads on the un
 
 ## The breadboard
 
-Pin numbering is [the one read off the underside](module-pinouts.md#xiao-esp32s3--read-off-the-underside-2026-09-08). __Viewed from above with the USB-C at the top__, `D0`–`D6` run down the left edge and `D7`, `D8`, `D9`, `D10`, `3V3`, `GND`, `5V` run back up the right:
+![Breadboard layout: XIAO-ESP32S3-cam straddling the centre channel, both sensors and the piezo wired to it, and the battery soldered to the underside BAT pads of both modules](resources/bench-breadboard.svg)
+
+__Regenerate it with `python3 hardware/scripts/gen_breadboard_svg.py`__ — the placement is data in that script, so a corrected pin order is one edit and a redraw rather than a hand-patched picture that disagrees with the table below.
+
+### Build it in this order
+
+Each step is testable before the next one can hide its mistake.
+
+1. __Headers on the cam copy first__, dry-fitted in the breadboard as above, then soldered. Nothing else can start until the module can sit in the board.
+2. __Solder the battery pigtails to both modules' `BAT+`/`BAT−` pads__ while the pads are still reachable — before the expansion board goes back on. Do not connect the battery yet.
+3. __Push the XIAO in across the centre channel__, USB-C to the left. Seven columns; the module bridges the gap so its two rows are on separate nodes.
+4. __Two jumpers to the rails:__ `3V3` (pin 12) to the red rail, `GND` (pin 13) to the blue. Anywhere in the same column works — a column of five holes is one connection.
+5. __Power the board over USB alone__ and confirm it enumerates. Stop here if it does not.
+6. __Sensors in, then their power__, then the two bus wires from `D4` and `D5`. Run [`bringup-cam`](../firmware/bringup-cam/): the I2C scan either finds `0x77` and `0x6A` or it does not.
+7. __Buzzer last of the signal wiring__, one leg to `D0`, one to ground.
+8. __The battery last of all__, and only once everything above passes on USB.
+
+### The XIAO's pins, as text
+
+The drawing and this agree; the text version is here because a pin order is worth being able to grep. Viewed __from above with the USB-C at the left__:
 
 ```text
-                         USB-C
-                     ______|______
-              D0  1 |o           o| 14  5V     <- dead on battery. Do not use
-              D1  2 |o           o| 13  GND    -> blue rail
-              D2  3 |o   XIAO    o| 12  3V3    -> red rail
-              D3  4 |o  ESP32S3  o| 11  D10
-              D4  5 |o    cam    o| 10  D9
-              D5  6 |o           o|  9  D8
-              D6  7 |o___________o|  8  D7
-
-                  ^ Sense camera board sits ON TOP of this. Headers point DOWN.
+   top edge, left to right     5V   GND  3V3  D10  D9  D8  D7
+   bottom edge, left to right  D0   D1   D2   D3   D4  D5  D6
 ```
 
-Full picture. Two jumpers make the rails, then everything shares them:
-
-```text
-   red rail  (+3V3, from the cam XIAO's pin 12 only)
-  =========================================================================
-     |            |              |                |
-     | VIN        | VIN          |                |
-  +--+-----+  +---+------+       |                |
-  | BMP388 |  | LSM6DSO32|       |   XIAO-ESP32S3-cam  (stack 1)
-  |        |  |          |       |   +-- pin 12 3V3 ---> red rail
-  | GND SDA SCL   GND SDA SCL    |   +-- pin 13 GND ---> blue rail
-  +--+--+---+--+  +-+--+---+-+   |   +-- pin  5 D4  ---> SDA line
-     |  |   |       |  |   |     |   +-- pin  6 D5  ---> SCL line
-     |  |   +-------|--|---+-----+-- SCL  (one column, shared)
-     |  +-----------|--+---------+-- SDA  (one column, shared)
-     |              |            |
-  ===+==============+============+=========================================
-   blue rail (GND)               |
-                                 |        piezo buzzer: one leg -> D0 (pin 1)
-                                 |                      other leg -> blue rail
-                                 |                      (a bare disc has no
-                                 |                       + or -, either way)
-                                 |
-        --------- the battery (LiPo-500mAh) ---------
-                                 |
-        red wire  --> BAT+ pad, underside of BOTH XIAOs
-        black wire --> BAT- pad, underside of BOTH XIAOs
-        (soldered pigtails -- see below. NOT to the red/blue rails)
-```
-
-__The battery does not go on the breadboard rails.__ The red rail is 3.3 V coming __out__ of the cam XIAO's regulator; the battery is 3.7–4.2 V going __into__ both XIAOs' underside pads. Joining them puts battery voltage onto the sensors and back into a regulator's output. Keep the two apart: __battery to BAT pads only, everything else from pin 12__.
+__That is a mirror of [module-pinouts.md](module-pinouts.md#xiao-esp32s3--read-off-the-underside-2026-09-08)__, which reads the part from the underside with the USB-C at the top. Both describe the same 14 pads. The consequence for wiring is that __`D4`/`D5` are in the lower half of the board and `3V3`/`GND` are in the upper__, which is why the bus wires cross the channel and the power wires do not.
 
 ### Every connection, as a list
 
