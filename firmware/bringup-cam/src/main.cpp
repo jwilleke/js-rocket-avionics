@@ -1,5 +1,10 @@
 // bringup-cam -- bench bring-up for XIAO-ESP32S3-cam + Sense-camera-board (#7)
 //
+// PlatformIO project, not an Arduino sketch. Build and flash:
+//     pio run -t upload && pio device monitor
+// Board, PSRAM and partition settings live in ../platformio.ini, so nothing
+// depends on IDE menu state -- which is the point of not using a .ino.
+//
 // NOT FLIGHT FIRMWARE. This proves the parts are alive and talking, in the
 // order that fails cheapest, and prints a PASS/FAIL line for each of #7's four
 // acceptance criteria. Apogee, staging and landing detection are out of scope
@@ -10,7 +15,6 @@
 // file". Register values are cited inline so they can be checked rather than
 // trusted.
 //
-// Arduino IDE: board "XIAO_ESP32S3", PSRAM enabled (Tools > PSRAM > OPI PSRAM).
 // The Sense expansion board must be fitted -- camera and microSD live on it.
 //
 // WIRING, from docs/module-pinouts.md. Both sensors are I2C on D4/D5, powered
@@ -29,6 +33,7 @@
 //   - Ignore the seller's wiring diagram. It is SPI, wired to Arduino
 //     13/12/11/10, and following it wastes a session.
 
+#include <Arduino.h>
 #include <Wire.h>
 #include <SPI.h>
 #include "esp_camera.h"
@@ -192,8 +197,8 @@ static void step_camera() {
                 psramFound() ? "present" : "MISSING",
                 (unsigned)ESP.getFreePsram());
   if (!psramFound()) {
-    Serial.println(F("    enable Tools > PSRAM > OPI PSRAM, or frame buffers"));
-    Serial.println(F("    will not allocate."));
+    Serial.println(F("    build_flags in platformio.ini must carry -DBOARD_HAS_PSRAM,"));
+    Serial.println(F("    or the frame buffers will not allocate."));
   }
 
   camera_config_t c = {};

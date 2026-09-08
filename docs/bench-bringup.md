@@ -42,9 +42,14 @@ __No firmware.__ That is the entire premise of this module: a supported Meshtast
 
 ## 3 — #7, the recorder
 
-__Firmware exists now:__ [`firmware/bringup-cam/bringup-cam.ino`](../firmware/bringup-cam/bringup-cam.ino). It runs #7's four criteria in the order that fails cheapest and prints a PASS/FAIL line for each. __It is untested — no hardware has run it__ — so a failure means check the wiring *and* check the sketch.
+__Firmware exists now:__ [`firmware/bringup-cam/`](../firmware/bringup-cam/), a PlatformIO project. It runs #7's four criteria in the order that fails cheapest and prints a PASS/FAIL line for each. __It is untested — no hardware has run it__ — so a failure means check the wiring *and* check the code.
 
-Board `XIAO_ESP32S3`, __PSRAM enabled__ (`Tools > PSRAM > OPI PSRAM`) or the frame buffers will not allocate.
+```sh
+cd firmware/bringup-cam
+pio run -t upload && pio device monitor
+```
+
+__No IDE settings to remember.__ Board, PSRAM and the partition table are all in [`platformio.ini`](../firmware/bringup-cam/platformio.ini), which is why this is not a sketch — `-DBOARD_HAS_PSRAM` is load-bearing, and a camera that fails to allocate its frame buffers reports an error that reads like a hardware fault.
 
 Four wires per sensor, both on I2C:
 
