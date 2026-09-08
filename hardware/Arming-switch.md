@@ -1,6 +1,16 @@
 # Arming switch
 
-__A convenience, not a requirement__ (operator, 2026-09-08). In the battery line, not on a GPIO. Still neither chosen nor bought, and __nothing is now waiting on it__.
+__No arming switch on flight 3__ (operator, 2026-09-08). In the battery line, not on a GPIO — but not on this flight. Nothing was chosen, nothing was bought, and nothing was waiting on it.
+
+> __The JST is the arming device.__ Connecting it arms the rocket; unplugging it safes the rocket. That was already true — this decision is that no second mechanism is added in front of it for flight 3.
+>
+> __What that costs is turnaround, not safety.__ This payload has no pyro, so an "armed" rocket here is one that is recording video. The switch only ever bought a faster way to reach the disconnect; the argument below is unchanged and is kept for whenever a flight wants it.
+>
+> __What it buys back, today:__ the 80 mm battery lead no longer has to carry an inline switch, so __JST position is decided on its own__ rather than jointly — see [LiPo-500mAh.md](LiPo-500mAh.md). One less coupling in [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14) stage 2c.
+>
+> __The pad procedure this forces:__ runtime is ~100 minutes from the moment the JST is connected and it cannot be managed in firmware, so __the JST is connected last__, on the pad, and the clock starts there.
+>
+> __What would overrule it__ is unchanged and still unchecked: a club or field rule requiring a visible external arming switch for any powered electronics. A rule beats an argument.
 
 ## It is not a safety device on this rocket, and calling it one drove requirements it does not need
 

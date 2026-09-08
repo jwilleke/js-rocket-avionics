@@ -31,7 +31,7 @@ The face carries only XIAO-ESP32S3-lora's 21 mm of the carrier's 95, so __74.0 m
 About __adapter z 2..38__ — nose z −38..−2, station __242..278__ from the tip. __It fits with room to spare__: the adapter's bore is __Ø35.75__ over adapter z 0..30, opening to Ø39.98 at z 34..40, so a 29 mm wide slab has __20.91 mm__ of thickness available against the battery's 4.75, and the 36 mm length sits inside the ~40 mm of clear bore below the Nosecone's tenon.
 
 - __Buys the access outright.__ Pull the nose, unclip the JST, battery out, __sled untouched__ — [#1](https://github.com/jwilleke/js-rocket-avionics/issues/1) answered rather than mitigated
-- __Takes arming off the sled with it.__ The switch sits __in series in the battery line between the battery and the carrier JST__ ([Arming-switch.md](Arming-switch.md)), so the switch follows the battery onto the airframe, and the sled's 180° flip — which [js-rocket#90](https://github.com/jwilleke/js-rocket/issues/90)'s loop reduced but did not remove — stops bearing on arming at all
+- __Takes arming off the sled with it.__ Arming on flight 3 __is the JST__ — no switch ([Arming-switch.md](Arming-switch.md)) — and any later switch sits __in series in the battery line between the battery and the carrier JST__, so it follows the battery onto the airframe, and the sled's 180° flip — which [js-rocket#90](https://github.com/jwilleke/js-rocket/issues/90)'s loop reduced but did not remove — stops bearing on arming at all
 - __Nothing retains it.__ The M3 × 55 cross-bar is at adapter z 55, __17 mm above__ the battery's top, so it does not hold it down, and below the battery the bore runs straight through into the Tube. The Nosecone page already records the general case — *"the bay is open at its base, so with the nose fitted a payload drops through into the Tube. Needs a retainer (plug, foam, tape) or a lip"*
 - __It sits in the recovery cord's path.__ The M3 is the cord's upper anchor and the cord runs down that bore, so ejection whips the bungee past exactly where the battery is. A LiPo pouch is 4.75 mm of soft foil, and a crushed or punctured battery is a fire inside a sealed nose on a rocket that has to be picked up by hand. __Any retainer here must also shield it from the cord__ — a sleeve, a tube or a hard divider — not merely stop it falling
 - __It contradicts [`payload-adapter.md`](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-adapter.md)__, which states twice that *"it is an adapter, not a payload bay — the payload lives entirely in the Nosecone."* That sentence has to be replaced deliberately, not simply overtaken
@@ -52,7 +52,7 @@ __Under B__ it is the binding dimension. The lead climbs the bore, passes the M3
 
 > __So B puts the JST in the aft third of the carrier__, within about __35–45 mm of its aft end__. A is indifferent. __Placing the JST aft satisfies both__, which makes it the cheap hedge while the position is open — and it is free now and a respin to discover later ([#14](https://github.com/jwilleke/js-rocket-avionics/issues/14), stage 2c).
 
-An inline arming switch eats into the same 80 mm under B, so switch position and JST position are decided together or not at all.
+__An inline arming switch would eat into the same 80 mm under B — and flight 3 has none__ ([Arming-switch.md](Arming-switch.md), 2026-09-08), so the 80 mm is the JST's alone and __its position is decided on its own__. If a later flight adds a switch, this coupling comes back and the two are decided together.
 
 ### Ruled out on geometry, under either candidate
 
