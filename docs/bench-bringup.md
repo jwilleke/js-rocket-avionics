@@ -78,6 +78,22 @@ __This is the one that can change the copper__, so run it last and run it proper
 - Measure __actual current draw__ against the ~300 mA estimate
 - __Repeat on a partially discharged cell.__ A full cell is the easy case and sag is worst near the bottom
 
+__The load and the record are firmware now:__ [`firmware/soak-power/`](../firmware/soak-power/), a PlatformIO project. It drives the worst case the flight build can produce — capture, then an SD write burst, as fast as the card takes it — and appends __one CSV line per cycle__ to `/soak-power.csv`, plus a line per boot carrying `esp_reset_reason()`. __It is untested — no hardware has run it.__
+
+```sh
+cd firmware/soak-power
+pio run -t upload          # then UNPLUG the USB and run from the cell
+```
+
+- __USB-C powers the board.__ A run with the monitor attached measures the bench supply and says nothing about the cell. Flash, unplug, run, then read the card
+- __A brownout names itself.__ The ESP32-S3's own detector fires before the CPU misbehaves, so `BROWNOUT` in the reset column is the observation this issue is missing — and a `PANIC` in that column is a bug in the firmware rather than evidence about the cell, which is why every reason is logged and not just the interesting one
+- __The log is on the card because the event is a reset.__ Each line is opened, written and closed, so a run loses at most one line to the thing it is measuring
+- __Endurance falls out of the same file.__ Count boot lines, read the last uptime before each; no separate test and no trust in the ~300 mA estimate
+- __The voltage columns are optional and worth the two resistors.__ The XIAO has no battery divider — BAT+/BAT− are bare pads — so without one the reset is caught and attributed but the shape of the sag is missing. Two 100k from BAT+ to D1 (GPIO2) fills in `vbat/vmin/vmax`, sampled by a task on the other core so a blocking SD write cannot hide its own dip. Wiring and build flags are in [`platformio.ini`](../firmware/soak-power/platformio.ini)
+- __This does not replace the scope__, it replaces having nothing when there is no scope — and it logs for an hour, which a trace does not
+
+__XIAO-ESP32S3-lora is the other half of the test and takes no firmware__: it runs stock Meshtastic, and what is being watched is whether it reboots. Read its own log after the run and line its reboots up against the CSV's write bursts.
+
 ### Measure two more things while it is on the bench
 
 Neither is in #8 as written, and both are nearly free once the setup exists.
