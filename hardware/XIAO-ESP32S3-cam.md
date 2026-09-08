@@ -49,21 +49,31 @@ Both copies are the same part — `Model: XIAO-ESP32-S3`, `FCC ID: Z4T-XIAOESP32
 
 __The BAT pads are not on the castellated edge__, so the battery cannot reach this board through the headers. A soldered pigtail runs from the carrier's JST to those pads.
 
-### The back face, and why the pigtail is soldered first
+### Which face carries what — settled off Seeed's two drawings and the stack itself
 
 ![Seeed's back pinout for the XIAO ESP32S3: the 14 castellated pads around the edge, the inner JTAG and USB pads, and BAT+ / BAT− inboard of the D3/D4 edge](../docs/resources/XIAO_ESP32-S3_back_pinout.png)
 
-__Everything that is not a castellated pad is on the back__, confirmed against Seeed's own drawing: `BAT+`/`BAT−` inboard of the `D3`/`D4` edge, plus `MTDO`/`MTDI`/`MTCK`/`MTMS` (JTAG), `EN`, `D+`/`D−`, and a second `GND`. __And the B2B connector is on the back too__ — which is the whole argument:
+__Back face__ — everything that is not a castellated pad: `BAT+`/`BAT−` inboard of the `D3`/`D4` edge, plus `MTDO`/`MTDI`/`MTCK`/`MTMS` (JTAG), `EN`, `D+`/`D−`, and a second `GND`.
 
-__The expansion board mates flat to the back face, and it is the same outline as the XIAO__ (±8.75 mm against pads at ±8.5). A board of equal outline pressed flat against that face covers it. There is no route to an inboard pad afterwards, so __solder the pigtail before the expansion board clicks on__.
+![Seeed's front pinout for the XIAO ESP32S3: the RF shield, USB-C, and along the bottom edge the U.FL antenna socket beside the B2B connector](../docs/resources/XIAO_ESP32-S3_front_pinout.png)
 
-__Then the carrier does the same thing again, permanently.__ Once the XIAO is on its two 1×7 strips, the back faces the carrier across the header's __~2.50 mm__ standoff. No iron reaches into 2.50 mm. So the pigtail is soldered before *either* assembly step, and the ordering has two independent reasons rather than the one Seeed's wiki hints at.
+__Front face__ — the RF shield, USB-C, and along the __bottom edge the U.FL socket beside the B2B connector__. __The B2B is on the front.__ So the expansion board mates to the __front__, and the back face stays open.
 
-> __Consequence nobody had written down: the pigtails have to leave through that 2.50 mm gap.__ Two wires run from inboard pads, under a board of the same outline, out past a row of header pins, to the JST. Route and dress them before the XIAO goes down — they must not foul the pins, and they must not sit on carrier copper. Thin, flexible, and tacked down.
+![End-on view of the assembled Sense stack seated in a breadboard: header pins into the board, the XIAO above them, the B2B connector block, the expansion board with its white FPC socket, and the camera on its flex above that](../docs/resources/XIAO-ESP32S3-Sense-stack-end.jpg)
 
-__On the bench the same face is against the breadboard.__ Pull the XIAO out of the board to solder; do not try to work under a seated module.
+__The end-on view is the proof__, and it reads bottom to top: breadboard, header pins, __the XIAO__, the dark B2B block, __the expansion board__ with its white camera-ribbon socket, then the camera on its flex. The expansion board is above; the XIAO's back face points down at the breadboard, uncovered.
 
-__"Above" or "beneath" is the wrong question, and it is why two pages here disagreed.__ The expansion board mates to the __back face__. Which direction that grows in depends on which way up the assembly is held, and the stack height is 9.32 mm for the pair either way.
+### So what actually blocks the BAT pads
+
+__Not the expansion board.__ It mates to the front and never touches them — it can go on and come off with the pigtails already fitted.
+
+__The carrier does, and permanently.__ Once the XIAO is on its two 1×7 strips, the back face sits __~2.50 mm__ off the carrier, and no iron reaches into 2.50 mm. On the bench that same face is against the breadboard, so pull the XIAO out rather than working under a seated module.
+
+__Solder the pigtails before the XIAO goes onto its headers.__ That is the real ordering rule. Seeed's wiki is read as warning about the expansion board; on this board that is not where the obstruction is.
+
+> __Consequence nobody had written down: the pigtails have to leave through that 2.50 mm gap.__ Two wires run from inboard pads on the back, out past a row of header pins, to the JST. Route and dress them before the XIAO goes down — they must not foul the pins, and they must not sit on carrier copper. Thin, flexible, and tacked down.
+
+__This is also the answer to "above or beneath".__ The expansion board mates to the __front face__ and sits __above__ the XIAO, exactly as [design.md](../docs/design.md) says. The Population tables that read *"Wio-SX1262 beneath it"* were the wrong ones.
 
 __On battery power there is no voltage on the 5V pin__, so nothing can be fed from this board's 5V rail.
 

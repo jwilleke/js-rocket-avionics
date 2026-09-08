@@ -99,8 +99,8 @@ __The bottom face sets the length.__ The top-face figure once read 46 mm, from a
 
 | Face | Carries |
 |---|---|
-| Top | XIAO ESP32S3 (plain) + Wio-SX1262 on its back face; __L76K in the XIAO stack, not on the carrier__ |
-| Bottom | XIAO ESP32S3 Sense + camera/microSD board on its back face; LSM6DSO32; BMP388; buzzer |
+| Top | XIAO ESP32S3 (plain) + Wio-SX1262 __above it, on its front-face B2B__; __L76K in the XIAO stack, not on the carrier__ |
+| Bottom | XIAO ESP32S3 Sense + camera/microSD board __above it, on its front-face B2B__; LSM6DSO32; BMP388; buzzer |
 | Either | Battery JST, arming switch in the battery line, mounting holes |
 
 __XIAO B centres at carrier y = 18 mm__, which is what puts the camera at nose z 30..45.
