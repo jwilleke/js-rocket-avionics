@@ -195,11 +195,66 @@ def add_xiao(board, ref, cy, netmap, nets):
                 xiao_pin = i
                 pad.SetY(MM(cy + offset))
             else:
-                xiao_pin = XIAO_PINS_PER_ROW * 2 + 1 - i
+                # 8..14 as y DECREASES, which is what puts pin 8 opposite
+                # pin 7 and pin 14 opposite pin 1. #18: this was 15 - i, which
+                # numbered the row the right way round and then placed it the
+                # wrong way round -- mirroring it end for end, so +3V3 and GND
+                # landed on D9 and D8 and GPS_RX on the 5V pin.
+                xiao_pin = i + XIAO_PINS_PER_ROW
                 pad.SetY(MM(cy - offset))
             name = netmap.get(xiao_pin)
             if name:
                 pad.SetNet(nets[name])
+
+
+# The footprint the pin numbering follows, RF_Module:MCU_Seeed_ESP32C3, as a
+# pin -> (x, y) table. Row -8.5 runs 1..7 with y increasing; row +8.5 runs 8..14
+# with y decreasing, so 1 faces 14 and 7 faces 8.
+# (x, y) per pin. BOTH coordinates matter: pin 7 and pin 8 share y = +7.62, as
+# do 1 and 14 at -7.62, so a check on y alone would pass a net placed on the
+# wrong ROW. Only x tells the two rows apart.
+FOOTPRINT_PIN = {p: (-XIAO_ROW_DX, -7.62 + (p - 1) * XIAO_PITCH) for p in range(1, 8)}
+FOOTPRINT_PIN.update({p: (+XIAO_ROW_DX, 7.62 - (p - 8) * XIAO_PITCH) for p in range(8, 15)})
+
+
+def verify_pins(board, placements):
+    """Assert every net sits where the XIAO's own footprint says that pin is.
+
+    THE POINT OF THIS FUNCTION IS THAT IT RUNS. Two revisions of this file have
+    now shipped a wrong pin mapping -- GPS on 6/7 and I2C on 4/5 the first time,
+    the whole +8.5 row mirrored the second (#18). Both were found by a human
+    reading the saved board. The lesson was written down twice and never made
+    executable, and a check that only runs when someone remembers catches the
+    first instance and not the second.
+    """
+    inv = {}
+    for ref, cy, netmap in placements:
+        for xiao_pin, net_name in netmap.items():
+            dx, dy = FOOTPRINT_PIN[xiao_pin]
+            inv[(ref, net_name)] = (BOARD_W / 2.0 + dx, cy + dy, xiao_pin)
+
+    seen, bad = set(), []
+    for fp in board.GetFootprints():
+        ref = fp.GetReference()[:-1]            # J_XIAO_AA / J_XIAO_AB -> J_XIAO_A
+        for pad in fp.Pads():
+            net = pad.GetNetname()
+            if not net:
+                continue
+            want = inv.get((ref, net))
+            gx, gy = pcbnew.ToMM(pad.GetX()), pcbnew.ToMM(pad.GetY())
+            seen.add((ref, net))
+            if want is None:
+                bad.append("%s %s placed but not expected on this part" % (ref, net))
+            elif abs(want[0] - gx) > 0.01 or abs(want[1] - gy) > 0.01:
+                bad.append("%s %s at (%.2f, %.2f); pin %d is at (%.2f, %.2f)"
+                           % (ref, net, gx, gy, want[2], want[0], want[1]))
+
+    missing = set(inv) - seen
+    if missing:
+        bad += ["%s %s never placed" % m for m in sorted(missing)]
+    if bad:
+        raise AssertionError("pin mapping wrong:\n  " + "\n  ".join(bad))
+    print("verify   %d net placements match MCU_Seeed_ESP32C3" % len(seen))
 
 
 def add_plane(board, layer, net, inset=0.5):
@@ -239,6 +294,9 @@ def main():
     add_mounting_holes(board, BOARD_W, BOARD_H, HOLE_INSET)
     add_xiao(board, "J_XIAO_B", XIAO_B_Y, XIAO_B_NETS, nets)
     add_xiao(board, "J_XIAO_A", XIAO_A_Y, XIAO_A_NETS, nets)
+
+    verify_pins(board, [("J_XIAO_B", XIAO_B_Y, XIAO_B_NETS),
+                        ("J_XIAO_A", XIAO_A_Y, XIAO_A_NETS)])
 
     add_plane(board, pcbnew.In1_Cu, nets["GND"])
     add_plane(board, pcbnew.In2_Cu, nets["+3V3"])
