@@ -13,6 +13,18 @@ The frozen interface is in [README.md](../README.md). This page is what the boar
 | Thickness | __1.0 mm FR4__ |
 | Nets | ~__9__ — GPS TX, GPS RX, SDA, SCL, buzzer, 3V3, GND, BAT+, BAT− |
 
+## Three voltages, and only one of them is on this board
+
+| Rail | Volts | Where it comes from | On the carrier? |
+|---|---|---|---|
+| __USB / VBUS__ | __5.0__ | A USB-C lead, only while one is plugged in | __No__ — it exists on each XIAO's `5V` pin (pin 14) and nowhere else. [LiPo-500mAh.md](LiPo-500mAh.md) notes the consequence: *on battery power there is no voltage on the 5V pin* |
+| __Cell__ | __3.7 nominal__ | The [LiPo](LiPo-500mAh.md), to a JST, then by soldered pigtail to each XIAO's underside __BAT pads__ | Only as `BAT+` / `BAT−` at the JST. It does __not__ reach the headers |
+| __Logic__ | __3.3__ | Each XIAO's own regulator, out of its `3V3` pin (pin 12) | __Yes — this is the board's power net.__ It supplies the sensors and the buzzer |
+
+__So the carrier is a 3.3 V board.__ 5 V appears on it only if something is wired to a XIAO's `5V` pin, and nothing should be: the [LSM6DSO32](LSM6DSO32.md) and [BMP388](BMP388-barometer.md) are 3.3 V parts, and [module-pinouts.md](../docs/module-pinouts.md) records that the BMP388 in hand is __marked 3 V__ with 5 V no longer a documented fallback.
+
+__Charging is 5 V, and it is not this board's business.__ Both XIAOs carry their own charger and sit in parallel on the one cell — charge through one USB port at a time. No charge IC is added here.
+
 __Why not two smaller boards.__ The twin-PCB plan assumed each XIAO could sit flat on its own card with a cutout clearing the expansion board underneath. The XIAO's own footprint kills it: pads at __±8.5 mm__, expansion board at __±8.75 mm__. __The thing needing clearance is wider than the pads are apart__, so any cutout large enough to pass it removes the copper the pads solder to. No geometry satisfies both.
 
 __Why not 24 × 70.__ The two XIAOs cannot overlap in plan view — they mount on __through-hole__ headers, and XIAO-ESP32S3-lora uses D6/D7 for the GPS UART where XIAO-ESP32S3-cam uses D4/D5 for I2C. Different nets, same holes. So they sit end to end, and at 24 mm wide against 17.8 mm sensors nothing sits side by side:
@@ -49,7 +61,7 @@ __XIAO B centres at carrier y = 18 mm__, which is what puts the camera at nose z
 | Stage | State |
 |---|---|
 | 2a — outline, mounting holes, stackup | __done__ |
-| 2b — nets and footprints | __partial__ — XIAOs placed and netted; sensors, buzzer and JST deferred |
+| 2b — nets and footprints | __BROKEN__ — XIAOs placed, but __5 of 9 nets land on the wrong pin__ ([#18](https://github.com/jwilleke/js-rocket-avionics/issues/18)); sensors, buzzer and JST deferred |
 | 2c — placement | blocked on measured module pinouts — [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14) |
 | 2d — routing | __not started__. Autorouting is wrong here — [#15](https://github.com/jwilleke/js-rocket-avionics/issues/15) |
 | 2e — gerber + drill export | chain proven; needs a finished board |
@@ -58,7 +70,11 @@ __XIAO B centres at carrier y = 18 mm__, which is what puts the camera at nose z
 
 ## Read the board, not the script
 
-An earlier generator revision put GPS on pins 6/7 and I2C on 4/5 — __D5/D6 and D3/D4, every one off by one__. It was caught by __reading the mapping back out of the saved board__, not by trusting the script's output. The generator now names pins (`XIAO_PIN["D6"]`) so the numbers never appear by hand, and __the read-back is the check__, not a formality.
+An earlier generator revision put GPS on pins 6/7 and I2C on 4/5 — __D5/D6 and D3/D4, every one off by one__. It was caught by __reading the mapping back out of the saved board__, not by trusting the script's output. The generator now names pins (`XIAO_PIN["D6"]`) so the numbers never appear by hand.
+
+> __It happened again, and this section is why that stings.__ [#18](https://github.com/jwilleke/js-rocket-avionics/issues/18), found 2026-09-08: the whole `+8.5 mm` row is mirrored end for end, so `+3V3` and `GND` land on __D9 and D8__ and `GPS_RX` on the __5V pin__. Naming the pins fixed the arithmetic and did nothing about the row order.
+>
+> __The read-back was written down as the check and never made routine.__ That is the actual defect — a check that only runs when someone remembers is a check that catches the first instance and not the second. #18 asks for it as an assertion against the footprint's own pin table, so the third instance is caught by CI.
 
 ## Ordering
 
