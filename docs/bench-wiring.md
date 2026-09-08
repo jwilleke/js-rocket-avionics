@@ -71,7 +71,7 @@ __7 pitches = 17.78 mm is the fit__, 0.78 mm wider than the pads, which the pins
 
 __Confirmed on the bench__ — both XIAOs are seated across the channel in the photograph below. If the recorded 17.0 turns out to be edge-to-edge rather than centre-to-centre, correct `XIAO-ESP32S3-cam.md` while the calipers are out.
 
-__3 — Can you still reach the BAT pads?__ `BAT+`/`BAT−` are __pads on the underside of the XIAO__, not on the edge, and [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md) warns they are __inaccessible once the expansion board is fitted__. If the Sense board is already mated, the battery cannot reach that XIAO without unmating it. Look before planning the session around it.
+__3 — Solder the BAT pigtails now, while both XIAOs are bare.__ `BAT+`/`BAT−` are pads on the __back face__, inboard of the `D3`/`D4` edge — confirmed against Seeed's own back pinout in [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md). The B2B connector is on that same face and the expansion board is the same outline as the XIAO, so mating it covers the pads. The carrier later does the same permanently, at 2.50 mm. __This is no longer a question to check — it is a step to do first__, and the photograph above is the moment to do it: neither expansion board is fitted yet.
 
 > __The battery reaches a XIAO only by soldered wire.__ There is no battery connector on these modules. This is the one soldering job the bench build cannot avoid, and [BOM.md](BOM.md)'s "the bench build needs no soldering" is true only of the I2C sensors, which have plug-in cables.
 

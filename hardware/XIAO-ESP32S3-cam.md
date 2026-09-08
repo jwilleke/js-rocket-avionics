@@ -43,11 +43,27 @@ Both copies are the same part — `Model: XIAO-ESP32-S3`, `FCC ID: Z4T-XIAOESP32
 | Pads | __14 castellated__, two rows of 7, rows __17.0 mm apart__, pitch __2.54 mm__, pads 3 × 2 mm |
 | Connectors | USB-C, __U.FL__, and the B2B connector an expansion board mates to |
 | PSRAM | __8 MB__ (ESP32-S3R8) |
-| Battery | __BAT+/BAT− are underside pads__ (footprint pads 16/17, 2.3 × 1.3 mm at x = −4.5), __not on the castellated edge__ |
+| Battery | __BAT+/BAT− are pads on the back face__ (footprint pads 16/17, 2.3 × 1.3 mm at x = −4.5), inboard of the `D3`/`D4` edge and __not on the castellated edge__ — see the drawing below |
 
 ## Things that will catch you
 
-__The BAT pads are not on the castellated edge__, so the battery cannot reach this board through the headers. A soldered pigtail runs from the carrier's JST to those pads — and __solder the pigtail before the expansion board goes on__, because the pads are inaccessible afterwards.
+__The BAT pads are not on the castellated edge__, so the battery cannot reach this board through the headers. A soldered pigtail runs from the carrier's JST to those pads.
+
+### The back face, and why the pigtail is soldered first
+
+![Seeed's back pinout for the XIAO ESP32S3: the 14 castellated pads around the edge, the inner JTAG and USB pads, and BAT+ / BAT− inboard of the D3/D4 edge](../docs/resources/XIAO_ESP32-S3_back_pinout.png)
+
+__Everything that is not a castellated pad is on the back__, confirmed against Seeed's own drawing: `BAT+`/`BAT−` inboard of the `D3`/`D4` edge, plus `MTDO`/`MTDI`/`MTCK`/`MTMS` (JTAG), `EN`, `D+`/`D−`, and a second `GND`. __And the B2B connector is on the back too__ — which is the whole argument:
+
+__The expansion board mates flat to the back face, and it is the same outline as the XIAO__ (±8.75 mm against pads at ±8.5). A board of equal outline pressed flat against that face covers it. There is no route to an inboard pad afterwards, so __solder the pigtail before the expansion board clicks on__.
+
+__Then the carrier does the same thing again, permanently.__ Once the XIAO is on its two 1×7 strips, the back faces the carrier across the header's __~2.50 mm__ standoff. No iron reaches into 2.50 mm. So the pigtail is soldered before *either* assembly step, and the ordering has two independent reasons rather than the one Seeed's wiki hints at.
+
+> __Consequence nobody had written down: the pigtails have to leave through that 2.50 mm gap.__ Two wires run from inboard pads, under a board of the same outline, out past a row of header pins, to the JST. Route and dress them before the XIAO goes down — they must not foul the pins, and they must not sit on carrier copper. Thin, flexible, and tacked down.
+
+__On the bench the same face is against the breadboard.__ Pull the XIAO out of the board to solder; do not try to work under a seated module.
+
+__"Above" or "beneath" is the wrong question, and it is why two pages here disagreed.__ The expansion board mates to the __back face__. Which direction that grows in depends on which way up the assembly is held, and the stack height is 9.32 mm for the pair either way.
 
 __On battery power there is no voltage on the 5V pin__, so nothing can be fed from this board's 5V rail.
 
@@ -55,7 +71,7 @@ __Both XIAO chargers sit in parallel on one battery — charge through one USB p
 
 __Reversing a LiPo into a XIAO destroys it.__ The carrier silkscreens the pigtail polarity.
 
-__The expansion board is the same outline as the XIAO__ (±8.75 mm against pads at ±8.5), which is why no carrier cutout can clear one: any hole wide enough removes the copper the pads solder to.
+__The expansion board is the same outline as the XIAO__ (±8.75 mm against pads at ±8.5). Two consequences: no carrier cutout can clear one, because any hole wide enough removes the copper the pads solder to — and it covers the whole back face, which is what puts the BAT pads out of reach above.
 
 ---
 

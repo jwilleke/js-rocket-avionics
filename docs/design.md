@@ -67,7 +67,9 @@ Seeed's own figure confirms the stack: __21 × 17.5 × 15 mm__ with the expansio
 
 ### So: headers, and a centre-plane card
 
-__The expansion board — Sense or Wio-SX1262 — mates to the XIAO and sits __above__ it__, not beneath. The XIAO sits on __two 7-pin headers__, one down each long edge, onto the carrier.
+__The expansion board — Sense or Wio-SX1262 — mates flat to the XIAO's __back face__, on the B2B connector there.__ The XIAO sits on __two 7-pin headers__, one down each long edge, onto the carrier.
+
+__Say "back face", not "above" or "beneath".__ This section once said *above, not beneath* while the Population table below said *beneath*, and both were describing the same assembly from opposite ends. The face is the fact; the direction depends on which way up you hold it. The pair is 9.32 mm either way. That face also carries `BAT+`/`BAT−`, which is why the battery pigtail is soldered before the expansion board goes on — see [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md).
 
 __Measured on the assembled stacks__ — heights from the bottom of the XIAO's PCB, camera excluded, with the headers' 2.50 mm added:
 
@@ -89,7 +91,7 @@ The camera hangs off the expansion board __on a flexible ribbon__, so its positi
 
 | Face | Carries |
 |---|---|
-| Top | XIAO ESP32S3 (plain) + Wio-SX1262 beneath it; __L76K GNSS__ — in the XIAO stack, __not on the carrier__ |
+| Top | XIAO ESP32S3 (plain) + Wio-SX1262 on its back face; __L76K GNSS__ — in the XIAO stack, __not on the carrier__ |
 | Bottom | XIAO ESP32S3 Sense + camera/microSD board beneath it; LSM6DSO32; BMP388; buzzer |
 | Either | Battery JST, mounting holes. The arming switch is inline in the battery lead and takes no footprint |
 
