@@ -54,6 +54,8 @@ __On battery power there is no voltage on the 5V pin__, so nothing can be fed fr
 
 __Both XIAO chargers sit in parallel on one cell — charge through one USB port at a time.__
 
+> __This module's USB-C is not used in the flight build__ (operator, 2026-09-08). Charging and service go through the [Sense stack](XIAO-ESP32S3-cam.md) instead, because __this module runs stock Meshtastic and must never be reflashed__ — which is the whole reason there are two of them. Its port is reachable only by taking the nose apart. See [PCB-carrier.md](PCB-carrier.md#charge-through-the-sense-stack-and-only-that-one).
+
 __Reversing a LiPo into a XIAO destroys it.__ The carrier silkscreens the pigtail polarity.
 
 __The expansion board is the same outline as the XIAO__ (±8.75 mm against pads at ±8.5), which is why no carrier cutout can clear one: any hole wide enough removes the copper the pads solder to.
