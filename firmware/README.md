@@ -20,4 +20,6 @@ __None of this is flight firmware.__ Bring-up proves the parts are alive and tal
 
 __[XIAO-ESP32S3-lora](../hardware/XIAO-ESP32S3-lora.md) has no project here and must not get one.__ It runs stock Meshtastic, pre-flashed, and that is the entire reason there are two modules: a recovery beacon that cannot be broken by our own bugs. Writing firmware for it would throw that away.
 
+__Board settings come from the board definition, not from this repo__, and both projects pin `platform = espressif32@55.3.35` so that stays true across machines. What is a default, what is deliberately restated, and how to recover a board that will not take an upload: [sense-board-PlatformIO.md](sense-board-PlatformIO.md).
+
 Procedure for running any of this: [bench-bringup.md](../docs/bench-bringup.md).
