@@ -204,11 +204,21 @@ Purchase history is in [shopping-list.md](shopping-list.md).
 Both sensors put their header on __one edge only__. Two ways to mount, and it is a real 2c decision:
 
 - __Perpendicular__ — header into the carrier, board standing up. Simple, but ~17.8 mm tall plus header against __19.7 mm__ available at the bore centre, and __cantilevered off the header alone__.
-- __Flat__ — right-angle headers or short links, with the mounting holes doing the mechanical work. Lower and far better for shock, more fiddly to assemble.
+- __Flat__ — board parallel to the carrier, standing on its header pins, with the mounting holes doing the rest of the mechanical work. Lower and far better for shock.
 
 __Flat is the answer, and the calipers settled it.__ On the BMP388 the two mounting holes sit at the corners of the edge *opposite* the header, with the Qwiic connectors on the short sides — confirmed on the part. Screws at one end and a soldered header at the other gives __two-point restraint__ across the board, exactly what boost loading wants and what perpendicular mounting cannot offer.
 
 Flat also wins on height now that the board is measured. It stacks __4.79 mm__ plus standoff against the __19.7 mm__ available at the bore centre; perpendicular would stand 17.8 mm of board plus header into that same 19.7 mm, cantilevered off the header alone.
+
+### The header is a straight kit-standard strip — settled 2026-09-08
+
+__Straight headers. Not right-angle, not links.__ The board stands on its pins at the header's own __~2.50 mm__ standoff, parallel to the carrier, with __M2 spacers of the same height__ under the two mounting holes. Header edge and screw edge at the same height is what makes it flat.
+
+__This design already does exactly that.__ A XIAO mounts flat on two straight 1×7 strips — see [Stacking-headers.md](../hardware/Stacking-headers.md) and [design.md](design.md). A sensor is the same problem with one header row instead of two, the screws standing in for the second row.
+
+Right-angle would only be needed to lie a board flat with the header entering from the *side*, and nothing here asks for that. __An earlier revision of the bullet above offered "right-angle headers or short links" and never chose between them__; that clause appeared once, propagated to no part page, and was read as an open decision it was never intended to be. It is closed: the strips in the kit are the part, for the bench and for flight, __soldered once and never removed__.
+
+Height, for the record: 4.79 mm board + 2.50 mm standoff = __7.29 mm__ off the carrier, against 10.72 mm for XIAO-ESP32S3-cam on the same face. The sensors do not set the height budget.
 
 __Footprint inputs, from the part:__ two Ø2.35 mm holes at 20.58 mm spacing, __M2 screws__. See [BMP388 — measured](#bmp388--measured-2026-08-08) above. __The LSM6DSO32 was expected to share this form factor and does not__ — it carries two header rows and puts its mounting holes on the same edge as one of them (see above). The two-point restraint argument still holds, on the Aux edge rather than the header-opposite edge. __Its readings are above__ ([LSM6DSO32](#lsm6dso32--read-off-photographs-2026-09-05-not-off-calipers)), taken off the grid rather than with calipers.
 

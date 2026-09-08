@@ -57,6 +57,10 @@ __Four are used: 1, 3, 4, 6__ — VIN, GND, SCL, SDA. Address __0x77__, no clash
 
 __Every figure above is identical on the LSM6DSO32__, so the carrier takes one outline and one hole pattern, placed twice and rotated. Two readings need care — the header's far-edge figure does not close on the width, and hole spacing has two routes 0.16 mm apart. Working in [module-pinouts.md](../docs/module-pinouts.md).
 
+__Mounting: flat, on a straight kit-standard header.__ Board parallel to the carrier at the header's ~2.50 mm standoff, M2 spacers of the same height under the two mounting holes — screws one edge, soldered header the other, two-point restraint. __Straight, not right-angle__, and the same part on the bench and in flight, so it is soldered once and never removed. Settled in [module-pinouts.md](../docs/module-pinouts.md#the-header-is-a-straight-kit-standard-strip--settled-2026-09-08), which owns it.
+
+__All eight pads get soldered, four carry signal__ — `VIN` (1), `GND` (3), `SCL` (4), `SDA` (6). The rest are mechanical. `CS` floating is [#19](https://github.com/jwilleke/js-rocket-avionics/issues/19).
+
 __The mounting screw is M2.__ Ø2.35 passes an M2 with 0.35 mm of total clearance; __an M2.5 does not fit at all__. See [Fasteners](README.md#fasteners--m2-everywhere).
 
 __The board is marked 3 V__, and the design runs +3V3 into VIN. __5 V is not a documented fallback for this board__, whatever the listing says.
