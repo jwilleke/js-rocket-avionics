@@ -156,6 +156,37 @@ __Nothing further is needed to draw the footprint.__ Outline, pitch, hole patter
 
 __One reading is still worth taking before fabrication__ — the hole-spacing tie-break above. It does not block [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14).
 
+## XIAO ESP32S3 — read off the underside 2026-09-08
+
+__The pinout the whole carrier netlist rests on, and until now it was never verified.__ Read off [`XIAO-ESP32-S3-bottom.jpg`](resources/XIAO-ESP32-S3-bottom.jpg) — the labels are on the __underside__, which is why the earlier top-face photo could not settle it.
+
+Underside view, USB-C at the top. __The columns are mirrored from the top view__, which is the trap:
+
+```text
+left  column, top -> bottom    5V   GND  3V3  D10  D9  D8  D7
+right column, top -> bottom    D0   D1   D2   D3   D4  D5  D6
+```
+
+So the numbering runs __D0..D6 down one side, then D7, D8, D9, D10, 3V3, GND, 5V back up the other__:
+
+| Pin | Label | | Pin | Label |
+|---|---|---|---|---|
+| 1 | __D0__ | ← USB end → | 14 | __5V__ |
+| 2 | D1 | | 13 | __GND__ |
+| 3 | D2 | | 12 | __3V3__ |
+| 4 | D3 | | 11 | D10 |
+| 5 | D4 | | 10 | D9 |
+| 6 | D5 | | 9 | D8 |
+| 7 | __D6__ | ← far end → | 8 | __D7__ |
+
+__Three things this confirms, none of which had been checked:__
+
+- __`RF_Module:MCU_Seeed_ESP32C3`'s geometry is correct for an ESP32-__S3__ board.__ `gen_carrier.py` takes its pad grid from a __C3__ footprint while the parts in hand are S3. The XIAO form factor is standard across variants — but that was an assumption, and this is the reading that supports it.
+- __`XIAO_PIN` in `gen_carrier.py` matches the silkscreen__, so [#18](https://github.com/jwilleke/js-rocket-avionics/issues/18)'s fix lands the nets on the right physical pins, not merely on the right footprint pads.
+- __Pin 1 = D0 sits at the USB-C end__, so the USB-C faces __aft__ on the carrier. [#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)'s charging pigtail depends on that and had been resting on an inference.
+
+__Also visible and consistent with [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md):__ `BAT+`/`BAT−` are __centre pads on the underside__, not on the castellated edge — which is why the cell reaches each board by soldered pigtail rather than through the headers. The JTAG pads (`MTCK`, `MTDO`, `MTDI`, `MTMS`) sit between them.
+
 ## Still needed
 
 - __LSM6DSO32__ (Adafruit 4692) — __header order now read off photographs__ (above); __every dimension is still missing__, and it remains the last unknown blocking sensor footprints. Calipers: [#5](https://github.com/jwilleke/js-rocket-avionics/issues/5)

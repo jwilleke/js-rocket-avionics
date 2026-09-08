@@ -38,6 +38,7 @@ Every image lives in [`docs/resources/`](../docs/resources/) and is embedded on 
 | [`Wio-SX1262-LoRa.jpg`](../docs/resources/Wio-SX1262-LoRa.jpg) | Wio-SX1262 | FCC ID, U.FL, and the 2×5 header currently fitted |
 | [`Wio-SX1262-LoRa-antennas.jpg`](../docs/resources/Wio-SX1262-LoRa-antennas.jpg) | Antennas | Both Seeed strips, to scale |
 | [`XIAO-ESP32S3-module.jpg`](../docs/resources/XIAO-ESP32S3-module.jpg) | XIAO ×2 | The MCU board. USB-C, U.FL, B2B, 14 pads |
+| [`XIAO-ESP32-S3-bottom.jpg`](../docs/resources/XIAO-ESP32-S3-bottom.jpg) | XIAO ×2 | __The pin labels.__ Underside, where the silkscreen is — the only reading that confirms pad 1 is `D0`. See [module-pinouts.md](../docs/module-pinouts.md#xiao-esp32s3--read-off-the-underside-2026-09-08) |
 | [`XIAO-ESP32S3-Sense-expansion.jpg`](../docs/resources/XIAO-ESP32S3-Sense-expansion.jpg) | Sense | Camera and microSD board |
 
 ## The two stacks
