@@ -43,7 +43,7 @@ Whatever the mechanism, the architecture is settled and worth restating because 
 
 __Smallest hole, snap action, no printed mechanism.__ Reasoning in the [arming brainstorm](../docs/resources/2026-08-15-arming-and-access-brainstorm.md).
 
-> [design.md](../docs/design.md)'s locked-decisions table still names a reed switch. __That row is wrong__ and is tracked for correction.
+> __An earlier note here said [design.md](../docs/design.md)'s locked-decisions table still named a reed switch.__ It does not, and had already stopped by the time this was read again — that row names the architecture and points here for the mechanism, which is the right division. Checked 2026-09-08.
 
 __Nothing has been bought and no part has been chosen.__ The mass in [BOM.md](../docs/BOM.md) is inherited from the reed-switch design.
 

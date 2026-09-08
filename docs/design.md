@@ -19,7 +19,7 @@ Related: [BOM.md](BOM.md) (parts and masses) · [shopping-list.md](shopping-list
 | Apogee method | __Inertial primary__; GPS anchor by __offline timestamp merge__, not real time | The cost of putting GPS on the stock-Meshtastic board |
 | Flight log storage | __Buffer in PSRAM during flight, flush after landing__ | Both flash and microSD stall the 500 Hz sampler mid-boost |
 | Power | __One battery__ to a carrier JST, distributed to each XIAO's __underside BAT pads by soldered pigtail__. __Charge through one USB port at a time__ | BAT is not on the castellated edge, so it cannot come through the headers. Avoids adding a charge IC |
-| Arming | __In the battery line__, not on a GPIO. Mechanism and status: [Arming-switch.md](../hardware/Arming-switch.md) | Physically cuts power; zero pins; cuts both modules at once |
+| Arming | __In the battery line__, not on a GPIO — and __flight 3 flies without one__ (2026-09-08). Mechanism and status: [Arming-switch.md](../hardware/Arming-switch.md) | Physically cuts power; zero pins; cuts both modules at once. Deferred rather than replaced: __nothing else takes the role__ |
 | Antennas | __Both off-board on U.FL__ — GPS patch forward-facing, LoRa 82 mm whip up the ogive | A GPS patch needs a 30–40 mm ground plane; a 24 mm board never will be |
 
 ## Why two boards, after settling on one
@@ -95,7 +95,7 @@ The camera hangs off the expansion board __on a flexible ribbon__, so its positi
 |---|---|
 | Top | XIAO ESP32S3 (plain) + Wio-SX1262 __above it, on its front-face B2B__; __L76K GNSS__ — in the XIAO stack, __not on the carrier__ |
 | Bottom | XIAO ESP32S3 Sense + camera/microSD board beneath it; LSM6DSO32; BMP388; buzzer |
-| Either | Battery JST, mounting holes. The arming switch is inline in the battery lead and takes no footprint |
+| Either | Battery JST, mounting holes. An arming switch would be inline in the battery lead and takes no footprint — __flight 3 carries none__ |
 
 Net list is small — roughly __9 nets__: GPS TX, GPS RX, SDA, SCL, buzzer, 3V3, GND, BAT+, BAT−. The wiring table is in the [README](../README.md).
 
@@ -132,7 +132,9 @@ __BAT+/BAT− are underside pads on the XIAO__ (footprint pads 16/17, 2.3 × 1.3
 
 ### Arming
 
-__The architecture is what this document owns, and it has survived every revision of the mechanism:__ the switch sits __in series in the battery line__, between the battery and the carrier's JST. It physically cuts power rather than setting a firmware state a boot-loop could defeat, it costs __zero GPIO__, and it __cuts both modules at once__ — arming is all-or-nothing, including the beacon.
+__Flight 3 carries no arming switch__ (operator, 2026-09-08) — see [Arming-switch.md](../hardware/Arming-switch.md). The part is deferred, not replaced, and __nothing else is promoted into the role__: power is made and broken at the battery's JST, which is a connector and stays one.
+
+__The architecture below is what this document owns, and it has survived every revision of the mechanism__ — it is what any later flight's switch has to satisfy. The switch sits __in series in the battery line__, between the battery and the carrier's JST. It physically cuts power rather than setting a firmware state a boot-loop could defeat, it costs __zero GPIO__, and it __cuts both modules at once__ — arming is all-or-nothing, including the beacon.
 
 __Everything else about it belongs to [Arming-switch.md](../hardware/Arming-switch.md)__ — which mechanism, what is still open, and why the reed switch, the magnet-polarity question and the MOSFET that used to live in this section are all gone. The short of it: this payload has no pyro, so an "armed" rocket here is one that is recording video, and the switch buys __turnaround, not safety__.
 
