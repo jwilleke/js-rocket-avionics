@@ -18,8 +18,8 @@ Related: [BOM.md](BOM.md) (parts and masses) · [shopping-list.md](shopping-list
 | Barometric static port | __Dropped__ | See below |
 | Apogee method | __Inertial primary__; GPS anchor by __offline timestamp merge__, not real time | The cost of putting GPS on the stock-Meshtastic board |
 | Flight log storage | __Buffer in PSRAM during flight, flush after landing__ | Both flash and microSD stall the 500 Hz sampler mid-boost |
-| Power | __One cell__ to a carrier JST, distributed to each XIAO's __underside BAT pads by soldered pigtail__. __Charge through one USB port at a time__ | BAT is not on the castellated edge, so it cannot come through the headers. Avoids adding a charge IC |
-| Arming | Reed switch __in the battery line__, not on a GPIO | Physically cuts power; zero pins; no hole in the nose. __Polarity and switching topology are open__ — see below |
+| Power | __One battery__ to a carrier JST, distributed to each XIAO's __underside BAT pads by soldered pigtail__. __Charge through one USB port at a time__ | BAT is not on the castellated edge, so it cannot come through the headers. Avoids adding a charge IC |
+| Arming | __In the battery line__, not on a GPIO. Mechanism and status: [Arming-switch.md](../hardware/Arming-switch.md) | Physically cuts power; zero pins; cuts both modules at once |
 | Antennas | __Both off-board on U.FL__ — GPS patch forward-facing, LoRa 82 mm whip up the ogive | A GPS patch needs a 30–40 mm ground plane; a 24 mm board never will be |
 
 ## Why two boards, after settling on one
@@ -91,7 +91,7 @@ The camera hangs off the expansion board __on a flexible ribbon__, so its positi
 |---|---|
 | Top | XIAO ESP32S3 (plain) + Wio-SX1262 beneath it; __L76K GNSS__ — in the XIAO stack, __not on the carrier__ |
 | Bottom | XIAO ESP32S3 Sense + camera/microSD board beneath it; LSM6DSO32; BMP388; buzzer |
-| Either | Battery JST, reed switch in the battery line, mounting holes |
+| Either | Battery JST, mounting holes. The arming switch is inline in the battery lead and takes no footprint |
 
 Net list is small — roughly __9 nets__: GPS TX, GPS RX, SDA, SCL, buzzer, 3V3, GND, BAT+, BAT−. The wiring table is in the [README](../README.md).
 
@@ -126,23 +126,11 @@ __BAT+/BAT− are underside pads on the XIAO__ (footprint pads 16/17, 2.3 × 1.3
 - __On battery power there is no voltage on the 5V pin__, so nothing can be fed from a XIAO's 5V rail.
 - Both XIAO chargers sit in parallel on one battery. __Charge through one USB port at a time.__
 
-### Arming — the reed switch, and two things not yet decided
+### Arming
 
-__The problem it solves is access, not convenience.__ Once the nose is assembled there is no way in: USB is unreachable, Wi-Fi is off, and the status LED is sealed inside. A slide switch would need another hand-drilled hole in a part with no generator. A reed switch responds to a magnet __through__ the PLA, so the switch lives inside and the magnet stays outside — no hole, no connector, no pin.
+__The architecture is what this document owns, and it has survived every revision of the mechanism:__ the switch sits __in series in the battery line__, between the battery and the carrier's JST. It physically cuts power rather than setting a firmware state a boot-loop could defeat, it costs __zero GPIO__, and it __cuts both modules at once__ — arming is all-or-nothing, including the beacon.
 
-It sits __in series in the battery line__, between the battery and the carrier's JST. That means it __physically cuts power__ rather than setting a firmware state a boot-loop could defeat, it costs __zero GPIO__, and it __cuts both boards at once__ — arming is all-or-nothing, including the beacon.
-
-> __OPEN 1 — polarity. Does the magnet arm or safe?__ Not decided, and it inverts the field procedure and the part number.
->
-> __Normally-closed, magnet safes__ is the standard model-rocket pattern and the one to adopt unless there is a reason not to: a magnet taped to the nose holds the contacts open, and pulling it off at the pad arms the rocket. It __fails safe__, and the magnet doubles as a visible remove-before-flight tag. The alternative — normally-open, magnet arms — would need the magnet held on for the whole flight and is unworkable.
->
-> __This decides what to order.__ Normally-closed reeds are much less common than normally-open, so a switch bought before this is settled is likely to be the wrong one. It is currently an unordered ~$2 part with an unspecified type.
->
-> __OPEN 2 — contact rating against camera inrush.__ A typical small reed switches around __0.5 A__. Steady draw is ~300 mA, which is comfortable. __The OV2640 powering up is the question__: reed contacts are small and can weld under inrush, and __a welded reed is an armed rocket that cannot be safed__ — which is the failure mode that matters, because it happens on the pad with people nearby.
->
-> __The fix is standard and cheap: let the reed switch a MOSFET rather than the load.__ The reed carries milliamps into the gate; the FET carries the current. One extra part, and the concern disappears. Decide this before the carrier is routed, since it adds a footprint.
-
-__Both are unresolved.__ The decision recorded in the table above — *reed switch in the battery line, not on a GPIO* — is the architecture. Neither the part type nor the switching topology follows from it.
+__Everything else about it belongs to [Arming-switch.md](../hardware/Arming-switch.md)__ — which mechanism, what is still open, and why the reed switch, the magnet-polarity question and the MOSFET that used to live in this section are all gone. The short of it: this payload has no pyro, so an "armed" rocket here is one that is recording video, and the switch buys __turnaround, not safety__.
 
 ### RF
 
@@ -160,7 +148,7 @@ __GPS: active patch on U.FL__ at the sled's forward end, facing up, satisfying t
 
 ## Data path — why the log lives in PSRAM
 
-__The camera is not on SPI.__ The OV2640 uses a __DVP parallel bus__ (14 GPIO) plus I2C/SCCB for control, with frames landing in PSRAM by DMA. What touches SPI is *writing those frames to the microSD*.
+__The camera is not on SPI.__ The OV3660 uses a __DVP parallel bus__ (14 GPIO) plus I2C/SCCB for control, with frames landing in PSRAM by DMA. What touches SPI is *writing those frames to the microSD*.
 
 __SD latency is unbounded.__ Cards run wear-levelling and garbage collection at will; a normally-2 ms write can take __100–250 ms__, spec-legally.
 
@@ -290,6 +278,6 @@ Each flight adds one thing, and the recovery beacon is proven before anything ex
 - __The PCB is on the critical path.__ Sled geometry derives from its outline and mounting holes, so a layout revision reprints the sled. Freeze the outline early; breadboard before committing to copper.
 - __GPS desense from the LoRa transmitter__ cannot be reasoned away on paper. ≥50 mm antenna separation and both antennas on U.FL are the mitigations; verification step 3 is the proof.
 - __Shared battery couples the boards.__ A camera brownout could disturb XIAO-ESP32S3-lora. Separate batteries would isolate them at +8 g, which the mass budget cannot afford.
-- __A welded reed switch is an armed rocket that cannot be safed.__ Contacts are small and the camera's inrush is unquantified; the mitigation is to switch a MOSFET rather than the load. Unresolved — see [Arming](#arming--the-reed-switch-and-two-things-not-yet-decided).
+- __A welded arming contact leaves the camera running.__ It was recorded here as "an armed rocket that cannot be safed", which is a pyro rocket's hazard and not this one's — the correction and the live constraint are in [Arming-switch.md](../hardware/Arming-switch.md).
 - __Estimated masses were unreliable in both directions.__ Nine parts weighed 2026-08-17: the __L76K came in +184%__ and is now the heaviest object in the nose, while the Sense and the radio came in light. Net __+4.1 g__, putting the nose over its ~50 g target — see [BOM.md](BOM.md), which owns every weight.
 - __The rocket's stability re-run ([#9](https://github.com/jwilleke/js-rocket/issues/9)) is P0 and blocking.__ This payload can be built and bench-tested now, but __it cannot be flown__ until that clears.

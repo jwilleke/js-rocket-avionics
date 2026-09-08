@@ -44,7 +44,7 @@ ROW_Y = {
 BOARD_H = 18.4 * PITCH
 BOARD_W = (COLS - 1) * PITCH + 2 * 28
 
-W, H = MARGIN_X * 2 + BOARD_W, 1010
+W, H = MARGIN_X * 2 + BOARD_W, 1120
 BOARD_BOT = BOARD_TOP + 18.4 * PITCH
 
 # ---- palette ---------------------------------------------------------------
@@ -305,18 +305,43 @@ text(lx + 74, by + 60, "There is no battery connector on a XIAO, and the", 10, N
 text(lx + 74, by + 74, "pads are unreachable once the expansion board is on.", 10, NOTE)
 text(lx + 74, by + 88, "Reversed polarity destroys the module instantly.", 10, BATT_RED)
 
-# the lora stack, which gets nothing else
-sx = lx + 390
-add(f'<rect x="{sx}" y="{by-14}" width="230" height="110" rx="8" fill="#0f2f4a" opacity="0.93"/>')
-text(sx + 115, by + 10, "XIAO-ESP32S3-lora", 12, "#ffffff", anchor="middle", weight="bold")
-text(sx + 115, by + 28, "+ Wio-SX1262  + L76K GPS", 10, "#c9d6e2", anchor="middle")
-text(sx + 115, by + 50, "stock Meshtastic", 10, "#c9d6e2", anchor="middle")
-text(sx + 115, by + 70, "NOT on the breadboard.", 10.5, "#ffd9d9", anchor="middle", weight="bold")
-text(sx + 115, by + 84, "Two battery wires and nothing else.", 10, "#c9d6e2", anchor="middle")
+# The lora stack, drawn as the stack it is. It is off the board because its own
+# 14 pads carry these two modules -- there is nothing left to push into a
+# breadboard -- and whether they coexist at all is the open question in #6.
+sx = lx + 372
+layers = [
+    ("L76K-GNSS", "on the XIAO's 14 pads · UART D6/D7", "#1d4a6b"),
+    ("XIAO-ESP32S3-lora", "stock Meshtastic · never reflashed", "#0f2f4a"),
+    ("Wio-SX1262", "LoRa, on the B2B connector", "#1d4a6b"),
+]
+for i, (name, sub, fill) in enumerate(layers):
+    ly0 = by - 26 + i * 34
+    add(f'<rect x="{sx}" y="{ly0}" width="248" height="30" rx="5" fill="{fill}" opacity="0.95"/>')
+    text(sx + 10, ly0 + 13, name, 10.5, "#ffffff", weight="bold")
+    text(sx + 10, ly0 + 25, sub, 8.5, "#c9d6e2")
+add(f'<text x="{sx+258}" y="{by+14}" font-family="Helvetica,Arial,sans-serif" font-size="15" '
+    f'fill="{BATT_RED}" font-weight="bold">?</text>')
+text(sx + 270, by + 30, "do these two", 8.5, BATT_RED)
+text(sx + 270, by + 41, "both fit? — #6", 8.5, BATT_RED)
+
+# the two antennas, and the separation the design depends on
+ax = sx + 40
+add(f'<line x1="{ax}" y1="{by+82}" x2="{ax}" y2="{by+104}" stroke="#8a8a8a" stroke-width="2"/>')
+add(f'<rect x="{ax-14}" y="{by+104}" width="28" height="20" rx="3" fill="#7a7a7a"/>')
+text(ax, by + 138, "GPS patch", 8.5, NOTE, anchor="middle")
+bxx = sx + 190
+add(f'<line x1="{bxx}" y1="{by+82}" x2="{bxx}" y2="{by+124}" stroke="#8a8a8a" stroke-width="2"/>')
+text(bxx, by + 138, "82 mm whip", 8.5, NOTE, anchor="middle")
+add(f'<line x1="{ax+16}" y1="{by+116}" x2="{bxx-16}" y2="{by+116}" stroke="{NOTE}" '
+    f'stroke-width="1" stroke-dasharray="4 3"/>')
+text((ax + bxx) / 2, by + 112, "≥50 mm apart", 8.5, NOTE, anchor="middle")
+
+text(sx, by + 160, "NOT in the breadboard, and it cannot be: those 14 pads carry the stack.", 9.5, INK, weight="bold")
+text(sx, by + 173, "Two soldered battery wires reach it. Nothing else does.", 9.5, NOTE)
 wire([(lx + 360, by + 40), (sx, by + 40)], BATT_RED, 3.2, dash="7 5")
 
 # ---- legend ----------------------------------------------------------------
-ly = by + 152
+ly = by + 214
 text(MARGIN_X, ly, "How the holes are joined", 13, INK, weight="bold")
 gx = MARGIN_X
 gy = ly + 16

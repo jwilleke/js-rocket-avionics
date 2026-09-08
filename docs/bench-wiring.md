@@ -38,7 +38,9 @@ Two module stacks and a breadboard. The stacks are already assembled by their B2
                   ------- ONE BATTERY -------
 ```
 
-__Only stack 1 gets sensors and a buzzer.__ Stack 2 has nothing wired to it at all except the two battery wires. Its radio and GPS are on the stack itself.
+__Only stack 1 gets sensors and a buzzer.__ Stack 2 has nothing wired to it at all except the two battery wires.
+
+__And stack 2 does not go into the breadboard either__ — not as a simplification, but because it cannot: [L76K-GNSS](../hardware/L76K-GNSS.md) rides the XIAO's own 14 pads and the [Wio-SX1262](../hardware/Wio-SX1262-LoRa.md) is on its B2B connector, so there is nothing left to push into a board. Whether those two coexist at all is the open question the bench is there to settle — [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6), and it is why the stack check comes before any power.
 
 ## Check three things on the parts before wiring anything
 

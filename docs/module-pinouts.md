@@ -187,13 +187,17 @@ __Three things this confirms, none of which had been checked:__
 
 __Also visible and consistent with [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md):__ `BAT+`/`BAT−` are __centre pads on the underside__, not on the castellated edge — which is why the battery reaches each board by soldered pigtail rather than through the headers. The JTAG pads (`MTCK`, `MTDO`, `MTDI`, `MTMS`) sit between them.
 
-## Still needed
+## What is left
 
-- __LSM6DSO32__ (Adafruit 4692) — __measured, and no longer blocking anything__ ([#5](https://github.com/jwilleke/js-rocket-avionics/issues/5)). One reading is still owed __before fabrication, not before the footprint__: the hole-spacing tie-break above, which moved to [#16](https://github.com/jwilleke/js-rocket-avionics/issues/16)
-- __L76K GNSS__ — it plugs onto the XIAO's 14 pads rather than using its own header, so the question is __stack collision with the Wio-SX1262 on the B2B__, not pin order. Needs both Seeed parcels, and they arrive weeks apart
-- __Buzzer, reed switch__ — trivial, two pins each
+__Every part is in hand, and every part has an owner__ — a [hardware page](../hardware/README.md), which also indexes the grid photographs. Nothing here is waiting for a part to arrive.
 
-Arrival dates are in [shopping-list.md](shopping-list.md).
+- __One reading is owed, and this page owns it:__ the hole-spacing tie-break above. It is a __pre-fabrication__ check, not a footprint blocker — [#16](https://github.com/jwilleke/js-rocket-avionics/issues/16)
+- __[L76K-GNSS](../hardware/L76K-GNSS.md) needs no pin order__, because it takes no carrier footprint. Its open question is mechanical stack fit, settled by stacking the parts dry — [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6)
+- __[PS1240-buzzer](../hardware/PS1240-buzzer.md)__ — two pins. Nothing to read off it
+
+__There is no reed switch__ — [Arming-switch.md](../hardware/Arming-switch.md) owns what replaced it and why.
+
+Purchase history is in [shopping-list.md](shopping-list.md).
 
 ## The mounting-orientation question
 
@@ -206,7 +210,7 @@ __Flat is the answer, and the calipers settled it.__ On the BMP388 the two mount
 
 Flat also wins on height now that the board is measured. It stacks __4.79 mm__ plus standoff against the __19.7 mm__ available at the bore centre; perpendicular would stand 17.8 mm of board plus header into that same 19.7 mm, cantilevered off the header alone.
 
-__Footprint inputs, from the part:__ two Ø2.35 mm holes at 20.58 mm spacing, __M2 screws__. See [BMP388 — measured](#bmp388--measured-2026-08-08) above. __The LSM6DSO32 was expected to share this form factor and does not__ — it carries two header rows and puts its mounting holes on the same edge as one of them (see above). The two-point restraint argument still holds, on the Aux edge rather than the header-opposite edge. __It is in hand since 2026-08-10 and still unmeasured — measure it, do not assume__ — this board already disagreed with Adafruit's dimensions in two places.
+__Footprint inputs, from the part:__ two Ø2.35 mm holes at 20.58 mm spacing, __M2 screws__. See [BMP388 — measured](#bmp388--measured-2026-08-08) above. __The LSM6DSO32 was expected to share this form factor and does not__ — it carries two header rows and puts its mounting holes on the same edge as one of them (see above). The two-point restraint argument still holds, on the Aux edge rather than the header-opposite edge. __Its readings are above__ ([LSM6DSO32](#lsm6dso32--read-off-photographs-2026-09-05-not-off-calipers)), taken off the grid rather than with calipers.
 
 ## Before designing a footprint round any module
 

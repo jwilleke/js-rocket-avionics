@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1452 1010" width="1452" height="1010">
-<rect width="1452" height="1010" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1452 1120" width="1452" height="1120">
+<rect width="1452" height="1120" fill="#ffffff"/>
 <text x="78.0" y="40.0" font-family="Helvetica,Arial,sans-serif" font-size="20" fill="#1b1b1b" text-anchor="start" font-weight="bold">Bench wiring — js-rocket-avionics #7 and #8</text>
 <text x="78.0" y="62.0" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#5b5b5b" text-anchor="start" font-weight="normal">Everything hangs off XIAO-ESP32S3-cam. XIAO-ESP32S3-lora gets nothing but the two battery wires.</text>
 <text x="78.0" y="80.0" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#5b5b5b" text-anchor="start" font-weight="normal">Viewed from above, USB-C to the left. The battery never touches the breadboard — see the note at the foot.</text>
@@ -1047,67 +1047,82 @@
 <text x="302.0" y="772.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#5b5b5b" text-anchor="start" font-weight="normal">There is no battery connector on a XIAO, and the</text>
 <text x="302.0" y="786.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#5b5b5b" text-anchor="start" font-weight="normal">pads are unreachable once the expansion board is on.</text>
 <text x="302.0" y="800.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#e03b3b" text-anchor="start" font-weight="normal">Reversed polarity destroys the module instantly.</text>
-<rect x="618" y="698.0" width="230" height="110" rx="8" fill="#0f2f4a" opacity="0.93"/>
-<text x="733.0" y="722.0" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="bold">XIAO-ESP32S3-lora</text>
-<text x="733.0" y="740.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#c9d6e2" text-anchor="middle" font-weight="normal">+ Wio-SX1262  + L76K GPS</text>
-<text x="733.0" y="762.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#c9d6e2" text-anchor="middle" font-weight="normal">stock Meshtastic</text>
-<text x="733.0" y="782.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#ffd9d9" text-anchor="middle" font-weight="bold">NOT on the breadboard.</text>
-<text x="733.0" y="796.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#c9d6e2" text-anchor="middle" font-weight="normal">Two battery wires and nothing else.</text>
-<path d="M 588.0 752.0 L 618.0 752.0" fill="none" stroke="#e03b3b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5"/>
-<text x="78.0" y="864.0" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold">How the holes are joined</text>
-<rect x="78" y="880.0" width="250" height="86" rx="6" fill="#f4f1ea" stroke="#cdc6b8"/>
-<rect x="100.0" y="896.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="100.0" y="909.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="100.0" y="922.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="100.0" y="935.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="100.0" y="948.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="122.0" y="896.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="122.0" y="909.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="122.0" y="922.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="122.0" y="935.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="122.0" y="948.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="144.0" y="896.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="144.0" y="909.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="144.0" y="922.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="144.0" y="935.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="144.0" y="948.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="166.0" y="896.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="166.0" y="909.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="166.0" y="922.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="166.0" y="935.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="166.0" y="948.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="188.0" y="896.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="188.0" y="909.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="188.0" y="922.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="188.0" y="935.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="188.0" y="948.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
-<rect x="96" y="890.0" width="14" height="66" rx="4" fill="#2f5fcc" opacity="0.16" stroke="#2f5fcc"/>
-<text x="78.0" y="984.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal">a column of five is one node — a jumper one row</text>
-<text x="78.0" y="997.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal">down from a pin is the same connection</text>
-<rect x="220" y="894.0" width="96" height="12" rx="4" fill="#cc2f2f" opacity="0.16" stroke="#cc2f2f"/>
-<text x="220.0" y="926.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal">a rail runs the whole</text>
-<text x="220.0" y="939.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal">length, and is split in</text>
-<text x="220.0" y="952.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal">the middle on some</text>
-<text x="220.0" y="965.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal">boards — bridge it</text>
-<text x="378.0" y="864.0" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold">Wire colours</text>
-<line x1="378" y1="882.0" x2="408" y2="882.0" stroke="#cc2f2f" stroke-width="3.6" stroke-linecap="round"/>
-<text x="418.0" y="886.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal">+3V3 — out of the XIAO's pin 12, then to both sensors</text>
-<line x1="378" y1="900.0" x2="408" y2="900.0" stroke="#222222" stroke-width="3.6" stroke-linecap="round"/>
-<text x="418.0" y="904.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal">GND — the XIAO's pin 13, the sensors, the buzzer</text>
-<line x1="378" y1="918.0" x2="408" y2="918.0" stroke="#2f5fcc" stroke-width="3.6" stroke-linecap="round"/>
-<text x="418.0" y="922.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal">SDA — D4. One wire, both sensors</text>
-<line x1="378" y1="936.0" x2="408" y2="936.0" stroke="#d99b00" stroke-width="3.6" stroke-linecap="round"/>
-<text x="418.0" y="940.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal">SCL — D5. One wire, both sensors</text>
-<line x1="378" y1="954.0" x2="408" y2="954.0" stroke="#6f6f6f" stroke-width="3.6" stroke-linecap="round"/>
-<text x="418.0" y="958.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal">D0 — drives the piezo directly. No supply wire</text>
-<line x1="378" y1="972.0" x2="408" y2="972.0" stroke="#e03b3b" stroke-width="3.6" stroke-linecap="round"/>
-<text x="418.0" y="976.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal">battery — soldered to BAT pads, never to the board</text>
-<text x="848.0" y="864.0" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold">Optional — battery voltage for soak-power</text>
-<text x="848.0" y="884.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#5b5b5b" text-anchor="start" font-weight="normal">Without it every reset is still caught and named.</text>
-<text x="848.0" y="898.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#5b5b5b" text-anchor="start" font-weight="normal">With it the CSV also carries the shape of the sag.</text>
-<rect x="848" y="910.0" width="300" height="76" rx="6" fill="#fbfbf8" stroke="#cdc6b8"/>
-<text x="862.0" y="932.0" font-family="Menlo,Consolas,monospace" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal">BAT+ ──[100k]──┬──[100k]── GND</text>
-<text x="862.0" y="952.0" font-family="Menlo,Consolas,monospace" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal">               └── D1  (pin 2)</text>
-<text x="862.0" y="974.0" font-family="Menlo,Consolas,monospace" font-size="9.5" fill="#5b5b5b" text-anchor="start" font-weight="normal">-DSOAK_VBAT_PIN=2 -DSOAK_VBAT_DIVIDER=2.0f</text>
-<text x="78.0" y="992.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#5b5b5b" text-anchor="start" font-weight="normal">Generated by hardware/scripts/gen_breadboard_svg.py — edit the script, not the SVG. Pin orders from docs/module-pinouts.md; connections from docs/bench-wiring.md.</text>
+<rect x="600" y="686.0" width="248" height="30" rx="5" fill="#1d4a6b" opacity="0.95"/>
+<text x="610.0" y="699.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#ffffff" text-anchor="start" font-weight="bold">L76K-GNSS</text>
+<text x="610.0" y="711.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#c9d6e2" text-anchor="start" font-weight="normal">on the XIAO's 14 pads · UART D6/D7</text>
+<rect x="600" y="720.0" width="248" height="30" rx="5" fill="#0f2f4a" opacity="0.95"/>
+<text x="610.0" y="733.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#ffffff" text-anchor="start" font-weight="bold">XIAO-ESP32S3-lora</text>
+<text x="610.0" y="745.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#c9d6e2" text-anchor="start" font-weight="normal">stock Meshtastic · never reflashed</text>
+<rect x="600" y="754.0" width="248" height="30" rx="5" fill="#1d4a6b" opacity="0.95"/>
+<text x="610.0" y="767.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#ffffff" text-anchor="start" font-weight="bold">Wio-SX1262</text>
+<text x="610.0" y="779.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#c9d6e2" text-anchor="start" font-weight="normal">LoRa, on the B2B connector</text>
+<text x="858" y="726.0" font-family="Helvetica,Arial,sans-serif" font-size="15" fill="#e03b3b" font-weight="bold">?</text>
+<text x="870.0" y="742.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#e03b3b" text-anchor="start" font-weight="normal">do these two</text>
+<text x="870.0" y="753.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#e03b3b" text-anchor="start" font-weight="normal">both fit? — #6</text>
+<line x1="640" y1="794.0" x2="640" y2="816.0" stroke="#8a8a8a" stroke-width="2"/>
+<rect x="626" y="816.0" width="28" height="20" rx="3" fill="#7a7a7a"/>
+<text x="640.0" y="850.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#5b5b5b" text-anchor="middle" font-weight="normal">GPS patch</text>
+<line x1="790" y1="794.0" x2="790" y2="836.0" stroke="#8a8a8a" stroke-width="2"/>
+<text x="790.0" y="850.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#5b5b5b" text-anchor="middle" font-weight="normal">82 mm whip</text>
+<line x1="656" y1="828.0" x2="774" y2="828.0" stroke="#5b5b5b" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="715.0" y="824.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#5b5b5b" text-anchor="middle" font-weight="normal">≥50 mm apart</text>
+<text x="600.0" y="872.0" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="bold">NOT in the breadboard, and it cannot be: those 14 pads carry the stack.</text>
+<text x="600.0" y="885.0" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#5b5b5b" text-anchor="start" font-weight="normal">Two soldered battery wires reach it. Nothing else does.</text>
+<path d="M 588.0 752.0 L 600.0 752.0" fill="none" stroke="#e03b3b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5"/>
+<text x="78.0" y="926.0" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold">How the holes are joined</text>
+<rect x="78" y="942.0" width="250" height="86" rx="6" fill="#f4f1ea" stroke="#cdc6b8"/>
+<rect x="100.0" y="958.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="100.0" y="971.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="100.0" y="984.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="100.0" y="997.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="100.0" y="1010.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="122.0" y="958.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="122.0" y="971.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="122.0" y="984.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="122.0" y="997.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="122.0" y="1010.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="144.0" y="958.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="144.0" y="971.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="144.0" y="984.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="144.0" y="997.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="144.0" y="1010.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="166.0" y="958.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="166.0" y="971.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="166.0" y="984.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="166.0" y="997.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="166.0" y="1010.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="188.0" y="958.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="188.0" y="971.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="188.0" y="984.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="188.0" y="997.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="188.0" y="1010.0" width="5.2" height="5.2" rx="1.1" fill="none" stroke="#8d8577"/>
+<rect x="96" y="952.0" width="14" height="66" rx="4" fill="#2f5fcc" opacity="0.16" stroke="#2f5fcc"/>
+<text x="78.0" y="1046.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal">a column of five is one node — a jumper one row</text>
+<text x="78.0" y="1059.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal">down from a pin is the same connection</text>
+<rect x="220" y="956.0" width="96" height="12" rx="4" fill="#cc2f2f" opacity="0.16" stroke="#cc2f2f"/>
+<text x="220.0" y="988.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal">a rail runs the whole</text>
+<text x="220.0" y="1001.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal">length, and is split in</text>
+<text x="220.0" y="1014.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal">the middle on some</text>
+<text x="220.0" y="1027.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal">boards — bridge it</text>
+<text x="378.0" y="926.0" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold">Wire colours</text>
+<line x1="378" y1="944.0" x2="408" y2="944.0" stroke="#cc2f2f" stroke-width="3.6" stroke-linecap="round"/>
+<text x="418.0" y="948.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal">+3V3 — out of the XIAO's pin 12, then to both sensors</text>
+<line x1="378" y1="962.0" x2="408" y2="962.0" stroke="#222222" stroke-width="3.6" stroke-linecap="round"/>
+<text x="418.0" y="966.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal">GND — the XIAO's pin 13, the sensors, the buzzer</text>
+<line x1="378" y1="980.0" x2="408" y2="980.0" stroke="#2f5fcc" stroke-width="3.6" stroke-linecap="round"/>
+<text x="418.0" y="984.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal">SDA — D4. One wire, both sensors</text>
+<line x1="378" y1="998.0" x2="408" y2="998.0" stroke="#d99b00" stroke-width="3.6" stroke-linecap="round"/>
+<text x="418.0" y="1002.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal">SCL — D5. One wire, both sensors</text>
+<line x1="378" y1="1016.0" x2="408" y2="1016.0" stroke="#6f6f6f" stroke-width="3.6" stroke-linecap="round"/>
+<text x="418.0" y="1020.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal">D0 — drives the piezo directly. No supply wire</text>
+<line x1="378" y1="1034.0" x2="408" y2="1034.0" stroke="#e03b3b" stroke-width="3.6" stroke-linecap="round"/>
+<text x="418.0" y="1038.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal">battery — soldered to BAT pads, never to the board</text>
+<text x="848.0" y="926.0" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold">Optional — battery voltage for soak-power</text>
+<text x="848.0" y="946.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#5b5b5b" text-anchor="start" font-weight="normal">Without it every reset is still caught and named.</text>
+<text x="848.0" y="960.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#5b5b5b" text-anchor="start" font-weight="normal">With it the CSV also carries the shape of the sag.</text>
+<rect x="848" y="972.0" width="300" height="76" rx="6" fill="#fbfbf8" stroke="#cdc6b8"/>
+<text x="862.0" y="994.0" font-family="Menlo,Consolas,monospace" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal">BAT+ ──[100k]──┬──[100k]── GND</text>
+<text x="862.0" y="1014.0" font-family="Menlo,Consolas,monospace" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="normal">               └── D1  (pin 2)</text>
+<text x="862.0" y="1036.0" font-family="Menlo,Consolas,monospace" font-size="9.5" fill="#5b5b5b" text-anchor="start" font-weight="normal">-DSOAK_VBAT_PIN=2 -DSOAK_VBAT_DIVIDER=2.0f</text>
+<text x="78.0" y="1102.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#5b5b5b" text-anchor="start" font-weight="normal">Generated by hardware/scripts/gen_breadboard_svg.py — edit the script, not the SVG. Pin orders from docs/module-pinouts.md; connections from docs/bench-wiring.md.</text>
 </svg>

@@ -74,7 +74,7 @@ Both ride one carrier PCB, on opposite faces. __Two MCUs, not one__, so the beac
 | __Carrier PCB__ | The sled's structural span. See [README](../README.md) for the frozen interface. __Blocked behind breadboarding, deliberately__ — a layout error costs ~$33 and two weeks |
 | __7-pin headers__ | Two per XIAO, onto its 14 pads in two rows __17.0 mm apart__ — __not__ a dual-row 2×7, whose rows are 2.54 mm apart. Standard height, __~2.50 mm standoff__, which is all that is needed: the expansion board sits __above__ the XIAO, not below it |
 | __LiPo 500 mAh__ | One battery feeds both MCUs. Over an hour against ~300 mA |
-| __Arming switch__ | Sits __in the battery line__, not on a GPIO — physically cuts power, zero pins. __No longer a reed switch__: superseded 2026-08-15 by a __pull-pin plus a subminiature microswitch__. Nothing bought, no part number; the 1.5 g is inherited from the reed-switch design |
+| __Arming switch__ | Inline in the battery lead, zero pins. __Nothing bought and no part chosen__, so the 1.5 g is inherited from a superseded design and is the least trustworthy number on this page. Mechanism and status: [Arming-switch.md](../hardware/Arming-switch.md) |
 | __microSD__ | __Video only, and in hand.__ The old A1/A2 / pSLC requirement was written when the sampler wrote to the card in flight; __PSRAM buffering removed that__. What is left is sequential video write — a speed-class question, not a random-IOPS one |
 
 ## Deliberately excluded
@@ -98,6 +98,6 @@ Both ride one carrier PCB, on opposite faces. __Two MCUs, not one__, so the beac
 
 ## Dimensions are not in this table
 
-__Only the BMP388 has been measured with calipers.__ Every part now has a weight; every *size* except the BMP388's is still a datasheet figure. That one board disagreed with Adafruit's published dimensions in two places, and the __LSM6DSO32 is the last part blocking sensor footprints__ — in hand since 2026-08-10, still unmeasured. Readings and pin order go in [module-pinouts.md](module-pinouts.md).
+__Every part now has a weight, and this page owns those.__ It does not own a single dimension: __sizes, pin orders and which parts have actually been measured live in [module-pinouts.md](module-pinouts.md)__, which is also where the record of a board disagreeing with its datasheet belongs.
 
 __Qwiic cables are bench-only.__ Both sensors ship with them, so breadboarding needs no soldering — but JST-SH is friction-fit and will shake loose under boost. The flight build solders to the 0.1 in header holes, so the cables are not in any weight above.
