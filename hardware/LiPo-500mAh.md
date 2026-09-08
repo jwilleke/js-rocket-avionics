@@ -64,17 +64,34 @@ __The free web.__ The web is 124.0 mm and the carrier takes 95.0, leaving __29.0
 
 The battery lands on a __JST-PH on the carrier__ — put it in the carrier's aft third, which serves both candidate positions above — and short __soldered pigtails__ run to each XIAO's underside BAT pads. That indirection is forced, not chosen: __BAT+/BAT− are not on the castellated edge__, so the battery cannot reach a XIAO through the headers.
 
-- __Solder the pigtails before fitting the expansion board.__ Seeed's wiki implies the pads are inaccessible afterwards
+- __Solder the pigtails before the XIAO goes onto its headers.__ Not before the expansion board — that mates to the *front* face and never covers the pads. What covers them is the __carrier__, at the header's 2.50 mm, and the breadboard does the same on the bench. Faces and evidence in [XIAO-ESP32S3-cam.md](XIAO-ESP32S3-cam.md#which-face-carries-what--settled-off-seeeds-two-drawings-and-the-stack-itself)
 - __Both XIAO chargers sit in parallel on one battery — charge through one USB port at a time.__ This avoids adding a charge IC
 - __On battery power there is no voltage on the 5V pin__
 - __Reversing a LiPo into a XIAO destroys it__ — [design.md](../docs/design.md) requires the pigtail polarity be silkscreened
 - __The battery is mechanically restrained, never hangs off the JST.__ On the sled that is the straps; in the adapter nothing does it yet. __The JST is a connector, not a mount__, whichever position wins
 
+### The pigtail is the fragile part, and the solder joint must not be the anchor
+
+__`BAT+`/`BAT−` are 2.3 × 1.3 mm pads.__ That is an electrical connection, not a structural one. If the joint is what holds the wire, boost and landing put the load into the pad, and __the pad lifts__ — taking the copper with it and leaving nothing to re-solder to.
+
+So the wire is anchored to the board, and the joint carries current only:
+
+- __28–30 AWG fine-stranded, silicone insulated. Never solid core.__ Solid wire work-hardens and snaps at exactly this kind of joint; stranded silicone stays flexible and takes vibration without transmitting it
+- __Bond the wire to the PCB 3–5 mm from the pad__, with UV-cure or two-part epoxy. __This is the actual fix__ — everything else on this list is secondary to it. It puts the flex point in the free wire instead of on the copper
+- __Leave a service loop.__ Slack, so nothing is ever in tension. A taut pigtail is a pigtail under load whenever anything moves
+- __Dress it through the 2.50 mm gap__ between the XIAO's back face and the carrier — clear of the header pins, and not lying on carrier copper. Route and tack it __before__ the XIAO goes down; there is no access afterwards
+- __Conformal coat over the finished joint__, after bench testing, with the rest of the board
+- __Polarity silkscreened at the JST__ — reversing a LiPo into a XIAO destroys it
+
+> __A broken pigtail is silent.__ With both `3V3` pins on the same plane, the surviving regulator back-feeds the dead module and the rocket still works — so the first failure hides the fault and only the second one grounds you. __Inspect both joints as a step, rather than waiting to be told about them.__ It is also the strongest argument for keeping the plane tie until [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) says otherwise.
+
+__No connector at the pad end.__ A connector there would put mass and leverage on the weakest joint in the assembly, which is the opposite of what is wanted. The disconnect belongs at the far end and already exists — the JST.
+
 ## The known risk, still unobserved
 
 [BOM.md](../docs/BOM.md) accepts a coupling failure in writing: __*"a camera brownout on B can disturb A."*__ [design.md](../docs/design.md) repeats it — separate batteries would isolate the boards but cost ~8 g the mass budget cannot afford.
 
-__That is a prediction, not a measurement, and the thing it threatens is the radio link.__ A camera write that resets XIAO-ESP32S3-lora mid-descent costs the rocket, not the video. Settling it is [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) — run both boards off one battery with the camera active, on a __partially discharged cell__ where sag is worst, and produce a verdict: acceptable, needs decoupling on the carrier, or needs the second battery after all.
+__That is a prediction, not a measurement, and the thing it threatens is the radio link.__ A camera write that resets XIAO-ESP32S3-lora mid-descent costs the rocket, not the video. Settling it is [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) — run both boards off one battery with the camera active, on a __partially discharged battery__ where sag is worst, and produce a verdict: acceptable, needs decoupling on the carrier, or needs the second battery after all.
 
 __If decoupling is the answer it lands in the layout before the board is ordered__, not after.
 

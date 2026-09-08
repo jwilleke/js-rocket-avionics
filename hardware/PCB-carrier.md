@@ -110,6 +110,7 @@ __XIAO B centres at carrier y = 18 mm__, which is what puts the camera at nose z
 - __4-layer, solid ground plane.__ A few dollars more at this size; fixes return paths and coupling from the camera's DVP flex
 - __Module footprints, not bare chips.__ A bare LSM6DSO32 is an LGA-14 at 2.5 × 3 mm and is not hand-solderable. Soldering breakouts down still gives one rigid assembly with no flying wires — apart from the two battery pigtails, which are unavoidable
 - __Solder or clamp the headers — no loose sockets.__ Battery straps to the sled, never hangs off the JST. Conformal coat after bench testing
+- __The battery pigtails are anchored to the board, not held by their solder joints.__ 2.3 × 1.3 mm pads will lift if the joint is the mechanical restraint. Wire spec, the adhesive anchor and the routing through the 2.50 mm gap are in [LiPo-500mAh.md](LiPo-500mAh.md#the-pigtail-is-the-fragile-part-and-the-solder-joint-must-not-be-the-anchor), which owns them
 - __Silkscreen which face is which__, and mark the pigtail polarity — reversing a LiPo into a XIAO destroys it
 - __≥50 mm antenna separation__, through routing as well as placement
 
