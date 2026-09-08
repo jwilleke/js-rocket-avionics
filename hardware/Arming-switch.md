@@ -1,8 +1,29 @@
 # Arming switch
 
-__In the battery line, not on a GPIO.__ The one part in the flight build that is still neither chosen nor bought.
+__A convenience, not a requirement__ (operator, 2026-09-08). In the battery line, not on a GPIO. Still neither chosen nor bought, and __nothing is now waiting on it__.
 
-## The problem it solves is access, not convenience
+## It is not a safety device on this rocket, and calling it one drove requirements it does not need
+
+__An arming switch exists to stop a flight computer firing an ejection charge on the ground.__ That is why NAR and Tripoli require them and why they are normally non-negotiable.
+
+__This payload has no pyro.__ [design.md](../docs/design.md) is explicit: *"No pyro channels; ejection is the motor delay. Apogee is data, not deployment."* The avionics __cannot actuate anything__. An "armed" rocket here is a rocket that is recording video.
+
+So the sentence this page used to carry — *a welded switch is an armed rocket that cannot be safed, the failure mode that matters because it happens on the pad with people nearby* — __described a hazard this design does not have__. It was inherited from rocketry convention rather than derived from this rocket, and it is what produced the MOSFET, the welding analysis and the demand for a hole in the Nosecone collar.
+
+__What is real is runtime.__ 500 mAh against ~300 mA is roughly __100 minutes__ from the moment the cell is connected, and it cannot be managed in firmware: [XIAO-ESP32S3-lora](XIAO-ESP32S3-lora.md) runs __stock Meshtastic with no code written__, which was a deliberate choice and means it cannot sleep. It draws from the instant it has power.
+
+__So a disconnect is needed. A switch in the nose wall is not.__ The JST already is one; the only question is when it can be reached:
+
+| | Cost of a launch delay past ~100 minutes |
+|---|---|
+| No switch — connect the JST last | Pull the M3 × 55 and extract the sled. That pin also anchors the recovery cord, so it is a nose teardown plus a re-rig |
+| Switch in the nose wall | Flip it |
+
+__That difference is the whole value of the switch: turnaround, not safety.__ It is worth having against the *"rapidly reusable rocket flown by a 14-year-old"* objective, and it is not worth blocking an airframe part for.
+
+__What would overrule this:__ a club or field rule requiring a visible external arming switch for any powered electronics, regardless of deployment. A rule beats an argument. Not checked.
+
+## The old framing, kept for what it got right
 
 Once the nose is assembled __there is no way in__: USB is unreachable, Wi-Fi is off, and the status LED is sealed inside. A slide switch would need another hand-drilled hole in a part with no generator.
 
@@ -22,11 +43,15 @@ __Polarity is not a question with a pull-pin__ — the pin is in, the rocket is 
 
 - __Contact rating against camera inrush.__ Steady draw is ~300 mA, which is comfortable, but __the camera powering up is the question__: small contacts can weld under inrush, and __a welded switch is an armed rocket that cannot be safed__ — the failure mode that matters, because it happens on the pad with people nearby
 
-__The fix is standard and cheap: let the switch drive a MOSFET rather than the load.__ The switch carries milliamps into the gate; the FET carries the current. One extra part, and the concern disappears — __but it adds a footprint, so it must be decided before the carrier is routed.__
+> __The MOSFET is dropped__ (2026-09-08). It existed to stop a welded contact leaving the rocket armed. Without pyro, a welded contact means *the camera will not turn off*, which is a bench problem. __[#14](https://github.com/jwilleke/js-rocket-avionics/issues/14) no longer waits on this__, and no footprint is needed.
+>
+> The brainstorm had already reached the same place by a different route: many subminiature microswitches are rated __3–5 A__ against a ~300 mA draw, so the switch could carry the load directly anyway.
 
 ## Where the pin enters
 
-__Set by the sled's clocking__, [js-rocket#90](https://github.com/jwilleke/js-rocket/issues/90). Until the sled's azimuth is fixed the entry point cannot be, because the sled can rotate in a round bore.
+__If one is ever cut, it should share [#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)'s opening rather than buy a second hole.__ That issue already wants a USB-C aperture for charging, data and status, and the measurements are done — ~9 × 3.2 mm fits the exposed band of the PayloadAdapter. One hole, three jobs, plus this one.
+
+__An earlier note here said the entry point was "set by the sled's clocking, [js-rocket#90](https://github.com/jwilleke/js-rocket/issues/90)" and could not be chosen until the sled's azimuth was fixed. That overstated what #90 delivered.__ The loop stops the sled turning freely, but a __180° flip still threads the same pin__ — a featureless rod on a diameter is symmetric — so the switch could still face either side. The `PORT` engraving is a label, not a key.
 
 ---
 
