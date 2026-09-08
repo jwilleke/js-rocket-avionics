@@ -5,6 +5,8 @@ description: One session that closes #6, #7 and #8 — the epic that gates order
 
 # Bench bring-up
 
+__Wire it first.__ This page is the run order and it assumes the bench is already built. What plugs into what, in plain words and with the battery handling spelled out, is [bench-wiring.md](bench-wiring.md) — start there. "The cell" throughout this page means __the one LiPo battery__ feeding both boards.
+
 __One session, three issues.__ [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6), [#7](https://github.com/jwilleke/js-rocket-avionics/issues/7) and [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) all block [#4](https://github.com/jwilleke/js-rocket-avionics/issues/4), which blocks [#11](https://github.com/jwilleke/js-rocket-avionics/issues/11), which is the order. They are written as three issues because they fail differently; they are __one bench session__ because the setup is the same and #8 cannot run until the other two have.
 
 __Nothing needs buying.__ Every part is in hand. The carrier PCB and the arming switch are not needed to power anything up — and the arming switch is now [a convenience rather than a requirement](../hardware/Arming-switch.md), so it is not waiting on this either.
@@ -73,7 +75,7 @@ __One trap that is new and not in any issue:__ the LSM6DSO32's full-scale bits a
 
 __This is the one that can change the copper__, so run it last and run it properly.
 
-- Both modules on the __single cell__, camera capturing and LoRa transmitting
+- Both modules powered from __the one battery at the same time__ — not one each, and not off USB — with the camera capturing and the LoRa transmitting. Wiring: [bench-wiring.md](bench-wiring.md)
 - Scope the rail through __camera inrush and SD write bursts__; failing a scope, watch the beacon for resets and read its log
 - Measure __actual current draw__ against the ~300 mA estimate
 - __Repeat on a partially discharged cell.__ A full cell is the easy case and sag is worst near the bottom
