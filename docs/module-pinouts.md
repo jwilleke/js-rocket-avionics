@@ -10,7 +10,7 @@ Moved here from the rocket repo's `electronics-plan.md` — this is footprint in
 
 __Adopted 2026-09-06, operator.__ These parts are 17–25 mm and their features sit on a 2.54 mm pitch; __reading 0.1 mm or better off them with calipers is not realistic__, and two attempts at it produced numbers that did not close (a header pair 0.49 mm over the board width, and hole spacing with two routes 0.16 mm apart).
 
-__The method is: lay the part flat on the printed grid, shoot square-on from directly above, keep the calibration bar in frame, and read the dimensions off the image.__ The grid is [`pcb_measurement_grid.pdf`](resources/pcb_measurement_grid.pdf); the bar reads `CALIBRATION BAR 100.0 mm`, so the image's own scale is recoverable from the photograph regardless of camera distance.
+__The method is: lay the part flat on the printed grid, shoot square-on from directly above, keep the calibration bar in frame, and read the dimensions off the image.__ The grid is [`pcb_measurement_grid.pdf`](bench-work/pcb_measurement_grid.pdf); the bar reads `CALIBRATION BAR 100.0 mm`, so the image's own scale is recoverable from the photograph regardless of camera distance.
 
 Why it is better here:
 
@@ -52,7 +52,7 @@ Header ships __loose and un-soldered__, confirmed on the part — which keeps th
 
 ## BMP388 — measured 2026-08-08
 
-Calipers and scale, on the board in hand. Photos: [front](resources/BMP388-front.jpg), [back](resources/BMP388-back.jpg).
+Calipers and scale, on the board in hand. Photos: [front](../hardware/BMP388-barometer/BMP388-front.jpg), [back](../hardware/BMP388-barometer/BMP388-back.jpg).
 
 | | Measured | Was assumed | |
 |---|---|---|---|
@@ -72,7 +72,7 @@ __20.58 mm of spacing on a 25.5 mm edge__ puts the holes __2.46 mm in from each 
 
 ## LSM6DSO32 — read off photographs 2026-09-05, not off calipers
 
-Photos: [front](resources/LSM6DSO32-front.jpg), [back](resources/LSM6DSO32-back.jpg).
+Photos: [front](../hardware/LSM6DSO32/LSM6DSO32-front.jpg), [back](../hardware/LSM6DSO32/LSM6DSO32-back.jpg).
 
 __It does not share the BMP388's form factor, which this page assumed it would.__ Two header rows rather than one, and both mounting holes on the same edge as one of them:
 
@@ -185,17 +185,17 @@ __Three things this confirms, none of which had been checked:__
 - __`XIAO_PIN` in `gen_carrier.py` matches the silkscreen__, so [#18](https://github.com/jwilleke/js-rocket-avionics/issues/18)'s fix lands the nets on the right physical pins, not merely on the right footprint pads.
 - __Pin 1 = D0 sits at the USB-C end__, so the USB-C faces __aft__ on the carrier. [#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)'s charging pigtail depends on that and had been resting on an inference.
 
-__Also visible and consistent with [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md):__ `BAT+`/`BAT−` are __centre pads on the underside__, not on the castellated edge — which is why the battery reaches each board by soldered pigtail rather than through the headers. The JTAG pads (`MTCK`, `MTDO`, `MTDI`, `MTMS`) sit between them.
+__Also visible and consistent with [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md):__ `BAT+`/`BAT−` are __centre pads on the underside__, not on the castellated edge — which is why the battery reaches each board by soldered pigtail rather than through the headers. The JTAG pads (`MTCK`, `MTDO`, `MTDI`, `MTMS`) sit between them.
 
 ## What is left
 
 __Every part is in hand, and every part has an owner__ — a [hardware page](../hardware/README.md), which also indexes the grid photographs. Nothing here is waiting for a part to arrive.
 
 - __One reading is owed, and this page owns it:__ the hole-spacing tie-break above. It is a __pre-fabrication__ check, not a footprint blocker — [#16](https://github.com/jwilleke/js-rocket-avionics/issues/16)
-- __[L76K-GNSS](../hardware/L76K-GNSS.md) now needs a pin order, and does not have one.__ It took no carrier footprint until 2026-09-09 and so was never measured; mounting it flat on the carrier makes it a footprint like any other, and __an unread pin order is what scraps a board__. Photograph it on the grid and read the row off the part — [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6), [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)
-- __[PS1240-buzzer](../hardware/PS1240-buzzer.md)__ — two pins. Nothing to read off it
+- __[L76K-GNSS](../hardware/L76K-GNSS/L76K-GNSS.md) now needs a pin order, and does not have one.__ It took no carrier footprint until 2026-09-09 and so was never measured; mounting it flat on the carrier makes it a footprint like any other, and __an unread pin order is what scraps a board__. Photograph it on the grid and read the row off the part — [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6), [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)
+- __[PS1240-buzzer](../hardware/PS1240-buzzer/PS1240-buzzer.md)__ — two pins. Nothing to read off it
 
-__There is no reed switch__ — [Arming-switch.md](../hardware/Arming-switch.md) owns what replaced it and why.
+__There is no reed switch__ — [Arming-switch.md](../hardware/Arming-switch/Arming-switch.md) owns what replaced it and why.
 
 Purchase history is in [shopping-list.md](shopping-list.md).
 
@@ -214,7 +214,7 @@ Flat also wins on height now that the board is measured. It stacks __4.79 mm__ p
 
 __Straight headers. Not right-angle, not links.__ The board stands on its pins at the header's own __~2.50 mm__ standoff, parallel to the carrier, with __M2 spacers of the same height__ under the two mounting holes. Header edge and screw edge at the same height is what makes it flat.
 
-__This design already does exactly that.__ A XIAO mounts flat on two straight 1×7 strips — see [Stacking-headers.md](../hardware/Stacking-headers.md) and [design.md](design.md). A sensor is the same problem with one header row instead of two, the screws standing in for the second row.
+__This design already does exactly that.__ A XIAO mounts flat on two straight 1×7 strips — see [Stacking-headers.md](../hardware/Stacking-headers/Stacking-headers.md) and [design.md](design.md). A sensor is the same problem with one header row instead of two, the screws standing in for the second row.
 
 Right-angle would only be needed to lie a board flat with the header entering from the *side*, and nothing here asks for that. __An earlier revision of the bullet above offered "right-angle headers or short links" and never chose between them__; that clause appeared once, propagated to no part page, and was read as an open decision it was never intended to be. It is closed: the strips in the kit are the part, for the bench and for flight, __soldered once and never removed__.
 

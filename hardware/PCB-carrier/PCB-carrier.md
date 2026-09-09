@@ -17,11 +17,11 @@ The frozen interface is in [README.md](../README.md). This page is what the boar
 
 | Rail | Volts | Where it comes from | On the carrier? |
 |---|---|---|---|
-| __USB / VBUS__ | __5.0__ | A USB-C lead, only while one is plugged in | __No__ — it exists on each XIAO's `5V` pin (pin 14) and nowhere else. [LiPo-500mAh.md](LiPo-500mAh.md) notes the consequence: *on battery power there is no voltage on the 5V pin* |
-| __Cell__ | __3.7 nominal__ | The [LiPo](LiPo-500mAh.md), to a JST, then by soldered pigtail to each XIAO's underside __BAT pads__ | Only as `BAT+` / `BAT−` at the JST. It does __not__ reach the headers |
+| __USB / VBUS__ | __5.0__ | A USB-C lead, only while one is plugged in | __No__ — it exists on each XIAO's `5V` pin (pin 14) and nowhere else. [LiPo-500mAh.md](../LiPo-500mAh/LiPo-500mAh.md) notes the consequence: *on battery power there is no voltage on the 5V pin* |
+| __Cell__ | __3.7 nominal__ | The [LiPo](../LiPo-500mAh/LiPo-500mAh.md), to a JST, then by soldered pigtail to each XIAO's underside __BAT pads__ | Only as `BAT+` / `BAT−` at the JST. It does __not__ reach the headers |
 | __Logic__ | __3.3__ | Each XIAO's own regulator, out of its `3V3` pin (pin 12) | __Yes — this is the board's power net.__ It supplies the sensors and the buzzer |
 
-__So the carrier is a 3.3 V board.__ 5 V appears on it only if something is wired to a XIAO's `5V` pin, and nothing should be: the [LSM6DSO32](LSM6DSO32.md) and [BMP388](BMP388-barometer.md) are 3.3 V parts, and [module-pinouts.md](../docs/module-pinouts.md) records that the BMP388 in hand is __marked 3 V__ with 5 V no longer a documented fallback.
+__So the carrier is a 3.3 V board.__ 5 V appears on it only if something is wired to a XIAO's `5V` pin, and nothing should be: the [LSM6DSO32](../LSM6DSO32/LSM6DSO32.md) and [BMP388](../BMP388-barometer/BMP388-barometer.md) are 3.3 V parts, and [module-pinouts.md](../../docs/module-pinouts.md) records that the BMP388 in hand is __marked 3 V__ with 5 V no longer a documented fallback.
 
 __Charging is 5 V, and it is not this board's business.__ Both XIAOs carry their own charger and sit in parallel on the one battery — charge through one USB port at a time. No charge IC is added here.
 
@@ -54,25 +54,25 @@ __Nothing on this board is powered by the battery. Everything is powered by a XI
                          LSM6DSO32                 BMP388
 ```
 
-__Why the pigtails exist.__ `BAT+`/`BAT−` are __centre pads on the XIAO's underside__ ([module-pinouts.md](../docs/module-pinouts.md#xiao-esp32s3--read-off-the-underside-2026-09-08)), not on the castellated edge, so the battery cannot reach a XIAO through the header. Two soldered wires are forced, not chosen.
+__Why the pigtails exist.__ `BAT+`/`BAT−` are __centre pads on the XIAO's underside__ ([module-pinouts.md](../../docs/module-pinouts.md#xiao-esp32s3--read-off-the-underside-2026-09-08)), not on the castellated edge, so the battery cannot reach a XIAO through the header. Two soldered wires are forced, not chosen.
 
-__What the +3V3 plane actually feeds: two parts.__ [LSM6DSO32](LSM6DSO32.md) and [BMP388](BMP388-barometer.md). The [PS1240 buzzer](PS1240-buzzer.md) is not on that list — a passive piezo is driven straight off `D0` and GND and takes no supply rail.
+__What the +3V3 plane actually feeds: two parts.__ [LSM6DSO32](../LSM6DSO32/LSM6DSO32.md) and [BMP388](../BMP388-barometer/BMP388-barometer.md). The [PS1240 buzzer](../PS1240-buzzer/PS1240-buzzer.md) is not on that list — a passive piezo is driven straight off `D0` and GND and takes no supply rail.
 
 __Everything else is powered by the XIAO it plugs onto__, through that module's B2B connector, and never touches this board:
 
 | Part | Powered by |
 |---|---|
-| [Wio-SX1262](Wio-SX1262-LoRa.md) | XIAO-ESP32S3-lora |
-| [L76K-GNSS](L76K-GNSS.md) | XIAO-ESP32S3-lora, __flat on the top face__ |
-| [Sense-camera-board](Sense-camera-board.md) | XIAO-ESP32S3-cam |
-| Camera module, [microSD](microSD.md) | the Sense board |
+| [Wio-SX1262](../Wio-SX1262-LoRa/Wio-SX1262-LoRa.md) | XIAO-ESP32S3-lora |
+| [L76K-GNSS](../L76K-GNSS/L76K-GNSS.md) | XIAO-ESP32S3-lora, __flat on the top face__ |
+| [Sense-camera-board](../Sense-camera-board/Sense-camera-board.md) | XIAO-ESP32S3-cam |
+| Camera module, [microSD](../microSD/microSD.md) | the Sense board |
 
 ### Charge through the Sense stack, and only that one
 
 __Operator, 2026-09-08.__ For charging alone it makes no difference — both XIAOs have a charger and both sit on the same battery. __The decision is about which port is permanently committed__, because [#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)'s service pigtail occupies whichever one it is wired to:
 
-- __[XIAO-ESP32S3-cam](XIAO-ESP32S3-cam.md), the Sense stack__ — the aft module, so the shortest cable run; the only one that reaches the microSD; and the one being reflashed constantly, since its firmware does not exist yet
-- __[XIAO-ESP32S3-lora](XIAO-ESP32S3-lora.md)__ — runs __stock Meshtastic and must never be reflashed__. That is the whole reason there are two modules. A service port on it invites exactly what the two-module split exists to prevent
+- __[XIAO-ESP32S3-cam](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md), the Sense stack__ — the aft module, so the shortest cable run; the only one that reaches the microSD; and the one being reflashed constantly, since its firmware does not exist yet
+- __[XIAO-ESP32S3-lora](../XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md)__ — runs __stock Meshtastic and must never be reflashed__. That is the whole reason there are two modules. A service port on it invites exactly what the two-module split exists to prevent
 
 __So XIAO-ESP32S3-lora's USB-C is not used in the flight build.__ It is reachable only by taking the nose apart.
 
@@ -110,7 +110,7 @@ __XIAO B centres at carrier y = 18 mm__, which is what puts the camera at nose z
 - __4-layer, solid ground plane.__ A few dollars more at this size; fixes return paths and coupling from the camera's DVP flex
 - __Module footprints, not bare chips.__ A bare LSM6DSO32 is an LGA-14 at 2.5 × 3 mm and is not hand-solderable. Soldering breakouts down still gives one rigid assembly with no flying wires — apart from the two battery pigtails, which are unavoidable
 - __Solder or clamp the headers — no loose sockets.__ Battery straps to the sled, never hangs off the JST. Conformal coat after bench testing
-- __The battery pigtails are anchored to the board, not held by their solder joints.__ 2.3 × 1.3 mm pads will lift if the joint is the mechanical restraint. Wire spec, the adhesive anchor and the routing through the 2.50 mm gap are in [LiPo-500mAh.md](LiPo-500mAh.md#the-pigtail-is-the-fragile-part-and-the-solder-joint-must-not-be-the-anchor), which owns them
+- __The battery pigtails are anchored to the board, not held by their solder joints.__ 2.3 × 1.3 mm pads will lift if the joint is the mechanical restraint. Wire spec, the adhesive anchor and the routing through the 2.50 mm gap are in [LiPo-500mAh.md](../LiPo-500mAh/LiPo-500mAh.md#the-pigtail-is-the-fragile-part-and-the-solder-joint-must-not-be-the-anchor), which owns them
 - __Silkscreen which face is which__, and mark the pigtail polarity — reversing a LiPo into a XIAO destroys it
 - __≥50 mm antenna separation__, through routing as well as placement
 
@@ -146,4 +146,4 @@ __The outline and mounting-hole pattern were frozen before the sled generator wa
 
 ---
 
-Part numbers, vendors and masses live in [BOM.md](../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../docs/shopping-list.md); the reasoning is in [design.md](../docs/design.md).
+Part numbers, vendors and masses live in [BOM.md](../../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../../docs/shopping-list.md); the reasoning is in [design.md](../../docs/design.md).

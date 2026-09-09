@@ -2,11 +2,11 @@
 
 __Flight 3 flies without one__ (operator, 2026-09-08). In the battery line, not on a GPIO, whenever a flight does carry one. Nothing was chosen, nothing was bought, and nothing was waiting on it.
 
-> __So flight 3 has no arming device at all__ — the part named by this page is the arming device, and it is deferred rather than replaced. __Nothing else is promoted into the role.__ Power is made and broken by plugging and unplugging the [battery](LiPo-500mAh.md)'s JST, which is a __connector__ and stays one; giving it a second name would put a safety role on a part that was never designed to carry it, and this project keeps one name per part.
+> __So flight 3 has no arming device at all__ — the part named by this page is the arming device, and it is deferred rather than replaced. __Nothing else is promoted into the role.__ Power is made and broken by plugging and unplugging the [battery](../LiPo-500mAh/LiPo-500mAh.md)'s JST, which is a __connector__ and stays one; giving it a second name would put a safety role on a part that was never designed to carry it, and this project keeps one name per part.
 >
 > __What that costs is turnaround, not safety.__ This payload has no pyro, so an "armed" rocket here is one that is recording video. The switch only ever bought a faster way to reach the disconnect; the argument below is unchanged and kept for whenever a flight wants it.
 >
-> __What it buys back, today:__ the 80 mm battery lead no longer has to carry an inline switch, so __the JST's position is decided on its own__ rather than jointly — see [LiPo-500mAh.md](LiPo-500mAh.md). One less coupling in [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14) stage 2c.
+> __What it buys back, today:__ the 80 mm battery lead no longer has to carry an inline switch, so __the JST's position is decided on its own__ rather than jointly — see [LiPo-500mAh.md](../LiPo-500mAh/LiPo-500mAh.md). One less coupling in [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14) stage 2c.
 >
 > __The pad procedure this forces:__ runtime is ~100 minutes from the moment the battery is connected and it cannot be managed in firmware, so __the JST goes on last__, on the pad, and the clock starts there.
 >
@@ -16,11 +16,11 @@ __Flight 3 flies without one__ (operator, 2026-09-08). In the battery line, not 
 
 __An arming switch exists to stop a flight computer firing an ejection charge on the ground.__ That is why NAR and Tripoli require them and why they are normally non-negotiable.
 
-__This payload has no pyro.__ [design.md](../docs/design.md) is explicit: *"No pyro channels; ejection is the motor delay. Apogee is data, not deployment."* The avionics __cannot actuate anything__. An "armed" rocket here is a rocket that is recording video.
+__This payload has no pyro.__ [design.md](../../docs/design.md) is explicit: *"No pyro channels; ejection is the motor delay. Apogee is data, not deployment."* The avionics __cannot actuate anything__. An "armed" rocket here is a rocket that is recording video.
 
 So the sentence this page used to carry — *a welded switch is an armed rocket that cannot be safed, the failure mode that matters because it happens on the pad with people nearby* — __described a hazard this design does not have__. It was inherited from rocketry convention rather than derived from this rocket, and it is what produced the MOSFET, the welding analysis and the demand for a hole in the Nosecone collar.
 
-__What is real is runtime.__ 500 mAh against ~300 mA is roughly __100 minutes__ from the moment the battery is connected, and it cannot be managed in firmware: [XIAO-ESP32S3-lora](XIAO-ESP32S3-lora.md) runs __stock Meshtastic with no code written__, which was a deliberate choice and means it cannot sleep. It draws from the instant it has power.
+__What is real is runtime.__ 500 mAh against ~300 mA is roughly __100 minutes__ from the moment the battery is connected, and it cannot be managed in firmware: [XIAO-ESP32S3-lora](../XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md) runs __stock Meshtastic with no code written__, which was a deliberate choice and means it cannot sleep. It draws from the instant it has power.
 
 __So a disconnect is needed. A switch in the nose wall is not.__ The JST already is one; the only question is when it can be reached:
 
@@ -41,11 +41,11 @@ Whatever the mechanism, the architecture is settled and worth restating because 
 
 ## A pull-pin and a subminiature microswitch
 
-__Smallest hole, snap action, no printed mechanism.__ Reasoning in the [arming brainstorm](../docs/resources/2026-08-15-arming-and-access-brainstorm.md).
+__Smallest hole, snap action, no printed mechanism.__ Reasoning in the [arming brainstorm](../../docs/resources/2026-08-15-arming-and-access-brainstorm.md).
 
-> __An earlier note here said [design.md](../docs/design.md)'s locked-decisions table still named a reed switch.__ It does not, and had already stopped by the time this was read again — that row names the architecture and points here for the mechanism, which is the right division. Checked 2026-09-08.
+> __An earlier note here said [design.md](../../docs/design.md)'s locked-decisions table still named a reed switch.__ It does not, and had already stopped by the time this was read again — that row names the architecture and points here for the mechanism, which is the right division. Checked 2026-09-08.
 
-__Nothing has been bought and no part has been chosen.__ The mass in [BOM.md](../docs/BOM.md) is inherited from the reed-switch design.
+__Nothing has been bought and no part has been chosen.__ The mass in [BOM.md](../../docs/BOM.md) is inherited from the reed-switch design.
 
 ## The live constraint: contact rating against camera inrush
 
@@ -65,4 +65,4 @@ __An earlier note here said the entry point was "set by the sled's clocking, [js
 
 ---
 
-Part numbers, vendors and masses live in [BOM.md](../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../docs/shopping-list.md); the reasoning is in [design.md](../docs/design.md).
+Part numbers, vendors and masses live in [BOM.md](../../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../../docs/shopping-list.md); the reasoning is in [design.md](../../docs/design.md).

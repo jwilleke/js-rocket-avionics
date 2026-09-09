@@ -24,8 +24,8 @@ __The expansion board sits above the XIAO, not below it__, so nothing has to fit
 
 Measured on the assembled stack: __10.7 mm__ from the mounting surface to the tallest point, camera excluded.
 
-__Solder or clamp them — no loose sockets.__ [design.md](../docs/design.md)'s shock rule.
+__Solder or clamp them — no loose sockets.__ [design.md](../../docs/design.md)'s shock rule.
 
 ---
 
-Part numbers, vendors and masses live in [BOM.md](../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../docs/shopping-list.md); the reasoning is in [design.md](../docs/design.md).
+Part numbers, vendors and masses live in [BOM.md](../../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../../docs/shopping-list.md); the reasoning is in [design.md](../../docs/design.md).

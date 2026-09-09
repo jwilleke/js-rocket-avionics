@@ -2,11 +2,11 @@
 
 __The XIAO that carries the camera.__ The copy that arrived in the Sense kit.
 
-__This one has no headers soldered on.__ The Sense kit ships its two 7-pin strips loose. That is the only physical difference from [the lora copy](XIAO-ESP32S3-lora.md).
+__This one has no headers soldered on.__ The Sense kit ships its two 7-pin strips loose. That is the only physical difference from [the lora copy](../XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md).
 
 ## What is mated to it
 
-- __[Sense camera board](Sense-camera-board.md)__ — OV3660 camera and the microSD slot
+- __[Sense camera board](../Sense-camera-board/Sense-camera-board.md)__ — OV3660 camera and the microSD slot
 
 Sensors reach it over __I2C on D4/D5__; the buzzer is __PWM on D0__. Firmware is __custom and not yet started__.
 
@@ -17,8 +17,8 @@ __Datum: the bottom of the XIAO's PCB.__ Headers add __2.50 mm__ below it. Camer
 | | Height | Above the carrier |
 |---|---|---|
 | A bare XIAO, to the top of the USB-C | __4.53 mm__ | 7.03 mm |
-| __XIAO-ESP32S3-cam__ + [Sense camera board](Sense-camera-board.md) | __8.22 mm__ | __10.72 mm__ |
-| __XIAO-ESP32S3-lora__ + [Wio-SX1262](Wio-SX1262-LoRa.md) | __9.32 mm__ | __11.82 mm__ |
+| __XIAO-ESP32S3-cam__ + [Sense camera board](../Sense-camera-board/Sense-camera-board.md) | __8.22 mm__ | __10.72 mm__ |
+| __XIAO-ESP32S3-lora__ + [Wio-SX1262](../Wio-SX1262-LoRa/Wio-SX1262-LoRa.md) | __9.32 mm__ | __11.82 mm__ |
 
 So the Sense camera board adds __3.69 mm__ to a XIAO and the Wio-SX1262 adds __4.79 mm__.
 
@@ -31,7 +31,7 @@ available = 2 x sqrt(19.7^2 - 8.75^2)                           = 35.30 mm
 
 ## Photograph
 
-![XIAO ESP32S3 module on the measurement grid](../docs/resources/XIAO-ESP32S3-module.jpg)
+![XIAO ESP32S3 module on the measurement grid](../../docs/resources/XIAO-ESP32S3-module.jpg)
 
 ## The module
 
@@ -51,15 +51,15 @@ __The BAT pads are not on the castellated edge__, so the battery cannot reach th
 
 ### Which face carries what — settled off Seeed's two drawings and the stack itself
 
-![Seeed's back pinout for the XIAO ESP32S3: the 14 castellated pads around the edge, the inner JTAG and USB pads, and BAT+ / BAT− inboard of the D3/D4 edge](../docs/resources/XIAO_ESP32-S3_back_pinout.png)
+![Seeed's back pinout for the XIAO ESP32S3: the 14 castellated pads around the edge, the inner JTAG and USB pads, and BAT+ / BAT− inboard of the D3/D4 edge](../../docs/resources/XIAO_ESP32-S3_back_pinout.png)
 
 __Back face__ — everything that is not a castellated pad: `BAT+`/`BAT−` inboard of the `D3`/`D4` edge, plus `MTDO`/`MTDI`/`MTCK`/`MTMS` (JTAG), `EN`, `D+`/`D−`, and a second `GND`.
 
-![Seeed's front pinout for the XIAO ESP32S3: the RF shield, USB-C, and along the bottom edge the U.FL antenna socket beside the B2B connector](../docs/resources/XIAO_ESP32-S3_front_pinout.png)
+![Seeed's front pinout for the XIAO ESP32S3: the RF shield, USB-C, and along the bottom edge the U.FL antenna socket beside the B2B connector](../../docs/resources/XIAO_ESP32-S3_front_pinout.png)
 
 __Front face__ — the RF shield, USB-C, and along the __bottom edge the U.FL socket beside the B2B connector__. __The B2B is on the front.__ So the expansion board mates to the __front__, and the back face stays open.
 
-![End-on view of the assembled Sense stack seated in a breadboard: header pins into the board, the XIAO above them, the B2B connector block, the expansion board with its white FPC socket, and the camera on its flex above that](../docs/resources/XIAO-ESP32S3-Sense-stack-end.jpg)
+![End-on view of the assembled Sense stack seated in a breadboard: header pins into the board, the XIAO above them, the B2B connector block, the expansion board with its white FPC socket, and the camera on its flex above that](../camera-stack/XIAO-ESP32S3-Sense-stack-end.jpg)
 
 __The end-on view is the proof__, and it reads bottom to top: breadboard, header pins, __the XIAO__, the dark B2B block, __the expansion board__ with its white camera-ribbon socket, then the camera on its flex. The expansion board is above; the XIAO's back face points down at the breadboard, uncovered.
 
@@ -73,7 +73,7 @@ __Solder the pigtails before the XIAO goes onto its headers.__ That is the real 
 
 > __Consequence nobody had written down: the pigtails have to leave through that 2.50 mm gap.__ Two wires run from inboard pads on the back, out past a row of header pins, to the JST. Route and dress them before the XIAO goes down — they must not foul the pins, and they must not sit on carrier copper. Thin, flexible, and tacked down.
 
-__This is also the answer to "above or beneath".__ The expansion board mates to the __front face__ and sits __above__ the XIAO, exactly as [design.md](../docs/design.md) says. The Population tables that read *"Wio-SX1262 beneath it"* were the wrong ones.
+__This is also the answer to "above or beneath".__ The expansion board mates to the __front face__ and sits __above__ the XIAO, exactly as [design.md](../../docs/design.md) says. The Population tables that read *"Wio-SX1262 beneath it"* were the wrong ones.
 
 __On battery power there is no voltage on the 5V pin__, so nothing can be fed from this board's 5V rail.
 
@@ -85,4 +85,4 @@ __The expansion board is the same outline as the XIAO__ (±8.75 mm against pads 
 
 ---
 
-Part numbers, vendors and masses live in [BOM.md](../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../docs/shopping-list.md); the reasoning is in [design.md](../docs/design.md).
+Part numbers, vendors and masses live in [BOM.md](../../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../../docs/shopping-list.md); the reasoning is in [design.md](../../docs/design.md).

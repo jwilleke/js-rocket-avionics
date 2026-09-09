@@ -1,6 +1,6 @@
 # Sense camera board
 
-__The expansion board that carries the OV3660 camera and the microSD slot.__ Mates to [XIAO-ESP32S3-cam](XIAO-ESP32S3-cam.md) via its B2B connector and sits __above__ it.
+__The expansion board that carries the OV3660 camera and the microSD slot.__ Mates to [XIAO-ESP32S3-cam](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) via its B2B connector and sits __above__ it.
 
 ## What it is for
 
@@ -20,17 +20,17 @@ __Which carrier face is which sled azimuth is unsettled__, and it now matters: t
 
 ## Photographs
 
-| [Expansion board](../docs/resources/XIAO-ESP32S3-Sense-expansion.jpg) | [MCU module](../docs/resources/XIAO-ESP32S3-module.jpg) |
+| [Expansion board](XIAO-ESP32S3-Sense-expansion.jpg) | [MCU module](../../docs/resources/XIAO-ESP32S3-module.jpg) |
 |---|---|
-| ![Sense expansion board with the camera fitted](../docs/resources/XIAO-ESP32S3-Sense-expansion.jpg) | ![XIAO ESP32S3 module](../docs/resources/XIAO-ESP32S3-module.jpg) |
+| ![Sense expansion board with the camera fitted](XIAO-ESP32S3-Sense-expansion.jpg) | ![XIAO ESP32S3 module](../../docs/resources/XIAO-ESP32S3-module.jpg) |
 
-| [Stack, side](../docs/resources/XIAO-ESP32S3-Sense-stack-side.jpg) | [Stack, end](../docs/resources/XIAO-ESP32S3-Sense-stack-end.jpg) |
+| [Stack, side](../camera-stack/XIAO-ESP32S3-Sense-stack-side.jpg) | [Stack, end](../camera-stack/XIAO-ESP32S3-Sense-stack-end.jpg) |
 |---|---|
-| ![Assembled stack from the side](../docs/resources/XIAO-ESP32S3-Sense-stack-side.jpg) | ![Assembled stack end-on](../docs/resources/XIAO-ESP32S3-Sense-stack-end.jpg) |
+| ![Assembled stack from the side](../camera-stack/XIAO-ESP32S3-Sense-stack-side.jpg) | ![Assembled stack end-on](../camera-stack/XIAO-ESP32S3-Sense-stack-end.jpg) |
 
 ## The stack
 
-From the mounting surface up: __7-pin headers → [XIAO](XIAO-ESP32S3-cam.md) → this board → FPC connector__, with the camera on a __flexible ribbon__ above it.
+From the mounting surface up: __7-pin headers → [XIAO](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) → this board → FPC connector__, with the camera on a __flexible ribbon__ above it.
 
 | | |
 |---|---|
@@ -89,10 +89,10 @@ __Focus is adjustable__ via the M5/M6 lens thread. Hyperfocal at f/2.8 with a ~4
 
 | In the box | Flies | |
 |---|---|---|
-| XIAO ESP32-S3 × 1 | __yes__ | [XIAO-ESP32S3-cam](XIAO-ESP32S3-cam.md) |
+| XIAO ESP32-S3 × 1 | __yes__ | [XIAO-ESP32S3-cam](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) |
 | Plug-in camera sensor board × 1 | __yes__ | __this board__ |
 | 7-pin header × 2 | __yes__ | loose in this kit — the cam XIAO has none soldered |
-| Antenna × 1 — 2.4G A-02, WiFi/BLE | __no__ | [Antennas.md](Antennas.md) |
+| Antenna × 1 — 2.4G A-02, WiFi/BLE | __no__ | [Antennas.md](../Antennas/Antennas.md) |
 | __Aluminium heat sink for XIAO × 2__ | __no__ | see below |
 
 > Seeed's note: *from 2 Sep 2024 the Sense (113991115) ships with 2 heat sinks from the China warehouse; US and Germany warehouses ship the new version from 2025.*
@@ -104,7 +104,7 @@ __The heat sinks are not used, and nothing in the design calls for them.__ Two r
 
 If heat becomes a real question it will show up at bench bring-up, where both boards run on one battery with the camera active ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)). Until then they stay in the box.
 
-The BAT-pad and one-USB-at-a-time rules are on [XIAO-ESP32S3-cam.md](XIAO-ESP32S3-cam.md).
+The BAT-pad and one-USB-at-a-time rules are on [XIAO-ESP32S3-cam.md](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md).
 
 ## Things that will catch you
 
@@ -114,4 +114,4 @@ __Do not fit the wide-angle lens.__ The 120–160° M7 option cannot match the s
 
 ---
 
-Part numbers, vendors and masses live in [BOM.md](../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../docs/shopping-list.md); the reasoning is in [design.md](../docs/design.md).
+Part numbers, vendors and masses live in [BOM.md](../../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../../docs/shopping-list.md); the reasoning is in [design.md](../../docs/design.md).

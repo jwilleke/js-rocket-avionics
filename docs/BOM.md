@@ -29,7 +29,7 @@ Weights measured 2026-08-17 unless the row says `est`.
 | ElectronicsSled, PLA | v7.7.0 | printed | — | __9.3?__ |
 | __Nose total__ | | | | __54.6__ |
 
-__Also in the kits and not flying:__ the 2.4G A-02 antenna, 0.3 g — the XIAO's WiFi/BLE antenna — and the __two aluminium heat sinks__ shipped with the Sense kit. The heat sinks adhere to the XIAO's top face, which is the face the expansion board mates to, and a sealed nose has no airflow for them to work with. See [XIAO-ESP32S3-Sense.md](../hardware/Sense-camera-board.md#what-is-in-the-kit-and-what-flies).
+__Also in the kits and not flying:__ the 2.4G A-02 antenna, 0.3 g — the XIAO's WiFi/BLE antenna — and the __two aluminium heat sinks__ shipped with the Sense kit. The heat sinks adhere to the XIAO's top face, which is the face the expansion board mates to, and a sealed nose has no airflow for them to work with. See [XIAO-ESP32S3-Sense.md](../hardware/Sense-camera-board/Sense-camera-board.md#what-is-in-the-kit-and-what-flies).
 
 __The sled's 9.3 g is disputed.__ The rocket repo weighed it at __7.1 g__ on 2026-08-07 ([sections.md](https://github.com/jwilleke/js-rocket/blob/main/docs/sections.md) note 6) and both figures claim the scale. Its geometry moved at v7.7.0, which may or may not explain 2.2 g. __Reweigh it__ — nose total is __52.4__ if 7.1 is right.
 
@@ -74,7 +74,7 @@ Both ride one carrier PCB, on opposite faces. __Two MCUs, not one__, so the beac
 | __Carrier PCB__ | The sled's structural span. See [README](../README.md) for the frozen interface. __Blocked behind breadboarding, deliberately__ — a layout error costs ~$33 and two weeks |
 | __7-pin headers__ | Two per XIAO, onto its 14 pads in two rows __17.0 mm apart__ — __not__ a dual-row 2×7, whose rows are 2.54 mm apart. Standard height, __~2.50 mm standoff__, which is all that is needed: the expansion board sits __above__ the XIAO, not below it |
 | __LiPo 500 mAh__ | One battery feeds both MCUs. Over an hour against ~300 mA |
-| __Arming switch__ | Inline in the battery lead, zero pins. __Nothing bought and no part chosen__, so the 1.5 g is inherited from a superseded design and is the least trustworthy number on this page. Mechanism and status: [Arming-switch.md](../hardware/Arming-switch.md) |
+| __Arming switch__ | Inline in the battery lead, zero pins. __Nothing bought and no part chosen__, so the 1.5 g is inherited from a superseded design and is the least trustworthy number on this page. Mechanism and status: [Arming-switch.md](../hardware/Arming-switch/Arming-switch.md) |
 | __microSD__ | __Video only, and in hand.__ The old A1/A2 / pSLC requirement was written when the sampler wrote to the card in flight; __PSRAM buffering removed that__. What is left is sequential video write — a speed-class question, not a random-IOPS one |
 
 ## Deliberately excluded

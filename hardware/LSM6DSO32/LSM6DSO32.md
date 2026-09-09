@@ -17,27 +17,27 @@ __Use the FIFO; do not poll at 500 Hz.__ Batch-reading cuts ISR load, relieves t
 
 __The gyro is not the apogee sensor.__ The accelerometer is. The gyro exists so body-frame acceleration can be rotated into the earth frame and gravity subtracted off the correct axis as the rocket tips over.
 
-Why this part rather than another, and the ±16 g parts it rules out, is in [design.md](../docs/design.md#sensor-rationale).
+Why this part rather than another, and the ±16 g parts it rules out, is in [design.md](../../docs/design.md#sensor-rationale).
 
 ## Mounting
 
 __Flat, not perpendicular.__ Settled on the BMP388's measurements and it survives the form-factor surprise below: screws on the __Aux__ edge with the Primary header soldered opposite give __two-point restraint__ across the board, which is what boost loading wants and what a cantilevered header cannot offer. Flat also stacks low against the __19.7 mm__ available at the bore centre.
 
-__Straight kit-standard header, not right-angle.__ The board stands on its Primary-row pins at ~2.50 mm, with M2 spacers of the same height under the Aux-edge mounting holes. Same part on the bench and in flight — soldered once, never removed. Settled in [module-pinouts.md](../docs/module-pinouts.md#the-header-is-a-straight-kit-standard-strip--settled-2026-09-08), which owns it.
+__Straight kit-standard header, not right-angle.__ The board stands on its Primary-row pins at ~2.50 mm, with M2 spacers of the same height under the Aux-edge mounting holes. Same part on the bench and in flight — soldered once, never removed. Settled in [module-pinouts.md](../../docs/module-pinouts.md#the-header-is-a-straight-kit-standard-strip--settled-2026-09-08), which owns it.
 
 __Four of the fourteen pads carry signal__ — `VIN`, `GND`, `SCL`, `SDA` on the Primary row. `DO`, `CS`, `I1`, `I2` and the whole 5-pin Aux row do nothing: no second sensor hangs off the auxiliary bus, and __no interrupt line exists anywhere in this design__, so the FIFO is read by polling rather than on `I1`. `CS` floating is [#19](https://github.com/jwilleke/js-rocket-avionics/issues/19).
 
 __Module footprint, not the bare chip.__ A bare LSM6DSO32 is an __LGA-14 at 2.5 × 3 mm__ and is not hand-solderable.
 
-__The screw is M2__ — the project standard, see [Fasteners](README.md#fasteners--m2-everywhere). Nothing here is sized off a datasheet hole: M3 does not fit these breakouts, and the BMP388's holes measured Ø2.35 against a published 2.5. __What is still owed on this part is the hole *spacing*__, not the diameter.
+__The screw is M2__ — the project standard, see [Fasteners](../README.md#fasteners--m2-everywhere). Nothing here is sized off a datasheet hole: M3 does not fit these breakouts, and the BMP388's holes measured Ø2.35 against a published 2.5. __What is still owed on this part is the hole *spacing*__, not the diameter.
 
 ## Form factor
 
-| [Front](../docs/resources/LSM6DSO32-front.jpg) | [Back](../docs/resources/LSM6DSO32-back.jpg) |
+| [Front](LSM6DSO32-front.jpg) | [Back](LSM6DSO32-back.jpg) |
 |---|---|
-| ![LSM6DSO32 front](../docs/resources/LSM6DSO32-front.jpg) | ![LSM6DSO32 back](../docs/resources/LSM6DSO32-back.jpg) |
+| ![LSM6DSO32 front](LSM6DSO32-front.jpg) | ![LSM6DSO32 back](LSM6DSO32-back.jpg) |
 
-The front shot is the dimensional record — square-on on the measurement grid, calibration bar in frame. __Measure the image, do not eyeball it__: [module-pinouts.md](../docs/module-pinouts.md#how-these-are-measured--photograph-on-the-grid-not-calipers).
+The front shot is the dimensional record — square-on on the measurement grid, calibration bar in frame. __Measure the image, do not eyeball it__: [module-pinouts.md](../../docs/module-pinouts.md#how-these-are-measured--photograph-on-the-grid-not-calipers).
 
 ### Dimensions
 
@@ -64,13 +64,13 @@ __Aux row, 5 pins:__ `SCX SDX CS DO GND`. Exact ordering wants confirming with t
 
 Back silkscreen, all of it useful:
 
-- __`ST LSM6DSO32`, `6-DoF Accel+Gyro IMU`__ — the *"confirm the silicon matches the label"* check at the foot of [module-pinouts.md](../docs/module-pinouts.md) __passes__
+- __`ST LSM6DSO32`, `6-DoF Accel+Gyro IMU`__ — the *"confirm the silicon matches the label"* check at the foot of [module-pinouts.md](../../docs/module-pinouts.md) __passes__
 - __`Accel ±4/8/16/32 g`__ — ±32 g confirmed on the part, not on a listing
 - `Gyro ±125~2000 dps`
-- __`I2C Addr 0x6A`__ with an `AD0` solder jumper — __no clash with the BMP388's 0x77__, confirming from the part what [design.md](../docs/design.md) claimed from datasheets
+- __`I2C Addr 0x6A`__ with an `AD0` solder jumper — __no clash with the BMP388's 0x77__, confirming from the part what [design.md](../../docs/design.md) claimed from datasheets
 - __`I2C VLogic/Vcc: 3-5VDC`__ — worth noting, because that exact wording is what *"did not survive the part arriving"* on the BMP388, whose board turned out to be marked 3 V. __Here it really is on the part__
 - STEMMA QT on both short edges; board marked revision __B__
 
 ---
 
-Part numbers, vendors and masses live in [BOM.md](../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../docs/shopping-list.md); the reasoning is in [design.md](../docs/design.md).
+Part numbers, vendors and masses live in [BOM.md](../../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../../docs/shopping-list.md); the reasoning is in [design.md](../../docs/design.md).

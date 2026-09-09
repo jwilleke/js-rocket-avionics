@@ -19,7 +19,7 @@ Related: [BOM.md](BOM.md) (parts and masses) · [shopping-list.md](shopping-list
 | Apogee method | __Inertial primary__; GPS anchor by __offline timestamp merge__, not real time | The cost of putting GPS on the stock-Meshtastic board |
 | Flight log storage | __Buffer in PSRAM during flight, flush after landing__ | Both flash and microSD stall the 500 Hz sampler mid-boost |
 | Power | __One battery__ to a carrier JST, distributed to each XIAO's __underside BAT pads by soldered pigtail__. __Charge through one USB port at a time__ | BAT is not on the castellated edge, so it cannot come through the headers. Avoids adding a charge IC |
-| Arming | __In the battery line__, not on a GPIO — and __flight 3 flies without one__ (2026-09-08). Mechanism and status: [Arming-switch.md](../hardware/Arming-switch.md) | Physically cuts power; zero pins; cuts both modules at once. Deferred rather than replaced: __nothing else takes the role__ |
+| Arming | __In the battery line__, not on a GPIO — and __flight 3 flies without one__ (2026-09-08). Mechanism and status: [Arming-switch.md](../hardware/Arming-switch/Arming-switch.md) | Physically cuts power; zero pins; cuts both modules at once. Deferred rather than replaced: __nothing else takes the role__ |
 | Antennas | __Both off-board on U.FL__ — GPS patch forward-facing, LoRa 82 mm whip up the ogive | A GPS patch needs a 30–40 mm ground plane; a 24 mm board never will be |
 
 ## Why two boards, after settling on one
@@ -69,7 +69,7 @@ Seeed's own figure confirms the stack: __21 × 17.5 × 15 mm__ with the expansio
 
 __The expansion board — Sense or Wio-SX1262 — mates to the XIAO's __front face__, on the B2B connector beside the U.FL socket, and sits __above__ the XIAO.__ The XIAO sits on __two 7-pin headers__, one down each long edge, onto the carrier.
 
-__This section was right and the Population table below was wrong__, which is why they disagreed for so long. Settled 2026-09-08 against Seeed's front and back pinouts and an end-on photograph of the assembled stack — breadboard, header pins, XIAO, B2B block, expansion board, camera. See [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md#which-face-carries-what--settled-off-seeeds-two-drawings-and-the-stack-itself).
+__This section was right and the Population table below was wrong__, which is why they disagreed for so long. Settled 2026-09-08 against Seeed's front and back pinouts and an end-on photograph of the assembled stack — breadboard, header pins, XIAO, B2B block, expansion board, camera. See [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md#which-face-carries-what--settled-off-seeeds-two-drawings-and-the-stack-itself).
 
 __The back face stays open__, carrying `BAT+`/`BAT−`. The expansion board never covers them; the __carrier__ does, at 2.50 mm, which is why the pigtail is soldered before the XIAO goes onto its headers.
 
@@ -132,11 +132,11 @@ __BAT+/BAT− are underside pads on the XIAO__ (footprint pads 16/17, 2.3 × 1.3
 
 ### Arming
 
-__Flight 3 carries no arming switch__ (operator, 2026-09-08) — see [Arming-switch.md](../hardware/Arming-switch.md). The part is deferred, not replaced, and __nothing else is promoted into the role__: power is made and broken at the battery's JST, which is a connector and stays one.
+__Flight 3 carries no arming switch__ (operator, 2026-09-08) — see [Arming-switch.md](../hardware/Arming-switch/Arming-switch.md). The part is deferred, not replaced, and __nothing else is promoted into the role__: power is made and broken at the battery's JST, which is a connector and stays one.
 
 __The architecture below is what this document owns, and it has survived every revision of the mechanism__ — it is what any later flight's switch has to satisfy. The switch sits __in series in the battery line__, between the battery and the carrier's JST. It physically cuts power rather than setting a firmware state a boot-loop could defeat, it costs __zero GPIO__, and it __cuts both modules at once__ — arming is all-or-nothing, including the beacon.
 
-__Everything else about it belongs to [Arming-switch.md](../hardware/Arming-switch.md)__ — which mechanism, what is still open, and why the reed switch, the magnet-polarity question and the MOSFET that used to live in this section are all gone. The short of it: this payload has no pyro, so an "armed" rocket here is one that is recording video, and the switch buys __turnaround, not safety__.
+__Everything else about it belongs to [Arming-switch.md](../hardware/Arming-switch/Arming-switch.md)__ — which mechanism, what is still open, and why the reed switch, the magnet-polarity question and the MOSFET that used to live in this section are all gone. The short of it: this payload has no pyro, so an "armed" rocket here is one that is recording video, and the switch buys __turnaround, not safety__.
 
 ### RF
 
@@ -284,6 +284,6 @@ Each flight adds one thing, and the recovery beacon is proven before anything ex
 - __The PCB is on the critical path.__ Sled geometry derives from its outline and mounting holes, so a layout revision reprints the sled. Freeze the outline early; breadboard before committing to copper.
 - __GPS desense from the LoRa transmitter__ cannot be reasoned away on paper. ≥50 mm antenna separation and both antennas on U.FL are the mitigations; verification step 3 is the proof.
 - __Shared battery couples the boards.__ A camera brownout could disturb XIAO-ESP32S3-lora. Separate batteries would isolate them at +8 g, which the mass budget cannot afford.
-- __A welded arming contact leaves the camera running.__ It was recorded here as "an armed rocket that cannot be safed", which is a pyro rocket's hazard and not this one's — the correction and the live constraint are in [Arming-switch.md](../hardware/Arming-switch.md).
+- __A welded arming contact leaves the camera running.__ It was recorded here as "an armed rocket that cannot be safed", which is a pyro rocket's hazard and not this one's — the correction and the live constraint are in [Arming-switch.md](../hardware/Arming-switch/Arming-switch.md).
 - __Estimated masses were unreliable in both directions.__ Nine parts weighed 2026-08-17: the __L76K came in +184%__ and is now the heaviest object in the nose, while the Sense and the radio came in light. Net __+4.1 g__, putting the nose over its ~50 g target — see [BOM.md](BOM.md), which owns every weight.
 - __The rocket's stability re-run ([#9](https://github.com/jwilleke/js-rocket/issues/9)) is P0 and blocking.__ This payload can be built and bench-tested now, but __it cannot be flown__ until that clears.

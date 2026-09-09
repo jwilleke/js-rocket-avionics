@@ -9,7 +9,7 @@ __Wire it first.__ This page is the run order and it assumes the bench is alread
 
 __One session, three issues.__ [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6), [#7](https://github.com/jwilleke/js-rocket-avionics/issues/7) and [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) all block [#4](https://github.com/jwilleke/js-rocket-avionics/issues/4), which blocks [#11](https://github.com/jwilleke/js-rocket-avionics/issues/11), which is the order. They are written as three issues because they fail differently; they are __one bench session__ because the setup is the same and #8 cannot run until the other two have.
 
-__Nothing needs buying.__ Every part is in hand. The carrier PCB and the arming switch are not needed to power anything up — and the arming switch is now [a convenience rather than a requirement](../hardware/Arming-switch.md), so it is not waiting on this either.
+__Nothing needs buying.__ Every part is in hand. The carrier PCB and the arming switch are not needed to power anything up — and the arming switch is now [a convenience rather than a requirement](../hardware/Arming-switch/Arming-switch.md), so it is not waiting on this either.
 
 __Nothing in `fab/` goes to a fab until this closes.__ That directory holds a complete-looking gerber set generated from a board that is missing most of its footprints.
 
@@ -26,9 +26,9 @@ Each step is cheap to fail and tells you something the next one assumes. Running
 
 ## 1 — Stack check, before any power
 
-__[#6](https://github.com/jwilleke/js-rocket-avionics/issues/6)'s mechanical question is closed, and not by a measurement.__ It asked whether the [L76K](../hardware/L76K-GNSS.md) and the [Wio-SX1262](../hardware/Wio-SX1262-LoRa.md) could share the space above one XIAO-ESP32S3-x — never tested, the parcels having arrived weeks apart. __The L76K now mounts flat on the carrier__ (2026-09-09), so nothing has to clear anything and there is no dry-stack gate before soldering. What remains on #6 is electrical: does the radio beacon, does the GPS get a fix, and does the L76K's active antenna desense the receiver.
+__[#6](https://github.com/jwilleke/js-rocket-avionics/issues/6)'s mechanical question is closed, and not by a measurement.__ It asked whether the [L76K](../hardware/L76K-GNSS/L76K-GNSS.md) and the [Wio-SX1262](../hardware/Wio-SX1262-LoRa/Wio-SX1262-LoRa.md) could share the space above one XIAO-ESP32S3-x — never tested, the parcels having arrived weeks apart. __The L76K now mounts flat on the carrier__ (2026-09-09), so nothing has to clear anything and there is no dry-stack gate before soldering. What remains on #6 is electrical: does the radio beacon, does the GPS get a fix, and does the L76K's active antenna desense the receiver.
 
-- Fit [XIAO-ESP32S3-lora](../hardware/XIAO-ESP32S3-lora.md) + Wio-SX1262 + L76K, dry, no battery
+- Fit [XIAO-ESP32S3-lora](../hardware/XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md) + Wio-SX1262 + L76K, dry, no battery
 - __If they foul, stop and write it down.__ That is a layout change: the L76K returns to the carrier as a footprint needing ~21 mm, which the 95 mm board has but [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14) has not allowed for
 - Check the __≥50 mm antenna separation__ from [design.md](design.md) is physically achievable in the stack you just built. 915 MHz TX desenses a 1575 MHz front end by broadband noise, and the bench is where that first becomes observable
 
@@ -102,7 +102,7 @@ Neither is in #8 as written, and both are nearly free once the setup exists.
 
 __Actual runtime.__ 500 mAh against a ~300 mA *estimate* gives ~100 minutes. That figure now carries weight it did not before: with arming settled as a convenience, __"how long from connecting the battery to recovery"__ is the real operational limit on a launch day. Measure the draw rather than trusting the estimate, and correct [BOM.md](BOM.md).
 
-__The two regulators.__ Both modules' `3V3` pins land on the __same plane__ on the carrier, so their regulators run __in parallel__ — see [PCB-carrier.md](../hardware/PCB-carrier.md#how-power-actually-reaches-everything). Linear regulators do not share load: whichever holds the marginally higher output does all the work until it current-limits, and if one module loses its pigtail the other back-feeds into its regulator output. __This is a consequence of the layout rather than a decision anyone made.__ Put a meter on both 3V3 pins with the camera running and write down what you see. The regulator type is assumed rather than read off Seeed's schematic, so read that too if the numbers look odd.
+__The two regulators.__ Both modules' `3V3` pins land on the __same plane__ on the carrier, so their regulators run __in parallel__ — see [PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md#how-power-actually-reaches-everything). Linear regulators do not share load: whichever holds the marginally higher output does all the work until it current-limits, and if one module loses its pigtail the other back-feeds into its regulator output. __This is a consequence of the layout rather than a decision anyone made.__ Put a meter on both 3V3 pins with the camera running and write down what you see. The regulator type is assumed rather than read off Seeed's schematic, so read that too if the numbers look odd.
 
 ## What closing this epic requires
 

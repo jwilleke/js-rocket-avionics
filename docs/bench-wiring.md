@@ -11,7 +11,7 @@ __This page is the first one.__ [bench-bringup.md](bench-bringup.md) says what t
 
 | Word used here | What it actually is |
 |---|---|
-| __battery__ | [LiPo-500mAh](../hardware/LiPo-500mAh.md) — one LiPo pouch, 500 mAh, 3.7 V, 29 × 36 × 4.75 mm, a red and a black wire ending in a small white 2-pin plug. __One battery, feeding both boards__, rather than one each. Older commits and GitHub issues call this "the cell"; it is the same object and the word has been dropped |
+| __battery__ | [LiPo-500mAh](../hardware/LiPo-500mAh/LiPo-500mAh.md) — one LiPo pouch, 500 mAh, 3.7 V, 29 × 36 × 4.75 mm, a red and a black wire ending in a small white 2-pin plug. __One battery, feeding both boards__, rather than one each. Older commits and GitHub issues call this "the cell"; it is the same object and the word has been dropped |
 | __rail__ | One of the long red/blue strips down the edge of a breadboard. Every hole in a rail is connected to every other hole in that rail. Used so ten things can share one supply wire |
 | __pigtail__ | A short wire soldered directly to a board, ending free, because there is no connector to plug into |
 | __castellated pads__ | The 14 half-holes along a XIAO's two long edges. Header pins solder into these. This is the only edge you can reach with jumper wires |
@@ -41,11 +41,11 @@ Two module stacks and a breadboard. The stacks are already assembled by their B2
 
 __Only stack 1 gets sensors and a buzzer.__ Stack 2 has nothing wired to it at all except the two battery wires.
 
-__Stack 2 needs no breadboard for its own sake__ — the [Wio-SX1262](../hardware/Wio-SX1262-LoRa.md) is on its B2B connector, so once it is mated there is nothing left to push into a board. The [L76K-GNSS](../hardware/L76K-GNSS.md) is no longer in that stack at all: it mounts __flat on the carrier__ (2026-09-09), which removed the dry-stack check that used to gate this session. Wire the GPS to `D6`/`D7` on the breadboard like any other module.
+__Stack 2 needs no breadboard for its own sake__ — the [Wio-SX1262](../hardware/Wio-SX1262-LoRa/Wio-SX1262-LoRa.md) is on its B2B connector, so once it is mated there is nothing left to push into a board. The [L76K-GNSS](../hardware/L76K-GNSS/L76K-GNSS.md) is no longer in that stack at all: it mounts __flat on the carrier__ (2026-09-09), which removed the dry-stack check that used to gate this session. Wire the GPS to `D6`/`D7` on the breadboard like any other module.
 
 ### As actually set up: two boards, one XIAO each
 
-![Two 30-row breadboards, one bare XIAO ESP32-S3 seated across the centre channel on each, no other parts fitted](resources/bench-breadbooards.jpg)
+![Two 30-row breadboards, one bare XIAO ESP32-S3 seated across the centre channel on each, no other parts fitted](bench-work/bench-breadbooards.jpg)
 
 __Each XIAO is on its own 30-row A–J board__, seated across the centre channel, and neither has its expansion board mated yet. That is a better arrangement than the single board this page first assumed, and nothing in the wiring below has to change for it — because __stack 2 was never going to share a rail anyway__. It takes only the two battery wires, and those are soldered pigtails to underside pads, not breadboard holes.
 
@@ -58,9 +58,9 @@ __Both XIAOs are bare in the photograph__, which is the moment to check item 3 b
 
 ## Check three things on the parts before wiring anything
 
-__1 — The cam copy has no headers soldered on.__ [XIAO-ESP32S3-cam](../hardware/XIAO-ESP32S3-cam.md) ships its two 7-pin strips loose; [the lora copy](../hardware/XIAO-ESP32S3-lora.md) already has its soldered. No headers means nothing to push into a breadboard, so those two strips have to go on first — pins pointing __down__, because the Sense camera board sits on top.
+__1 — The cam copy has no headers soldered on.__ [XIAO-ESP32S3-cam](../hardware/XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) ships its two 7-pin strips loose; [the lora copy](../hardware/XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md) already has its soldered. No headers means nothing to push into a breadboard, so those two strips have to go on first — pins pointing __down__, because the Sense camera board sits on top.
 
-__2 — Test-fit the header strips in the breadboard before you solder them.__ [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md) records the two pad rows as __17.0 mm apart__, and breadboard holes are 2.54 mm apart, so the strips have to land on a whole number of pitches.
+__2 — Test-fit the header strips in the breadboard before you solder them.__ [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) records the two pad rows as __17.0 mm apart__, and breadboard holes are 2.54 mm apart, so the strips have to land on a whole number of pitches.
 
 __Count in millimetres, not in holes.__ The centre channel is 7.62 mm wide — three pitches, not one — so counting letters gives the wrong answer. Measuring from column `a`:
 
@@ -72,13 +72,13 @@ __7 pitches = 17.78 mm is the fit__, 0.78 mm wider than the pads, which the pins
 
 __Confirmed on the bench__ — both XIAOs are seated across the channel in the photograph below. If the recorded 17.0 turns out to be edge-to-edge rather than centre-to-centre, correct `XIAO-ESP32S3-cam.md` while the calipers are out.
 
-__3 — Solder the BAT pigtails with the XIAO out of the breadboard.__ `BAT+`/`BAT−` are pads on the __back face__, inboard of the `D3`/`D4` edge, and the back face is whatever the XIAO is standing on — the breadboard now, the carrier later at 2.50 mm. __The expansion board is not the obstruction__: its B2B is on the *front*, so it can go on and come off with the pigtails already fitted. Faces and evidence are in [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md#which-face-carries-what--settled-off-seeeds-two-drawings-and-the-stack-itself). __Lift the module, solder, seat it again__ — do not try to work under a seated one.
+__3 — Solder the BAT pigtails with the XIAO out of the breadboard.__ `BAT+`/`BAT−` are pads on the __back face__, inboard of the `D3`/`D4` edge, and the back face is whatever the XIAO is standing on — the breadboard now, the carrier later at 2.50 mm. __The expansion board is not the obstruction__: its B2B is on the *front*, so it can go on and come off with the pigtails already fitted. Faces and evidence are in [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md#which-face-carries-what--settled-off-seeeds-two-drawings-and-the-stack-itself). __Lift the module, solder, seat it again__ — do not try to work under a seated one.
 
 > __The battery reaches a XIAO only by soldered wire.__ There is no battery connector on these modules. This is the one soldering job the bench build cannot avoid, and [BOM.md](BOM.md)'s "the bench build needs no soldering" is true only of the I2C sensors, which have plug-in cables.
 
 ## The breadboard
 
-![Breadboard layout: XIAO-ESP32S3-cam straddling the centre channel, both sensors and the piezo wired to it, and the battery soldered to the underside BAT pads of both modules](resources/bench-breadboard.svg)
+![Breadboard layout: XIAO-ESP32S3-cam straddling the centre channel, both sensors and the piezo wired to it, and the battery soldered to the underside BAT pads of both modules](bench-work/bench-breadboard.svg)
 
 __Regenerate it with `python3 hardware/scripts/gen_breadboard_svg.py`__ — the placement is data in that script, so a corrected pin order is one edit and a redraw rather than a hand-patched picture that disagrees with the table below.
 
@@ -156,14 +156,14 @@ Either way the four wires are the same four: `VIN`, `GND`, `SDA`, `SCL`. On a Qw
 Read these once. They are the only part of this page that can hurt you or destroy a part.
 
 - __Do not let the two battery wires touch each other.__ A LiPo has no fuse and will happily deliver tens of amps into a short, hot enough to set the pouch on fire. Cut and strip __one wire at a time__, and insulate each before starting the other
-- __Red to `BAT+`, black to `BAT−`. Reversed destroys the XIAO instantly__ — [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam.md) records this, and it is why the carrier will silkscreen the polarity
+- __Red to `BAT+`, black to `BAT−`. Reversed destroys the XIAO instantly__ — [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) records this, and it is why the carrier will silkscreen the polarity
 - __Charge through one USB port at a time.__ Both XIAOs have their own charger and both sit on the same battery; two chargers on one battery will argue
 - __USB powers the board.__ Anything plugged into USB is running off the computer, not the battery. A test of the battery with a USB cable attached is a test of the computer
 - __Do not discharge the battery below about 3.0 V__, and stop the test there rather than running it flat. A LiPo taken deeply flat may not come back
 
 ## The one thing worth doing twice
 
-The carrier PCB ties __both XIAOs' `3V3` pins to the same plane__, so on the finished board the two regulators run in parallel — [PCB-carrier.md](../hardware/PCB-carrier.md#two-regulators-on-one-net-which-nobody-chose-deliberately) records that as a consequence of the layout rather than a decision anyone made.
+The carrier PCB ties __both XIAOs' `3V3` pins to the same plane__, so on the finished board the two regulators run in parallel — [PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md#two-regulators-on-one-net-which-nobody-chose-deliberately) records that as a consequence of the layout rather than a decision anyone made.
 
 The bench does not have to reproduce that on the first run, and should not:
 

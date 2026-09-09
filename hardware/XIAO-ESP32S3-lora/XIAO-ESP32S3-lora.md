@@ -2,12 +2,12 @@
 
 __The XIAO that carries the radio.__ The copy that arrived in the Wio-SX1262 kit.
 
-__This one has its 7-pin headers already soldered on.__ That is the only physical difference from [the cam copy](XIAO-ESP32S3-cam.md).
+__This one has its 7-pin headers already soldered on.__ That is the only physical difference from [the cam copy](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md).
 
 ## What is mated to it
 
-- __[Wio-SX1262](Wio-SX1262-LoRa.md)__ — the LoRa radio board
-- __[L76K GNSS](L76K-GNSS.md)__ — UART on __D6/D7__
+- __[Wio-SX1262](../Wio-SX1262-LoRa/Wio-SX1262-LoRa.md)__ — the LoRa radio board
+- __[L76K GNSS](../L76K-GNSS/L76K-GNSS.md)__ — UART on __D6/D7__
 
 Runs __stock Meshtastic__, pre-flashed. No firmware is written for it.
 
@@ -18,8 +18,8 @@ __Datum: the bottom of the XIAO's PCB.__ Headers add __2.50 mm__ below it. Camer
 | | Height | Above the carrier |
 |---|---|---|
 | A bare XIAO, to the top of the USB-C | __4.53 mm__ | 7.03 mm |
-| __XIAO-ESP32S3-cam__ + [Sense camera board](Sense-camera-board.md) | __8.22 mm__ | __10.72 mm__ |
-| __XIAO-ESP32S3-lora__ + [Wio-SX1262](Wio-SX1262-LoRa.md) | __9.32 mm__ | __11.82 mm__ |
+| __XIAO-ESP32S3-cam__ + [Sense camera board](../Sense-camera-board/Sense-camera-board.md) | __8.22 mm__ | __10.72 mm__ |
+| __XIAO-ESP32S3-lora__ + [Wio-SX1262](../Wio-SX1262-LoRa/Wio-SX1262-LoRa.md) | __9.32 mm__ | __11.82 mm__ |
 
 So the Sense camera board adds __3.69 mm__ to a XIAO and the Wio-SX1262 adds __4.79 mm__.
 
@@ -32,7 +32,7 @@ available = 2 x sqrt(19.7^2 - 8.75^2)                           = 35.30 mm
 
 ## Photograph
 
-![XIAO ESP32S3 module on the measurement grid](../docs/resources/XIAO-ESP32S3-module.jpg)
+![XIAO ESP32S3 module on the measurement grid](../../docs/resources/XIAO-ESP32S3-module.jpg)
 
 ## The module
 
@@ -54,7 +54,7 @@ __On battery power there is no voltage on the 5V pin__, so nothing can be fed fr
 
 __Both XIAO chargers sit in parallel on one battery — charge through one USB port at a time.__
 
-> __This module's USB-C is not used in the flight build__ (operator, 2026-09-08). Charging and service go through the [Sense stack](XIAO-ESP32S3-cam.md) instead, because __this module runs stock Meshtastic and must never be reflashed__ — which is the whole reason there are two of them. Its port is reachable only by taking the nose apart. See [PCB-carrier.md](PCB-carrier.md#charge-through-the-sense-stack-and-only-that-one).
+> __This module's USB-C is not used in the flight build__ (operator, 2026-09-08). Charging and service go through the [Sense stack](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) instead, because __this module runs stock Meshtastic and must never be reflashed__ — which is the whole reason there are two of them. Its port is reachable only by taking the nose apart. See [PCB-carrier.md](../PCB-carrier/PCB-carrier.md#charge-through-the-sense-stack-and-only-that-one).
 
 __Reversing a LiPo into a XIAO destroys it.__ The carrier silkscreens the pigtail polarity.
 
@@ -62,4 +62,4 @@ __The expansion board is the same outline as the XIAO__ (±8.75 mm against pads 
 
 ---
 
-Part numbers, vendors and masses live in [BOM.md](../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../docs/shopping-list.md); the reasoning is in [design.md](../docs/design.md).
+Part numbers, vendors and masses live in [BOM.md](../../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../../docs/shopping-list.md); the reasoning is in [design.md](../../docs/design.md).

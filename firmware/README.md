@@ -6,7 +6,7 @@ A sketch carries its build configuration in IDE menu state — which board, whet
 
 | Project | For | State |
 |---|---|---|
-| [`bringup-cam/`](bringup-cam/) | [XIAO-ESP32S3-cam](../hardware/XIAO-ESP32S3-cam.md) + [Sense-camera-board](../hardware/Sense-camera-board.md) bench bring-up, [#7](https://github.com/jwilleke/js-rocket-avionics/issues/7) | __untested — no hardware has run it__ |
+| [`bringup-cam/`](bringup-cam/) | [XIAO-ESP32S3-cam](../hardware/XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) + [Sense-camera-board](../hardware/Sense-camera-board/Sense-camera-board.md) bench bring-up, [#7](https://github.com/jwilleke/js-rocket-avionics/issues/7) | __untested — no hardware has run it__ |
 | [`soak-power/`](soak-power/) | the shared-battery load test, [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) — drives capture + SD write bursts and logs every cycle and every reset to the card | __untested — no hardware has run it__ |
 
 ```sh
@@ -18,7 +18,7 @@ __`soak-power` is flashed the same way and then run with the USB unplugged__, be
 
 __None of this is flight firmware.__ Bring-up proves the parts are alive and talking. Apogee, staging and landing detection need the flight profile settled first — see [design.md](../docs/design.md).
 
-__[XIAO-ESP32S3-lora](../hardware/XIAO-ESP32S3-lora.md) has no project here and must not get one.__ It runs stock Meshtastic, pre-flashed, and that is the entire reason there are two modules: a recovery beacon that cannot be broken by our own bugs. Writing firmware for it would throw that away.
+__[XIAO-ESP32S3-lora](../hardware/XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md) has no project here and must not get one.__ It runs stock Meshtastic, pre-flashed, and that is the entire reason there are two modules: a recovery beacon that cannot be broken by our own bugs. Writing firmware for it would throw that away.
 
 __Board settings come from the board definition, not from this repo__, and both projects pin `platform = espressif32@55.3.35` so that stays true across machines. What is a default, what is deliberately restated, and how to recover a board that will not take an upload: [sense-board-PlatformIO.md](sense-board-PlatformIO.md).
 
