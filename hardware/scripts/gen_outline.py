@@ -38,7 +38,7 @@ import sys
 import pcbnew
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-OUT = os.path.join(REPO, "hardware", "carrier", "carrier.kicad_pcb")
+OUT = os.path.join(REPO, "hardware", "PCB-carrier", "carrier.kicad_pcb")
 
 BOARD_W = 24.0
 BOARD_H = 70.0

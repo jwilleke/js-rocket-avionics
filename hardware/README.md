@@ -102,7 +102,7 @@ __Printed bosses are modelled oversize.__ A hole modelled at nominal prints unde
 
 ## What is not here
 
-- __KiCad sources__ — `carrier/`
+- __KiCad sources__ — [`PCB-carrier/`](PCB-carrier/), beside the page that documents the board
 - __Generators__ — `scripts/`, including `gen_carrier.py`
 - __Measured pin order and caliper readings__ — [module-pinouts.md](../docs/module-pinouts.md)
 - __Why it is built this way__ — [design.md](../docs/design.md)

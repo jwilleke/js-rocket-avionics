@@ -138,6 +138,12 @@ An earlier generator revision put GPS on pins 6/7 and I2C on 4/5 — __D5/D6 and
 >
 > __Now it runs.__ `c2468eb` closed [#18](https://github.com/jwilleke/js-rocket-avionics/issues/18) by unmirroring the row *and* adding `verify_pins()`, which asserts every placed net against `MCU_Seeed_ESP32C3`'s own pin coordinates on every generate — checking __both__ x and y, because pins 7 and 8 share a y and only x tells the two rows apart. A third instance fails the build rather than waiting for someone to read the board.
 
+## The KiCad sources are in this folder
+
+`carrier.kicad_pcb` and `carrier.kicad_pro` sit beside this page, moved here 2026-09-09 from a separate `hardware/carrier/`. Both generators write to that path, and the CLI recipes in the [repo README](../../README.md) read from it.
+
+__The project is still named `carrier`, not `PCB-carrier`.__ Renaming it means renaming three files that find each other by basename, plus both generators and the DRC and export recipes — worth doing deliberately, not as a side effect of moving a folder. `.kicad_prl` is local editor state and is gitignored.
+
 ## Ordering
 
 __Do not order copper before breadboarding.__ A layout error costs ~$33 and __two weeks__; a wiring error costs minutes. The gate is [#4](https://github.com/jwilleke/js-rocket-avionics/issues/4); the ordering epic is [#11](https://github.com/jwilleke/js-rocket-avionics/issues/11). Three copies from OSH Park.
