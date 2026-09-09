@@ -137,9 +137,9 @@ KPY=/Applications/KiCad/KiCad.app/Contents/Frameworks/Python.framework/Versions/
 CLI=/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli
 
 $KPY hardware/scripts/gen_carrier.py
-$CLI pcb drc  --format json -o /tmp/drc.json hardware/PCB-carrier/carrier.kicad_pcb
-$CLI pcb export gerbers -o fab/gerbers/ hardware/PCB-carrier/carrier.kicad_pcb
-$CLI pcb export drill   -o fab/gerbers/ hardware/PCB-carrier/carrier.kicad_pcb
+$CLI pcb drc  --format json -o /tmp/drc.json hardware/PCB-carrier/PCB-carrier.kicad_pcb
+$CLI pcb export gerbers -o fab/gerbers/ hardware/PCB-carrier/PCB-carrier.kicad_pcb
+$CLI pcb export drill   -o fab/gerbers/ hardware/PCB-carrier/PCB-carrier.kicad_pcb
 ```
 
 __The board is generated, not hand-edited.__ `.kicad_pcb` format shifts between KiCad releases; building it through `pcbnew` means the file is written by the same code that reads it. Edit `hardware/scripts/gen_carrier.py` and re-run — do not edit the board file directly, or the next run overwrites you.

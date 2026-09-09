@@ -140,9 +140,9 @@ An earlier generator revision put GPS on pins 6/7 and I2C on 4/5 — __D5/D6 and
 
 ## The KiCad sources are in this folder
 
-`carrier.kicad_pcb` and `carrier.kicad_pro` sit beside this page, moved here 2026-09-09 from a separate `hardware/carrier/`. Both generators write to that path, and the CLI recipes in the [repo README](../../README.md) read from it.
+`PCB-carrier.kicad_pcb` and `PCB-carrier.kicad_pro` sit beside this page. Both generators write to that path, and the CLI recipes in the [repo README](../../README.md) read from it.
 
-__The project is still named `carrier`, not `PCB-carrier`.__ Renaming it means renaming three files that find each other by basename, plus both generators and the DRC and export recipes — worth doing deliberately, not as a side effect of moving a folder. `.kicad_prl` is local editor state and is gitignored.
+__Folder, page, project and part all carry one name__, as of 2026-09-09 — the board moved here from a separate `hardware/carrier/` and the project was renamed off `carrier` in the same pass. `.kicad_prl` is local editor state and is gitignored, so it is renamed but not tracked.
 
 ## Ordering
 
