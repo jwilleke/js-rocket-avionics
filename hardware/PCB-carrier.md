@@ -63,7 +63,7 @@ __Everything else is powered by the XIAO it plugs onto__, through that module's 
 | Part | Powered by |
 |---|---|
 | [Wio-SX1262](Wio-SX1262-LoRa.md) | XIAO-ESP32S3-lora |
-| [L76K-GNSS](L76K-GNSS.md) | XIAO-ESP32S3-lora, riding the stack |
+| [L76K-GNSS](L76K-GNSS.md) | XIAO-ESP32S3-lora, __flat on the top face__ |
 | [Sense-camera-board](Sense-camera-board.md) | XIAO-ESP32S3-cam |
 | Camera module, [microSD](microSD.md) | the Sense board |
 
@@ -89,17 +89,17 @@ __Why not two smaller boards.__ The twin-PCB plan assumed each XIAO could sit fl
 __Why not 24 × 70.__ The two XIAOs cannot overlap in plan view — they mount on __through-hole__ headers, and XIAO-ESP32S3-lora uses D6/D7 for the GPS UART where XIAO-ESP32S3-cam uses D4/D5 for I2C. Different nets, same holes. So they sit end to end, and at 24 mm wide against 17.8 mm sensors nothing sits side by side:
 
 ```text
-top face     XIAO-ESP32S3-lora 21, GPS in the stack, not end to end  = 21 mm
+top face     XIAO-ESP32S3-lora 21 + L76K 21, end to end              = 42 mm
 bottom face  XIAO-ESP32S3-cam 21 + LSM6DSO32 25.5 + BMP388 25.5 + buzzer = 84 mm
 ```
 
-__The bottom face sets the length.__ The top-face figure once read 46 mm, from a MAX-M10S that would have sat on the carrier; that part is gone and the L76K rides the XIAO stack instead. 84 mm on the bottom still drives the board, so __nothing about the frozen interface moves and the sled does not reprint__.
+__The bottom face sets the length, through every revision of the top one.__ 46 mm with a MAX-M10S on the carrier, 21 mm with the L76K riding the stack, __42 mm__ now the L76K is flat on the carrier (2026-09-09). 84 mm on the bottom drove the board in all three cases, so __nothing about the frozen interface moves and the sled does not reprint__ — 53 mm of the top face is still free.
 
 ## Population
 
 | Face | Carries |
 |---|---|
-| Top | XIAO ESP32S3 (plain) + Wio-SX1262 __above it, on its front-face B2B__; __L76K in the XIAO stack, not on the carrier__ |
+| Top | XIAO-ESP32S3-lora + Wio-SX1262 __above it, on its front-face B2B__; __L76K flat on the carrier__, end to end |
 | Bottom | XIAO ESP32S3 Sense + camera/microSD board __above it, on its front-face B2B__; LSM6DSO32; BMP388; buzzer |
 | Either | Battery JST, arming switch in the battery line, mounting holes |
 

@@ -1,6 +1,6 @@
 # L76K GNSS
 
-__Position for XIAO-ESP32S3-lora.__ Plugs onto the XIAO's own 14 pads rather than presenting a header to the carrier, and ships with an active antenna.
+__Position for XIAO-ESP32S3-lora.__ Ships with an active antenna. __It mounts flat on the carrier, on its own footprint__ (operator, 2026-09-09) — it *can* plug onto a XIAO-ESP32S3-x's own 14 pads, and that is how it was planned until the stack was looked at.
 
 ## Specification
 
@@ -8,7 +8,7 @@ __Position for XIAO-ESP32S3-lora.__ Plugs onto the XIAO's own 14 pads rather tha
 |---|---|
 | Module | ≈__20 × 17 mm__, `QUECTEL L76K` |
 | Interface | UART on __D6/D7__ |
-| Mounting | onto the XIAO's own 14 pads — __no carrier footprint__ |
+| Mounting | __flat on the carrier, own footprint__ — top face, ~21 mm |
 | Antenna | active patch, ≈__25 × 25 mm__, U.FL, __`ANT 50mA MAX`__ |
 
 Why this module rather than a MAX-M10S is in [design.md](../docs/design.md#the-gps-is-an-l76k-not-a-max-m10s).
@@ -24,7 +24,7 @@ Read off the grid — [module-pinouts.md](../docs/module-pinouts.md#how-these-ar
 | __L76K module__ | ≈ __20 × 17 mm__ |
 | __Patch antenna__ | ≈ __25 × 25 mm__, on a flying U.FL lead |
 
-Silkscreen: `QUECTEL L76K`, a U.FL connector, and __`ANT 50mA MAX`__ — the active antenna's current budget. Exact outline barely matters, because __the module needs no carrier footprint at all__.
+Silkscreen: `QUECTEL L76K`, a U.FL connector, and __`ANT 50mA MAX`__ — the active antenna's current budget. __The outline now matters__, because the module takes a footprint: ~20 × 17 mm against the top face's free 74 mm.
 
 ## The antenna is the part worth looking at
 
@@ -36,7 +36,7 @@ __It is also the obvious candidate for the module's mass overrun.__ A 25 mm cera
 
 Because it rides the XIAO stack, `GPS_TX`/`GPS_RX` stay in the netlist — the same node the module meets in the stack — but __nothing is placed for them__.
 
-> __That moves the risk from layout to stack height.__ Whether the L76K clears the Wio-SX1262 on the B2B is open, against the __11.76 mm of spare__ [design.md](../docs/design.md) computes — and the L76K is not inside the 9.32 mm that figure is built on, which is the XIAO and the radio only. __If it cannot ride the stack it comes back to the carrier as a footprint__, needing ~21 mm the 95 mm board has. [design.md](../docs/design.md) says settle it at the breadboard stage — [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6).
+> __Riding the stack traded a footprint for an unmeasured mechanical unknown, and the trade was reversed.__ Whether this module cleared the [Wio-SX1262](Wio-SX1262-LoRa.md) on the B2B had never been tested — the parcels arrived weeks apart — and the arrangement put the GPS, the radio and the MCU in one cantilevered column on header pins. __Flat on the carrier deletes the question instead of answering it.__ The mechanical half of [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6) is closed by that decision rather than by a measurement.
 
 ## Antenna
 

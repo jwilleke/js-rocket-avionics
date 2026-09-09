@@ -26,7 +26,7 @@ Each step is cheap to fail and tells you something the next one assumes. Running
 
 ## 1 — Stack check, before any power
 
-__The one genuinely open question on [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6) is mechanical.__ The [L76K](../hardware/L76K-GNSS.md) plugs onto the XIAO's own 14 pads rather than presenting a header, so it and the [Wio-SX1262](../hardware/Wio-SX1262-LoRa.md) compete for the same B2B space. The two parcels arrived weeks apart and __nobody has ever stacked them__.
+__[#6](https://github.com/jwilleke/js-rocket-avionics/issues/6)'s mechanical question is closed, and not by a measurement.__ It asked whether the [L76K](../hardware/L76K-GNSS.md) and the [Wio-SX1262](../hardware/Wio-SX1262-LoRa.md) could share the space above one XIAO-ESP32S3-x — never tested, the parcels having arrived weeks apart. __The L76K now mounts flat on the carrier__ (2026-09-09), so nothing has to clear anything and there is no dry-stack gate before soldering. What remains on #6 is electrical: does the radio beacon, does the GPS get a fix, and does the L76K's active antenna desense the receiver.
 
 - Fit [XIAO-ESP32S3-lora](../hardware/XIAO-ESP32S3-lora.md) + Wio-SX1262 + L76K, dry, no battery
 - __If they foul, stop and write it down.__ That is a layout change: the L76K returns to the carrier as a footprint needing ~21 mm, which the 95 mm board has but [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14) has not allowed for

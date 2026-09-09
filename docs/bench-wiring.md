@@ -41,7 +41,7 @@ Two module stacks and a breadboard. The stacks are already assembled by their B2
 
 __Only stack 1 gets sensors and a buzzer.__ Stack 2 has nothing wired to it at all except the two battery wires.
 
-__Stack 2 needs no breadboard for its own sake__ — [L76K-GNSS](../hardware/L76K-GNSS.md) rides the XIAO's own 14 pads and the [Wio-SX1262](../hardware/Wio-SX1262-LoRa.md) is on its B2B connector, so once those are stacked there is nothing left to push into a board. Whether those two coexist at all is the open question the bench is there to settle — [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6), and it is why the stack check comes before any power.
+__Stack 2 needs no breadboard for its own sake__ — the [Wio-SX1262](../hardware/Wio-SX1262-LoRa.md) is on its B2B connector, so once it is mated there is nothing left to push into a board. The [L76K-GNSS](../hardware/L76K-GNSS.md) is no longer in that stack at all: it mounts __flat on the carrier__ (2026-09-09), which removed the dry-stack check that used to gate this session. Wire the GPS to `D6`/`D7` on the breadboard like any other module.
 
 ### As actually set up: two boards, one XIAO each
 

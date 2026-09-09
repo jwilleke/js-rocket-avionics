@@ -66,11 +66,11 @@ __Nothing is on a truck any more.__ Every ordered part is on the bench as of __2
 
 1. __Breadboard XIAO-ESP32S3-cam in full.__ Sense, BMP388, LSM6DSO32, buzzer and battery are all here. Qwiic cables ship with both sensors, so the I2C bus needs no soldering. Confirm the camera, the microSD slot and both sensors enumerate, and that the strapping pins (GPIO3, 43, 44) behave.
 2. __Measure and photograph every header__ before drawing a footprint — see [module-pinouts.md](module-pinouts.md). Only the BMP388 has been through this. __A wrong pin order scraps a board rather than costing a re-solder.__
-3. __Check the L76K's own geometry.__ It is documented as plugging onto the XIAO's 14 pads rather than presenting a header to the carrier, which is why no GPS footprint is planned. That claim can be checked against the part directly.
+3. __Measure and photograph the L76K's header.__ It mounts flat on the carrier as of 2026-09-09, so it takes a footprint like any other module and __its pin order has never been read__ — it did not need one while it rode the XIAO's pads. Grid photograph, outline and row order, same as the sensors.
 
 ### What the radio's arrival unblocks
 
-1. __The L76K against the Wio-SX1262 on the B2B.__ __This is the one measurement the layout waits on, and it can be taken now.__ If the two will not share the XIAO stack, the GPS returns to the carrier as a footprint and the top face needs ~21 mm back. The 95 mm board has the room either way, so this decides layout, not size.
+1. __The L76K's own outline and pin order.__ The stack-clearance question this line used to carry is closed — the GPS goes flat on the carrier, so nothing has to share the XIAO stack. What the layout waits on now is the __footprint__: ~21 mm on a top face with 74 mm free, and a pin row nobody has read off the part.
 2. __Board A bring-up__ — it should enumerate as a Meshtastic device untouched, with no firmware written.
 3. __Then__ place, route, and order copper.
 

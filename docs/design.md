@@ -93,7 +93,7 @@ The camera hangs off the expansion board __on a flexible ribbon__, so its positi
 
 | Face | Carries |
 |---|---|
-| Top | XIAO ESP32S3 (plain) + Wio-SX1262 __above it, on its front-face B2B__; __L76K GNSS__ — in the XIAO stack, __not on the carrier__ |
+| Top | XIAO-ESP32S3-lora + Wio-SX1262 __above it, on its front-face B2B__; __L76K GNSS — flat on the carrier__, end to end |
 | Bottom | XIAO ESP32S3 Sense + camera/microSD board beneath it; LSM6DSO32; BMP388; buzzer |
 | Either | Battery JST, mounting holes. An arming switch would be inline in the battery lead and takes no footprint — __flight 3 carries none__ |
 
@@ -104,13 +104,13 @@ Net list is small — roughly __9 nets__: GPS TX, GPS RX, SDA, SCL, buzzer, 3V3,
 The two XIAOs cannot overlap in plan view. They mount on __through-hole__ headers, so the holes pass through the card, and XIAO-ESP32S3-lora uses D6/D7 for the GPS UART while XIAO-ESP32S3-cam uses D4/D5 for I2C — different nets on the same holes. They sit end to end:
 
 ```text
-top face     XIAO-ESP32S3-lora 21 + GPS in the stack, not end to end    = 21 mm
+top face     XIAO-ESP32S3-lora 21 + L76K 21, end to end                 = 42 mm
 bottom face  XIAO-ESP32S3-cam 21 + LSM6DSO32 25.5 + BMP388 25.5 + buzzer = 84 mm
 ```
 
 At 24 mm wide against 17.8 mm sensors, no two parts sit side by side. __24 × 95 mm__, costing 1.1 g, and still inside the sled with room to spare. XIAO-ESP32S3-cam centres at carrier y = 18 mm so the camera lands at nose z 30..45.
 
-__The bottom face sets the length.__ The top-face figure once read `XIAO-ESP32S3-lora 21 + GPS ~25 = 46 mm`, from a MAX-M10S breakout that would have sat on the carrier end to end. That part is gone and the L76K rides the XIAO stack instead, so the top face needs only its 21 mm — but 84 mm on the bottom still drives the board, so __nothing about the frozen interface moves and the sled does not reprint__.
+__The bottom face still sets the length, and that is why this decision is cheap.__ The top face went 46 mm (a MAX-M10S on the carrier) to 21 mm (the L76K riding the stack) and back to __42 mm__ now the L76K is on the carrier — and __84 mm on the bottom has been the binding figure through all three__. So the board does not grow, __the frozen interface does not move and the sled does not reprint__. The top face has __53 mm still free__ after the change.
 
 ### The GPS is an L76K, not a MAX-M10S
 
@@ -118,8 +118,8 @@ The MAX-M10S was rejected on 2026-08-06: **44.2 × 30.5 mm, wider than the 24 mm
 
 __It plugs onto the XIAO's own 14 pads rather than presenting a header to the carrier__, so:
 
-- __No GPS footprint is needed.__ `GPS_TX`/`GPS_RX` remain in the netlist — the same node the L76K meets in the stack — but nothing is placed for them.
-- __It moves the risk from layout to stack height.__ Whether the L76K clears the Wio-SX1262 on the B2B is open, against the __11.76 mm of spare computed above__ — the L76K is *not* in that 9.32 mm figure, which is the XIAO and the radio only, so what the dry stack has to show is whether the GPS fits inside that spare. __If it cannot ride the stack it returns to the carrier as a footprint__, needing ~21 mm the 95 mm board has. Settle at the breadboard stage.
+- __The GPS takes a footprint on the top face__ (operator, 2026-09-09). `GPS_TX`/`GPS_RX` were already in the netlist; now something is placed for them. ~21 mm against __74 mm free__ — the top face carries only XIAO-ESP32S3-lora's 21 mm of the board's 95.
+- __The stack-height risk is gone, because the GPS is no longer in the stack.__ Riding the XIAO's pads saved a footprint and bought an unmeasured mechanical unknown: whether the L76K clears the Wio-SX1262 on the B2B, never tested, and a four-high column cantilevered off header pins under boost. __Flat on the carrier deletes the question rather than answering it__ — no dry-stack gate, no tall headers to source, no clearance to preserve through later revisions. The cost is ~21 mm of board on a face with 74 mm free, and a footprint in a stage that has to place four other parts anyway.
 
 ### Power, and the pigtail constraint
 

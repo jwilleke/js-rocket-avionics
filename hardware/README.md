@@ -14,7 +14,7 @@ __These pages hold no part numbers and no masses.__ [BOM.md](../docs/BOM.md) own
 | MCU | [XIAO-ESP32S3-cam.md](XIAO-ESP32S3-cam.md) | — | grid | The MCU module. __No headers soldered__ |
 | Payload | [Sense-camera-board.md](Sense-camera-board.md) | XIAO-ESP32S3-cam | grid ×2 | OV3660 camera and the microSD slot |
 | Radio | [Wio-SX1262-LoRa.md](Wio-SX1262-LoRa.md) | XIAO-ESP32S3-lora | grid | LoRa. Buy as the matched kit, never separately |
-| GNSS | [L76K-GNSS.md](L76K-GNSS.md) | XIAO-ESP32S3-lora | grid | Position. Rides the XIAO stack, no carrier footprint |
+| GNSS | [L76K-GNSS.md](L76K-GNSS.md) | XIAO-ESP32S3-lora | grid | Position. __Flat on the carrier's top face__, own footprint |
 | Sensor | [LSM6DSO32.md](LSM6DSO32.md) | carrier | grid + back | ±32 g IMU with a 9 KB FIFO |
 | Sensor | [BMP388-barometer.md](BMP388-barometer.md) | carrier | grid + 2 close | Unported barometer, 0x77 |
 | Output | [PS1240-buzzer.md](PS1240-buzzer.md) | carrier | __none__ | Passive piezo. The only status channel on the pad |
