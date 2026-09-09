@@ -36,7 +36,7 @@ __It is also the obvious candidate for the module's mass overrun.__ A 25 mm cera
 
 Because it rides the XIAO stack, `GPS_TX`/`GPS_RX` stay in the netlist — the same node the module meets in the stack — but __nothing is placed for them__.
 
-> __That moves the risk from layout to stack height.__ Whether the L76K clears the Wio-SX1262 on the B2B is open, against ~2 mm of bore margin. __If it cannot ride the stack it comes back to the carrier as a footprint__, needing ~21 mm the 95 mm board has. [design.md](../docs/design.md) says settle it at the breadboard stage — [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6).
+> __That moves the risk from layout to stack height.__ Whether the L76K clears the Wio-SX1262 on the B2B is open, against the __11.76 mm of spare__ [design.md](../docs/design.md) computes — and the L76K is not inside the 9.32 mm that figure is built on, which is the XIAO and the radio only. __If it cannot ride the stack it comes back to the carrier as a footprint__, needing ~21 mm the 95 mm board has. [design.md](../docs/design.md) says settle it at the breadboard stage — [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6).
 
 ## Antenna
 

@@ -119,7 +119,7 @@ The MAX-M10S was rejected on 2026-08-06: **44.2 × 30.5 mm, wider than the 24 mm
 __It plugs onto the XIAO's own 14 pads rather than presenting a header to the carrier__, so:
 
 - __No GPS footprint is needed.__ `GPS_TX`/`GPS_RX` remain in the netlist — the same node the L76K meets in the stack — but nothing is placed for them.
-- __It moves the risk from layout to stack height.__ Whether the L76K clears the Wio-SX1262 on the B2B is open, against the ~2 mm of bore margin computed above. __If it cannot ride the stack it returns to the carrier as a footprint__, needing ~21 mm the 95 mm board has. Settle at the breadboard stage.
+- __It moves the risk from layout to stack height.__ Whether the L76K clears the Wio-SX1262 on the B2B is open, against the __11.76 mm of spare computed above__ — the L76K is *not* in that 9.32 mm figure, which is the XIAO and the radio only, so what the dry stack has to show is whether the GPS fits inside that spare. __If it cannot ride the stack it returns to the carrier as a footprint__, needing ~21 mm the 95 mm board has. Settle at the breadboard stage.
 
 ### Power, and the pigtail constraint
 
