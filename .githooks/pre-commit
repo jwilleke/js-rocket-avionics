@@ -1,0 +1,46 @@
+#!/bin/sh
+# Secret scan (gitleaks) on the staged diff.
+#
+# GitHub's own secret scanning and push protection are enabled on this repo, but
+# they report a leak only once it has been pushed -- by which point it is in the
+# history and must be rotated. This hook blocks the commit instead, which is
+# cheaper by the same margin every time.
+#
+# Firmware repos are where credentials actually land: Wi-Fi SSIDs and PSKs, API
+# tokens and MQTT passwords go in config headers next to the code that uses them.
+#
+# Scans the staged diff only, so it costs nothing on an ordinary commit and never
+# re-reads the history.
+#
+# Skip with: git commit --no-verify
+
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "pre-commit: gitleaks not found, skipping secret scan" >&2
+  echo "            install it with: brew install gitleaks" >&2
+  exit 0
+fi
+
+# Use the repo's own allowlist when it has one; gitleaks errors on a missing -c.
+gl_cfg=""
+if [ -f "$(git rev-parse --show-toplevel)/.gitleaks.toml" ]; then
+  gl_cfg="-c $(git rev-parse --show-toplevel)/.gitleaks.toml"
+fi
+
+# shellcheck disable=SC2086
+if ! gitleaks git --staged --no-banner --redact $gl_cfg >/dev/null 2>&1; then
+  echo "──────────────────────────────────────────────────────────────" >&2
+  echo "BLOCKED: gitleaks found a secret in the staged changes." >&2
+  echo >&2
+  # shellcheck disable=SC2086
+  gitleaks git --staged --no-banner --redact -v $gl_cfg 2>&1 | grep -v '^$' >&2
+  echo >&2
+  echo "Secrets are redacted above. Remove the value, do not just unstage it" >&2
+  echo "-- if it was ever real, rotate it." >&2
+  echo >&2
+  echo "A false positive belongs in .gitleaks.toml as an allowlist entry," >&2
+  echo "with a comment saying why it is not a secret." >&2
+  echo "──────────────────────────────────────────────────────────────" >&2
+  exit 1
+fi
+
+exit 0
