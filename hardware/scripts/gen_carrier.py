@@ -46,7 +46,9 @@ XIAO HEADER GEOMETRY, from RF_Module:MCU_Seeed_ESP32C3:
     board 17.5 x 21 mm
 
 Pin numbering follows that footprint: 1..7 down the -8.5 mm row, 8..14 back up
-the +8.5 mm row, so pin 8 faces pin 7.
+the +8.5 mm row, so pin 8 faces pin 7. That footprint is a FRONT view, so it
+holds as drawn only for the top-face XIAO. The bottom-face XIAO presents its
+back to the same holes and its rows swap: 1..7 on +8.5 (#21, XIAO_*_FACE).
 """
 import os
 import sys
@@ -72,6 +74,16 @@ XIAO_PINS_PER_ROW = 7
 # at nose z 30..45; A sits above it.
 XIAO_B_Y = 18.0            # Sense: camera, microSD, sensors
 XIAO_A_Y = 46.0            # plain: Wio-SX1262 + GPS
+
+# Which face each XIAO sits on. #21: THIS DECIDES WHICH ROW IS WHICH. The
+# footprint below is a FRONT view. A top-face XIAO shows its front to someone
+# looking at the top of the board, so it uses the footprint as drawn. A
+# bottom-face XIAO shows its BACK through the same holes, so its two rows swap
+# sides (x mirrors, y does not, and the USB-C still faces aft). Both XIAOs were
+# once netted from the one front-view table, which put the bottom module's
+# BUZZER on its 5V pin and +3V3/GND on D2/D1.
+XIAO_A_FACE = "top"
+XIAO_B_FACE = "bottom"
 
 MM = pcbnew.FromMM
 
@@ -164,10 +176,20 @@ def add_mounting_holes(board, w, h, inset):
         board.Add(fp)
 
 
-def add_xiao(board, ref, cy, netmap, nets):
-    """Two 1x7 vertical headers 17.0 mm apart, matching the XIAO pad rows."""
+def face_sign(face):
+    """+1 for a top-face XIAO (footprint as drawn), -1 for a bottom-face one."""
+    return {"top": 1, "bottom": -1}[face]
+
+
+def add_xiao(board, ref, cy, netmap, nets, face):
+    """Two 1x7 vertical headers 17.0 mm apart, matching the XIAO pad rows.
+
+    Header "A" always carries pins 1..7. On the top face it sits on the
+    -8.5 mm row, as the footprint draws it; on the bottom face, on +8.5.
+    """
     placed = []
-    for side, dx in (("A", -XIAO_ROW_DX), ("B", +XIAO_ROW_DX)):
+    m = face_sign(face)
+    for side, dx in (("A", -XIAO_ROW_DX * m), ("B", +XIAO_ROW_DX * m)):
         fp = load(FP_LIB, FP_HEADER, board)
         fp.SetPosition(pcbnew.VECTOR2I(MM(BOARD_W / 2.0 + dx), MM(cy)))
         fp.SetReference("%s%s" % (ref, side))
@@ -183,8 +205,8 @@ def add_xiao(board, ref, cy, netmap, nets):
         board.Add(fp)
         placed.append((side, fp))
 
-    # Row -8.5 carries XIAO pins 1..7 top-to-bottom; row +8.5 carries 8..14
-    # bottom-to-top, so pin 8 sits opposite pin 7.
+    # Header A carries XIAO pins 1..7 top-to-bottom; header B carries 8..14
+    # bottom-to-top, so pin 8 sits opposite pin 7. Only x depends on the face.
     for side, fp in placed:
         for i in range(1, XIAO_PINS_PER_ROW + 1):
             pad = fp.FindPadByNumber(str(i))
@@ -216,21 +238,55 @@ def add_xiao(board, ref, cy, netmap, nets):
 FOOTPRINT_PIN = {p: (-XIAO_ROW_DX, -7.62 + (p - 1) * XIAO_PITCH) for p in range(1, 8)}
 FOOTPRINT_PIN.update({p: (+XIAO_ROW_DX, 7.62 - (p - 8) * XIAO_PITCH) for p in range(8, 15)})
 
+# The same XIAO read off its own silkscreen, independently of the footprint and
+# of XIAO_PIN: docs/module-pinouts.md, from XIAO-ESP32-S3-bottom.jpg -- the
+# UNDERSIDE, USB-C at the top, each column listed from the USB-C end.
+UNDERSIDE_LEFT = ["5V", "GND", "3V3", "D10", "D9", "D8", "D7"]
+UNDERSIDE_RIGHT = ["D0", "D1", "D2", "D3", "D4", "D5", "D6"]
+
+
+def photo_pin(signal, face):
+    """(dx, dy) of a signal as the top of the carrier sees it, from the photo.
+
+    Looking down at the board with y increasing away from the USB-C, a
+    bottom-face XIAO shows exactly the photographed underside. A top-face XIAO
+    shows its front, which is the underside mirrored left to right.
+    """
+    for col, dx in ((UNDERSIDE_LEFT, -XIAO_ROW_DX), (UNDERSIDE_RIGHT, +XIAO_ROW_DX)):
+        if signal in col:
+            dy = -7.62 + col.index(signal) * XIAO_PITCH
+            return (dx if face == "bottom" else -dx, dy)
+    raise KeyError(signal)
+
 
 def verify_pins(board, placements):
-    """Assert every net sits where the XIAO's own footprint says that pin is.
+    """Assert every net sits where the XIAO puts that pin, from two sources.
 
-    THE POINT OF THIS FUNCTION IS THAT IT RUNS. Two revisions of this file have
-    now shipped a wrong pin mapping -- GPS on 6/7 and I2C on 4/5 the first time,
-    the whole +8.5 row mirrored the second (#18). Both were found by a human
-    reading the saved board. The lesson was written down twice and never made
-    executable, and a check that only runs when someone remembers catches the
-    first instance and not the second.
+    THE POINT OF THIS FUNCTION IS THAT IT RUNS. Three revisions of this file
+    have now shipped a wrong pin mapping -- GPS on 6/7 and I2C on 4/5 the first
+    time, the whole +8.5 row mirrored the second (#18), the bottom-face XIAO
+    netted as if top-mounted the third (#21). All three were found by a human.
+
+    The footprint check alone could not see #21: it compared both XIAOs with
+    the same front-view table, so it proved the nets matched the table and
+    nothing about whether the table fitted the face. The photo check is
+    independent of the footprint, of XIAO_PIN and of the row logic in
+    add_xiao(), so a wrong row, a wrong number, or add_xiao() ignoring the face
+    (which is what #21 was) each fails it. What no check here can catch is
+    XIAO_*_FACE itself being declared wrong: that is a fact about the build,
+    owned by the Population table in hardware/PCB-carrier/PCB-carrier.md.
     """
+    pin_name = {v: k for k, v in XIAO_PIN.items()}
     inv = {}
-    for ref, cy, netmap in placements:
+    for ref, cy, netmap, face in placements:
         for xiao_pin, net_name in netmap.items():
             dx, dy = FOOTPRINT_PIN[xiao_pin]
+            dx *= face_sign(face)
+            px, py = photo_pin(pin_name[xiao_pin], face)
+            if abs(px - dx) > 0.01 or abs(py - dy) > 0.01:
+                raise AssertionError("%s %s: footprint puts %s at (%.2f, %.2f), the "
+                                     "underside photo at (%.2f, %.2f)"
+                                     % (ref, face, pin_name[xiao_pin], dx, dy, px, py))
             inv[(ref, net_name)] = (BOARD_W / 2.0 + dx, cy + dy, xiao_pin)
 
     seen, bad = set(), []
@@ -254,7 +310,8 @@ def verify_pins(board, placements):
         bad += ["%s %s never placed" % m for m in sorted(missing)]
     if bad:
         raise AssertionError("pin mapping wrong:\n  " + "\n  ".join(bad))
-    print("verify   %d net placements match MCU_Seeed_ESP32C3" % len(seen))
+    print("verify   %d net placements match MCU_Seeed_ESP32C3 and the underside "
+          "photo, per face" % len(seen))
 
 
 def add_plane(board, layer, net, inset=0.5):
@@ -292,11 +349,11 @@ def main():
 
     outline(board, BOARD_W, BOARD_H, CORNER_R)
     add_mounting_holes(board, BOARD_W, BOARD_H, HOLE_INSET)
-    add_xiao(board, "J_XIAO_B", XIAO_B_Y, XIAO_B_NETS, nets)
-    add_xiao(board, "J_XIAO_A", XIAO_A_Y, XIAO_A_NETS, nets)
+    add_xiao(board, "J_XIAO_B", XIAO_B_Y, XIAO_B_NETS, nets, XIAO_B_FACE)
+    add_xiao(board, "J_XIAO_A", XIAO_A_Y, XIAO_A_NETS, nets, XIAO_A_FACE)
 
-    verify_pins(board, [("J_XIAO_B", XIAO_B_Y, XIAO_B_NETS),
-                        ("J_XIAO_A", XIAO_A_Y, XIAO_A_NETS)])
+    verify_pins(board, [("J_XIAO_B", XIAO_B_Y, XIAO_B_NETS, XIAO_B_FACE),
+                        ("J_XIAO_A", XIAO_A_Y, XIAO_A_NETS, XIAO_A_FACE)])
 
     add_plane(board, pcbnew.In1_Cu, nets["GND"])
     add_plane(board, pcbnew.In2_Cu, nets["+3V3"])

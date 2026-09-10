@@ -71,7 +71,7 @@ __The carrier does, and permanently.__ Once the XIAO is on its two 1×7 strips, 
 
 __Solder the pigtails before the XIAO goes onto its headers.__ That is the real ordering rule. Seeed's wiki is read as warning about the expansion board; on this board that is not where the obstruction is.
 
-> __Consequence nobody had written down: the pigtails have to leave through that 2.50 mm gap.__ Two wires run from inboard pads on the back, out past a row of header pins, to the JST. Route and dress them before the XIAO goes down — they must not foul the pins, and they must not sit on carrier copper. Thin, flexible, and tacked down.
+> __Consequence nobody had written down: the pigtails have to leave through that 2.50 mm gap.__ Two wires run from inboard pads on the back, out through one open end of the module (both long sides are walled by header plastic; see the [carrier layout](../PCB-carrier/PCB-carrier.md#layout-as-far-as-it-is-fixed)), to the JST. Route and dress them before the XIAO goes down — they must not foul the pins, and they must not sit on carrier copper. Thin, flexible, and tacked down.
 
 __This is also the answer to "above or beneath".__ The expansion board mates to the __front face__ and sits __above__ the XIAO, exactly as [design.md](../../docs/design.md) says. The Population tables that read *"Wio-SX1262 beneath it"* were the wrong ones.
 
@@ -86,3 +86,8 @@ __The expansion board is the same outline as the XIAO__ (±8.75 mm against pads 
 ---
 
 Part numbers, vendors and masses live in [BOM.md](../../docs/BOM.md), which is the single source of truth for both. Purchase history is in [shopping-list.md](../../docs/shopping-list.md); the reasoning is in [design.md](../../docs/design.md).
+
+## BAT PADs
+
+- Center-to-center ≈ 2.1 mm
+- Each pad about 2.4 × 1.2 mm
