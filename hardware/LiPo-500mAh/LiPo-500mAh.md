@@ -65,10 +65,26 @@ __The free web.__ The web is 124.0 mm and the carrier takes 95.0, leaving __29.0
 The battery lands on a __JST-PH on the carrier__ — put it in the carrier's aft third, which serves both candidate positions above — and short __soldered pigtails__ run to each XIAO's underside BAT pads. That indirection is forced, not chosen: __BAT+/BAT− are not on the castellated edge__, so the battery cannot reach a XIAO through the headers.
 
 - __Solder the pigtails before the XIAO goes onto its headers.__ Not before the expansion board — that mates to the *front* face and never covers the pads. What covers them is the __carrier__, at the header's 2.50 mm, and the breadboard does the same on the bench. Faces and evidence in [XIAO-ESP32S3-cam.md](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md#which-face-carries-what--settled-off-seeeds-two-drawings-and-the-stack-itself)
-- __Both XIAO chargers sit in parallel on one battery — charge through one USB port at a time.__ This avoids adding a charge IC
+- __Both XIAO chargers sit in parallel on one battery — charge through one USB port at a time.__ This avoids adding a charge IC. It breaks a general rule on purpose, and one port at a time is necessary but not sufficient — see [Two chargers on one battery](#two-chargers-on-one-battery)
 - __On battery power there is no voltage on the 5V pin__
-- __Reversing a LiPo into a XIAO destroys it__ — [design.md](../../docs/design.md) requires the pigtail polarity be silkscreened
+- __Reversing a LiPo into a XIAO destroys it__ — [design.md](../../docs/design.md) requires the pigtail polarity be silkscreened. Seeed's wiki: __BAT− is the pad nearer the USB-C__
 - __The battery is mechanically restrained, never hangs off the JST.__ On the sled that is the straps; in the adapter nothing does it yet. __The JST is a connector, not a mount__, whichever position wins
+
+### Two chargers on one battery
+
+__The general rule is: do not parallel two boards' BAT pads onto one pack, because each board has its own charger.__ This design breaks it deliberately. Both XIAOs' BAT pads are wired to the one battery, which saves a charge IC and the ~8 g of a second battery. So the rule is not "don't", it is __what has to hold for it to be safe__.
+
+The charger is an __SGM40567-4.2__ on each XIAO, a linear charger with a 4.2 V limit. Seeed's wiki gives __50 mA fast / 3.8 mA trickle__ for the plain XIAO ESP32S3 and __100 mA / 0.9 mA__ for the Sense. These are unverified here: the part number is from Seeed's forum, not read off the schematic.
+
+__Both USB ports at once is the case the rule exists for.__ Two chargers push into one battery, and each one sees only its own current, so neither knows the true state of the pack. The carrier keeps the two `5V` pins apart ([PCB-carrier.md](../PCB-carrier/PCB-carrier.md)), so one cable never switches on both chargers. Only a second cable does. __Never plug in both, on the bench or in the rocket.__
+
+__One port at a time removes that fight. It does not make charging normal, because the other board keeps running.__ Charging through [XIAO-ESP32S3-cam](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md), as [PCB-carrier.md](../PCB-carrier/PCB-carrier.md#charge-through-the-sense-stack-and-only-that-one) decides, leaves XIAO-ESP32S3-lora powered from the battery. Its whole draw (ESP32-S3, Wio-SX1262, L76K) flows through the cam's charger along with the charge current. Three consequences:
+
+- __Net charge may be near zero.__ The charger supplies ~100 mA in total. What reaches the battery is that minus XIAO-ESP32S3-lora's running draw, which has never been measured on its own. Against a ~300 mA total for both boards, it could take most of the 100 mA
+- __The charger never terminates.__ It stops when its current falls below 0.9 mA, and XIAO-ESP32S3-lora's draw keeps it far above that. So the battery sits at 4.2 V for as long as the cable is in, and __the red LED never goes out__. The usual "charged" signal does not exist in this configuration
+- __It cannot overcharge.__ The 4.2 V limit is the charger's own and still holds. So the failure is a battery that does not fill, or ages from sitting at 4.2 V. It is not a fire
+
+__What would settle it is one bench measurement__, and it belongs with [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8): put a meter in series with the battery at the JST, plug in XIAO-ESP32S3-cam's USB with XIAO-ESP32S3-lora running, and read the current into the battery. A clearly positive reading means one-at-a-time charging works, only slowly. Near zero or negative means the battery has to be charged off the carrier, on its own charger, which is cheap under Candidate B and costs pulling the sled under A.
 
 ### The pigtail is the fragile part, and the solder joint must not be the anchor
 
