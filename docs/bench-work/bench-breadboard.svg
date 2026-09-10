@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1452 1120" width="1452" height="1120">
 <rect width="1452" height="1120" fill="#ffffff"/>
 <text x="78.0" y="40.0" font-family="Helvetica,Arial,sans-serif" font-size="20" fill="#1b1b1b" text-anchor="start" font-weight="bold">Bench wiring — js-rocket-avionics #7 and #8</text>
-<text x="78.0" y="62.0" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#5b5b5b" text-anchor="start" font-weight="normal">Everything hangs off XIAO-ESP32S3-cam. XIAO-ESP32S3-lora gets nothing but the two battery wires.</text>
+<text x="78.0" y="62.0" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#5b5b5b" text-anchor="start" font-weight="normal">Everything on this board hangs off XIAO-ESP32S3-cam. XIAO-ESP32S3-lora and the L76K are on a second board.</text>
 <text x="78.0" y="80.0" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#5b5b5b" text-anchor="start" font-weight="normal">Viewed from above, USB-C to the left. The battery never touches the breadboard — see the note at the foot.</text>
 <rect x="78" y="196" width="1296" height="368.0" rx="7" fill="#f4f1ea" stroke="#cdc6b8" stroke-width="2"/>
 <rect x="82" y="364.0" width="1288" height="32.0" fill="#e6e1d6"/>
@@ -1047,27 +1047,16 @@
 <text x="302.0" y="772.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#5b5b5b" text-anchor="start" font-weight="normal">There is no battery connector on a XIAO, and the</text>
 <text x="302.0" y="786.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#5b5b5b" text-anchor="start" font-weight="normal">pads are unreachable once the expansion board is on.</text>
 <text x="302.0" y="800.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#e03b3b" text-anchor="start" font-weight="normal">Reversed polarity destroys the module instantly.</text>
-<rect x="600" y="686.0" width="248" height="30" rx="5" fill="#1d4a6b" opacity="0.95"/>
-<text x="610.0" y="699.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#ffffff" text-anchor="start" font-weight="bold">L76K-GNSS</text>
-<text x="610.0" y="711.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#c9d6e2" text-anchor="start" font-weight="normal">on the XIAO's 14 pads · UART D6/D7</text>
-<rect x="600" y="720.0" width="248" height="30" rx="5" fill="#0f2f4a" opacity="0.95"/>
-<text x="610.0" y="733.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#ffffff" text-anchor="start" font-weight="bold">XIAO-ESP32S3-lora</text>
-<text x="610.0" y="745.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#c9d6e2" text-anchor="start" font-weight="normal">stock Meshtastic · never reflashed</text>
-<rect x="600" y="754.0" width="248" height="30" rx="5" fill="#1d4a6b" opacity="0.95"/>
-<text x="610.0" y="767.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#ffffff" text-anchor="start" font-weight="bold">Wio-SX1262</text>
-<text x="610.0" y="779.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#c9d6e2" text-anchor="start" font-weight="normal">LoRa, on the B2B connector</text>
-<text x="858" y="726.0" font-family="Helvetica,Arial,sans-serif" font-size="15" fill="#e03b3b" font-weight="bold">?</text>
-<text x="870.0" y="742.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#e03b3b" text-anchor="start" font-weight="normal">do these two</text>
-<text x="870.0" y="753.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#e03b3b" text-anchor="start" font-weight="normal">both fit? — #6</text>
-<line x1="640" y1="794.0" x2="640" y2="816.0" stroke="#8a8a8a" stroke-width="2"/>
-<rect x="626" y="816.0" width="28" height="20" rx="3" fill="#7a7a7a"/>
-<text x="640.0" y="850.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#5b5b5b" text-anchor="middle" font-weight="normal">GPS patch</text>
-<line x1="790" y1="794.0" x2="790" y2="836.0" stroke="#8a8a8a" stroke-width="2"/>
-<text x="790.0" y="850.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#5b5b5b" text-anchor="middle" font-weight="normal">82 mm whip</text>
-<line x1="656" y1="828.0" x2="774" y2="828.0" stroke="#5b5b5b" stroke-width="1" stroke-dasharray="4 3"/>
-<text x="715.0" y="824.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#5b5b5b" text-anchor="middle" font-weight="normal">≥50 mm apart</text>
-<text x="600.0" y="872.0" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="bold">NOT in the breadboard, and it cannot be: those 14 pads carry the stack.</text>
-<text x="600.0" y="885.0" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#5b5b5b" text-anchor="start" font-weight="normal">Two soldered battery wires reach it. Nothing else does.</text>
+<rect x="600" y="686.0" width="248" height="30" rx="5" fill="#0f2f4a" opacity="0.95"/>
+<text x="610.0" y="699.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#ffffff" text-anchor="start" font-weight="bold">XIAO-ESP32S3-lora</text>
+<text x="610.0" y="711.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#c9d6e2" text-anchor="start" font-weight="normal">stock Meshtastic · never reflashed</text>
+<rect x="600" y="720.0" width="248" height="30" rx="5" fill="#1d4a6b" opacity="0.95"/>
+<text x="610.0" y="733.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#ffffff" text-anchor="start" font-weight="bold">Wio-SX1262</text>
+<text x="610.0" y="745.0" font-family="Helvetica,Arial,sans-serif" font-size="8.5" fill="#c9d6e2" text-anchor="start" font-weight="normal">LoRa, on the B2B connector</text>
+<text x="600.0" y="774.0" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="bold">On its OWN 30-row board, with the L76K beside it:</text>
+<text x="600.0" y="787.0" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#5b5b5b" text-anchor="start" font-weight="normal">docs/bench-work/bench-breadboard-lora.svg.</text>
+<text x="600.0" y="804.0" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#5b5b5b" text-anchor="start" font-weight="normal">From this board it is only the other end of the battery</text>
+<text x="600.0" y="817.0" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#5b5b5b" text-anchor="start" font-weight="normal">junction. No jumper between the two boards' rails.</text>
 <path d="M 588.0 752.0 L 600.0 752.0" fill="none" stroke="#e03b3b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5"/>
 <text x="78.0" y="926.0" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#1b1b1b" text-anchor="start" font-weight="bold">How the holes are joined</text>
 <rect x="78" y="942.0" width="250" height="86" rx="6" fill="#f4f1ea" stroke="#cdc6b8"/>

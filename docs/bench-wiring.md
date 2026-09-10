@@ -31,28 +31,28 @@ Two module stacks and a breadboard. The stacks are already assembled by their B2
   STACK 1 -- the recorder                    STACK 2 -- the beacon
   XIAO-ESP32S3-cam                           XIAO-ESP32S3-lora
     + Sense camera board (camera, microSD)     + Wio-SX1262 radio
-                                               + L76K GPS
+                                               L76K GPS beside it, on its board
   Runs our firmware. Everything on the        Runs stock Meshtastic, untouched.
-  breadboard hangs off this one.              Nothing wires to it but power.
+  cam board hangs off this one.               Four wires to the L76K, then power.
                 \                            /
                  \                          /
                   ------- ONE BATTERY -------
 ```
 
-__Only stack 1 gets sensors and a buzzer.__ Stack 2 has nothing wired to it at all except the two battery wires.
+__Only stack 1 gets sensors and a buzzer.__ Stack 2 gets the GPS and nothing else.
 
-__Stack 2 needs no breadboard for its own sake__ — the [Wio-SX1262](../hardware/Wio-SX1262-LoRa/Wio-SX1262-LoRa.md) is on its B2B connector, so once it is mated there is nothing left to push into a board. The [L76K-GNSS](../hardware/L76K-GNSS/L76K-GNSS.md) is no longer in that stack at all: it mounts __flat on the carrier__ (2026-09-09), which removed the dry-stack check that used to gate this session. Wire the GPS to `D6`/`D7` on the breadboard like any other module.
+__The [Wio-SX1262](../hardware/Wio-SX1262-LoRa/Wio-SX1262-LoRa.md) needs no wiring__: it is on its B2B connector, so once it is mated there is nothing left to push into a board. The [L76K-GNSS](../hardware/L76K-GNSS/L76K-GNSS.md) is no longer in that stack at all. It mounts __flat on the carrier__ (2026-09-09), so on the bench it sits on the lora board and takes four jumpers — [The lora board](#the-lora-board), below.
 
 ### As actually set up: two boards, one XIAO each
 
 ![Two 30-row breadboards, one bare XIAO ESP32-S3 seated across the centre channel on each, no other parts fitted](bench-work/bench-breadbooards.jpg)
 
-__Each XIAO is on its own 30-row A–J board__, seated across the centre channel, and neither has its expansion board mated yet. That is a better arrangement than the single board this page first assumed, and nothing in the wiring below has to change for it — because __stack 2 was never going to share a rail anyway__. It takes only the two battery wires, and those are soldered pigtails to underside pads, not breadboard holes.
+__Each XIAO is on its own 30-row A–J board__, seated across the centre channel, and neither has its expansion board mated yet. That is a better arrangement than the single board this page first assumed, and nothing in the wiring below has to change for it — because __stack 2 was never going to share a rail with stack 1__. The two boards meet only at the battery, by soldered pigtails to underside pads, not breadboard holes.
 
 Two consequences worth stating, because "rail" now means two different things:
 
-- __Every rail reference below is the *cam* board's rails.__ The lora board's rails are unused. Do not run a jumper between the two boards' rails: the only intended path between the stacks is the battery junction, and a second one turns a measurement into a guess when [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) looks for sag
-- __The grounds are still common__, through the battery pigtail junction on battery, and through the host on USB if both are plugged into the same machine. That is expected; it is what makes a shared-battery brownout measurable at all
+- __Each board's rails carry its own XIAO's 3V3.__ The cam board's feed the sensors; the lora board's feed only the L76K. Do not run a jumper between the two boards' rails: the only intended path between the stacks is the battery junction, and a second one turns a measurement into a guess when [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) looks for sag
+- __The grounds are common through the battery junction.__ That is what makes a shared-battery brownout measurable at all. __With the battery connected, USB goes into one board only, never both__ — two chargers on one battery is the case [LiPo-500mAh.md](../hardware/LiPo-500mAh/LiPo-500mAh.md#two-chargers-on-one-battery) rules out
 
 __Both XIAOs are bare in the photograph__, which is the moment to check item 3 below: the `BAT` pads are reachable now and will not be once the expansion boards go on.
 
@@ -108,7 +108,7 @@ __That is a mirror of [module-pinouts.md](module-pinouts.md#xiao-esp32s3--read-o
 
 ### Every connection, as a list
 
-__Every rail named here is on the *cam* board__ — see the two-board note above. The lora board's rails stay empty.
+__Every rail named here is on the *cam* board__ — see the two-board note above. The lora board has its own table, [below](#the-lora-board).
 
 | From | To | Note |
 |---|---|---|
@@ -127,7 +127,7 @@ __Every rail named here is on the *cam* board__ — see the two-board note above
 | cam pin 6 `D5` | LSM6DSO32 `SCL` | same wire as the BMP388's |
 | cam pin 1 `D0` | buzzer, either leg | |
 | cam blue rail | buzzer, other leg | |
-| — | __XIAO-ESP32S3-lora, everything else__ | __nothing.__ Only the two battery wires |
+| — | __XIAO-ESP32S3-lora__ | nothing on this board. Its own board is [below](#the-lora-board) |
 | — | BMP388 `CS`, `SDO`, `3Vo`, `INT` | left alone. `CS` is [#19](https://github.com/jwilleke/js-rocket-avionics/issues/19) — if the part does not answer at `0x77`, that pin is the first suspect |
 | — | LSM6DSO32 `DO`, `CS`, `I1`, `I2`, and the whole 5-pin Aux row | left alone. No interrupt line exists in this design; the FIFO is read by polling |
 
@@ -150,6 +150,30 @@ Both sensors have a Qwiic socket on each short edge __and__ a row of header hole
 - __Qwiic plugs on both ends__ — these only join one sensor to another. There is no Qwiic socket on a XIAO, so the bus still has to reach the breadboard through the header holes, and the __BMP388's header ships loose and unsoldered__
 
 Either way the four wires are the same four: `VIN`, `GND`, `SDA`, `SCL`. On a Qwiic cable they are conventionally red, black, blue (SDA) and yellow (SCL) — __confirm against the sensor's own silkscreen rather than trusting the colours__.
+
+## The lora board
+
+![The second 30-row breadboard: XIAO-ESP32S3-lora across the channel at the left, the L76K across the channel beside it with its antenna end facing the XIAO, four jumpers for 3V3, GND, D6 and D7, and the battery soldered to the XIAO's underside BAT pads](bench-work/bench-breadboard-lora.svg)
+
+__Regenerate it with `python3 hardware/scripts/gen_breadboard_lora_svg.py`.__ The L76K's pinout comes from [L76K-GNSS.md](../hardware/L76K-GNSS/L76K-GNSS.md#pinout--from-seeeds-schematic-not-the-listing), which owns it.
+
+| From | To | Note |
+|---|---|---|
+| lora pin 12 `3V3` | lora board red rail | the L76K's only supply |
+| lora pin 13 `GND` | lora board blue rail | |
+| lora red rail | L76K `3V3` | __not `5V`__: it connects to nothing on the module, and is dead on battery anyway |
+| lora blue rail | L76K `GND` | |
+| lora pin 7 `D6` | L76K __`RX`__ | the XIAO transmits on `D6`. The carrier calls this net `GPS_TX` |
+| lora pin 8 `D7` | L76K __`TX`__ | the XIAO listens on `D7`. The carrier calls this net `GPS_RX` |
+| — | L76K `5V`, `RESET`, `WAKE`, everything else | left alone. `RESET` and `WAKE` are pulled up on the module |
+| — | GPS patch | on its U.FL lead, off the board, facing up |
+
+__Two traps, both on the drawing:__
+
+- __The L76K is not the XIAO's twin.__ Its pads are the XIAO's pattern, but component side up they are mirrored against the XIAO beside it. Seat it from the drawing, not by copying the XIAO
+- __Wire by position, not by the silkscreen word.__ TX to TX is the mistake, and it fails silently: the GPS just never talks
+
+__That stock Meshtastic looks for the GPS on `D6`/`D7` is an assumption, not a reading.__ Seeed's own L76K examples use those pins, and the carrier's netlist was drawn on them. Checking it is [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6)'s "GPS fix over UART on D6/D7". If the device reports no GPS with the four jumpers in, suspect the pin assignment before the module.
 
 ## Rules for handling the battery
 

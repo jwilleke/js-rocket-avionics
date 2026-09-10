@@ -80,7 +80,7 @@ __Both USB ports at once is the case the rule exists for.__ Two chargers push in
 
 __One port at a time removes that fight. It does not make charging normal, because the other board keeps running.__ Charging through [XIAO-ESP32S3-cam](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md), as [PCB-carrier.md](../PCB-carrier/PCB-carrier.md#charge-through-the-sense-stack-and-only-that-one) decides, leaves XIAO-ESP32S3-lora powered from the battery. Its whole draw (ESP32-S3, Wio-SX1262, L76K) flows through the cam's charger along with the charge current. Three consequences:
 
-- __Net charge may be near zero.__ The charger supplies ~100 mA in total. What reaches the battery is that minus XIAO-ESP32S3-lora's running draw, which has never been measured on its own. Against a ~300 mA total for both boards, it could take most of the 100 mA
+- __Net charge may be near zero.__ The charger supplies ~100 mA in total. What reaches the battery is that minus XIAO-ESP32S3-lora's running draw, which has never been measured on its own. The [L76K](../L76K-GNSS/L76K-GNSS.md#pinout--from-seeeds-schematic-not-the-listing) alone is __41 mA__ by its datasheet, before the ESP32-S3 and the radio. Against a ~300 mA total for both boards, the lora side could take most of the 100 mA
 - __The charger never terminates.__ It stops when its current falls below 0.9 mA, and XIAO-ESP32S3-lora's draw keeps it far above that. So the battery sits at 4.2 V for as long as the cable is in, and __the red LED never goes out__. The usual "charged" signal does not exist in this configuration
 - __It cannot overcharge.__ The 4.2 V limit is the charger's own and still holds. So the failure is a battery that does not fill, or ages from sitting at 4.2 V. It is not a fire
 
