@@ -76,6 +76,8 @@ Either works:
 - __In Chrome on the Mac:__ open <https://client.meshtastic.org>, choose __New Connection → Serial__, pick the `usbmodem` port
 - __On the phone:__ the Meshtastic app, over Bluetooth. A board with no screen pairs on the default PIN, `123456`
 
+__One connection at a time.__ While the phone is connected over Bluetooth, the board ignores USB — the Mac sees the port and gets no answer, and that looks like a hung board. Turn the phone's Bluetooth off, or disconnect in the app, before working over USB (seen 2026-09-11).
+
 __It is alive if it shows a node__ with a name and a firmware version. __Write the version down__ for #6.
 
 > __Never use the web flasher__ (`flasher.meshtastic.org`), or any "update firmware" button, on this board. Reflashing it is the one thing this design rules out.
