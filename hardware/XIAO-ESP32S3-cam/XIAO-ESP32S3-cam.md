@@ -2,7 +2,7 @@
 
 __The XIAO that carries the camera.__ The copy that arrived in the Sense kit.
 
-__This one has no headers soldered on.__ The Sense kit ships its two 7-pin strips loose. That is the only physical difference from [the lora copy](../XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md).
+__It arrived with no headers soldered on__ — the Sense kit ships its two 7-pin strips loose. With them fitted, it is indistinguishable from [the lora copy](../XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md), and the two have been swapped once already: tell them apart by what they run — [which XIAO is which](../XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md#which-xiao-is-this-one).
 
 ## What is mated to it
 

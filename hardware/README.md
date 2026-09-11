@@ -39,7 +39,7 @@ __These pages hold no part numbers and no masses.__ [BOM.md](../docs/BOM.md) own
 
 | | Page | Goes with | Photos | What it is |
 |---|---|---|---|---|
-| MCU | [XIAO-ESP32S3-lora.md](XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md) | — | grid | The MCU module. __Headers already soldered on__ |
+| MCU | [XIAO-ESP32S3-lora.md](XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md) | — | grid | The MCU module. __Runs stock Meshtastic__ — identical to the cam copy to look at; [which is which](XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md#which-xiao-is-this-one) |
 | MCU | [XIAO-ESP32S3-cam.md](XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) | — | grid | The MCU module. __No headers soldered__ |
 | Payload | [Sense-camera-board.md](Sense-camera-board/Sense-camera-board.md) | XIAO-ESP32S3-cam | grid ×2 | OV3660 camera and the microSD slot |
 | Radio | [Wio-SX1262-LoRa.md](Wio-SX1262-LoRa/Wio-SX1262-LoRa.md) | XIAO-ESP32S3-lora | grid | LoRa. Buy as the matched kit, never separately |

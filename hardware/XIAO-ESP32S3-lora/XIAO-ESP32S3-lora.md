@@ -2,7 +2,24 @@
 
 __The XIAO that carries the radio.__ The copy that arrived in the Wio-SX1262 kit.
 
-__This one has its 7-pin headers already soldered on.__ That is the only physical difference from [the cam copy](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md).
+## Which XIAO is this one
+
+__You cannot tell by looking.__ It arrived with its 7-pin headers soldered on and [the cam copy](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) did not; now both have them, and the two are the same part. __The only difference is what is loaded on them__ — and they have already been swapped once on the bench (2026-09-11, [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6)): the Meshtastic XIAO sat on the cam breadboard, and the Wio-SX1262 on the one with Seeed's factory demo.
+
+__Plug it into the Mac alone and read the port name:__
+
+```sh
+ls /dev/cu.usbmodem*
+```
+
+| | This one — XIAO-ESP32S3-lora | The cam copy, as delivered |
+|---|---|---|
+| Runs | __stock Meshtastic__, as the kit shipped it | Seeed's factory demo: prints `Hello from Seeed Studio XIAO ESP32-S3 Sense`, then a camera error |
+| Port name | __long, letters and digits__, ending `CA481` — its serial number `…CA48` plus `1` | __short, digits only__, e.g. `usbmodem31101` — it changes with the USB socket |
+| USB calls itself | `seeed_xiao_s3` | `USB JTAG_serial debug unit` |
+| Phone app | shows up on Bluetooth | nothing |
+
+__Mark it__ — a dot on the XIAO's shield — once the Wio-SX1262 is on it, so the question does not come back. The cam copy's identity lasts only until `bringup-cam` is loaded onto it, which replaces the demo.
 
 ## What is mated to it
 

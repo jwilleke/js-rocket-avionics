@@ -28,6 +28,8 @@ __No code is written for this board, ever.__ It runs [stock Meshtastic](../../ha
 
 Nothing is connected to USB or the battery yet.
 
+__First: the XIAO under the Wio-SX1262 must be the Meshtastic one.__ The two XIAOs look identical, and on 2026-09-11 they were the wrong way round — the Wio-SX1262 sat on the factory-demo XIAO, which is why the phone found no Bluetooth. How to tell them apart, and which is which: [XIAO-ESP32S3-lora.md](../../hardware/XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md#which-xiao-is-this-one). Check it in step 3.
+
 Both antennas plug on the same way: a thin black cable ending in a tiny gold snap-on plug, a __U.FL__, pressed onto a tiny round gold socket on the board. It clicks on; it is fragile, so pull it off straight up by the plug, never by the cable.
 
 - __The LoRa antenna is plugged into the Wio-SX1262__ — the top board at the head of the breadboard. Its socket is at the bottom right corner of the Wio-SX1262, and in the photograph its black cable runs off to the right. __Never power the board without it.__ A radio that transmits into no antenna can damage itself
@@ -63,6 +65,7 @@ Read off the photograph — __confirm each one on the board__, by the pin's name
    ```
 
    One line back means it enumerated. Nothing back: another cable, another port. __Stop here if it still does not appear__ — nothing below will work
+3. __Check it is the right XIAO, from the name.__ A __long__ name ending `CA481` is the Meshtastic XIAO: carry on. A __short__, digits-only name such as `usbmodem31101` is the factory-demo XIAO: unplug, and move the Wio-SX1262 onto the other one — [which is which](../../hardware/XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md#which-xiao-is-this-one)
 
 __Do not press Upload in PlatformIO with this board plugged in.__ PlatformIO's Serial Monitor is safe; Upload would overwrite Meshtastic.
 
