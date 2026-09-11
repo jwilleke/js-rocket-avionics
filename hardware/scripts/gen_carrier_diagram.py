@@ -7,8 +7,9 @@ Writes hardware/PCB-carrier/PCB-carrier-layout.svg, which PCB-carrier.md embeds.
 
 WHAT IT DRAWS: only what is fixed today -- the outline, the four mounting holes,
 both XIAO positions, their header strips, the USB-C ends and the underside BAT
-pads -- plus the free length left on each face. Sensors, buzzer, L76K, JST and
-battery are unplaced (#14, stage 2c), so they appear as numbers, not shapes.
+pads -- plus the free length left on each face. Sensors, buzzer, L76K and JST
+are unplaced (#14, stage 2c), so they appear as numbers, not shapes. The
+battery is not on the carrier at all: it rides the PayloadSled, forward of it.
 
 WHERE THE NUMBERS COME FROM. Holes, header positions and the outline are read
 out of PCB-carrier.kicad_pcb, so the picture follows the board. The XIAO outline,
@@ -58,7 +59,7 @@ PITCH = 2.54
 RIGHT_COL = ["D0", "D1", "D2", "D3", "D4", "D5", "D6"]
 LEFT_COL = ["5V", "GND", "3V3", "D10", "D9", "D8", "D7"]
 UNPLACED = {
-    "top": "L76K ~21 + battery 36 (if on this face)",
+    "top": "L76K ~21, and the JST toward the forward end",
     "bottom": "LSM6DSO32 25.5 + BMP388 25.5 + buzzer ~12 = 63",
 }
 

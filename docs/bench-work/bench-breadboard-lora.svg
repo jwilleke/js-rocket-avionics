@@ -498,7 +498,7 @@
 <circle cx="446.0" cy="330.0" r="4.6" fill="#eceff1" stroke="#ffffff" stroke-width="1.2"/>
 <text x="446.0" y="364.0" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#9a9a9a" text-anchor="middle" font-weight="normal" stroke="#ffffff" stroke-width="3.2" paint-order="stroke">D3</text>
 <circle cx="466.0" cy="330.0" r="4.6" fill="#eceff1" stroke="#ffffff" stroke-width="1.2"/>
-<text x="466.0" y="364.0" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#9a9a9a" text-anchor="middle" font-weight="normal" stroke="#ffffff" stroke-width="3.2" paint-order="stroke">D2</text>
+<text x="466.0" y="364.0" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#9a9a9a" text-anchor="middle" font-weight="normal" stroke="#ffffff" stroke-width="3.2" paint-order="stroke">RST</text>
 <circle cx="486.0" cy="330.0" r="4.6" fill="#eceff1" stroke="#ffffff" stroke-width="1.2"/>
 <text x="486.0" y="364.0" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#9a9a9a" text-anchor="middle" font-weight="normal" stroke="#ffffff" stroke-width="3.2" paint-order="stroke">D1</text>
 <circle cx="506.0" cy="330.0" r="4.6" fill="#eceff1" stroke="#ffffff" stroke-width="1.2"/>

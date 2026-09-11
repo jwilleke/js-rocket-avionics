@@ -8,67 +8,31 @@ __One battery feeds both MCUs.__ Over an hour against a ~300 mA draw.
 |---|---|
 | Body | __29 × 36 × 4.75 mm__ — verified against the part, 2026-09-07 |
 | Mass | __10.9 g__ with its pigtail — weighed. Adafruit's label says 10.5 |
-| Leads | __80 mm__ measured, JST-PH. Adafruit's page says 102 — __the 80 is what governs__, and it is the number the JST's position on the carrier is set by |
+| Leads | __80 mm__ measured, JST-PH. Adafruit's page says 102 — __the 80 is what governs__ |
 | Output | 500 mAh at 3.7 V nominal |
 | Vendor | [Adafruit 1578](https://www.adafruit.com/product/1578) |
 
 __It is the largest single object in the nose__, and until 2026-09-07 this page recorded no dimension at all, so nothing about packaging could be settled.
 
-### Where it goes — OPEN. Two candidates, neither chosen
+### Where it goes — on the PayloadSled, forward of the carrier
 
-__Nothing here is decided.__ Both positions below are live as of 2026-09-07 and the arithmetic for each is recorded so the choice can be made on numbers. The two differ on __access versus stability__, and they pull opposite ways.
+__Decided__ (operator, 2026-09-07 and 2026-09-08). [`payload-sled.md`](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-sled.md#where-the-cell-goes) owns the placement and every number in it. In outline: flat on the sled's D-flat, resting on the forward disc, long axis along the sled, held by tie wraps, and sticking out past the sled's forward end into the nose taper. __It is forward of the carrier, not on it.__ Drawing: [Battery in the nose taper](https://github.com/jwilleke/js-rocket/blob/main/docs/designs/nose-battery-8548227.html).
 
-#### Candidate A — on the carrier's top face, inside the Nosecone
+What that decides on this side:
 
-The face carries only XIAO-ESP32S3-lora's 21 mm of the carrier's 95, so __74.0 mm is clear__. A 29 mm wide object has __13.34 mm__ of radial room from the centre plane; the battery needs 0.5 + 4.75 = __5.25__, against the lora stack's 12.32. It sits alongside, not on top of anything.
-
-- __Keeps the mass forward__, at station ~184–220, which is where the stability case wants it
-- __29 mm wide on a 24 mm web__ means 2.5 mm of overhang each side. The straps carry it, but the battery is wider than the thing it straps to
-- __Costs access.__ Changing the battery means pulling the sled: out comes the M3 × 55, off comes the nose, and the sled is pushed out from below with a rod — which re-cycles the rib crush, disturbs the 8.5 mm camera ribbon and loses the camera's aim. That is the complaint in [#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)
-
-#### Candidate B — in the PayloadAdapter's bore, below the nose joint
-
-About __adapter z 2..38__ — nose z −38..−2, station __242..278__ from the tip. __It fits with room to spare__: the adapter's bore is __Ø35.75__ over adapter z 0..30, opening to Ø39.98 at z 34..40, so a 29 mm wide slab has __20.91 mm__ of thickness available against the battery's 4.75, and the 36 mm length sits inside the ~40 mm of clear bore below the Nosecone's tenon.
-
-- __Buys the access outright.__ Pull the nose, unclip the JST, battery out, __sled untouched__ — [#1](https://github.com/jwilleke/js-rocket-avionics/issues/1) answered rather than mitigated
-- __Takes arming off the sled with it.__ Flight 3 carries __no [arming switch](../Arming-switch/Arming-switch.md)__, so there is nothing on the sled to take off it; any later switch sits __in series in the battery line between the battery and the carrier JST__, so it follows the battery onto the airframe, and the sled's 180° flip — which [js-rocket#90](https://github.com/jwilleke/js-rocket/issues/90)'s loop reduced but did not remove — stops bearing on arming at all
-- __Nothing retains it.__ The M3 × 55 cross-bar is at adapter z 55, __17 mm above__ the battery's top, so it does not hold it down, and below the battery the bore runs straight through into the Tube. The Nosecone page already records the general case — *"the bay is open at its base, so with the nose fitted a payload drops through into the Tube. Needs a retainer (plug, foam, tape) or a lip"*
-- __It sits in the recovery cord's path.__ The M3 is the cord's upper anchor and the cord runs down that bore, so ejection whips the bungee past exactly where the battery is. A LiPo pouch is 4.75 mm of soft foil, and a crushed or punctured battery is a fire inside a sealed nose on a rocket that has to be picked up by hand. __Any retainer here must also shield it from the cord__ — a sleeve, a tube or a hard divider — not merely stop it falling
-- __It contradicts [`payload-adapter.md`](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-adapter.md)__, which states twice that *"it is an adapter, not a payload bay — the payload lives entirely in the Nosecone."* That sentence has to be replaced deliberately, not simply overtaken
-
-#### What decides it
-
-__Access is worth a lot and the mass move is not free.__ B shifts 10.9 g from station ~184–220 to __242–278__, aft of the sled's own aft end at 223.1. The lever is already measured on the sled: ballast at its forward end needs __30.9 g__ and at its aft end __62.7 g__ for the same 1.5 cal — the requirement doubles over 134 mm. So 10.9 g moved 40–90 mm aft is not negligible in the currency this project already uses, and __the separated sustainer is the binding case at 0.34 cal__, needing 59.6 g at station 100.
-
-Nose mass would drop 10.9 g under B, taking the nose total from 54.6 to 43.7 and under the ~50 g target — __but the mass has not left the rocket, only moved aft__, so that is bookkeeping rather than a saving.
-
-__Re-run [`stability-flight3.py`](https://github.com/jwilleke/js-rocket/blob/main/rocket/scripts/stability-flight3.py) with the battery at station ~260__ and the trade becomes a number instead of a direction ([js-rocket#66](https://github.com/jwilleke/js-rocket/issues/66)). That is the missing input, and it is cheap.
-
-### The 80 mm lead, and what it constrains under each candidate
-
-__Under A__ the run is short and 80 mm imposes nothing.
-
-__Under B__ it is the binding dimension. The lead climbs the bore, passes the M3 cross-bar at nose z 15, and has to get through the sled's aft end disc — 39.4 mm with ribs to 40.2 in a 40.0 mm bore, effectively sealed. __The only gap is the D-flat crescent at azimuth 180__, so that crescent would be not a convenient wire route but the only one, fixing the pigtail's azimuth. Battery top would sit at __nose z −2__; allowing 15–25 mm for the bends and that route, 80 mm reaches __nose z 53..63__, against a carrier spanning roughly nose z 20..115.
-
-> __So B puts the JST in the aft third of the carrier__, within about __35–45 mm of its aft end__. A is indifferent. __Placing the JST aft satisfies both__, which makes it the cheap hedge while the position is open — and it is free now and a respin to discover later ([#14](https://github.com/jwilleke/js-rocket-avionics/issues/14), stage 2c).
-
-__An inline arming switch would eat into the same 80 mm under B — and flight 3 has none__ ([Arming-switch.md](../Arming-switch/Arming-switch.md), 2026-09-08), so the 80 mm is the JST's alone and __its position is decided on its own__. If a later flight adds a switch, this coupling comes back and the two are decided together.
-
-### Ruled out on geometry, under either candidate
-
-__Behind the sled's D-flat.__ The crescent between the flat and the bore looks like the obvious home — 8.00 mm deep, 32.00 mm across at its mouth — but it is a circular segment and closes fast. At the battery's own 4.75 mm of thickness the chord is down to __21.86 mm__, and a 29 mm width survives only __1.77 mm__ of depth. No orientation rescues it: 36 mm is worse than 29, and standing it on edge needs 29 mm of depth against 8.00 available. The crescent's use is wiring, the arming pin and the buzzer's air path.
-
-__The free web.__ The web is 124.0 mm and the carrier takes 95.0, leaving __29.0 mm__ against a 36 mm battery.
+- __The JST goes toward the carrier's forward end.__ The lead leaves the battery's aft end, just forward of the carrier, so the 80 mm has slack to spare and the forward end keeps the run shortest. Placement is [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)'s
+- __The battery is not reachable without pulling the sled.__ Changing it, or charging it on its own charger, means the M3 × 55 out and the sled pushed out of the nose ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)). So charging on the carrier through USB has to work, and [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) measures whether it does — see [Two chargers on one battery](#two-chargers-on-one-battery)
+- __The tie wraps restrain it, never the JST__
 
 ## Distribution
 
-The battery lands on a __JST-PH on the carrier__ — put it in the carrier's aft third, which serves both candidate positions above — and short __soldered pigtails__ run to each XIAO's underside BAT pads. That indirection is forced, not chosen: __BAT+/BAT− are not on the castellated edge__, so the battery cannot reach a XIAO through the headers.
+The battery lands on a __JST-PH on the carrier__, toward its forward end, and short __soldered pigtails__ run to each XIAO's underside BAT pads. That indirection is forced, not chosen: __BAT+/BAT− are not on the castellated edge__, so the battery cannot reach a XIAO through the headers.
 
 - __Solder the pigtails before the XIAO goes onto its headers.__ Not before the expansion board — that mates to the *front* face and never covers the pads. What covers them is the __carrier__, at the header's 2.50 mm, and the breadboard does the same on the bench. Faces and evidence in [XIAO-ESP32S3-cam.md](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md#which-face-carries-what--settled-off-seeeds-two-drawings-and-the-stack-itself)
 - __Both XIAO chargers sit in parallel on one battery — charge through one USB port at a time.__ This avoids adding a charge IC. It breaks a general rule on purpose, and one port at a time is necessary but not sufficient — see [Two chargers on one battery](#two-chargers-on-one-battery)
 - __On battery power there is no voltage on the 5V pin__
 - __Reversing a LiPo into a XIAO destroys it__ — [design.md](../../docs/design.md) requires the pigtail polarity be silkscreened. Seeed's wiki: __BAT− is the pad nearer the USB-C__
-- __The battery is mechanically restrained, never hangs off the JST.__ On the sled that is the straps; in the adapter nothing does it yet. __The JST is a connector, not a mount__, whichever position wins
+- __The battery is mechanically restrained, never hangs off the JST.__ On the sled that is the tie wraps. __The JST is a connector, not a mount__
 
 ### Two chargers on one battery
 
@@ -84,7 +48,7 @@ __One port at a time removes that fight. It does not make charging normal, becau
 - __The charger never terminates.__ It stops when its current falls below 0.9 mA, and XIAO-ESP32S3-lora's draw keeps it far above that. So the battery sits at 4.2 V for as long as the cable is in, and __the red LED never goes out__. The usual "charged" signal does not exist in this configuration
 - __It cannot overcharge.__ The 4.2 V limit is the charger's own and still holds. So the failure is a battery that does not fill, or ages from sitting at 4.2 V. It is not a fire
 
-__What would settle it is one bench measurement__, and it belongs with [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8): put a meter in series with the battery at the JST, plug in XIAO-ESP32S3-cam's USB with XIAO-ESP32S3-lora running, and read the current into the battery. A clearly positive reading means one-at-a-time charging works, only slowly. Near zero or negative means the battery has to be charged off the carrier, on its own charger, which is cheap under Candidate B and costs pulling the sled under A.
+__What would settle it is one bench measurement__, and it belongs with [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8): put a meter in series with the battery at the JST, plug in XIAO-ESP32S3-cam's USB with XIAO-ESP32S3-lora running, and read the current into the battery. A clearly positive reading means one-at-a-time charging works, only slowly. Near zero or negative means the battery has to be charged off the carrier, on its own charger, and with the battery on the sled that costs pulling the sled every time.
 
 ### The pigtail is the fragile part, and the solder joint must not be the anchor
 

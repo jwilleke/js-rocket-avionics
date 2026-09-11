@@ -192,7 +192,7 @@ __Also visible and consistent with [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S
 __Every part is in hand, and every part has an owner__ — a [hardware page](../hardware/README.md), which also indexes the grid photographs. Nothing here is waiting for a part to arrive.
 
 - __One reading is owed, and this page owns it:__ the hole-spacing tie-break above. It is a __pre-fabrication__ check, not a footprint blocker — [#16](https://github.com/jwilleke/js-rocket-avionics/issues/16)
-- __[L76K-GNSS](../hardware/L76K-GNSS/L76K-GNSS.md) has a pin order from Seeed's schematic (2026-09-10), and one look at the part is still owed.__ The pads are the XIAO's pattern, and only D6, D7, 3V3 and GND are used; the table is on the part's page, which owns it. By this page's rule a listing is not a reading, so __photograph the module's bottom__ and confirm those four labels and the revision mark (V1.0 or V1.1) against it — [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6), [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)
+- __[L76K-GNSS](../hardware/L76K-GNSS/L76K-GNSS.md) has a pin order__, from Seeed's schematic (2026-09-10), __and the part is confirmed as V1.1__ off its own bottom silkscreen (operator, 2026-09-11), so Seeed's V1.1 drawing is the part in hand. The pads are the XIAO's pattern, and only D6, D7, 3V3 and GND are used; the table is on the part's page, which owns it — [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6), [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)
 - __[PS1240-buzzer](../hardware/PS1240-buzzer/PS1240-buzzer.md)__ — two pins. Nothing to read off it
 
 __There is no reed switch__ — [Arming-switch.md](../hardware/Arming-switch/Arming-switch.md) owns what replaced it and why.

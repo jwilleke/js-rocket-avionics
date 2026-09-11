@@ -83,7 +83,7 @@
 <line x1="308.0" y1="110.0" x2="316.0" y2="110.0" stroke="#d99b00" stroke-width="1.0"/>
 <text x="318.0" y="248.8" font-size="11" fill="#d99b00" text-anchor="start" font-weight="normal">38.5 clear</text>
 <text x="318.0" y="96.0" font-size="10" fill="#d99b00" text-anchor="start" font-weight="normal">unplaced (#14):</text>
-<text x="318.0" y="108.0" font-size="10" fill="#d99b00" text-anchor="start" font-weight="normal">L76K ~21 + battery 36 (if on this face)</text>
+<text x="318.0" y="108.0" font-size="10" fill="#d99b00" text-anchor="start" font-weight="normal">L76K ~21, and the JST toward the forward end</text>
 <text x="824.0" y="40.0" font-size="17" fill="#1b1b1b" text-anchor="middle" font-weight="bold">BOTTOM FACE</text>
 <text x="824.0" y="58.0" font-size="12" fill="#5b5b5b" text-anchor="middle" font-weight="normal">board turned over about its long axis</text>
 <text x="824.0" y="84.0" font-size="12" fill="#5b5b5b" text-anchor="middle" font-weight="normal">↑ FORWARD (nose tip)</text>

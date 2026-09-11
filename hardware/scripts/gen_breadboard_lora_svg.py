@@ -66,11 +66,12 @@ XIAO_C0 = 4
 XIAO_TOP = ["5V", "GND", "3V3", "D10", "D9", "D8", "D7"]
 XIAO_BOT = ["D0", "D1", "D2", "D3", "D4", "D5", "D6"]
 
-# L76K, component side up, antenna end to the LEFT (facing the XIAO). Labels
-# are the XIAO position each pad meets; the function is in brackets.
+# L76K V1.1 (the part in hand, operator 2026-09-11), component side up, antenna
+# end to the LEFT (facing the XIAO). Labels are the function where the pad has
+# one, else the XIAO position it meets. On V1.0, RST sat at D10 instead of D2.
 L76K_C0 = 15
 L76K_TOP = ["TX", "D8", "D9", "D10", "3V3", "GND", "5V"]
-L76K_BOT = ["RX", "D5", "D4", "D3", "D2", "D1", "WAKE"]
+L76K_BOT = ["RX", "D5", "D4", "D3", "RST", "D1", "WAKE"]
 L76K_USED = {"TX", "RX", "3V3", "GND"}
 
 

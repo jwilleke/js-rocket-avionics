@@ -50,13 +50,13 @@ __The 14 pads are the XIAO's own pattern__, two rows of 7, and Seeed labels each
 | __GND__ | ground | __yes__ |
 | 5V | __connects to nothing__ on the module | no |
 | D0 | `WAKEUP`, active low, pulled up on the module behind a diode | no, leave open |
-| D10 (V1.0) / D2 (V1.1) | `RESET`, active low, pulled up on the module behind a diode | no, leave open |
+| D2 | `RESET`, active low, pulled up on the module behind a diode. On V1.0 it sat at D10 | no, leave open |
 | the rest | no connection on the module | no |
 
 - __It runs on the battery.__ The module is powered from `3V3` alone, and `5V` is dead on battery power, so this matters. 41 mA tracking, with the active antenna (datasheet)
 - __Wire by position, never by label.__ The carrier names its nets from the XIAO's side, so `GPS_TX` is the XIAO's transmit on `D6`. It lands on the pad Seeed labels __RX__. Following the labels crosses TX to TX
 - __Four pads do the whole job__: D6, D7, 3V3 and GND. RESET and WAKEUP idle high without help, which is what the diodes are for: a host can pull them low, never drive them
-- __The revision does not matter to this design.__ [Seeed's datasheet](109100021_L76K%20GNSS%20Module%20for%20Seeed%20Studio%20XIAO%20Datasheet.pdf) draws V1.0 and the picture above is V1.1. They differ only in where RESET sits, and RESET is not wired. The part's bottom silkscreen says which one is in hand
+- __The part in hand is V1.1__ — read off its bottom silkscreen by the operator, 2026-09-11. So the picture above is the part, and [Seeed's datasheet](109100021_L76K%20GNSS%20Module%20for%20Seeed%20Studio%20XIAO%20Datasheet.pdf), which draws V1.0, is not. The two differ only in where RESET sits, and RESET is not wired here, so either would have worked. A replacement part could be either
 - __Face-up, it shows the pattern a XIAO shows from its back.__ Seeed's top view above matches the XIAO's underside reading in [module-pinouts.md](../../docs/module-pinouts.md#xiao-esp32s3--read-off-the-underside-2026-09-08). So flat on the carrier's top face it takes the __mirrored__ mapping, the one the bottom-face XIAO uses, not XIAO-ESP32S3-lora's. That is [#21](https://github.com/jwilleke/js-rocket-avionics/issues/21)'s trap in a new place, and it is an input to [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)
 
 ## Why it left the XIAO stack
