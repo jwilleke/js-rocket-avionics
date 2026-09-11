@@ -80,9 +80,17 @@ __It is alive if it shows a node__ with a name and a firmware version. __Write t
 
 > __Never use the web flasher__ (`flasher.meshtastic.org`), or any "update firmware" button, on this board. Reflashing it is the one thing this design rules out.
 
-## 5 — Set the region
+## 5 — A private channel, then the region
 
-__Settings → LoRa → Region → `US`.__ Until this is set the radio stays off; from now on it can transmit, which is why the antenna check came first.
+__The channel first.__ With a region set and a GPS fix, the node broadcasts its position — on Meshtastic's __default public channel__ unless told otherwise, where any node in range reads it and one that uplinks to MQTT can put it on public maps. On the bench, that position is where you live.
+
+1. __Channels → the primary channel__: your own name, and __generate a new random key__, 256-bit. __The key is what makes it private, not the name__ — a short key such as `AQ==` is the published default
+2. On that channel: __MQTT uplink off, MQTT downlink off, position enabled at full precision__ — recovery needs the exact spot, and the key keeps it to us
+3. __Keep the key and the channel's QR code out of this repo.__ They belong in `private/`, which git ignores. The ground receiver ([#23](https://github.com/jwilleke/js-rocket-avionics/issues/23)) joins by that QR code
+
+__Then the region: Settings → LoRa → Region → `US`.__ Until this is set the radio stays off; from now on it transmits, which is why the antennas were checked in step 1. The board restarts; the channel survives it. Leave the modem preset at its default, `LONG_FAST` — the receiver must match it.
+
+Done on 2026-09-11: private primary channel, own 256-bit key, both MQTT links off, full precision, region `US`, `LONG_FAST`.
 
 ## 6 — Get a GPS fix
 
