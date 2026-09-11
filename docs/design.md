@@ -114,7 +114,7 @@ __Everything else about it belongs to [Arming-switch.md](../hardware/Arming-swit
 ### Build rules
 
 - __4-layer, solid ground plane.__ A few dollars more at this size; fixes return paths and coupling from the camera's DVP flex.
-- __1.0 mm FR4.__ The board hangs off the web on two standoffs 67 mm apart; the web is the structure.
+- __1.0 mm FR4.__ The board hangs off the web on two standoffs 81 mm apart; the web is the structure.
 - __Module footprints, not bare chips.__ A bare LSM6DSO32 is an LGA-14 at 2.5 × 3 mm and is not hand-solderable. Soldering breakouts down still gives one rigid assembly — apart from the battery pigtails and link, which are unavoidable.
 - __Low side first.__ The sensors stand ~1 mm proud on their pins and are soldered before the tall side's modules — [PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md#build-rules).
 - __Shock.__ Solder the headers — no loose sockets. The battery is tie-wrapped to the sled, never hung off the JST. Conformal coat after bench testing.

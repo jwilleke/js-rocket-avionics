@@ -25,7 +25,7 @@ __1. Every part sits in its own holes, and no hole meets another across the two 
 
 __2. The sensors stand ~1 mm proud on their pins__, header plastic up against the sensor, so the plastic clears the tall side's solder joints on the low face.
 
-__3. The standoffs are soldered to the board and the screws come in from the web side.__ Würth WA-SMSI M3 standoffs, 10 mm, on the low side; two M3 plastic screws, M3 × 10, through the web into them. Nothing fastens through to the tall side, so __no screw head is ever under a module__. Standoff 1 is directly under the camera.
+__3. The standoffs are soldered to the board and the screws come in from the web side.__ Würth WA-SMSI M3 standoffs, 10 mm, on the low side; two M3 plastic screws, M3 × 10, through the web into them. Nothing fastens through to the tall side, so __no screw head is ever under a module__. Neither standoff is under a module either: each has a 4.4 mm hole through the board, so standoff 1 sits at the aft end, under the USB-C plug room, clear of XIAO-ESP32S3-cam and the BAT pigtail beneath it (operator, 2026-09-11).
 
 __4. The board does not touch the web.__ It hangs 10 mm off it, so there are no printed pads, no filed tails and no slots.
 
@@ -50,7 +50,7 @@ __One regulator per load.__ XIAO-ESP32S3-cam feeds the +3V3 plane and the sensor
 ## What changes in the sled — js-rocket#99
 
 - __Web offset__ to r 10.5–13.5 toward 90° (its centre 12.0 mm off the axis), still 3 mm and one piece. The D-flat, discs and clocking loop do not move
-- __Two M3 clearance holes__ through the web, at the standoffs: nose z 43.4 on the board's centre line, and nose z 110.6, 4.5 mm off it. Screws from the web's 90° face
+- __Two M3 clearance holes__ through the web, at the standoffs: nose z 29.4 on the board's centre line, and nose z 110.6, 4.5 mm off it. Screws from the web's 90° face
 - __Bridge fins__ reach from the moved web, past the board's edges, to the camera pad
 - __Battery unmoved.__ The web edge it partly rests on moves 12 mm toward 90°, still under the battery but off its centre line — check its tie wraps
 - __GNSS antenna cradle__ unchanged: with the battery unmoved it keeps ~0.9 mm at its corners in the taper

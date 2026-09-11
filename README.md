@@ -21,7 +21,7 @@ __One board on the PayloadSled's centre line__, hanging off the web on two stand
 | Board | __24.0 × 90.4 mm__, aft end at nose z 25.4 |
 | Thickness | __1.0 mm__, 4 copper layers |
 | Corner radius | 2.0 mm |
-| Standoffs | __2 × Würth WA-SMSI M3, 10 mm__ (9774100360), low side, at board (x, y) __(12.0, 18.0)__ and __(16.5, 85.2)__ — nose z 43.4 and 110.6. M3 plastic screws, __M3 × 10__, from the web's far face |
+| Standoffs | __2 × Würth WA-SMSI M3, 10 mm__ (9774100360), low side, at board (x, y) __(12.0, 4.0)__ and __(16.5, 85.2)__ — nose z 29.4 and 110.6, neither under a module. M3 plastic screws, __M3 × 10__, from the web's far face |
 | XIAO-ESP32S3-cam centre | board y __18.0__ (nose z 43.4), under the camera pad |
 | XIAO-ESP32S3-lora centre | board y __68.0__ (nose z 93.4) |
 
@@ -31,7 +31,7 @@ __Why 24 mm wide.__ It matches the web. The sensors, 17.8 mm across when lengthw
 
 __Why 90.4 mm long.__ The camera fixes the cam XIAO at the aft end, and the tall side then carries the L76K-GNSS, the lora XIAO and the JST end to end; the low side's sensors sit behind them. The battery, forward of the board, keeps its position with ~9 mm to spare.
 
-__Why 1.0 mm.__ The board hangs off the web on two standoffs 67 mm apart; 1.0 mm FR4 is stiff enough over that span with the modules on it.
+__Why 1.0 mm.__ The board hangs off the web on two standoffs 81 mm apart; 1.0 mm FR4 is stiff enough over that span with the modules on it.
 
 ## The XIAO stack
 

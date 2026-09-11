@@ -173,12 +173,13 @@ WIRE_PADS = [
 # Polarity on the silkscreen: reversing a LiPo into a XIAO destroys it.
 PLUS_MARKS = [(JST_XY[0] - 2.0, JST_XY[1] - 2.6), (8.8, 28.1), (10.4, 78.9)]
 # Two surface-mount M3 standoffs on the low side, 10 mm (Wuerth WA-SMSI
-# 9774100360). Screws come in from the web's far face. Standoff 1 is under the
-# cam XIAO, between its pin rows -- directly under the camera. Standoff 2 as far
-# forward as the board allows. Each has a 4.4 mm hole through the board, so
-# standoff 1's opens under the cam XIAO: the screw must stop inside the
-# standoff -- M3 x 10 through the 3 mm web leaves it 3 mm short of the board.
-STANDOFFS = [(CX, CAM_Y), (16.5, 85.2)]
+# 9774100360). Screws come in from the web's far face. Each has a 4.4 mm hole
+# through the board, so neither sits under a module: standoff 1 is at the aft
+# end, under the USB-C plug room, ~13.5 mm from the camera; standoff 2 as far
+# forward as the board allows. M3 x 10 through the 3 mm web stops inside the
+# standoff. (Standoff 1 was first put under the cam XIAO, where a long screw
+# would have reached the XIAO's back -- operator, 2026-09-11.)
+STANDOFFS = [(CX, 4.0), (16.5, 85.2)]
 STANDOFF_FP = "Mounting_Wuerth_WA-SMSI-M3_H10mm_9774100360"
 STANDOFF_R = 3.95          # its courtyard
 BMP_LEG_R = 1.9            # an M2 bolt head resting on the board

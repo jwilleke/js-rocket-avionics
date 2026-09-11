@@ -55,7 +55,7 @@ __Claim the AIG insurance window on both Seeed boxes now if at all__ — 7 days 
 | __Carrier PCB__ — 3 copies, 4-layer, OSH Park | __~$33__ | __Blocked.__ Do not order before breadboarding — see below |
 | __Pull-pin + subminiature microswitch__ | ~$5 | Arming, in the battery line. __Superseded the reed switch 2026-08-15__ — smallest hole, snap action, no printed mechanism. __Do not order yet__: no part chosen, and the sled can rotate, so where the pin enters is unresolved. See [the arming brainstorm](resources/2026-08-15-arming-and-access-brainstorm.md) and avionics #1/#2 |
 | __MOSFET__, low-Vgs logic-level | ~$1 | __Only if__ the switch drives a gate rather than the load. Still open — a 3.5 mm jack's normalled contact is signal-rated even though its tip and sleeve are not. Adds a carrier footprint |
-| M3 plastic machine screws, __M3 × 10__, ×2; Würth WA-SMSI M3 10 mm SMT standoffs (9774100360), ×2 | — | The carrier hangs off the web on the standoffs; screws from the web side. Longer than 10 mm reaches the cam XIAO's back ([PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md)). The old "2×7 stacking headers, ~14 mm" line is gone: the kit's standard 7-pin headers are the flight part |
+| M3 plastic machine screws, __M3 × 10__, ×2; Würth WA-SMSI M3 10 mm SMT standoffs (9774100360), ×2 | — | The carrier hangs off the web on the standoffs; screws from the web side. Longer than 10 mm pokes through the board's tall side ([PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md)). The old "2×7 stacking headers, ~14 mm" line is gone: the kit's standard 7-pin headers are the flight part |
 | Solder, flux, PET window, zip ties, standoffs | ~$15 | Consumables |
 
 ## What is actually blocking

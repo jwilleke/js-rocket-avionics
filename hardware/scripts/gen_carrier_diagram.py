@@ -92,7 +92,7 @@ def main():
     svg.rect(0, 0, W, H, "#ffffff", "none", 0)
     svg.text(24, 34, "PCB-carrier — one board, both sides", 18, INK, weight="bold")
     svg.text(24, 54, "Each side drawn as seen from that side, forward (nose tip) up — the panels are mirror "
-                     "images. The other side's parts are drawn faint.", 11.5, NOTE)
+                     "images. Dashed outlines are parts on the OTHER side of the board.", 11.5, NOTE)
     svg.text(24, 72, "Tall side faces 270° (camera port); low side faces 90° (the web, which the board hangs "
                      "off on two M3 standoffs).", 11.5, NOTE)
 
@@ -122,6 +122,9 @@ def main():
                        STANDOFF, 1.3 if mine else 0.7, None if mine else "3,2")
             if mine:
                 svg.text(px(side, so["x"]), py(so["y"]) + 4, "M3", 10, STANDOFF, "middle", "bold")
+            else:
+                svg.text(px(side, so["x"]), py(so["y"]) + 3, "standoff,", 7.5, STANDOFF, "middle")
+                svg.text(px(side, so["x"]), py(so["y"]) + 12, "other side", 7.5, STANDOFF, "middle")
         if side == "low":
             for leg in L["bmp_legs"]:
                 svg.circle(px(side, leg["x"]), py(leg["y"]), 1.9 * S, "none",
