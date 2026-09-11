@@ -10,7 +10,25 @@ __Why it is built this way is in [docs/design.md](docs/design.md).__ __Every par
 
 __Status: one two-sided board ([PCB-carrier-design.md](hardware/PCB-carrier/PCB-carrier-design.md)). Every footprint placed and netted, DRC 0 violations.__ The 10 unconnected items DRC reports are the signal nets, which are not routed yet (stage 2d, [#15](https://github.com/jwilleke/js-rocket-avionics/issues/15)). What the board is, both sides with a drawing, is [hardware/PCB-carrier/PCB-carrier.md](hardware/PCB-carrier/PCB-carrier.md).
 
-> __Do not order it.__ It quotes cleanly, which is a toolchain check and nothing more. It is unrouted, and three checks are still owed (PCB-carrier-design.md, *Checks owed before building*).
+> __Do not order it.__ It quotes cleanly, which is a toolchain check and nothing more. It is unrouted, and two checks are still owed (PCB-carrier-design.md, *Checks owed before building*).
+
+## What a flight records
+
+__Planned, not yet written.__ The recorder firmware on XIAO-ESP32S3-cam is __not started__ — today a flight would record nothing. The GPS is not recorded at all; its only copy is what the ground receiver hears.
+
+| Data | From | Recorded? | Where it ends up |
+|---|---|---|---|
+| Acceleration and rotation | [LSM6DSO32](hardware/LSM6DSO32/LSM6DSO32.md), XIAO-ESP32S3-cam | __planned__ — 500 Hz, read from the sensor's FIFO | held in PSRAM through the flight (~900 KB a minute), __written to microSD after landing__ |
+| Pressure, so altitude | [BMP388](hardware/BMP388-barometer/BMP388-barometer.md), XIAO-ESP32S3-cam | __planned__ — in the same log | the same |
+| Video | OV3660 on the [Sense camera board](hardware/Sense-camera-board/Sense-camera-board.md), XIAO-ESP32S3-cam | __planned__ | microSD, as it records |
+| Position and GPS altitude | [L76K-GNSS](hardware/L76K-GNSS/L76K-GNSS.md), XIAO-ESP32S3-lora | __no__ — broadcast over LoRa by stock Meshtastic every so often, stored nowhere on the rocket | the ground receiver and the phone on it — [#23](https://github.com/jwilleke/js-rocket-avionics/issues/23), ordered 2026-09-11 |
+
+__Two things that follow:__
+
+- __A reset of XIAO-ESP32S3-cam in flight loses the whole sensor log.__ It lives in PSRAM until the landing flush; the video on the card survives. Whether the shared battery browns it out is [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)
+- __The sensor log has no GPS in it.__ The two XIAOs share power and nothing else, so position and motion are never in one record
+
+Why the log sits in PSRAM rather than going straight to the card: [design.md](docs/design.md#data-path--why-the-log-lives-in-psram).
 
 ## The interface to the sled
 

@@ -31,6 +31,7 @@ __Part numbers are in [BOM.md](BOM.md)__ — order from there, not from this pag
 | __LiPo 3.7 V 500 mAh__ | Adafruit | 3722796 | __$7.95__ | __In hand 2026-08-10__ |
 | __BMP388__ barometer, STEMMA QT clone | [DIYmall](https://www.amazon.com/dp/B0GSYYT1K5) | — | ~$6–12 est. | __In hand.__ Measured 2026-08-08 |
 | __microSD__ | already held | — | — | __In hand__ — several. See the note below on why the A1/A2 spec no longer binds |
+| __Ground receiver__ — XIAO ESP32S3 & Wio-SX1262 Meshtastic node, cased, 2 dBi SMA antenna. Ground equipment, [#23](https://github.com/jwilleke/js-rocket-avionics/issues/23) | [Amazon](https://www.amazon.com/dp/B0GY4QC6GN) | — | — | __Ordered 2026-09-11__ |
 
 Freight and tax are not in the rows above: Seeed shipping __$7.82**, Adafruit **UPS Ground $24.77 + $3.39 tax__.
 

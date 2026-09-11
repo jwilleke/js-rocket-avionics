@@ -31,6 +31,17 @@ Weights measured 2026-08-17 unless the row says `est`.
 
 __Also in the kits and not flying:__ the 2.4G A-02 antenna, 0.3 g — the XIAO's WiFi/BLE antenna — and the __two aluminium heat sinks__ shipped with the Sense kit. The heat sinks adhere to the XIAO's top face, which is the face the expansion board mates to, and a sealed nose has no airflow for them to work with. See [XIAO-ESP32S3-Sense.md](../hardware/Sense-camera-board/Sense-camera-board.md#what-is-in-the-kit-and-what-flies).
 
+## Ground equipment
+
+__Not in the nose, not in the mass budget — and the rocket cannot be recovered without it.__ The beacon broadcasts its position over LoRa; a phone has no LoRa radio. Missing from this BOM until 2026-09-11 ([#23](https://github.com/jwilleke/js-rocket-avionics/issues/23)).
+
+| Part | Part number | Vendor | Why |
+|---|---|---|---|
+| __Ground receiver__ — Seeed XIAO ESP32S3 & Wio-SX1262 Meshtastic node, pre-flashed, 3D-printed case, __2 dBi SMA antenna__ | [B0GY4QC6GN](https://www.amazon.com/dp/B0GY4QC6GN) | Amazon | Hears the flight node on the private channel and hands the position to the phone over Bluetooth. The same hardware as the flight node; the SMA antenna is for range |
+| USB power bank | any | held | The receiver has no battery of its own, going by the listing |
+
+__The receiver must match the flight node__ — region `US`, modem preset `LONG_FAST`, and the private channel, joined by its QR code. Setting-up and the range check: [#23](https://github.com/jwilleke/js-rocket-avionics/issues/23).
+
 __The sled's 9.3 g is disputed.__ The rocket repo weighed it at __7.1 g__ on 2026-08-07 ([sections.md](https://github.com/jwilleke/js-rocket/blob/main/docs/sections.md) note 6) and both figures claim the scale. Its geometry moved at v7.7.0, which may or may not explain 2.2 g. __Reweigh it__ — nose total is __52.2__ if 7.1 is right.
 
 ## Mass budget
