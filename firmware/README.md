@@ -8,6 +8,9 @@ A sketch carries its build configuration in IDE menu state — which board, whet
 |---|---|---|
 | [`bringup-cam/`](bringup-cam/) | [XIAO-ESP32S3-cam](../hardware/XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) + [Sense-camera-board](../hardware/Sense-camera-board/Sense-camera-board.md) bench bring-up, [#7](https://github.com/jwilleke/js-rocket-avionics/issues/7) | __untested — no hardware has run it__ |
 | [`soak-power/`](soak-power/) | the shared-battery load test, [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) — drives capture + SD write bursts and logs every cycle and every reset to the card | __untested — no hardware has run it__ |
+| [`gps-check/`](gps-check/) | the [L76K-GNSS](../hardware/L76K-GNSS/L76K-GNSS.md) read directly, no Meshtastic, [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6) — fix, satellites in view, best SNR, time to first fix. __Flashed onto XIAO-ESP32S3-cam__, so a GPS with no position in Meshtastic can be split into "module or antenna" against "Meshtastic not reading D6/D7" | __untested — no hardware has run it__ |
+
+__Unplug XIAO-ESP32S3-lora before any upload.__ PlatformIO uploads to the first port it finds, and with both boards on USB that can be the one that must never be reflashed.
 
 ```sh
 cd firmware/bringup-cam
