@@ -81,11 +81,21 @@ __It does not share the BMP388's form factor, which this page assumed it would._
 | Header rows | __one__, 8 pins | __two__ — 9-pin `Primary I2C/SPI`, 5-pin `Aux. I2C/SPI` |
 | Mounting holes | long edge __opposite__ the header | flanking the __Aux__ row, on that edge |
 
-__The flat-mounting conclusion survives.__ Screws on the Aux edge with the Primary header soldered on the opposite edge still gives two-point restraint across the board — the premise below was wrong, the answer is not.
+__The flat-mounting conclusion survives, without screws__ (operator, 2026-09-11). Both rows soldered, Primary on one edge and Aux on the other, give two-point restraint across the board, and the part is too light to need more.
 
 __Primary row, 9 pins:__ `VIN 3Vo GND SCL SDA DO CS I1 I2`, labels alternating above and below.
 
 __Aux row, 5 pins:__ `SCX SDX CS DO GND`. Confirm the ordering against the part; a photograph is not a reading.
+
+__Aux row position — measured off the photograph 2026-09-11, not eyeballed.__ It now matters: the row is soldered for support, so its pins must land in real holes. Method: ImageMagick connected components on the full-resolution `LSM6DSO32-front.jpg`, thresholding the gold pad rings and taking all 14 ring centroids, then using __the pin pitch itself as the ruler__ (2.54 mm, exact), so the result does not depend on the camera's scale.
+
+| | Pixels | Result |
+|---|---|---|
+| Primary-row pitch, pins 1→9 | 198.05 per pitch | 77.97 px/mm |
+| Aux pads against Primary pins 3–7 | within 4 px in x | __centred over pins 3–7__ |
+| Row gap, three matched pairs | 993.8 mean | __5.02 pitches = 12.75 mm__ |
+
+__So the Aux row is five pitches, 12.70 mm, from the Primary row__ — the standard Adafruit 0.1 in layout, in line with the mounting holes. The Y-offset table below implies 12.11, which would be 4.77 pitches, ~50 px away from what the image shows, so one of its two readings is off by ~0.6 mm. The footprint is drawn on 12.70. Seating the part in a breadboard by both rows is a free cross-check.
 
 Back silkscreen: __`ST LSM6DSO32`__, `6-DoF Accel+Gyro IMU`, __`Accel ±4/8/16/32 g`__, `Gyro ±125~2000 dps`, __`I2C Addr 0x6A`__ with an `AD0` jumper, `I2C VLogic/Vcc: 3-5VDC`, STEMMA QT both short edges, board revision __B__.
 
@@ -154,7 +164,7 @@ __Worth one tie-break reading before the board is fabricated__, not before the f
 
 __Nothing further is needed to draw the footprint.__ Outline, pitch, hole pattern and both Y offsets are in hand, and every X position falls out of the outline and the 2.54 mm pitch.
 
-__One reading is still worth taking before fabrication__ — the hole-spacing tie-break above. It does not block [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14).
+__This tie-break no longer gates fabrication__ (2026-09-11): nothing screws a sensor into the carrier any more. The holes only take the BMP388's M2 leg bolts, which rest on the board, so 0.16 mm does not matter.
 
 ## XIAO ESP32S3 — read off the underside 2026-09-08
 
@@ -191,7 +201,7 @@ __Also visible and consistent with [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S
 
 __Every part is in hand, and every part has an owner__ — a [hardware page](../hardware/README.md), which also indexes the grid photographs. Nothing here is waiting for a part to arrive.
 
-- __One reading is owed, and this page owns it:__ the hole-spacing tie-break above. It is a __pre-fabrication__ check, not a footprint blocker — [#16](https://github.com/jwilleke/js-rocket-avionics/issues/16)
+- __Nothing is owed on the sensors.__ The LSM6DSO32's Aux row was measured off the photograph at 12.70 mm (above), and the hole-spacing tie-break no longer gates anything. The same measurement puts the holes at ~20.4–20.5 mm, leaning to 20.42
 - __[L76K-GNSS](../hardware/L76K-GNSS/L76K-GNSS.md) has a pin order__, from Seeed's schematic (2026-09-10), __and the part is confirmed as V1.1__ off its own bottom silkscreen (operator, 2026-09-11), so Seeed's V1.1 drawing is the part in hand. The pads are the XIAO's pattern, and only D6, D7, 3V3 and GND are used; the table is on the part's page, which owns it — [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6), [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)
 - __[PS1240-buzzer](../hardware/PS1240-buzzer/PS1240-buzzer.md)__ — two pins. Nothing to read off it
 

@@ -21,15 +21,15 @@ Why this part rather than another, and the ±16 g parts it rules out, is in [des
 
 ## Mounting
 
-__Flat, not perpendicular.__ Settled on the BMP388's measurements and it survives the form-factor surprise below: screws on the __Aux__ edge with the Primary header soldered opposite give __two-point restraint__ across the board, which is what boost loading wants and what a cantilevered header cannot offer. Flat also stacks low against the __19.7 mm__ available at the bore centre.
+__Flat, not perpendicular, and held by both its pin rows — no screws__ (operator, 2026-09-11). The Primary row is soldered on one edge and the __Aux row on the other__, which gives __two-point restraint__ across the board: what boost loading wants, and what a cantilevered header cannot offer. The part is too light to need more. On the carrier it sits on the __low side, lengthwise__, behind the L76K-GNSS ([PCB-carrier.md](../PCB-carrier/PCB-carrier.md)). Flat also stacks low against the __19.7 mm__ available at the bore centre.
 
-__Straight kit-standard header, not right-angle.__ The board stands on its Primary-row pins at ~2.50 mm, with M2 spacers of the same height under the Aux-edge mounting holes. Same part on the bench and in flight — soldered once, never removed. Settled in [module-pinouts.md](../../docs/module-pinouts.md#the-header-is-a-straight-kit-standard-strip--settled-2026-09-08), which owns it.
+__Straight kit-standard headers, not right-angle.__ The board stands ~1 mm proud of the carrier on both rows' pins, header plastic up against the part, so the plastic clears the solder joints of the modules on the carrier's other side. Same part on the bench and in flight — soldered once, never removed. Settled in [module-pinouts.md](../../docs/module-pinouts.md#the-header-is-a-straight-kit-standard-strip--settled-2026-09-08), which owns it.
 
-__Four of the fourteen pads carry signal__ — `VIN`, `GND`, `SCL`, `SDA` on the Primary row. `DO`, `CS`, `I1`, `I2` and the whole 5-pin Aux row do nothing: no second sensor hangs off the auxiliary bus, and __no interrupt line exists anywhere in this design__, so the FIFO is read by polling rather than on `I1`. `CS` floating is [#19](https://github.com/jwilleke/js-rocket-avionics/issues/19).
+__Four of the fourteen pads carry signal__ — `VIN`, `GND`, `SCL`, `SDA` on the Primary row. `DO`, `CS`, `I1`, `I2` and the whole 5-pin Aux row carry no signal — the Aux row is soldered for mechanical support only: no second sensor hangs off the auxiliary bus, and __no interrupt line exists anywhere in this design__, so the FIFO is read by polling rather than on `I1`. `CS` floating is [#19](https://github.com/jwilleke/js-rocket-avionics/issues/19).
 
 __Module footprint, not the bare chip.__ A bare LSM6DSO32 is an __LGA-14 at 2.5 × 3 mm__ and is not hand-solderable.
 
-__The screw is M2__ — the project standard, see [Fasteners](../README.md#fasteners--m2-everywhere). Nothing here is sized off a datasheet hole: M3 does not fit these breakouts, and the BMP388's holes measured Ø2.35 against a published 2.5. __What is still owed on this part is the hole *spacing*__, not the diameter.
+__The Aux row sits 12.70 mm (five pitches) from the Primary row__, centred over Primary pins 3–7 — measured off the photograph with the pin pitch as the ruler ([module-pinouts.md](../../docs/module-pinouts.md), which owns it). The mounting holes are unused.
 
 ## Form factor
 

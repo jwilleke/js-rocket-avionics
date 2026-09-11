@@ -43,7 +43,7 @@ __These pages hold no part numbers and no masses.__ [BOM.md](../docs/BOM.md) own
 | MCU | [XIAO-ESP32S3-cam.md](XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) | — | grid | The MCU module. __No headers soldered__ |
 | Payload | [Sense-camera-board.md](Sense-camera-board/Sense-camera-board.md) | XIAO-ESP32S3-cam | grid ×2 | OV3660 camera and the microSD slot |
 | Radio | [Wio-SX1262-LoRa.md](Wio-SX1262-LoRa/Wio-SX1262-LoRa.md) | XIAO-ESP32S3-lora | grid | LoRa. Buy as the matched kit, never separately |
-| GNSS | [L76K-GNSS.md](L76K-GNSS/L76K-GNSS.md) | XIAO-ESP32S3-lora | grid | Position. __Flat on the carrier's top face__, own footprint |
+| GNSS | [L76K-GNSS.md](L76K-GNSS/L76K-GNSS.md) | XIAO-ESP32S3-lora | grid | Position. __Flat on the carrier's tall side__, own footprint |
 | Sensor | [LSM6DSO32.md](LSM6DSO32/LSM6DSO32.md) | carrier | grid + back | ±32 g IMU with a 9 KB FIFO |
 | Sensor | [BMP388-barometer.md](BMP388-barometer/BMP388-barometer.md) | carrier | grid + 2 close | Unported barometer, 0x77 |
 | Output | [PS1240-buzzer.md](PS1240-buzzer/PS1240-buzzer.md) | carrier | __none__ | Passive piezo. The only status channel on the pad |
@@ -87,18 +87,15 @@ __Name everything by its page.__ There is no "board A", no "board B", and no fun
 
 __The two XIAO modules are the same part but not interchangeable in practice__ — the lora one arrived with its 7-pin headers soldered on, the cam one did not.
 
-Both ride the one [carrier PCB](PCB-carrier/PCB-carrier.md), on opposite faces. The IMU, barometer and buzzer sit on the carrier itself, not on either expansion board.
+Both ride the one [carrier PCB](PCB-carrier/PCB-carrier.md), on its tall side. The IMU and barometer sit on its low side, not on either expansion board; the buzzer and both antennas are off the board.
 
-## Fasteners — M2 everywhere
+## Fasteners
 
-__Every board mounting screw on this payload is M2.__ Decided by the operator on 2026-09-05, and it is a standard rather than a per-board reading:
+__The carrier hangs off the sled's web on two surface-mount M3 standoffs__ (Würth WA-SMSI, 10 mm), with __M3 plastic screws, M3 × 10__, driven in from the web's far face (operator, 2026-09-11; [PCB-carrier.md](PCB-carrier/PCB-carrier.md)). The length matters: a longer screw passes through the standoff and reaches the cam XIAO's back. The old "M2 everywhere" standard (2026-09-05) was for screwing the breakouts down, which is no longer done.
 
-- __M3 does not fit these breakouts.__ There is no version of this where a 3 mm screw goes through a STEMMA QT mounting hole
-- __Nothing 2.5 mm is being bought.__ Adafruit publishes 2.5 mm holes on parts whose holes actually measure __Ø2.35__ — an M2.5 does not pass, and stocking a second size to chase a datasheet figure buys nothing
+__The sensors are not screwed through the board__, because nothing may stick out of its back: the LSM6DSO32 is soldered by both its rows, and the BMP388's free edge rests on __M2 bolts through its own holes, head down__ on the board. M2 survives only there, and only because those holes measure __Ø2.35__: an M2 passes, an M2.5 does not, and an M3 never could.
 
-So a board's measured hole diameter is __not__ an input to the footprint; it only has to clear an M2. What still matters per board is __hole spacing__, which no standard can supply.
-
-__Printed bosses are modelled oversize.__ A hole modelled at nominal prints undersize by ~0.3 mm on the P2S, so sled bosses are drawn for M2 clearance rather than to a measured 2.35 — the same rule as the anchor bore in the rocket repo.
+__Printed holes are modelled oversize.__ A hole modelled at nominal prints undersize by ~0.3 mm on the P2S, so the sled's M3 holes are drawn for clearance rather than at 3.0 — the same rule as the anchor bore in the rocket repo.
 
 ## What is not here
 

@@ -1,0 +1,4 @@
+(version 1)
+(rule "Wuerth WA-SMSI standoff land pattern"
+  (condition "A.memberOfFootprint('SO*') && B.memberOfFootprint('SO*')")
+  (constraint hole_clearance (min 0mm)))

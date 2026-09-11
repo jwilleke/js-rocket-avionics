@@ -10,7 +10,7 @@ __Position for XIAO-ESP32S3-lora.__ Ships with an active antenna. __It mounts fl
 |---|---|
 | Module | ≈__20 × 17 mm__, `QUECTEL L76K` |
 | Interface | UART on __D6/D7__ |
-| Mounting | __flat on the carrier, own footprint__ — top face, ~21 mm |
+| Mounting | __flat on the carrier's tall side, own footprint__, between the two XIAOs, antenna end forward |
 | Antenna | active patch, ≈__25 × 25 mm__, U.FL, __`ANT 50mA MAX`__ |
 
 - [Getting Started with L76K GNSS Module for SeeedStudio XIAO](https://wiki.seeedstudio.com/get_start_l76k_gnss/)
@@ -28,11 +28,11 @@ Read off the grid — [module-pinouts.md](../../docs/module-pinouts.md#how-these
 | __L76K module__ | ≈ __20 × 17 mm__ |
 | __Patch antenna__ | ≈ __25 × 25 mm__, on a flying U.FL lead |
 
-Silkscreen: `QUECTEL L76K`, a U.FL connector, and __`ANT 50mA MAX`__ — the active antenna's current budget. __The outline now matters__, because the module takes a footprint: ~20 × 17 mm against the top face's free 74 mm.
+Silkscreen: `QUECTEL L76K`, a U.FL connector, and __`ANT 50mA MAX`__ — the active antenna's current budget. __The outline matters__, because the module takes a footprint on the carrier's tall side, 21 mm of its length.
 
 ## The antenna is the part worth looking at
 
-> __The patch is ≈25 mm square — wider than the 24 mm carrier__, and it is the only part of this module that has to be placed rather than stacked. It is fine in a 40 mm bore, but it lands at the sled's forward end facing up, where it competes for the same space as the ballast.
+> __The patch is ≈25 mm square — wider than the 24 mm carrier__, and it is the only part of this module that has to be placed rather than stacked. It is fine in a 40 mm bore, but it has to be placed: it goes in a cradle at the ElectronicsSled's forward end, forward of the battery ([Antennas.md](../Antennas/Antennas.md#mounting-the-gnss-antenna)).
 
 __It is also the obvious candidate for the module's mass overrun.__ A 25 mm ceramic patch on a coax lead is not a rounding error against a ≈20 × 17 mm board. [BOM.md](../../docs/BOM.md) carries the open action: __weigh the module without its active antenna__. If the patch is most of the mass, the antenna is a separable choice.
 
@@ -57,7 +57,7 @@ __The 14 pads are the XIAO's own pattern__, two rows of 7, and Seeed labels each
 - __Wire by position, never by label.__ The carrier names its nets from the XIAO's side, so `GPS_TX` is the XIAO's transmit on `D6`. It lands on the pad Seeed labels __RX__. Following the labels crosses TX to TX
 - __Four pads do the whole job__: D6, D7, 3V3 and GND. RESET and WAKEUP idle high without help, which is what the diodes are for: a host can pull them low, never drive them
 - __The part in hand is V1.1__ — read off its bottom silkscreen by the operator, 2026-09-11. So the picture above is the part, and [Seeed's datasheet](109100021_L76K%20GNSS%20Module%20for%20Seeed%20Studio%20XIAO%20Datasheet.pdf), which draws V1.0, is not. The two differ only in where RESET sits, and RESET is not wired here, so either would have worked. A replacement part could be either
-- __Face-up, it shows the pattern a XIAO shows from its back.__ Seeed's top view above matches the XIAO's underside reading in [module-pinouts.md](../../docs/module-pinouts.md#xiao-esp32s3--read-off-the-underside-2026-09-08). So flat on the carrier's top face it takes the __mirrored__ mapping, the one the bottom-face XIAO uses, not XIAO-ESP32S3-lora's. That is [#21](https://github.com/jwilleke/js-rocket-avionics/issues/21)'s trap in a new place, and it is an input to [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)
+- __Face-up, it shows the pattern a XIAO shows from its back.__ Seeed's top view above matches the XIAO's underside reading in [module-pinouts.md](../../docs/module-pinouts.md#xiao-esp32s3--read-off-the-underside-2026-09-08). So flat on the carrier, component side up, it takes the __mirrored__ mapping against the XIAOs on the same side, which show their fronts. That is [#21](https://github.com/jwilleke/js-rocket-avionics/issues/21)'s trap in a new place. `gen_carrier.py` writes it out from Seeed's drawing and checks it against the same drawing turned by eye
 
 ## Why it left the XIAO stack
 
@@ -65,7 +65,7 @@ __The 14 pads are the XIAO's own pattern__, two rows of 7, and Seeed labels each
 
 ## Antenna
 
-__Active patch on U.FL__, at the sled's forward end, __facing up__, satisfying the "no metal above the patch" rule. Keep it __≥50 mm__ from the LoRa whip — see [Antennas.md](../Antennas/Antennas.md).
+__Active patch on U.FL__, in a cradle at the ElectronicsSled's forward end, forward of the battery, __face toward the nose tip__, with nothing metal in front of it. Keep it __≥50 mm__ from the LoRa strip, which runs aft — see [Antennas.md](../Antennas/Antennas.md), which owns this.
 
 ## The mass problem
 

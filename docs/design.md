@@ -11,7 +11,7 @@ Related: [BOM.md](BOM.md) (parts and masses) · [shopping-list.md](shopping-list
 | Decision | Value | Why |
 |---|---|---|
 | MCU | __Two__ XIAO ESP32S3, told apart by the expansion board on each — __XIAO-ESP32S3-lora__ and __XIAO-ESP32S3-cam__ | Restores a zero-firmware recovery beacon and isolates it from flight-firmware failure |
-| Interconnect | __One carrier PCB__ on the sled's centre plane, parts on both faces, 1.0 mm FR4, 4-layer, __24 × 95 mm__ | A XIAO stack is 15 mm tall, which no 11 mm face channel holds |
+| Interconnect | __One two-sided carrier PCB__ on the sled's centre line, hanging off an offset web on two M3 standoffs, 1.0 mm FR4, 4-layer, __24 × 90.4 mm__ | Both XIAO stacks on one side, facing the camera; the web moved out of the board's way; removable as one unit |
 | XIAO-ESP32S3-lora firmware | __Stock Meshtastic__, pre-flashed by Seeed. No code written | The Wio-SX1262 + XIAO ESP32S3 kit is a supported Meshtastic device out of the box |
 | XIAO-ESP32S3-cam firmware | Custom — camera, sensors, PSRAM logging, Wi-Fi | Not yet started |
 | Camera | __OV3660__ on the Sense expansion board — __confirmed off the ribbon 2026-09-06__, having been recorded as an OV2640 throughout | Estes AstroCam was considered and dropped |
@@ -48,87 +48,60 @@ Side benefit: this frees the contested nose wall for the camera lens.
 
 ## The carrier PCB
 
-__One board on the sled's centre plane, parts on both faces.__ This replaced an earlier "one design built twice" plan, which did not survive contact with the real XIAO footprint. The board's frozen dimensions are in the [README](../README.md); this section is why they are what they are.
+__One two-sided board on the PayloadSled's centre line__, hanging off the web on two M3 standoffs (operator, 2026-09-11). The __tall side__ faces 270°, the camera port, and carries both XIAO stacks, the L76K-GNSS and the JST; the __low side__ faces 90°, the web, and carries the sensors. What the board is, both sides, is [PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md); the design record is [PCB-carrier-design.md](../hardware/PCB-carrier/PCB-carrier-design.md). This section is why.
 
-### Why the twin-PCB idea died
+### How it got here
 
-The twin plan assumed each XIAO could sit flat on its own card, with a __cutout__ in the card to clear the expansion board underneath. Measuring KiCad's Seeed XIAO footprint (which cites Seeed's own package spec) kills that:
+1. __Twin boards first__, one per XIAO. Dropped because each XIAO was thought to need a __cutout__ for an expansion board hanging underneath.
+2. __One two-sided board on the sled's centre plane__ replaced it: 24 × 95 mm, lora on one face, cam on the other.
+3. __Both premises failed.__ The expansion board sits __above__ the XIAO, so no cutout was ever needed. And the sled's web is a __solid 3 mm plate on that same centre plane__: the camera-port drawing every carrier dimension came from had modelled the board and the web in the same place ([#13](https://github.com/jwilleke/js-rocket-avionics/issues/13)).
+4. __One board, the web moved.__ The operator kept one board: the web is offset toward 90°, out of its way, and the board hangs off it on standoffs, removable as a unit. Both tall stacks go on one side, one at each end.
 
-```text
-14 pads, 3 x 2 mm
-x = +/-8.5 mm       rows 17.0 mm apart, pad inner edges at +/-7.0
-y = -7.62..+7.62    7 per row, 2.54 mm pitch
-board 17.5 x 21 mm
-```
-
-The expansion board — Sense or Wio-SX1262 — is the __same XIAO outline, ±8.75 mm__. So the thing needing clearance is __wider than the pads are apart__. Any cutout large enough to pass the expansion board removes the copper the pads solder to. __No cutout geometry satisfies both.__
-
-Seeed's own figure confirms the stack: __21 × 17.5 × 15 mm__ with the expansion board fitted.
-
-### So: headers, and a centre-plane card
+### Headers, and the expansion board on top
 
 __The expansion board — Sense or Wio-SX1262 — mates to the XIAO's __front face__, on the B2B connector beside the U.FL socket, and sits __above__ the XIAO.__ The XIAO sits on __two 7-pin headers__, one down each long edge, onto the carrier.
 
-__This section was right and the Population table below was wrong__, which is why they disagreed for so long. Settled 2026-09-08 against Seeed's front and back pinouts and an end-on photograph of the assembled stack — breadboard, header pins, XIAO, B2B block, expansion board, camera. See [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md#which-face-carries-what--settled-off-seeeds-two-drawings-and-the-stack-itself).
+__An old Population table put the expansion board beneath the XIAO, and it was wrong.__ Settled 2026-09-08 against Seeed's front and back pinouts and an end-on photograph of the assembled stack — breadboard, header pins, XIAO, B2B block, expansion board, camera. See [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md#which-face-carries-what--settled-off-seeeds-two-drawings-and-the-stack-itself).
 
 __The back face stays open__, carrying `BAT+`/`BAT−`. The expansion board never covers them; the __carrier__ does, at 2.50 mm, which is why the pigtail is soldered before the XIAO goes onto its headers.
 
-__Measured on the assembled stacks__ — heights from the bottom of the XIAO's PCB, camera excluded, with the headers' 2.50 mm added:
+__Measured on the assembled stacks__ — heights from the bottom of the XIAO's PCB, camera excluded, with the headers' 2.50 mm added: __XIAO-ESP32S3-cam 10.72 mm, XIAO-ESP32S3-lora 11.82 mm__.
+
+__How they fit across the 40 mm bore__, with the board on the centre line and the web offset toward 90°:
 
 ```text
-at the XIAO's edge (x = +/-8.75 from centre):
-  available depth = sqrt(19.7^2 - 8.75^2) = 17.6 mm each side
-
-XIAO-ESP32S3-cam  = 8.22 + 2.50 headers = 10.72 mm
-XIAO-ESP32S3-lora = 9.32 + 2.50         = 11.82 mm
-total             = 10.72 + 1.0 carrier + 11.82 = 23.54 mm
-available         = 2 x 17.6                    = 35.30 mm     11.76 mm spare
+tall side, toward 270   cam stack top r 11.2   camera pad floor r 14.09   2.9 mm for the ribbon
+                        lora stack top r 12.3   bore at its corners r 17.9
+low side,  toward 90    sensors top r 8.8       web r 10.5-13.5            1.7 mm clear
 ```
 
-> __An earlier revision of this section had the expansion board hanging __below__ the XIAO in a ~14 mm header gap, giving a 15 mm stack and 31.0 mm total.__ That is not how the parts assemble. The kit's standard 7-pin headers — ~2.50 mm standoff — are adequate, no tall stacking headers are needed, and __the bore margin is 11.8 mm rather than ~4__.
+> __An earlier revision of this section had the expansion board hanging __below__ the XIAO in a ~14 mm header gap, giving a 15 mm stack.__ That is not how the parts assemble. The kit's standard 7-pin headers — ~2.50 mm standoff — are adequate, and no tall stacking headers are needed.
 
 The camera hangs off the expansion board __on a flexible ribbon__, so its position is not fixed by the stack.
 
-### Population
+### Population — one board, two sides
 
-| Face | Carries |
-|---|---|
-| Top | XIAO-ESP32S3-lora + Wio-SX1262 __above it, on its front-face B2B__; __L76K GNSS — flat on the carrier__, end to end |
-| Bottom | XIAO ESP32S3 Sense + camera/microSD board beneath it; LSM6DSO32; BMP388; buzzer |
-| Either | Battery JST, mounting holes. An arming switch would be inline in the battery lead and takes no footprint — __flight 3 carries none__ |
+| Side | Faces | Carries |
+|---|---|---|
+| __Tall__ | 270°, the camera port | XIAO-ESP32S3-cam + Sense camera board (aft, under the camera); L76K-GNSS; XIAO-ESP32S3-lora + Wio-SX1262 (forward); the battery JST |
+| __Low__ | 90°, the web | LSM6DSO32 and BMP388, lengthwise; two M3 standoffs |
 
-Net list is small — roughly __9 nets__: GPS TX, GPS RX, SDA, SCL, buzzer, 3V3, GND, BAT+, BAT−. The wiring table is in the [README](../README.md).
-
-### The board could not stay 24 × 70
-
-The two XIAOs cannot overlap in plan view. They mount on __through-hole__ headers, so the holes pass through the card, and XIAO-ESP32S3-lora uses D6/D7 for the GPS UART while XIAO-ESP32S3-cam uses D4/D5 for I2C — different nets on the same holes. They sit end to end:
-
-```text
-top face     XIAO-ESP32S3-lora 21 + L76K 21, end to end                 = 42 mm
-bottom face  XIAO-ESP32S3-cam 21 + LSM6DSO32 25.5 + BMP388 25.5 + buzzer = 84 mm
-```
-
-At 24 mm wide against 17.8 mm sensors, no two parts sit side by side. __24 × 95 mm__, costing 1.1 g, and still inside the sled with room to spare. XIAO-ESP32S3-cam centres at carrier y = 18 mm so the camera lands at nose z 30..45.
-
-__The bottom face still sets the length, and that is why this decision is cheap.__ The top face went 46 mm (a MAX-M10S on the carrier) to 21 mm (the L76K riding the stack) and back to __42 mm__ now the L76K is on the carrier — and __84 mm on the bottom has been the binding figure through all three__. So the board does not grow, __the frozen interface does not move and the sled does not reprint__. The top face has __53 mm still free__ after the change.
+__The buzzer and both antennas are not on the board.__ The PS1240 sits against the nose wall on two wire pads; the antennas are on the sled ([Antennas.md](../hardware/Antennas/Antennas.md)). Net list: __9 nets__ — +3V3, +3V3_LORA, GND, VBAT, SDA, SCL, BUZZER, GPS_TX, GPS_RX. The wiring table is in the [README](../README.md).
 
 ### The GPS is an L76K, not a MAX-M10S
 
 The MAX-M10S was rejected on 2026-08-06: **44.2 × 30.5 mm, wider than the 24 mm carrier, and ~$60**. Seeed's **L76K GNSS for XIAO (109100021)** is 18 × 21 mm, $11.99, active antenna included, and talks UART on __D6/D7__ — already the carrier's netlist.
 
-__It plugs onto the XIAO's own 14 pads rather than presenting a header to the carrier__, so:
-
-- __The GPS takes a footprint on the top face__ (operator, 2026-09-09). `GPS_TX`/`GPS_RX` were already in the netlist; now something is placed for them. ~21 mm against __74 mm free__ — the top face carries only XIAO-ESP32S3-lora's 21 mm of the board's 95.
-- __The stack-height risk is gone, because the GPS is no longer in the stack.__ Riding the XIAO's pads saved a footprint and bought an unmeasured mechanical unknown: whether the L76K clears the Wio-SX1262 on the B2B, never tested, and a four-high column cantilevered off header pins under boost. __Flat on the carrier deletes the question rather than answering it__ — no dry-stack gate, no tall headers to source, no clearance to preserve through later revisions. The cost is ~21 mm of board on a face with 74 mm free, and a footprint in a stage that has to place four other parts anyway.
+__It plugs onto the XIAO's own 14 pads rather than presenting a header to the carrier__, so it takes the carrier as a footprint of its own, __on the tall side between the two XIAOs__ (operator, 2026-09-09; 2026-09-11). __Flat on the carrier deleted the stack-height risk__ rather than answering it: whether the L76K cleared the Wio-SX1262 on the B2B was never tested, and a four-high column cantilevered off header pins under boost was the alternative. Component side up it shows a XIAO's __back__ pattern, so its footprint takes the mirrored mapping — see [L76K-GNSS.md](../hardware/L76K-GNSS/L76K-GNSS.md#pinout--from-seeeds-schematic-not-the-listing).
 
 ### Power, and the pigtail constraint
 
 __BAT+/BAT− are underside pads on the XIAO__ (footprint pads 16/17, 2.3 × 1.3 mm at x = −4.5), not brought out to the castellated edge — so the battery __cannot__ reach a XIAO through the headers.
 
-- Battery lands on a __JST-PH on the carrier__; short __soldered pigtails__ run to each XIAO's BAT pads.
-- __Solder those pigtails before fitting the expansion board.__ Seeed's wiki implies the pads are inaccessible afterwards.
+- The battery lands on a __JST-PH at the board's forward end__; short __soldered pigtails__ run to each XIAO's BAT pads.
+- __Solder those pigtails before the XIAO goes onto its headers.__ The carrier, not the expansion board, is what covers the pads.
 - __On battery power there is no voltage on the 5V pin__, so nothing can be fed from a XIAO's 5V rail.
-- Both XIAO chargers sit in parallel on one battery. __Charge through one USB port at a time.__
+- Both XIAO chargers sit in parallel on one battery. __Charge through one USB port at a time__ — and [one port at a time is not sufficient on its own](../hardware/LiPo-500mAh/LiPo-500mAh.md#two-chargers-on-one-battery).
 
 ### Arming
 
@@ -138,19 +111,14 @@ __The architecture below is what this document owns, and it has survived every r
 
 __Everything else about it belongs to [Arming-switch.md](../hardware/Arming-switch/Arming-switch.md)__ — which mechanism, what is still open, and why the reed switch, the magnet-polarity question and the MOSFET that used to live in this section are all gone. The short of it: this payload has no pyro, so an "armed" rocket here is one that is recording video, and the switch buys __turnaround, not safety__.
 
-### RF
-
-Both antennas leave via __U.FL on the modules themselves__ — the L76K and the Wio-SX1262 each carry their own connector — so __no RF crosses the carrier at all__. It is a purely digital and power board, which is what makes the layout tractable.
-
-__GPS: active patch on U.FL__ at the sled's forward end, facing up, satisfying the "no metal above the patch" rule. __LoRa: U.FL to the 82 mm whip__ up the ogive. __Separate them by ≥50 mm__ — 915 MHz TX desenses a 1575 MHz front end by broadband noise, not harmonics (2 × 915 = 1830 MHz, clear of GPS).
-
 ### Build rules
 
 - __4-layer, solid ground plane.__ A few dollars more at this size; fixes return paths and coupling from the camera's DVP flex.
-- __1.0 mm FR4.__ The carrier is the sled's structural span — the printed web is only 3 mm and is *not* the structural member.
-- __Module footprints, not bare chips.__ A bare LSM6DSO32 is an LGA-14 at 2.5 × 3 mm and is not hand-solderable. Soldering breakouts down still gives one rigid assembly with no flying wires — apart from the two battery pigtails, which are unavoidable.
-- __Shock.__ Solder or clamp the headers — no loose sockets. Battery straps to the sled, never hangs off the JST. Conformal coat after bench testing.
-- __Silkscreen which face is which__, and mark the pigtail polarity — reversing a LiPo into a XIAO destroys it.
+- __1.0 mm FR4.__ The board hangs off the web on two standoffs 67 mm apart; the web is the structure.
+- __Module footprints, not bare chips.__ A bare LSM6DSO32 is an LGA-14 at 2.5 × 3 mm and is not hand-solderable. Soldering breakouts down still gives one rigid assembly — apart from the battery pigtails and link, which are unavoidable.
+- __Low side first.__ The sensors stand ~1 mm proud on their pins and are soldered before the tall side's modules — [PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md#build-rules).
+- __Shock.__ Solder the headers — no loose sockets. The battery is tie-wrapped to the sled, never hung off the JST. Conformal coat after bench testing.
+- __Mark polarity__ at the JST and the `VBAT` pads — reversing a LiPo into a XIAO destroys it.
 
 ## Data path — why the log lives in PSRAM
 

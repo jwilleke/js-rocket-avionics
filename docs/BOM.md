@@ -22,22 +22,22 @@ Weights measured 2026-08-17 unless the row says `est`.
 | Piezo buzzer PS1240 | 160 | Adafruit | B | 0.6 |
 | LiPo 3.7 V 500 mAh | 1578 | Adafruit | shared | 10.9 |
 | microSD card | — held | — | B | __0.15__ |
-| Carrier PCB, 4-layer 1.0 mm, 24 × 95 | — not ordered | OSH Park | both | est 4.3 |
+| Carrier PCB, 4-layer 1.0 mm, 24 × 90.4, two-sided | — not ordered | OSH Park | both | est 4.1 |
 | 7-pin header, 4 off — two per XIAO | Seeed kits — __2 pre-soldered on XIAO-ESP32S3-lora, 2 loose in the Sense kit__ | Seeed | both | __0.6__ |
 | Arming switch + wiring | — not bought | — | shared | est 1.5 |
-| __Avionics subtotal__ | | | | __45.3__ |
+| __Avionics subtotal__ | | | | __45.1__ |
 | ElectronicsSled, PLA | v7.7.0 | printed | — | __9.3?__ |
-| __Nose total__ | | | | __54.6__ |
+| __Nose total__ | | | | __54.4__ |
 
 __Also in the kits and not flying:__ the 2.4G A-02 antenna, 0.3 g — the XIAO's WiFi/BLE antenna — and the __two aluminium heat sinks__ shipped with the Sense kit. The heat sinks adhere to the XIAO's top face, which is the face the expansion board mates to, and a sealed nose has no airflow for them to work with. See [XIAO-ESP32S3-Sense.md](../hardware/Sense-camera-board/Sense-camera-board.md#what-is-in-the-kit-and-what-flies).
 
-__The sled's 9.3 g is disputed.__ The rocket repo weighed it at __7.1 g__ on 2026-08-07 ([sections.md](https://github.com/jwilleke/js-rocket/blob/main/docs/sections.md) note 6) and both figures claim the scale. Its geometry moved at v7.7.0, which may or may not explain 2.2 g. __Reweigh it__ — nose total is __52.4__ if 7.1 is right.
+__The sled's 9.3 g is disputed.__ The rocket repo weighed it at __7.1 g__ on 2026-08-07 ([sections.md](https://github.com/jwilleke/js-rocket/blob/main/docs/sections.md) note 6) and both figures claim the scale. Its geometry moved at v7.7.0, which may or may not explain 2.2 g. __Reweigh it__ — nose total is __52.2__ if 7.1 is right.
 
 ## Mass budget
 
 | | g |
 |---|---|
-| Nose total | __54.6__ |
+| Nose total | __54.4__ |
 | Target | ~50 |
 | Weathercock limit | ~65 |
 
@@ -58,7 +58,7 @@ __Nothing here is required to fly the rocket.__ [js-rocket](https://github.com/j
 | __A__ | XIAO ESP32S3 (plain) | __Recovery beacon__ — GPS position over LoRa | __Stock Meshtastic, pre-flashed by Seeed. None written__ |
 | __B__ | XIAO ESP32S3 __Sense__ | __Flight recorder__ — camera, IMU, barometer, PSRAM log | Custom, and not yet started |
 
-Both ride one carrier PCB, on opposite faces. __Two MCUs, not one__, so the beacon is not gated on flight firmware being finished — the beacon *is* the recovery system, and a boot-loop at the pad cannot be fixed with the nose assembled.
+Both ride one two-sided carrier PCB, on its tall side, with the sensors on the other. __Two MCUs, not one__, so the beacon is not gated on flight firmware being finished — the beacon *is* the recovery system, and a boot-loop at the pad cannot be fixed with the nose assembled.
 
 ## Why each part
 
@@ -66,7 +66,7 @@ Both ride one carrier PCB, on opposite faces. __Two MCUs, not one__, so the beac
 |---|---|
 | __XIAO ESP32S3 + Wio-SX1262__ | Supported Meshtastic device out of the box. __Must be the matched B2B kit variant__ — buy SKU 102010611 as a kit, never the two boards separately. It arrives pre-flashed, which is the entire premise of XIAO-ESP32S3-lora |
 | __U.FL 82 mm whip__ | LoRa antenna, runs forward up the ogive. Included in the kit |
-| __L76K GNSS__ | __Active antenna included.__ Talks UART on D6/D7 and __mounts flat on the carrier's top face__ (2026-09-09) — it can ride a XIAO's 14 pads, but does not. Replaced a MAX-M10S that was 44.2 × 30.5 mm and ~$60 |
+| __L76K GNSS__ | __Active antenna included.__ Talks UART on D6/D7 and __mounts flat on the carrier's tall side, between the two XIAOs__ (2026-09-09) — it can ride a XIAO's 14 pads, but does not. Replaced a MAX-M10S that was 44.2 × 30.5 mm and ~$60 |
 | __XIAO ESP32S3 Sense__ | Recorder MCU. Carries the camera — an __OV3660__, confirmed off the ribbon 2026-09-06, not the OV2640 assumed throughout — and the microSD slot on its expansion board |
 | __LSM6DSO32__ | __±32 g.__ Boost peaks at __17.6 g__, so every ±16 g part on the market clips — and a clipped boost integral destroys the velocity estimate for the whole flight. 9 KB __FIFO__ is a hard requirement |
 | __BMP388__ | Unported: only jobs are timestamping ejection and detecting landing. Address __0x77__, no clash with the IMU. __Do not re-specify a BMP390__ — same driver, 8–12 week lead |

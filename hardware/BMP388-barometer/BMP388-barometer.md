@@ -55,17 +55,15 @@ __Four are used: 1, 3, 4, 6__ — VIN, GND, SCL, SDA. Address __0x77__, no clash
 | Mounting holes → far long edge | __14.65 mm__ | — | measured 2026-09-06 |
 | Mounting holes → each short side | __2.54 mm__ | — | measured 2026-09-06 |
 
-__Every figure above is identical on the LSM6DSO32__, so the carrier takes one outline and one hole pattern, placed twice and rotated. Two readings need care — the header's far-edge figure does not close on the width, and hole spacing has two routes 0.16 mm apart. Working in [module-pinouts.md](../../docs/module-pinouts.md).
+__Every outline figure above is identical on the LSM6DSO32.__ Working in [module-pinouts.md](../../docs/module-pinouts.md).
 
-__Mounting: flat, on a straight kit-standard header.__ Board parallel to the carrier at the header's ~2.50 mm standoff, M2 spacers of the same height under the two mounting holes — screws one edge, soldered header the other, two-point restraint. __Straight, not right-angle__, and the same part on the bench and in flight, so it is soldered once and never removed. Settled in [module-pinouts.md](../../docs/module-pinouts.md#the-header-is-a-straight-kit-standard-strip--settled-2026-09-08), which owns it.
+__Mounting: flat, on a straight kit-standard header, no screws through the carrier__ (operator, 2026-09-11). The pin row is soldered on one edge. The free edge rests on __two M2 bolts through its own mounting holes, heads down__ on the carrier, nutted on top, which keeps it level at the header's ~2.50 mm. Nothing is screwed through the carrier. On the carrier it sits on the __low side, lengthwise__, standing ~1 mm proud on its pins with the header plastic up against the part ([PCB-carrier.md](../PCB-carrier/PCB-carrier.md)). The legs then need that extra millimetre too. __Straight, not right-angle__, and the same part on the bench and in flight, so it is soldered once and never removed. Settled in [module-pinouts.md](../../docs/module-pinouts.md#the-header-is-a-straight-kit-standard-strip--settled-2026-09-08), which owns it.
 
-__All eight pads get soldered, four carry signal__ — `VIN` (1), `GND` (3), `SCL` (4), `SDA` (6). The rest are mechanical. `CS` floating is [#19](https://github.com/jwilleke/js-rocket-avionics/issues/19).
+__All eight pads get soldered, four carry signal__ — `VIN` (1), `GND` (3), `SCL` (4), `SDA` (6). The rest are mechanical. __`CS` is tied to +3V3 on the carrier__, forcing I2C whatever the part's own pull-up does ([#19](https://github.com/jwilleke/js-rocket-avionics/issues/19)).
 
-__The mounting screw is M2.__ Ø2.35 passes an M2 with 0.35 mm of total clearance; __an M2.5 does not fit at all__. See [Fasteners](../README.md#fasteners--m2-everywhere).
+__The leg bolts are M2__ because the holes decide it: Ø2.35 passes an M2 with 0.35 mm of total clearance, and __an M2.5 does not fit at all__. See [Fasteners](../README.md#fasteners).
 
 __The board is marked 3 V__, and the design runs +3V3 into VIN. __5 V is not a documented fallback for this board__, whatever the listing says.
-
-__Sled bosses must be modelled oversize__ — a hole modelled at nominal prints undersize by ~0.3 mm on that printer. Do not copy 2.35 straight into CAD.
 
 ---
 
