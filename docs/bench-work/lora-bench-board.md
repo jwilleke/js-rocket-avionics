@@ -96,7 +96,9 @@ Done on 2026-09-11: private primary channel, own 256-bit key, both MQTT links of
 
 1. __Settings → Position → GPS mode → Enabled__, if it is not already
 2. __Take it to a window, better outdoors__, GNSS antenna face up, on USB from a laptop or a power bank. Indoors, deep in a building, it may never get a fix
-3. __Note the time you powered it__, and the time the node first shows a position. That gap is the __time to first fix__ #6 asks for. A first fix after power-up can take minutes
+3. __Wait for the node to show a position__ in the app. A first fix after power-up can take minutes
+
+__Done on 2026-09-11: a fix outdoors, on the Meshtastic app over Bluetooth.__
 
 __If no position appears after 15 minutes with open sky__, the question is whether the module or Meshtastic is at fault. [`firmware/gps-check/`](../../firmware/gps-check/) answers it on the __cam__ board, which may be reflashed — unplug this one first.
 
@@ -110,11 +112,10 @@ Unplug the USB. Nothing else to do: no battery is connected.
 
 - Enumerated, and the port name
 - Meshtastic firmware version
-- Time to first fix, and indoors or out
-- Satellites used, from the node's details
+- A fix outdoors — yes or no
 
 __Still open on #6 after this page__, and not covered here:
 
 - __The range check__ — needs the receiver, [#23](https://github.com/jwilleke/js-rocket-avionics/issues/23)
-- __Desense__ — whether the radio transmitting spoils the GPS. Needs something transmitting on a schedule, which means #23's pair
+- __Desense__ — whether the radio transmitting spoils the GPS. __Tested in the assembled nose, not here:__ on the bench the two antennas lie wherever their leads fall, so a bench result says little about the flight layout
 - __On the battery__ — [bench-bringup.md](../bench-bringup.md), and [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) for both boards on one battery

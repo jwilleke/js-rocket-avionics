@@ -107,7 +107,7 @@ __So XIAO-ESP32S3-lora's USB-C is not used in the flight build.__ __And still on
 
 __The one DRC exception__ is in `PCB-carrier.kicad_dru`, which the generator writes: Würth's standoff land pattern puts its pads right at the edge of its own hole, which is the maker's design. It is allowed for the two standoffs and nowhere else.
 
-__Checks owed before fabrication__ — [PCB-carrier-design.md](PCB-carrier-design.md#checks-owed-before-building) keeps the list: the standoff part in stock, JST pin 1 against the battery, and Meshtastic's GPS pins (#6).
+__Checks owed before fabrication__ — [PCB-carrier-design.md](PCB-carrier-design.md#checks-owed-before-building) keeps the list: the standoff part in stock and JST pin 1 against the battery. Meshtastic's GPS pins are settled — D6/D7, read off the board (#6).
 
 > __`fab/gerbers/` holds a complete-looking set from an old board.__ It is the single most likely way a wrong board gets ordered — it is complete, it is in the repo, and it looks done. __Regenerate, never reuse__ — [#16](https://github.com/jwilleke/js-rocket-avionics/issues/16).
 

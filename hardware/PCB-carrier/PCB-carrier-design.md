@@ -60,9 +60,9 @@ __One regulator per load.__ XIAO-ESP32S3-cam feeds the +3V3 plane and the sensor
 
 1. __The standoff part__: Würth WA-SMSI M3, 10 mm (9774100360) — confirm it is stocked
 2. __JST pin 1 against the battery's red lead__
-3. __That stock Meshtastic reads the GPS on D6/D7__ — [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6)'s bench check
-
 Settled by the generator rather than owed: every sensor's pin order on the back of the board, and every hole's clearance across the two sides.
+
+__Settled on the bench, 2026-09-11:__ stock Meshtastic reads the GPS on D6/D7 — its startup log names GPIO43/44 and detects the L76K ([#6](https://github.com/jwilleke/js-rocket-avionics/issues/6#issuecomment-5639176943)). So the carrier's `GPS_TX`/`GPS_RX` nets stand as drawn.
 
 ## How it got here
 

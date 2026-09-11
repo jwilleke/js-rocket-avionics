@@ -22,7 +22,7 @@ __Read off the board on 2026-09-11__, over USB with the Meshtastic command-line 
 | __LoRa region__ | __unset__ | __the radio stays off until it is set.__ Setting it to `US` is step 5 of [the bench page](../../docs/bench-work/lora-bench-board.md) — with the antenna on first |
 | Bluetooth | on, __fixed PIN `123456`__ | the published default, so __anyone within Bluetooth range can pair with it__. Fine on the bench; a flight node should not keep it. A changed PIN is __not__ written in this repo |
 | GPS mode | enabled | it looks for the GPS |
-| GPS pins | `0` / `0` | __the firmware's built-in pins, whatever they are.__ Whether they are D6/D7, where the [L76K-GNSS](../L76K-GNSS/L76K-GNSS.md) is wired, is [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6)'s check |
+| GPS pins | `0` / `0` | __the firmware's built-in pins — which are D6/D7__, where the [L76K-GNSS](../L76K-GNSS/L76K-GNSS.md) is wired. Its startup log names GPIO43/44 and detects the L76K ([#6](https://github.com/jwilleke/js-rocket-avionics/issues/6#issuecomment-5639176943)) |
 
 __To read them again__, with the board on USB — `--get` only reads; `--set` is what changes the board:
 

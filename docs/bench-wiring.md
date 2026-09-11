@@ -173,7 +173,7 @@ __Two traps, both on the drawing:__
 - __The L76K is not the XIAO's twin.__ Its pads are the XIAO's pattern, but component side up they are mirrored against the XIAO beside it. Seat it from the drawing, not by copying the XIAO
 - __Wire by position, not by the silkscreen word.__ TX to TX is the mistake, and it fails silently: the GPS just never talks
 
-__That stock Meshtastic looks for the GPS on `D6`/`D7` is an assumption, not a reading.__ Seeed's own L76K examples use those pins, and the carrier's netlist was drawn on them. Checking it is [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6)'s "GPS fix over UART on D6/D7". If the device reports no GPS with the four jumpers in, suspect the pin assignment before the module.
+__Stock Meshtastic reads the GPS on `D6`/`D7` — confirmed on the bench, 2026-09-11.__ Its startup log says `Use GPIO44 for GPS RX` (D7), `Use GPIO43 for GPS TX` (D6), then `L76K detected`, which needs both wires: it asks on D6 and the module answers on D7. No pin setting is needed. The log and the rest of the reading are on [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6#issuecomment-5639176943). If a later build ever reports no GPS with the four jumpers in, suspect the wiring before the firmware.
 
 ## Rules for handling the battery
 
