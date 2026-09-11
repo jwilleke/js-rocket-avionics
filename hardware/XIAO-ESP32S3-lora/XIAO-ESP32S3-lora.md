@@ -26,7 +26,7 @@ __Mark it__ — a dot on the XIAO's shield — once the Wio-SX1262 is on it, so 
 - __[Wio-SX1262](../Wio-SX1262-LoRa/Wio-SX1262-LoRa.md)__ — the LoRa radio board
 - __[L76K GNSS](../L76K-GNSS/L76K-GNSS.md)__ — UART on __D6/D7__
 
-Runs __stock Meshtastic__, pre-flashed. No firmware is written for it.
+Runs __stock Meshtastic__, pre-flashed. No firmware is written for it. Version and settings as delivered: [Wio-SX1262-LoRa.md](../Wio-SX1262-LoRa/Wio-SX1262-LoRa.md#meshtastic-as-the-kit-delivered-it).
 
 ## Heights
 
