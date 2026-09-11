@@ -1,0 +1,109 @@
+---
+title: The lora bench board — power it up
+description: Step by step, from a wired breadboard to a GPS fix in Meshtastic, for XIAO-ESP32S3-lora with the Wio-SX1262 and the L76K-GNSS.
+---
+
+# The lora bench board — power it up
+
+__This page takes the board in the photograph from unpowered to a GPS position on a screen.__ It is the first half of [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6). What each wire should be, and why, is owned by [bench-wiring.md](../bench-wiring.md#the-lora-board); this page is the procedure.
+
+![The lora bench board: XIAO-ESP32S3-lora with the Wio-SX1262 on top at the head of the breadboard, USB-C up; the L76K-GNSS lower down across the channel, its GNSS antenna off the board at the top; the LoRa antenna lead running off to the right; the battery pigtail ending in an unplugged JST](../resources/bench-board-lora.jpg)
+
+## What this board does
+
+Two jobs, joined by the XIAO in the middle:
+
+```text
+satellites -> GNSS antenna -> L76K-GNSS  --UART, D6/D7-->  XIAO-ESP32S3-lora  --B2B-->  Wio-SX1262 -> LoRa antenna -> air
+              (the square       (works out                  (runs stock                   (the 915 MHz
+               cream tile)       the position)               Meshtastic)                   radio)
+```
+
+- __GNSS — finding where it is.__ The [GNSS antenna](../../hardware/Antennas/Antennas.md) hears the satellites. The [L76K-GNSS](../../hardware/L76K-GNSS/L76K-GNSS.md) turns them into a position and sends it to the XIAO as lines of text, once a second, over two wires. __It only listens; it never transmits.__ It needs to see the sky
+- __LoRa — telling someone.__ Meshtastic on the XIAO takes that position and sends it out through the [Wio-SX1262](../../hardware/Wio-SX1262-LoRa/Wio-SX1262-LoRa.md), a long-range, low-speed radio. __Something has to be listening__: a second Meshtastic node, with a phone on it. There is none yet — [#23](https://github.com/jwilleke/js-rocket-avionics/issues/23)
+
+__No code is written for this board, ever.__ It runs [stock Meshtastic](../../hardware/XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md), pre-flashed, and must never be reflashed. Everything below is settings, changed from the Meshtastic app.
+
+## 1 — Look before power
+
+Nothing is connected to USB or the battery yet.
+
+Both antennas plug on the same way: a thin black cable ending in a tiny gold snap-on plug, a __U.FL__, pressed onto a tiny round gold socket on the board. It clicks on; it is fragile, so pull it off straight up by the plug, never by the cable.
+
+- __The LoRa antenna is plugged into the Wio-SX1262__ — the top board at the head of the breadboard. Its socket is at the bottom right corner of the Wio-SX1262, and in the photograph its black cable runs off to the right. __Never power the board without it.__ A radio that transmits into no antenna can damage itself
+- __The GNSS antenna is plugged into the L76K-GNSS.__ The GNSS antenna is the square cream-coloured tile at the top of the photograph, marked `1584R-A`. Its socket is at the top left corner of the L76K, beside the words `ANT 50mA MAX`
+- __The GNSS antenna lies cream face up__ — the side with the gold border and the round silver dot, toward the sky
+- __The battery is unplugged__ at the white JST. Today is USB only
+- __Nothing joins this breadboard to the cam board__
+
+## 2 — Check the six jumpers
+
+Read off the photograph — __confirm each one on the board__, by the pin's name, not by counting holes. The XIAO sits USB-C up; the L76K sits antenna end up.
+
+| Wire in the photo | From | To |
+|---|---|---|
+| short red, top right | XIAO `3V3`, 3rd pin down on the right | the `+` rail, beside the red line |
+| short grey, top right | XIAO `GND`, 2nd pin down on the right | the `−` rail, beside the blue line |
+| red, at the L76K | L76K `3V3` | the same `+` rail |
+| grey, at the L76K | L76K `GND` | the same `−` rail |
+| orange | XIAO `D6`, bottom pin on the left | L76K `D6`, top pin on the left |
+| long grey loop | XIAO `D7`, bottom pin on the right | L76K `D7`, top pin on the right |
+
+- __Same name to same name.__ D6 goes to the pad labelled for D6, D7 to D7. Seeed's `RX`/`TX` labels will tell you otherwise; ignore them — [bench-wiring.md](../bench-wiring.md#the-lora-board) says why
+- __Nothing on the L76K's `5V`__
+- __The photograph's layout is not the drawing's__ — USB-C up and the L76K below, where [the drawing](bench-breadboard-lora.svg) has them side by side. The wiring is the same; only the placement moved
+
+## 3 — Power it
+
+1. __USB-C into the XIAO__, with a cable that carries data — a charge-only cable powers the board and shows no port
+2. __Check the Mac sees it:__
+
+   ```sh
+   ls /dev/cu.usbmodem*
+   ```
+
+   One line back means it enumerated. Nothing back: another cable, another port. __Stop here if it still does not appear__ — nothing below will work
+
+__Do not press Upload in PlatformIO with this board plugged in.__ PlatformIO's Serial Monitor is safe; Upload would overwrite Meshtastic.
+
+## 4 — Talk to it
+
+Either works:
+
+- __In Chrome on the Mac:__ open <https://client.meshtastic.org>, choose __New Connection → Serial__, pick the `usbmodem` port
+- __On the phone:__ the Meshtastic app, over Bluetooth. A board with no screen pairs on the default PIN, `123456`
+
+__It is alive if it shows a node__ with a name and a firmware version. __Write the version down__ for #6.
+
+> __Never use the web flasher__ (`flasher.meshtastic.org`), or any "update firmware" button, on this board. Reflashing it is the one thing this design rules out.
+
+## 5 — Set the region
+
+__Settings → LoRa → Region → `US`.__ Until this is set the radio stays off; from now on it can transmit, which is why the antenna check came first.
+
+## 6 — Get a GPS fix
+
+1. __Settings → Position → GPS mode → Enabled__, if it is not already
+2. __Take it to a window, better outdoors__, GNSS antenna face up, on USB from a laptop or a power bank. Indoors, deep in a building, it may never get a fix
+3. __Note the time you powered it__, and the time the node first shows a position. That gap is the __time to first fix__ #6 asks for. A first fix after power-up can take minutes
+
+__If no position appears after 15 minutes with open sky__, the question is whether the module or Meshtastic is at fault. [`firmware/gps-check/`](../../firmware/gps-check/) answers it on the __cam__ board, which may be reflashed — unplug this one first.
+
+> __The position on your screen is where you live.__ Do not paste it, a screenshot of the map, or the raw GPS text into an issue or a commit. This repo is public.
+
+## 7 — Power down
+
+Unplug the USB. Nothing else to do: no battery is connected.
+
+## Record on #6
+
+- Enumerated, and the port name
+- Meshtastic firmware version
+- Time to first fix, and indoors or out
+- Satellites used, from the node's details
+
+__Still open on #6 after this page__, and not covered here:
+
+- __The range check__ — needs the receiver, [#23](https://github.com/jwilleke/js-rocket-avionics/issues/23)
+- __Desense__ — whether the radio transmitting spoils the GPS. Needs something transmitting on a schedule, which means #23's pair
+- __On the battery__ — [bench-bringup.md](../bench-bringup.md), and [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) for both boards on one battery

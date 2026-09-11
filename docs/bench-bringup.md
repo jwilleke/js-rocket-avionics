@@ -36,6 +36,8 @@ __[#6](https://github.com/jwilleke/js-rocket-avionics/issues/6)'s mechanical que
 
 __No firmware.__ That is the entire premise of this module: a supported Meshtastic device out of the box. Bring-up here confirms the premise rather than writing code.
 
+__Step by step, from the wired breadboard to a GPS fix: [lora-bench-board.md](bench-work/lora-bench-board.md).__
+
 - Power the matched kit over USB and confirm it __enumerates as Meshtastic, untouched__
 - Get a __GPS fix outdoors__ and record __time to first fix__
 - Range-check the __82 mm U.FL whip__. The beacon is the recovery system, and an untested link is an untested recovery
