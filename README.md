@@ -4,6 +4,8 @@ Carrier PCB and flight firmware for the [js-rocket](https://github.com/jwilleke/
 
 __This is one candidate payload for the rocket, not *the* payload.__ The rocket flies on ballast alone. The interface it has to satisfy — 40.0 mm bore × 150 mm, an M3 × 55 retainer at nose z 15, a ~50 g mass ceiling, an optional camera port — is [`js-rocket/docs/payload-bay.md`](https://github.com/jwilleke/js-rocket/blob/main/docs/payload-bay.md), and that is the only page in that repo this project depends on.
 
+__Flying the rocket, not building it? Read [docs/using-avionics.md](docs/using-avionics.md)__ — what the electronics do, and what to do before, during and after a flight. Everything below is for builders.
+
 Separate from the rocket repo on purpose: `js-rocket` is geometry and documentation with no code, no package manager and no dependencies, and its `CLAUDE.md` says so explicitly. Copper, firmware and __the design record — every decision and why, in [docs/design.md](docs/design.md)__ — live here instead.
 
 __Why it is built this way is in [docs/design.md](docs/design.md).__ __Every part this project needs is in [docs/BOM.md](docs/BOM.md), which is the single source of truth for part numbers and weights__ — plus what each part is, which board it serves, and what was rejected. __What was actually bought is in [docs/shopping-list.md](docs/shopping-list.md)__ — orders, costs, arrival status. The printed sled that carries these boards, and the [PayloadAdapter](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-adapter.md) it loads through, are rocket parts and stay in [js-rocket](https://github.com/jwilleke/js-rocket).
