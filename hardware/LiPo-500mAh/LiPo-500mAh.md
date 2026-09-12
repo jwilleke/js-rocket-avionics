@@ -14,6 +14,28 @@ __One battery feeds both MCUs.__ ~300 mA average at full load, measured by volta
 
 __It is the largest single object in the nose__, and until 2026-09-07 this page recorded no dimension at all, so nothing about packaging could be settled.
 
+### Reading the charge with a meter
+
+__Neither XIAO can tell you__ — `BAT+`/`BAT−` are bare pads with no divider, and Meshtastic's battery figure is a placeholder. A multimeter across the battery's plug can.
+
+__Measure it resting:__ unplugged from everything for at least a minute. Charging pushes the reading up and a load pulls it down, and a battery taken off a load keeps creeping back up for an hour or so.
+
+| Resting voltage | Roughly | |
+|---|---|---|
+| __4.20 V__ | __full__ | the charger's limit. Its light goes out here |
+| 4.05 V | ~85% | |
+| 3.95 V | ~75% | where the #8 run started |
+| 3.80 V | ~50% | __store it here__ if it will sit for weeks — a LiPo ages fastest held full |
+| 3.70 V | ~30% | the "3.7 V" on the label is the average over a discharge, not a charge level |
+| 3.60 V | ~15% | |
+| 3.50 V | ~5% | where the #8 run ended, after 67 minutes at full load |
+| below 3.4 V | empty | recharge now |
+| __3.0 V__ | __never go below__ | a LiPo taken deeply flat may not come back |
+
+__Approximate__ — the curve varies with the battery, its age and temperature, and it is flattest in the middle, so a 0.05 V difference there is a lot of charge. Read the ends of the table with more confidence than the middle.
+
+__Charging, measured on the bench__ (2026-09-12): through XIAO-ESP32S3-cam's USB at ~100 mA, with nothing else drawing, 26 minutes took it from 3.50 to 3.57 V resting. From near empty to full is __about 5 hours__ at that rate. With XIAO-ESP32S3-lora also drawing, it does not charge at all — [Two chargers on one battery](#two-chargers-on-one-battery).
+
 ### Where it goes — on the PayloadSled, forward of the carrier
 
 __Decided__ (operator, 2026-09-07 and 2026-09-08). [`payload-sled.md`](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-sled.md#where-the-cell-goes) owns the placement and every number in it. In outline: flat on the sled's D-flat, resting on the forward disc, long axis along the sled, held by tie wraps, and sticking out past the sled's forward end into the nose taper. __It is forward of the carrier, not on it.__ Drawing: [Battery in the nose taper](https://github.com/jwilleke/js-rocket/blob/main/docs/designs/nose-battery-8548227.html).
