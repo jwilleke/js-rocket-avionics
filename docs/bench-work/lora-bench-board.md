@@ -116,8 +116,8 @@ Unplug the USB. Nothing else to do: no battery is connected.
 - Meshtastic firmware version
 - A fix outdoors — yes or no
 
-__Still open on #6 after this page__, and not covered here:
+__Still open after this page__, and not covered here:
 
 - __The range check__ — needs the receiver, [#23](https://github.com/jwilleke/js-rocket-avionics/issues/23)
-- __Desense__ — whether the radio transmitting spoils the GPS. __Tested in the assembled nose, not here:__ on the bench the two antennas lie wherever their leads fall, so a bench result says little about the flight layout
+- __Desense__ — whether the radio transmitting spoils the GPS. __Tested in the assembled nose, not here__ ([#27](https://github.com/jwilleke/js-rocket-avionics/issues/27)): on the bench the two antennas lie wherever their leads fall, so a bench result says little about the flight layout
 - __On the battery__ — [bench-bringup.md](../bench-bringup.md), and [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) for both boards on one battery
