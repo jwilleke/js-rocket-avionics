@@ -16,7 +16,7 @@ __Read off the board on 2026-09-11__, over USB with the Meshtastic command-line 
 
 | Setting | As delivered | What it means |
 |---|---|---|
-| Firmware | `2.7.15.567b8ea` | stock Meshtastic |
+| Firmware | `2.7.15.567b8ea` | stock Meshtastic. __Updated to `2.7.26.54e0d8d` on 2026-09-12__, settings kept — [update log](../XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md#firmware--stock-meshtastic-only-updated-on-purpose-frozen-for-flight) |
 | Hardware model | `SEEED_XIAO_S3` | the build for this kit |
 | Role | `CLIENT` | the default. Whether the flight node should be a tracker is [#23](https://github.com/jwilleke/js-rocket-avionics/issues/23)'s question |
 | __LoRa region__ | __unset__ | __the radio stays off until it is set.__ Setting it to `US` is step 5 of [the bench page](../../docs/bench-work/lora-bench-board.md) — with the antenna on first |

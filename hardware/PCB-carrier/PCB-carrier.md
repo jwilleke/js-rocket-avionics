@@ -81,7 +81,7 @@ __Everything else is powered by the XIAO it plugs onto__, through that module's 
 __Operator, 2026-09-08.__ For charging alone it makes no difference — both XIAOs have a charger and both sit on the same battery. __The decision is about which port is permanently committed__, because [#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)'s service pigtail occupies whichever one it is wired to:
 
 - __[XIAO-ESP32S3-cam](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md), the Sense stack__ — the only one that reaches the microSD, and the one being reflashed constantly, since its firmware does not exist yet
-- __[XIAO-ESP32S3-lora](../XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md)__ — runs __stock Meshtastic and must never be reflashed__. That is the whole reason there are two modules. A service port on it invites exactly what the two-module split exists to prevent
+- __[XIAO-ESP32S3-lora](../XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md)__ — runs __stock Meshtastic and nothing else__ — [the firmware rule](../XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md#firmware--stock-meshtastic-only-updated-on-purpose-frozen-for-flight). That is the whole reason there are two modules. A service port on it invites exactly what the two-module split exists to prevent
 
 __So XIAO-ESP32S3-lora's USB-C is not used in the flight build.__ __And still one at a time__ — [Two chargers on one battery](../LiPo-500mAh/LiPo-500mAh.md#two-chargers-on-one-battery) is why.
 

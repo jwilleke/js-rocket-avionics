@@ -19,6 +19,8 @@ ls /dev/cu.usbmodem*
 | USB calls itself | `seeed_xiao_s3` | `USB JTAG_serial debug unit` |
 | Phone app | shows up on Bluetooth | nothing |
 
+__Not in bootloader mode.__ While being flashed, __any__ XIAO shows up as `USB JTAG_serial debug unit` on a short port — including this one — so the port name is no guide then. __The chip's MAC is__: the upload tool prints it first, and this one is __`68:ee:8f:60:ca:48`__. Check it before writing anything.
+
 __Mark it__ — a dot on the XIAO's shield — once the Wio-SX1262 is on it, so the question does not come back. The cam copy's identity lasts only until `bringup-cam` is loaded onto it, which replaces the demo.
 
 ## What is mated to it
@@ -27,6 +29,27 @@ __Mark it__ — a dot on the XIAO's shield — once the Wio-SX1262 is on it, so 
 - __[L76K GNSS](../L76K-GNSS/L76K-GNSS.md)__ — UART on __D6/D7__
 
 Runs __stock Meshtastic__, pre-flashed. No firmware is written for it. Version and settings as delivered: [Wio-SX1262-LoRa.md](../Wio-SX1262-LoRa/Wio-SX1262-LoRa.md#meshtastic-as-the-kit-delivered-it).
+
+## Firmware — stock Meshtastic only, updated on purpose, frozen for flight
+
+__The rule__ (operator, 2026-09-12; it replaces "must never be reflashed"): this XIAO carries __only official Meshtastic releases__ for its board, `seeed-xiao-s3` — never our code, never a build of our own. The point is the one it always was: __a recovery beacon our bugs cannot break.__ Updating stock firmware does not threaten that; writing firmware for it would.
+
+- __Update on purpose__, not because the phone app offers one — and not mid-test: a bench check runs on the version it started on
+- __Freeze for flight.__ Pick the version before the flight, put the same one on the ground receiver ([#23](https://github.com/jwilleke/js-rocket-avionics/issues/23)), and do not touch either until after it
+
+__How it is updated__ — the official release bundle and Meshtastic's own update step, done from the Mac:
+
+1. __Back up the settings__: `meshtastic --export-config > private/meshtastic-ca48-config-<version>.yaml`. It holds the channel key, so it goes in `private/`, which git ignores
+2. __Download the release__ from [meshtastic/firmware](https://github.com/meshtastic/firmware/releases): `firmware-esp32s3-<version>.zip`. Take `firmware-seeed-xiao-s3-<version>.bin` and check its MD5 against the bundle's `.mt.json`
+3. __Into bootloader mode__ by a 1200-baud touch on its port, then __check the MAC is `68:ee:8f:60:ca:48`__ — see [which XIAO is this one](#which-xiao-is-this-one)
+4. __Write the program slot only__ — `esptool write-flash 0x10000 firmware-seeed-xiao-s3-<version>.bin`, which is what the bundle's `device-update.sh` does. Settings survive
+5. __Read back__ the version, region, channel and GPS mode. If it boot-loops instead, the fallback is a full erase and install, then `meshtastic --configure` from the backup
+
+__Its memory layout is older than current releases.__ The on-board partition table dates from the version it shipped with (a 2.4 MB program slot); 2.7.26 is built for a 3.3 MB one. The update still fits, and worked. If a future release outgrows the old slot, the update step will not do and a full install is needed — check the `.bin` size against the slot first.
+
+| Date | From → to | How | Result |
+|---|---|---|---|
+| 2026-09-12 | `2.7.15.567b8ea` → __`2.7.26.54e0d8d`__ | program slot only, from the Mac | boots; region, channel, key, Bluetooth and GPS settings all kept. Backup: `private/meshtastic-ca48-config-2.7.15.yaml` |
 
 ## Heights
 
@@ -71,7 +94,7 @@ __On battery power there is no voltage on the 5V pin__, so nothing can be fed fr
 
 __Both XIAO chargers sit in parallel on one battery — charge through one USB port at a time.__
 
-> __This module's USB-C is not used in the flight build__ (operator, 2026-09-08). Charging and service go through the [Sense stack](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) instead, because __this module runs stock Meshtastic and must never be reflashed__ — which is the whole reason there are two of them. Its port is reachable only by taking the nose apart. See [PCB-carrier.md](../PCB-carrier/PCB-carrier.md#charge-through-the-sense-stack-and-only-that-one).
+> __This module's USB-C is not used in the flight build__ (operator, 2026-09-08). Charging and service go through the [Sense stack](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) instead, because __this module runs stock Meshtastic and nothing else__ ([the firmware rule](#firmware--stock-meshtastic-only-updated-on-purpose-frozen-for-flight)) — which is the whole reason there are two of them. Its port is reachable only by taking the nose apart. See [PCB-carrier.md](../PCB-carrier/PCB-carrier.md#charge-through-the-sense-stack-and-only-that-one).
 
 __Reversing a LiPo into a XIAO destroys it.__ The carrier silkscreens the pigtail polarity.
 

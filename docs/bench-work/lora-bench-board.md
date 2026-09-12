@@ -22,7 +22,7 @@ satellites -> GNSS antenna -> L76K-GNSS  --UART, D6/D7-->  XIAO-ESP32S3-lora  --
 - __GNSS — finding where it is.__ The [GNSS antenna](../../hardware/Antennas/Antennas.md) hears the satellites. The [L76K-GNSS](../../hardware/L76K-GNSS/L76K-GNSS.md) turns them into a position and sends it to the XIAO as lines of text, once a second, over two wires. __It only listens; it never transmits.__ It needs to see the sky
 - __LoRa — telling someone.__ Meshtastic on the XIAO takes that position and sends it out through the [Wio-SX1262](../../hardware/Wio-SX1262-LoRa/Wio-SX1262-LoRa.md), a long-range, low-speed radio. __Something has to be listening__: a second Meshtastic node, with a phone on it. There is none yet — [#23](https://github.com/jwilleke/js-rocket-avionics/issues/23)
 
-__No code is written for this board, ever.__ It runs [stock Meshtastic](../../hardware/XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md), pre-flashed, and must never be reflashed. Everything below is settings, changed from the Meshtastic app.
+__No code is written for this board, ever.__ It runs [stock Meshtastic](../../hardware/XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md), pre-flashed, and only ever stock Meshtastic. Everything below is settings, changed from the Meshtastic app.
 
 ## 1 — Look before power
 
@@ -80,7 +80,7 @@ __One connection at a time.__ While the phone is connected over Bluetooth, the b
 
 __It is alive if it shows a node__ with a name and a firmware version. __Write the version down__ for #6.
 
-> __Never use the web flasher__ (`flasher.meshtastic.org`), or any "update firmware" button, on this board. Reflashing it is the one thing this design rules out.
+> __Do not take the phone app's "update firmware" offer mid-test.__ Updates are done on purpose, from the Mac, by [the firmware rule](../../hardware/XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md#firmware--stock-meshtastic-only-updated-on-purpose-frozen-for-flight) — stock releases only, settings backed up first. Loading anything that is not stock Meshtastic is the one thing this design rules out.
 
 ## 5 — A private channel, then the region
 
