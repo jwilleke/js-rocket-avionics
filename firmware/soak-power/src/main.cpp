@@ -42,6 +42,7 @@
 #include "FS.h"
 #include <SPI.h>
 #include "SD.h"
+#include <Preferences.h>
 
 // ---- configuration, all overridable from platformio.ini --------------------
 #ifndef SOAK_FRAMESIZE
@@ -88,6 +89,18 @@ static const int SD_SCK = 7, SD_MISO = 8, SD_MOSI = 9, SD_CS = 21;
 RTC_NOINIT_ATTR static uint32_t rtc_magic;
 RTC_NOINIT_ATTR static uint32_t rtc_boots;
 static const uint32_t RTC_MAGIC = 0x50575231;   // "PWR1"
+
+// ---- reset history in NVS, independent of the card --------------------------
+// Bench, 2026-09-12: a reset in the middle of a card write left the card
+// unmountable until its power was cut. The event this project hunts is a reset,
+// so the card cannot be the only record of it. Every boot appends its reset
+// reason, and the uptime the previous boot reached, to a 32-entry ring in NVS;
+// every boot prints the ring. Uptime is saved every 30 s -- ~120 NVS writes an
+// hour, nothing against the flash's endurance.
+static Preferences nvs;
+struct BootRec { uint8_t reason; uint32_t prev_up_s; };
+static const int HIST = 32;
+static uint32_t last_up_save = 0;
 
 static uint32_t boot_id  = 0;
 static uint32_t cycle    = 0;
@@ -223,7 +236,24 @@ void setup() {
   }
   boot_id = ++rtc_boots;
 
+  // NVS history first -- before the card, which may not come back after a reset
+  nvs.begin("soak", false);
+  BootRec hist[HIST] = {};
+  nvs.getBytes("hist", hist, sizeof hist);
+  uint32_t head = nvs.getUInt("head", 0);
+  uint32_t prev_up = nvs.getUInt("up_s", 0);
+  hist[head % HIST] = { (uint8_t)why, prev_up };
+  nvs.putBytes("hist", hist, sizeof hist);
+  nvs.putUInt("head", head + 1);
+  nvs.putUInt("up_s", 0);
+
   Serial.println(F("\n=== soak-power : shared-battery load test, #8 ==="));
+  Serial.println(F("NVS reset history, oldest first (reason, uptime the boot before reached):"));
+  for (uint32_t i = (head + 1 > HIST ? head + 1 - HIST : 0); i <= head; i++) {
+    const BootRec &r = hist[i % HIST];
+    Serial.printf("  #%-4u %-9s previous boot ran %u s\n", (unsigned)i,
+                  reset_name((esp_reset_reason_t)r.reason), (unsigned)r.prev_up_s);
+  }
   Serial.printf("reset reason %s, boot %u\n", reset_name(why), (unsigned)boot_id);
   if (why == ESP_RST_BROWNOUT) {
     Serial.println(F("*** BROWNOUT. That is the finding #8 is looking for. ***"));
@@ -237,7 +267,12 @@ void setup() {
 #endif
 
   SPI.begin(SD_SCK, SD_MISO, SD_MOSI, SD_CS);
-  have_sd = SD.begin(SD_CS, SPI, 20000000);   // 20 MHz: 475 KB/s on the bench; the 4 MHz default managed 123
+  // A card caught mid-write by a reset can refuse to mount for a while; retry
+  // before giving up, and say so -- a run without the card is serial-only.
+  for (int tries = 0; tries < 5 && !have_sd; tries++) {
+    if (tries) { SD.end(); delay(1000); }
+    have_sd = SD.begin(SD_CS, SPI, 20000000);   // 20 MHz: 475 KB/s on the bench; the 4 MHz default managed 123
+  }
   if (!have_sd) {
     Serial.println(F("microSD did not mount -- serial only, so a reset loses"));
     Serial.println(F("the run. Fix the card before spending a charge on this."));
@@ -263,6 +298,7 @@ void setup() {
 #endif
   s += ",,,," + String(ESP.getFreeHeap()) + "," + String(ESP.getFreePsram());
   log_line(s);
+  if (prev_up) log_line("# previous boot ran " + String(prev_up) + " s before a " + reset_name(why) + " reset");
 }
 
 void loop() {
@@ -288,6 +324,10 @@ void loop() {
   esp_camera_fb_return(fb);
 
   cycle++;
+  if (millis() - last_up_save >= 30000) {       // uptime for the next boot to report
+    last_up_save = millis();
+    nvs.putUInt("up_s", millis() / 1000);
+  }
 
   int lo = 0, hi = 0, now_mv = 0;
 #ifdef SOAK_VBAT_PIN

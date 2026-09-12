@@ -34,6 +34,14 @@ The battery lands on a __JST-PH on the carrier__, toward its forward end, and sh
 - __Reversing a LiPo into a XIAO destroys it__ — [design.md](../../docs/design.md) requires the pigtail polarity be silkscreened. Seeed's wiki: __BAT− is the pad nearer the USB-C__
 - __The battery is mechanically restrained, never hangs off the JST.__ On the sled that is the tie wraps. __The JST is a connector, not a mount__
 
+### On the bench — the join harness
+
+![The bench join harness: one JST plug for the battery, soldered and heat-shrunk into two plugs, one for each XIAO's pigtail](pigtail-joinharness.jpg)
+
+__What the carrier's JST does in copper, this does on the bench__ (operator, 2026-09-12): one plug takes the battery, and two plugs take the XIAOs' pigtails. Each joint is under its own heat-shrink.
+
+> __The battery's JST and the XIAO pigtails' JSTs are wired opposite ways.__ Mated as bought, red met black. The harness is built with its wires crossed to correct it, and was checked with a meter — 3.95 V at each XIAO plug, red positive. __This is the trap the carrier's owed check — JST pin 1 against the battery's red lead — exists for__ ([PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#checks-owed-before-building)): JST-PH housings do not fix a polarity, and two parts that both look right can disagree. Check with a meter, every new cable.
+
 ### Two chargers on one battery
 
 __The general rule is: do not parallel two boards' BAT pads onto one pack, because each board has its own charger.__ This design breaks it deliberately. Both XIAOs' BAT pads are wired to the one battery, which saves a charge IC and the ~8 g of a second battery. So the rule is not "don't", it is __what has to hold for it to be safe__.
