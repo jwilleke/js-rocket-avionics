@@ -124,7 +124,7 @@ __Everything else about it belongs to [Arming-switch.md](../hardware/Arming-swit
 
 __The camera is not on SPI.__ The OV3660 uses a __DVP parallel bus__ (14 GPIO) plus I2C/SCCB for control, with frames landing in PSRAM by DMA. What touches SPI is *writing those frames to the microSD*.
 
-__SD latency is unbounded.__ Cards run wear-levelling and garbage collection at will; a normally-2 ms write can take __100–250 ms__, spec-legally — and __the card in hand stalled 570–731 ms__ on the bench, 2026-09-12 ([microSD.md](../hardware/microSD/microSD.md#on-the-bench)).
+__SD latency is unbounded.__ Cards run wear-levelling and garbage collection at will; a normally-2 ms write can take __100–250 ms__, spec-legally — and __the card in hand stalled up to 1 191 ms__ on the bench, 2026-09-12 ([microSD.md](../hardware/microSD/microSD.md#on-the-bench)).
 
 __Internal flash is worse.__ Writing ESP32 internal flash __disables the instruction cache__. A 4 KB sector erase takes ~20–40 ms, during which code executing *from* flash stalls, including ISRs not marked `IRAM_ATTR`. At 500 Hz the sample period is 2 ms, so one erase silently drops __10–20 samples__ — during boost, where the data matters most.
 
@@ -239,7 +239,7 @@ Each flight adds one thing, and the recovery beacon is proven before anything ex
 1. __Bench prototype before layout.__ Breadboard both populations. Prove XIAO-ESP32S3-lora enumerates as a Meshtastic device untouched, and that XIAO-ESP32S3-cam boots with camera, SD and I2C sensors live, with the strapping pins (GPIO3, 43, 44) behaving.
 2. __Confirm the silicon matches the label__ before designing footprints round it — see [module-pinouts.md](module-pinouts.md).
 3. __PCB bring-up__ — power, then XIAO-ESP32S3-lora: GPS UART and LoRa; then XIAO-ESP32S3-cam: I2C enumeration and camera. __Measure GPS lock time with the LoRa transmitting__, since desense cannot be reasoned about from a schematic.
-4. __Sample-rate integrity under load__ — run XIAO-ESP32S3-cam's 500 Hz sampler with the camera recording to SD and confirm __zero dropped samples__ by checking timestamp deltas, not by trusting the loop.
+4. __Sample-rate integrity under load__ — run XIAO-ESP32S3-cam's 500 Hz sampler with the camera recording to SD and confirm __zero dropped samples__ by checking timestamp deltas, not by trusting the loop. __Done on the bench, 2026-09-12: zero dropped__ at 833 Hz accel + gyro for 60 s while recording, judged by the FIFO's own overrun flag — [camera-stack.md](../hardware/camera-stack/camera-stack.md#at-flight-load--stack-load-test). Repeat on the carrier and on the battery ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)).
 5. __Shared-battery behaviour__ — confirm the camera's inrush on XIAO-ESP32S3-cam does not brown out XIAO-ESP32S3-lora, and that charging through one USB port with both BAT pads connected behaves.
 6. __Buzzer audibility, assembled__ — beep inside a closed Nosecone and listen from 20 m. A sealed cavity costs 20–30 dB; couple the disc harder to the shell before considering a dedicated sound hole.
 7. __Mass__ — weigh the loaded sled and hand the real number to the rocket's stability re-run, [#9](https://github.com/jwilleke/js-rocket/issues/9). __Do not fly on the estimate.__

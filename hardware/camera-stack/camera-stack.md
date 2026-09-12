@@ -25,6 +25,27 @@ __So the back face stays open__, and with it `BAT+`/`BAT−`. The expansion boar
 
 __The camera is not fixed by the stack.__ It hangs off the expansion board on a flexible ribbon, so its position is set by where the ribbon is routed and clamped, not by the stack's geometry.
 
+## At flight load — [`stack-load-test/`](stack-load-test/)
+
+__A PlatformIO project for this assembly__, not one part: the LSM6DSO32 (accel and gyro at 833 Hz) and the BMP388 (25 Hz) sampled into PSRAM while the camera records 800 × 600 video to the card, all at once — [design.md](../../docs/design.md#verification)'s item 4. Flash it onto XIAO-ESP32S3-cam (`mj-cam`) with the Sense board and a card fitted, never with XIAO-ESP32S3-lora plugged in.
+
+__2026-09-12, 60 s, freshly formatted 64 GB card:__
+
+| | Result |
+|---|---|
+| __IMU while recording__ | __zero dropped__ — 47 762 accel + 47 762 gyro words at 796 Hz, no FIFO overrun, deepest FIFO 6 words, slowest loop 3 ms. BMP388 25.0 Hz |
+| Video | 23.6 fps, 486 KB/s; __71 of 1 489 frames dropped on purpose__ when the card fell behind |
+| Worst card write | __1 191 ms__ |
+| Log flush after | 669 KB in 0.4 s, read back byte for byte |
+
+__Three rules the recorder ([#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)) inherits — each cost a reset to learn:__
+
+1. __The card writer yields every frame.__ Draining a backlog back-to-back starved `IDLE0` and the task watchdog reset the board
+2. __Never hold every camera buffer.__ Queue at most two fewer frames than the driver has; when the card falls behind, drop frames and count them. Holding them all left the driver spinning on `FB-OVF` until the watchdog fired
+3. __A reset in the middle of a card write can leave the card dead until its power is cut__ — `f_mount failed: (3)` until the USB was unplugged. In flight, one reset can cost the video after it as well as the PSRAM log
+
+__No buffer covers the card's stalls__ — 570 ms, 798 ms, then 1 191 ms on successive runs — so the recorder drops frames rather than waits. A fresh format did not stop them; it is the card.
+
 ## Height
 
 __10.72 mm__ from the bottom of the XIAO's PCB — 8.22 mm of assembled stack plus the headers' 2.50 mm, camera excluded. That is the figure the nose bore budget in [design.md](../../docs/design.md) is built on.

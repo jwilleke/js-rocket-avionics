@@ -6,7 +6,7 @@ __Video only, and already in hand.__ Rides the Sense expansion board on XIAO-ESP
 
 __Video only.__ Nothing else is written to the card during flight — the flight log buffers in PSRAM and flushes after landing. That makes this a __sequential write__ job and a speed-class question; __no A1/A2 or pSLC rating is needed__.
 
-__It cannot carry the flight log.__ SD write latency is unbounded — wear-levelling and garbage collection make a normally-2 ms write take __100–250 ms__, spec-legally, and __this card was measured stalling 570–731 ms__ ([on the bench](#on-the-bench)). At 500 Hz that is hundreds of samples lost during boost.
+__It cannot carry the flight log.__ SD write latency is unbounded — wear-levelling and garbage collection make a normally-2 ms write take __100–250 ms__, spec-legally, and __this card was measured stalling up to 1 191 ms__ ([on the bench](#on-the-bench)). At 500 Hz that is hundreds of samples lost during boost.
 
 ## On the bench
 
@@ -19,7 +19,9 @@ __Mount it over SPI, CS on GPIO21__ — `SPI.begin(7, 8, 9, 21)` then `SD.begin(
 | 4 MHz (default) | 123 KB/s | 6.4 fps | 143 / __731 ms__ | 8.6 s |
 | __20 MHz__ | __475 KB/s__ | __24.7 fps__ | 27 / __570 ms__ | __1.05 s__ |
 
-__The worst stall is the design number.__ Over half a second, at either clock — 2–3× the 100–250 ms design.md assumed. A recorder writing video must hold __at least ~0.6 s of frames in PSRAM__ to ride one out ([#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)); the flight log never touches the card until landing, which is why it is safe.
+__The worst stall is the design number__ — and it keeps growing: 570 and 731 ms here, then __798 ms and 1 191 ms__ under the full camera-stack load, the last on a freshly formatted card ([camera-stack.md](../camera-stack/camera-stack.md#at-flight-load--stack-load-test)). That is up to 5× the 100–250 ms design.md assumed. No sensible PSRAM queue covers it, so __a video recorder drops frames rather than waits__ ([#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)); the flight log never touches the card until landing, which is why it is safe.
+
+__Card in hand: 64 GB__ (SDXC), formatted FAT32 with 32 KB clusters — formatted in place by `mj-cam` on 2026-09-12, after two resets mid-write left it slow and then unmountable until power-cycled.
 
 > __The card is the more durable of the two records.__ If XIAO-ESP32S3-cam resets in flight the PSRAM log is gone entirely and __the SD video survives__. Worth remembering when deciding what the firmware writes and when.
 
