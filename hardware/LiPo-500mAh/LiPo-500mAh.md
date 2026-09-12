@@ -46,7 +46,8 @@ __Charging, measured on the bench__ (2026-09-12), through XIAO-ESP32S3-cam's USB
 |---|---|
 | 16:23 | 3.50 V — charging starts |
 | 16:49 | 3.57 V |
-| 17:32 | __3.64 V__ — ~15–20% |
+| 17:32 | 3.64 V — ~15–20% |
+| 18:43 | __3.83 V__ — ~55%, after ~2 h 20 min of charging: ~115 mA × 2.3 h ≈ 270 mAh, which fits |
 
 __Empty to full is about 4.5 hours__ at that rate, the slow top-off included. With XIAO-ESP32S3-lora also drawing, it does not charge at all — so XIAO-ESP32S3-lora draws __more than ~115 mA__ ([Two chargers on one battery](#two-chargers-on-one-battery)).
 
@@ -59,7 +60,7 @@ __Decided__ (operator, 2026-09-07 and 2026-09-08). [`payload-sled.md`](https://g
 What that decides on this side:
 
 - __The JST goes toward the carrier's forward end.__ The lead leaves the battery's aft end, just forward of the carrier, so the 80 mm has slack to spare and the forward end keeps the run shortest. Placement is [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)'s
-- __The battery is not reachable without pulling the sled.__ Changing it, or charging it on its own charger, means the M3 × 55 out and the sled pushed out of the nose ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)). And charging on the carrier through USB __does not work__ with the beacon connected ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)), so every charge means reaching the battery — see [Two chargers on one battery](#two-chargers-on-one-battery)
+- __The battery is not reachable without pulling the sled.__ Changing it, or charging it on its own charger, means the M3 × 55 out and the sled pushed out of the nose ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)). Charging on the carrier through USB __did not work__ with XIAO-ESP32S3-lora connected ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)); the carrier's switch that takes it off the battery while USB is in ([#11](https://github.com/jwilleke/js-rocket-avionics/issues/11)) is what makes field charging work — see [Two chargers on one battery](#two-chargers-on-one-battery)
 - __The tie wraps restrain it, never the JST__
 
 ## Distribution
