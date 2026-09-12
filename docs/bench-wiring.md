@@ -91,7 +91,7 @@ Each step is testable before the next one can hide its mistake.
 3. __Push the XIAO in across the centre channel__, USB-C to the left. Seven columns; the module bridges the gap so its two rows are on separate nodes.
 4. __Two jumpers to the rails:__ `3V3` (pin 12) to the red rail, `GND` (pin 13) to the blue. Anywhere in the same column works — a column of five holes is one connection.
 5. __Power the board over USB alone__ and confirm it enumerates. Stop here if it does not.
-6. __Sensors in, then their power__, then the two bus wires from `D4` and `D5`. Run [`bringup-cam`](../firmware/bringup-cam/): the I2C scan either finds `0x77` and `0x6A` or it does not.
+6. __Sensors in, then their power__, then the two bus wires from `D4` and `D5`. Run [`bringup-cam`](../firmware/bringup-cam/): the I2C scan either finds `0x77` and `0x6A` or it does not. __Count the pins from the USB-C end — `D4` is the fifth, `D5` the sixth.__ The first build landed both wires one pin short, on D3/D4 (2026-09-12). If the scan finds nothing while both sensors' power LEDs are lit, run [`i2c-find`](../firmware/i2c-find/): it names the pins the wires are actually on.
 7. __Buzzer last of the signal wiring__, one leg to `D0`, one to ground.
 8. __The battery last of all__, and only once everything above passes on USB.
 

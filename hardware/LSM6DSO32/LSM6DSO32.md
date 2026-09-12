@@ -19,13 +19,26 @@ __The gyro is not the apogee sensor.__ The accelerometer is. The gyro exists so 
 
 Why this part rather than another, and the ±16 g parts it rules out, is in [design.md](../../docs/design.md#sensor-rationale).
 
+## On the bench
+
+__2026-09-12__, on [XIAO-ESP32S3-cam](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md#on-the-bench), by [`bringup-cam`](../../firmware/bringup-cam/) ([#7](https://github.com/jwilleke/js-rocket-avionics/issues/7)):
+
+| | Read | Means |
+|---|---|---|
+| Address, `WHO_AM_I` | `0x6A`, `0x6C` | the LSM6DSO32, answering with `CS` unconnected — the breakout holds it high ([#19](https://github.com/jwilleke/js-rocket-avionics/issues/19)) |
+| `CTRL1_XL` | `0x74` | 833 Hz, `FS = 01` — __±32 g on this part__, where `11` would be ±16 |
+| At rest, flat | 0.04, −0.05, __1.02 g__ | 1 g on Z: the scale is right |
+| FIFO | 81 words in 100 ms | 833 Hz batching into the FIFO, continuous mode |
+
+Its power LED is __green__.
+
 ## Mounting
 
 __Flat, not perpendicular, and held by both its pin rows — no screws__ (operator, 2026-09-11). The Primary row is soldered on one edge and the __Aux row on the other__, which gives __two-point restraint__ across the board: what boost loading wants, and what a cantilevered header cannot offer. The part is too light to need more. On the carrier it sits on the __low side, lengthwise__, behind the L76K-GNSS ([PCB-carrier.md](../PCB-carrier/PCB-carrier.md)). Flat also stacks low against the __19.7 mm__ available at the bore centre.
 
 __Straight kit-standard headers, not right-angle.__ The board stands ~1 mm proud of the carrier on both rows' pins, header plastic up against the part, so the plastic clears the solder joints of the modules on the carrier's other side. Same part on the bench and in flight — soldered once, never removed. Settled in [module-pinouts.md](../../docs/module-pinouts.md#the-header-is-a-straight-kit-standard-strip--settled-2026-09-08), which owns it.
 
-__Four of the fourteen pads carry signal__ — `VIN`, `GND`, `SCL`, `SDA` on the Primary row. `DO`, `CS`, `I1`, `I2` and the whole 5-pin Aux row carry no signal — the Aux row is soldered for mechanical support only: no second sensor hangs off the auxiliary bus, and __no interrupt line exists anywhere in this design__, so the FIFO is read by polling rather than on `I1`. `CS` floating is [#19](https://github.com/jwilleke/js-rocket-avionics/issues/19).
+__Four of the fourteen pads carry signal__ — `VIN`, `GND`, `SCL`, `SDA` on the Primary row. `DO`, `CS`, `I1`, `I2` and the whole 5-pin Aux row carry no signal — the Aux row is soldered for mechanical support only: no second sensor hangs off the auxiliary bus, and __no interrupt line exists anywhere in this design__, so the FIFO is read by polling rather than on `I1`. `CS` floating is fine — the breakout holds it high ([#19](https://github.com/jwilleke/js-rocket-avionics/issues/19), [on the bench](#on-the-bench)).
 
 __Module footprint, not the bare chip.__ A bare LSM6DSO32 is an __LGA-14 at 2.5 × 3 mm__ and is not hand-solderable.
 

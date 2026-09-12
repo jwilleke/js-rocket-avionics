@@ -8,7 +8,25 @@ __It arrived with no headers soldered on__ — the Sense kit ships its two 7-pin
 
 - __[Sense camera board](../Sense-camera-board/Sense-camera-board.md)__ — OV3660 camera and the microSD slot
 
-Sensors reach it over __I2C on D4/D5__; the buzzer is __PWM on D0__. Firmware is __custom and not yet started__.
+Sensors reach it over __I2C on D4/D5__; the buzzer is __PWM on D0__. Flight firmware is __custom and not yet started__ ([#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)); the bench runs [`bringup-cam`](../../firmware/bringup-cam/).
+
+## On the bench
+
+![XIAO-ESP32S3-cam on its breadboard, USB-C to the left, with the BMP388, the LSM6DSO32 and the buzzer wired to it, and no Sense board fitted. Photographed with the two I2C wires one pin short, on D3/D4](2026-09-12-XIAO-ESP32S3-cam-bench.jpg)
+
+__This XIAO's chip MAC is `e0:72:a1:fa:41:30`__ — USB serial number `E0:72:A1:FA:41:30`. It ran Seeed's factory demo until 2026-09-12, when `bringup-cam` replaced it. [Which XIAO is which](../XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md#which-xiao-is-this-one).
+
+__The photograph shows a wiring slip, since fixed.__ The two I2C wires sat on __D3/D4__, one pin short of D4/D5. `bringup-cam` then reports *nothing on the bus* while both sensors' power LEDs are lit. [`i2c-find`](../../firmware/i2c-find/) located them — pull-ups on D3 and D4, both sensors answering there — and moving each wire one pin away from the USB-C fixed it. __Count pins from the USB-C end: D0 is the first, D4 the fifth.__
+
+__Bring-up, 2026-09-12__ ([#7](https://github.com/jwilleke/js-rocket-avionics/issues/7)), on USB, no Sense board:
+
+| Check | Result |
+|---|---|
+| I2C | BMP388 at `0x77` and LSM6DSO32 at `0x6A`, no clash — details on each part's page |
+| IMU at ±32 g, FIFO running | __pass__ — see [LSM6DSO32.md](../LSM6DSO32/LSM6DSO32.md#on-the-bench) |
+| PSRAM | present, 8 384 784 bytes free |
+| Camera + microSD | __not run__ — no Sense board fitted. The camera driver then says `Detected camera not supported` (`0x106`), not "not found": __misleading, it means nothing is there__ |
+| Buzzer | __works__ — measured by microphone, not by ear; strongest at 4 kHz. See [PS1240-buzzer.md](../PS1240-buzzer/PS1240-buzzer.md#on-the-bench--measured-not-listened-to) |
 
 ## Heights
 

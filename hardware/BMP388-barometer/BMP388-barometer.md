@@ -40,10 +40,12 @@ __Four are used: 1, 3, 4, 6__ — VIN, GND, SCL, SDA. Address __0x77__, no clash
 
 ## Four traps, all documented before bring-up
 
-- __CS must be HIGH to select I2C.__ CS low puts a BMP3xx into SPI mode. If it does not enumerate at 0x77, __check CS first__ — it is the most likely cause
+- __CS must be HIGH to select I2C.__ CS low puts a BMP3xx into SPI mode. If it does not enumerate at 0x77, __check CS first__ — it is the most likely cause. __On this breakout the board's own pull-up does it__: with `CS` unconnected it answered at `0x77`, chip ID `0x50`, on the bench 2026-09-12 ([#19](https://github.com/jwilleke/js-rocket-avionics/issues/19)). The carrier ties it to +3V3 anyway
 - __SDO selects the address, it is not data.__ High = 0x77 (default, jumper open), low = 0x76
 - __Power to VIN, never 3Vo.__ 3Vo is the on-board regulator's *output*; back-feeding it kills the LDO
 - __Ignore the seller's wiring diagram.__ It is SPI — SCL/SDO/SDA/CS to Arduino 13/12/11/10, the hardware SPI pins — and following it wastes a bench session
+
+__On the bench, 2026-09-12:__ chip ID `0x50` — a BMP388, not a BMP390 (`0x60`) or a BMP280 clone. Its power LED is __white__ ([XIAO-ESP32S3-cam.md](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md#on-the-bench)).
 
 ## Dimensions
 

@@ -12,9 +12,10 @@ __Plug it into the Mac alone and read the port name:__
 ls /dev/cu.usbmodem*
 ```
 
-| | This one — XIAO-ESP32S3-lora | The cam copy, as delivered |
+| | This one — XIAO-ESP32S3-lora | [The cam copy](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md#on-the-bench) |
 |---|---|---|
-| Runs | __stock Meshtastic__, as the kit shipped it | Seeed's factory demo: prints `Hello from Seeed Studio XIAO ESP32-S3 Sense`, then a camera error |
+| __Chip MAC__ — the one sure test | __`68:ee:8f:60:ca:48`__ | __`e0:72:a1:fa:41:30`__ |
+| Runs | __stock Meshtastic__, as the kit shipped it | `bringup-cam` since 2026-09-12. Before that, Seeed's factory demo: `Hello from Seeed Studio XIAO ESP32-S3 Sense`, then a camera error |
 | Port name | __long, letters and digits__, ending `CA481` — its serial number `…CA48` plus `1` | __short, digits only__, e.g. `usbmodem31101` — it changes with the USB socket |
 | USB calls itself | `seeed_xiao_s3` | `USB JTAG_serial debug unit` |
 | Phone app | shows up on Bluetooth | nothing |

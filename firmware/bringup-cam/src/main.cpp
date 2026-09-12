@@ -38,7 +38,7 @@
 #include <SPI.h>
 #include "esp_camera.h"
 #include "FS.h"
-#include "SD_MMC.h"
+#include "SD.h"
 
 // ---- pins ------------------------------------------------------------------
 // D-numbers are the silkscreen labels; the GPIOs are what the compiler wants.
@@ -47,8 +47,10 @@ static const int PIN_SDA    = 5;    // D4
 static const int PIN_SCL    = 6;    // D5
 static const int PIN_BUZZER = 1;    // D0
 
-// microSD on the Sense board is SD_MMC in 1-bit mode, not SPI.
-static const int SD_CLK = 7, SD_CMD = 9, SD_D0 = 8;
+// microSD on the Sense board, over SPI with CS on GPIO21 -- Seeed's own wiring
+// and the method in their examples. An earlier revision used SD_MMC 1-bit on
+// 7/9/8, which leaves CS (the card's DAT3) to chance at power-up.
+static const int SD_SCK = 7, SD_MISO = 8, SD_MOSI = 9, SD_CS = 21;
 
 // OV3660 on the Sense board. NOTE: this repo said OV2640 everywhere until the
 // part was read off the ribbon 2026-09-06 and answered PID 0x3660. The pin map
@@ -229,8 +231,8 @@ static void step_camera() {
   sensor_t *s = esp_camera_sensor_get();
   if (s) Serial.printf("    sensor PID 0x%04X (OV3660 = 0x3660)\n", s->id.PID);
 
-  SD_MMC.setPins(SD_CLK, SD_CMD, SD_D0);
-  if (!SD_MMC.begin("/sdcard", true)) {       // true = 1-bit mode
+  SPI.begin(SD_SCK, SD_MISO, SD_MOSI, SD_CS);
+  if (!SD.begin(SD_CS)) {
     Serial.println(F("    microSD did not mount. Card seated? FAT32?"));
     return;
   }
@@ -238,7 +240,7 @@ static void step_camera() {
   camera_fb_t *fb = esp_camera_fb_get();
   if (!fb) { Serial.println(F("    capture returned nothing")); return; }
 
-  File f = SD_MMC.open("/bringup.jpg", FILE_WRITE);
+  File f = SD.open("/bringup.jpg", FILE_WRITE);
   if (f) {
     f.write(fb->buf, fb->len);
     f.close();
@@ -274,7 +276,7 @@ static void step_buzzer() {
   for (int i = 0; i < 2; i++) beep(1200, 400);
   Serial.println(F("    Silence means the piezo is ACTIVE, not passive --"));
   Serial.println(F("    an active buzzer wants DC and ignores PWM."));
-  pass_beep = true;                    // audible, so the operator is the judge
+  pass_beep = true;                    // no way to hear it from here: you judge
 }
 
 void setup() {
@@ -293,8 +295,9 @@ void setup() {
   Serial.println(F("\n=== #7 acceptance criteria ==="));
   Serial.printf("  both sensors enumerate and stream        %s\n", pass_i2c  ? "PASS" : "FAIL");
   Serial.printf("  IMU at +/-32 g with FIFO active          %s\n", pass_imu  ? "PASS" : "FAIL");
-  Serial.printf("  video to microSD, log flushed and read   %s\n", pass_cam  ? "PASS" : "FAIL");
-  Serial.printf("  two distinguishable beep patterns        %s\n", pass_beep ? "PASS" : "FAIL");
+  Serial.printf("  one camera frame to microSD              %s\n", pass_cam  ? "PASS" : "FAIL");
+  Serial.println(F("    (video and a flushed PSRAM log are not tested here yet)"));
+  Serial.println(F("  two distinguishable beep patterns        YOU JUDGE -- did you hear both?"));
   Serial.println(F("\nRecord the result on #7. A FAIL here is a finding, not a setback."));
 }
 

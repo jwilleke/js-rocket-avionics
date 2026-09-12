@@ -40,7 +40,7 @@ __These pages hold no part numbers and no masses.__ [BOM.md](../docs/BOM.md) own
 | | Page | Goes with | Photos | What it is |
 |---|---|---|---|---|
 | MCU | [XIAO-ESP32S3-lora.md](XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md) | — | grid | The MCU module. __Runs stock Meshtastic__ — identical to the cam copy to look at; [which is which](XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md#which-xiao-is-this-one) |
-| MCU | [XIAO-ESP32S3-cam.md](XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) | — | grid | The MCU module. __No headers soldered__ |
+| MCU | [XIAO-ESP32S3-cam.md](XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) | — | grid + bench | The MCU module. On the bench with both sensors and the buzzer; runs `bringup-cam` |
 | Payload | [Sense-camera-board.md](Sense-camera-board/Sense-camera-board.md) | XIAO-ESP32S3-cam | grid ×2 | OV3660 camera and the microSD slot |
 | Radio | [Wio-SX1262-LoRa.md](Wio-SX1262-LoRa/Wio-SX1262-LoRa.md) | XIAO-ESP32S3-lora | grid | LoRa. Buy as the matched kit, never separately |
 | GNSS | [L76K-GNSS.md](L76K-GNSS/L76K-GNSS.md) | XIAO-ESP32S3-lora | grid | Position. __Flat on the carrier's tall side__, own footprint |
@@ -72,6 +72,7 @@ __Each part's images live in that part's folder__, beside its page; the two shar
 | [`Wio-SX1262-LoRa-antennas.jpg`](Wio-SX1262-LoRa/Wio-SX1262-LoRa-antennas.jpg) | Antennas | Both Seeed strips, to scale |
 | [`XIAO-ESP32S3-module.jpg`](../docs/resources/XIAO-ESP32S3-module.jpg) | XIAO ×2 | The MCU board. USB-C, U.FL, B2B, 14 pads |
 | [`XIAO-ESP32-S3-bottom.jpg`](../docs/resources/XIAO-ESP32-S3-bottom.jpg) | XIAO ×2 | __The pin labels.__ Underside, where the silkscreen is — the only reading that confirms pad 1 is `D0`. See [module-pinouts.md](../docs/module-pinouts.md#xiao-esp32s3--read-off-the-underside-2026-09-08) |
+| [`2026-09-12-XIAO-ESP32S3-cam-bench.jpg`](XIAO-ESP32S3-cam/2026-09-12-XIAO-ESP32S3-cam-bench.jpg) | XIAO-ESP32S3-cam | __Bench, not grid.__ The cam breadboard, sensors and buzzer wired, no Sense board — with the I2C wires on D3/D4, the slip since fixed |
 | [`XIAO-ESP32S3-Sense-expansion.jpg`](Sense-camera-board/XIAO-ESP32S3-Sense-expansion.jpg) | Sense | Camera and microSD board |
 | [`XIAO-ESP32S3-Sense-stack-end.jpg`](camera-stack/XIAO-ESP32S3-Sense-stack-end.jpg) | camera-stack | __End-on.__ Settled that the expansion board mates to the front face and sits above |
 | [`XIAO-ESP32S3-Sense-stack-side.jpg`](camera-stack/XIAO-ESP32S3-Sense-stack-side.jpg) | camera-stack | The same assembly from the side |
