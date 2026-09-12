@@ -18,14 +18,14 @@ __Planned, not yet written.__ The recorder firmware on XIAO-ESP32S3-cam is __not
 
 | Data | From | Recorded? | Where it ends up |
 |---|---|---|---|
-| Acceleration and rotation | [LSM6DSO32](hardware/LSM6DSO32/LSM6DSO32.md), XIAO-ESP32S3-cam | __planned__ — 500 Hz, read from the sensor's FIFO | held in PSRAM through the flight (~900 KB a minute), __written to microSD after landing__ |
+| Acceleration and rotation | [LSM6DSO32](hardware/LSM6DSO32/LSM6DSO32.md), XIAO-ESP32S3-cam | __planned__ — 500 Hz, read from the sensor's FIFO | PSRAM through the flight (~900 KB a minute), __written to microSD in slices as it goes__ |
 | Pressure, so altitude | [BMP388](hardware/BMP388-barometer/BMP388-barometer.md), XIAO-ESP32S3-cam | __planned__ — in the same log | the same |
-| Video | OV3660 on the [Sense camera board](hardware/Sense-camera-board/Sense-camera-board.md), XIAO-ESP32S3-cam | __planned__ | microSD, as it records |
+| Video | OV3660 on the [Sense camera board](hardware/Sense-camera-board/Sense-camera-board.md), XIAO-ESP32S3-cam | __planned__ — from arming until landing is detected | microSD, as it records |
 | Position and GPS altitude | [L76K-GNSS](hardware/L76K-GNSS/L76K-GNSS.md), XIAO-ESP32S3-lora | __no__ — broadcast over LoRa by stock Meshtastic every so often, stored nowhere on the rocket | the ground receiver and the phone on it — [#23](https://github.com/jwilleke/js-rocket-avionics/issues/23), ordered 2026-09-11 |
 
 __Two things that follow:__
 
-- __A reset of XIAO-ESP32S3-cam in flight loses the whole sensor log.__ It lives in PSRAM until the landing flush; the video on the card survives. Whether the shared battery browns it out is [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)
+- __A reset of XIAO-ESP32S3-cam in flight loses the slice of the sensor log not yet on the card__ — the rest is already written. Whether the shared battery browns it out is [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)
 - __The sensor log has no GPS in it.__ The two XIAOs share power and nothing else, so position and motion are never in one record
 
 Why the log sits in PSRAM rather than going straight to the card: [design.md](docs/design.md#data-path--why-the-log-lives-in-psram).

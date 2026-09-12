@@ -17,7 +17,7 @@ Related: [BOM.md](BOM.md) (parts and masses) · [shopping-list.md](shopping-list
 | Camera | __OV3660__ on the Sense expansion board — __confirmed off the ribbon 2026-09-06__, having been recorded as an OV2640 throughout | Estes AstroCam was considered and dropped |
 | Barometric static port | __Dropped__ | See below |
 | Apogee method | __Inertial primary__; GPS anchor by __offline timestamp merge__, not real time | The cost of putting GPS on the stock-Meshtastic board |
-| Flight log storage | __Buffer in PSRAM during flight, flush after landing__ | Both flash and microSD stall the 500 Hz sampler mid-boost |
+| Flight log storage | __Buffer in PSRAM, and write it to the card in slices as it goes__ (operator, 2026-09-12) | The sampler never writes the card itself — a separate writer task does, so a card stall delays the slice, never a sample |
 | Power | __One battery__ to a carrier JST, distributed to each XIAO's __underside BAT pads by soldered pigtail__. __Charge through one USB port at a time__ | BAT is not on the castellated edge, so it cannot come through the headers. Avoids adding a charge IC |
 | Arming | __In the battery line__, not on a GPIO — and __flight 3 flies without one__ (2026-09-08). Mechanism and status: [Arming-switch.md](../hardware/Arming-switch/Arming-switch.md) | Physically cuts power; zero pins; cuts both modules at once. Deferred rather than replaced: __nothing else takes the role__ |
 | Antennas | __Both off-board on U.FL__ — GPS patch forward-facing, LoRa 82 mm whip up the ogive | A GPS patch needs a 30–40 mm ground plane; a 24 mm board never will be |
@@ -128,14 +128,18 @@ __SD latency is unbounded.__ Cards run wear-levelling and garbage collection at 
 
 __Internal flash is worse.__ Writing ESP32 internal flash __disables the instruction cache__. A 4 KB sector erase takes ~20–40 ms, during which code executing *from* flash stalls, including ISRs not marked `IRAM_ATTR`. At 500 Hz the sample period is 2 ms, so one erase silently drops __10–20 samples__ — during boost, where the data matters most.
 
-__So: buffer in PSRAM, flush after landing.__
+__So: the sampler writes only to PSRAM.__
 
 ```text
 500 Hz x ~30 B x 60 s  =  900 KB
 ESP32-S3R8 PSRAM       =  8 MB
 ```
 
-The whole flight fits roughly nine times over. Zero flash writes and zero SD writes during flight; the landing detector triggers the flush.
+The whole flight fits roughly nine times over.
+
+__And the log goes to the card in slices as it is recorded__ (operator, 2026-09-12, [#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)). The sampler never touches the card: a separate writer task, the one that writes the video, copies each new slice from PSRAM to the card, and the PSRAM copy stays whole until landing. A card stall delays a slice and costs no sample — measured: zero dropped at 833 Hz accel + gyro while the card stalled up to 1.2 s ([camera-stack.md](../hardware/camera-stack/camera-stack.md#at-flight-load--stack-load-test)). What slicing buys is a reset: it now costs only the slice not yet written, not the flight. This replaces "zero SD writes in flight, flush on landing", which assumed one thread doing everything.
+
+__Video runs from arming until landing is detected__, then stops (operator, 2026-09-12). One battery feeds the beacon too, and the camera and card are its largest load; recording on would spend the battery recovery depends on.
 
 ## Sensor rationale
 
@@ -248,7 +252,7 @@ Each flight adds one thing, and the recovery beacon is proven before anything ex
 
 - __One board carries both MCUs.__ A layout bug takes the beacon and the recorder together — the cost of a single carrier. Firmware and MCU failures are still isolated; only the copper is shared.
 - __No real-time GPS anchor for the inertial log.__ GPS sits on the stock-Meshtastic board, which broadcasts position at a low rate and will not set the `airborne <4g` dynamic model, so lock may drop under boost. Altitude integration is anchored by an __offline timestamp merge__, which is weaker. Cross-linking a UART would fix it and would stop XIAO-ESP32S3-lora being stock, defeating the purpose.
-- __A PSRAM-only log is lost if XIAO-ESP32S3-cam resets.__ Nothing is on non-volatile media until the landing flush. A brownout, watchdog reset or hard landing costs the whole flight's telemetry while the SD video survives. Mitigate with checkpoint flushes during the low-rate descent phase, never during boost.
+- __A reset of XIAO-ESP32S3-cam loses the slice not yet on the card__ — no longer the whole flight, now the log is written in slices. Two bench findings make resets worth designing out: a task that never yields trips the watchdog, and a reset mid-write can leave the card unmountable until power-cycled ([camera-stack.md](../hardware/camera-stack/camera-stack.md#at-flight-load--stack-load-test)).
 - __The PCB is on the critical path.__ Sled geometry derives from its outline and mounting holes, so a layout revision reprints the sled. Freeze the outline early; breadboard before committing to copper.
 - __GPS desense from the LoRa transmitter__ cannot be reasoned away on paper. ≥50 mm antenna separation and both antennas on U.FL are the mitigations; verification step 3 is the proof.
 - __Shared battery couples the boards.__ A camera brownout could disturb XIAO-ESP32S3-lora. Separate batteries would isolate them at +8 g, which the mass budget cannot afford.

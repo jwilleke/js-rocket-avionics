@@ -1,12 +1,12 @@
 # microSD card
 
-__Video only, and already in hand.__ Rides the Sense expansion board on XIAO-ESP32S3-cam's SPI.
+__Video and the flight log's slices, and already in hand.__ Rides the Sense expansion board on XIAO-ESP32S3-cam's SPI.
 
 ## What it holds
 
-__Video only.__ Nothing else is written to the card during flight — the flight log buffers in PSRAM and flushes after landing. That makes this a __sequential write__ job and a speed-class question; __no A1/A2 or pSLC rating is needed__.
+__Video, from arming until landing, and the flight log in slices__ (operator, 2026-09-12, [#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)). The sampler writes only PSRAM; a writer task copies the log to the card a slice at a time, alongside the video. Both are __sequential writes__ — a speed-class question; __no A1/A2 or pSLC rating is needed__.
 
-__It cannot carry the flight log.__ SD write latency is unbounded — wear-levelling and garbage collection make a normally-2 ms write take __100–250 ms__, spec-legally, and __this card was measured stalling up to 1 191 ms__ ([on the bench](#on-the-bench)). At 500 Hz that is hundreds of samples lost during boost.
+__It cannot be in the sampler's path.__ SD write latency is unbounded — wear-levelling and garbage collection make a normally-2 ms write take __100–250 ms__, spec-legally, and __this card was measured stalling up to 1 191 ms__ ([on the bench](#on-the-bench)). At 500 Hz that is hundreds of samples lost during boost.
 
 ## On the bench
 

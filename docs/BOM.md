@@ -86,7 +86,7 @@ Both ride one two-sided carrier PCB, on its tall side, with the sensors on the o
 | __7-pin headers__ | Two per XIAO, onto its 14 pads in two rows __17.0 mm apart__ — __not__ a dual-row 2×7, whose rows are 2.54 mm apart. Standard height, __~2.50 mm standoff__, which is all that is needed: the expansion board sits __above__ the XIAO, not below it |
 | __LiPo 500 mAh__ | One battery feeds both MCUs. Over an hour against ~300 mA |
 | __Arming switch__ | Inline in the battery lead, zero pins. __Nothing bought and no part chosen__, so the 1.5 g is inherited from a superseded design and is the least trustworthy number on this page. Mechanism and status: [Arming-switch.md](../hardware/Arming-switch/Arming-switch.md) |
-| __microSD__ | __Video only, and in hand.__ The old A1/A2 / pSLC requirement was written when the sampler wrote to the card in flight; __PSRAM buffering removed that__. What is left is sequential video write — a speed-class question, not a random-IOPS one |
+| __microSD__ | __Video and the log's slices, and in hand.__ The old A1/A2 / pSLC requirement was written when the sampler wrote to the card in flight; __PSRAM buffering removed that__. What is left is sequential video write — a speed-class question, not a random-IOPS one |
 
 ## Deliberately excluded
 
