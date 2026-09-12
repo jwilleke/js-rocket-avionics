@@ -1,6 +1,6 @@
 # LiPo battery
 
-__One battery feeds both MCUs.__ Over an hour against a ~300 mA draw.
+__One battery feeds both MCUs.__ ~300 mA average at full load, measured by voltage and time — ~100 minutes from full ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)).
 
 ## The part
 
@@ -21,7 +21,7 @@ __Decided__ (operator, 2026-09-07 and 2026-09-08). [`payload-sled.md`](https://g
 What that decides on this side:
 
 - __The JST goes toward the carrier's forward end.__ The lead leaves the battery's aft end, just forward of the carrier, so the 80 mm has slack to spare and the forward end keeps the run shortest. Placement is [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)'s
-- __The battery is not reachable without pulling the sled.__ Changing it, or charging it on its own charger, means the M3 × 55 out and the sled pushed out of the nose ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)). So charging on the carrier through USB has to work, and [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) measures whether it does — see [Two chargers on one battery](#two-chargers-on-one-battery)
+- __The battery is not reachable without pulling the sled.__ Changing it, or charging it on its own charger, means the M3 × 55 out and the sled pushed out of the nose ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)). And charging on the carrier through USB __does not work__ with the beacon connected ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)), so every charge means reaching the battery — see [Two chargers on one battery](#two-chargers-on-one-battery)
 - __The tie wraps restrain it, never the JST__
 
 ## Distribution
@@ -56,7 +56,11 @@ __One port at a time removes that fight. It does not make charging normal, becau
 - __The charger never terminates.__ It stops when its current falls below 0.9 mA, and XIAO-ESP32S3-lora's draw keeps it far above that. So the battery sits at 4.2 V for as long as the cable is in, and __the red LED never goes out__. The usual "charged" signal does not exist in this configuration
 - __It cannot overcharge.__ The 4.2 V limit is the charger's own and still holds. So the failure is a battery that does not fill, or ages from sitting at 4.2 V. It is not a fire
 
-__What would settle it is one bench measurement__, and it belongs with [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8): put a meter in series with the battery at the JST, plug in XIAO-ESP32S3-cam's USB with XIAO-ESP32S3-lora running, and read the current into the battery. A clearly positive reading means one-at-a-time charging works, only slowly. Near zero or negative means the battery has to be charged off the carrier, on its own charger, and with the battery on the sled that costs pulling the sled every time.
+__Measured, 2026-09-12 — it does not charge.__ No meter could go in series at the JSTs, so it was measured by resting voltage instead: XIAO-ESP32S3-cam on USB, both boards on the battery, XIAO-ESP32S3-lora running Meshtastic. Over __1 h 25 min the battery fell from 3.5 V to 3.4 V__ — XIAO-ESP32S3-lora's draw exceeds the ~100 mA the charger gives ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)).
+
+__So the battery is charged off the carrier, on its own charger__ — unplugged from the JST. The beacon cannot be switched off (there is no arming switch), so while it is connected it eats the charge. With the battery on the sled, that costs reaching the JST every time ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)).
+
+__A second trap found the same day: the JST joins both boards' BAT pads, so USB into either XIAO powers both.__ Unplugging one board's USB does not power it down while the other is plugged in — which is why the microSD, jammed by a reset mid-write, stayed jammed until both were out.
 
 ### The pigtail is the fragile part, and the solder joint must not be the anchor
 
@@ -75,11 +79,13 @@ So the wire is anchored to the board, and the joint carries current only:
 
 __No connector at the pad end.__ A connector there would put mass and leverage on the weakest joint in the assembly, which is the opposite of what is wanted. The disconnect belongs at the far end and already exists — the JST.
 
-## The known risk, still unobserved
+## The known risk, observed: no brownout at bench load
 
 [BOM.md](../../docs/BOM.md) accepts a coupling failure in writing: __*"a camera brownout on B can disturb A."*__ [design.md](../../docs/design.md) repeats it — separate batteries would isolate the boards but cost ~8 g the mass budget cannot afford.
 
-__That is a prediction, not a measurement, and the thing it threatens is the radio link.__ A camera write that resets XIAO-ESP32S3-lora mid-descent costs the rocket, not the video. Settling it is [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) — run both boards off one battery with the camera active, on a __partially discharged battery__ where sag is worst, and produce a verdict: acceptable, needs decoupling on the carrier, or needs the second battery after all.
+__Measured on the bench, 2026-09-12 ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)): neither board reset.__ Both boards on this battery through the join harness, XIAO-ESP32S3-cam running `soak-power` flat out — 82 925 capture-and-write cycles in __67 minutes__, 1.8 GB to the card — and XIAO-ESP32S3-lora transmitting a Range Test packet every 15 s. The battery went from __3.95 V to ~3.5 V resting__, nearly empty, which is the partly-discharged case this risk is about. XIAO-ESP32S3-cam's reset history and XIAO-ESP32S3-lora's uptime both show one unbroken run.
+
+__Verdict: coupling acceptable at bench load; no decoupling added and no second battery.__ Repeat it on the carrier — its copper and shared ground differ from two breadboards and a harness — and once from a full charge to time the runtime.
 
 __If decoupling is the answer it lands in the layout before the board is ordered__, not after.
 

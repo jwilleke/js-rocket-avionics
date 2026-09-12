@@ -27,7 +27,7 @@ __The rocket flies fine without any of it.__ The electronics find it and record 
 | Recording video and flight data | __proven on the bench, not written as a flight program yet__ ([#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)) |
 | Status on the pad — "ready", "recording" | __not decided__: beeps, or a phone screen ([#25](https://github.com/jwilleke/js-rocket-avionics/issues/25)) |
 | Getting the video off without opening the nose | __planned__ — phone over Bluetooth, then Wi-Fi ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)) |
-| Charging without opening the nose | __not solved__ ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)) |
+| Charging without opening the nose | __does not work__ — the beacon uses more than the charger gives; charge the battery on its own ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1), [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)) |
 
 __Until those rows say "works", treat the rest of this page as the plan.__
 
@@ -39,7 +39,7 @@ __Until those rows say "works", treat the rest of this page as the plan.__
 
 ## Before launch day
 
-1. __Charge the battery__ — through the camera computer's USB-C port only, __never both boards at once__. Today that means before the nose is assembled
+1. __Charge the battery on its own__ — unplugged from the rocket, on a LiPo charger (or through the camera computer's USB with the beacon unplugged). __Charging it while it is connected to both boards does not work__: the beacon uses more than the charger gives, and the battery goes down, not up
 2. __Leave the battery unplugged.__ Plugging it in turns everything on, and the clock starts
 3. __Charge the receiver's power bank__ and your phone
 4. __Check the receiver works__: power it, open the app, and see the rocket's node when the rocket is powered
@@ -48,7 +48,7 @@ __Until those rows say "works", treat the rest of this page as the plan.__
 
 __There is no on/off switch on this rocket. Plugging in the battery is "on".__
 
-1. __Plug the battery in last__, on the pad, then load the electronics into the nose and close it. From this moment you have roughly __100 minutes__ before the battery runs down — an estimate, not yet measured. __Do not plug in early and then wait__
+1. __Plug the battery in last__, on the pad, then load the electronics into the nose and close it. From this moment you have roughly __100 minutes__ before a fully charged battery runs down — measured roughly on the bench, not yet timed from full. __Do not plug in early and then wait__
 2. __Power the receiver__ and open the Meshtastic app. The rocket's node should appear, and once its GPS has the sky, its position
 3. __Check the rocket is alive__ — how, exactly, is not decided yet ([#25](https://github.com/jwilleke/js-rocket-avionics/issues/25)). The planned answer is a status you can read on your phone, not only beeps
 4. __Launch.__ If the launch is delayed past about an hour, the battery is the problem: getting it out means opening the nose, which also unhooks the recovery cord
