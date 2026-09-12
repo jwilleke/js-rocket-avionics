@@ -34,7 +34,23 @@ __Measure it resting:__ unplugged from everything for at least a minute. Chargin
 
 __Approximate__ — the curve varies with the battery, its age and temperature, and it is flattest in the middle, so a 0.05 V difference there is a lot of charge. Read the ends of the table with more confidence than the middle.
 
-__Charging, measured on the bench__ (2026-09-12): through XIAO-ESP32S3-cam's USB at ~100 mA, with nothing else drawing, 26 minutes took it from 3.50 to 3.57 V resting. From near empty to full is __about 5 hours__ at that rate. With XIAO-ESP32S3-lora also drawing, it does not charge at all — [Two chargers on one battery](#two-chargers-on-one-battery).
+__Charging, measured on the bench__ (2026-09-12), through XIAO-ESP32S3-cam's USB with XIAO-ESP32S3-lora unplugged — an inline USB power meter on the cable:
+
+| USB meter, 5.15 V | Current |
+|---|---|
+| XIAO-ESP32S3-cam + charging the battery | __~200 mA__ |
+| XIAO-ESP32S3-cam alone, idle, battery unplugged | __~83 mA__ (0.081–0.086 A) |
+| __So the charger puts in__ | __~115–120 mA__ — a little above Seeed's 100 mA for the Sense |
+
+| Time | Resting voltage |
+|---|---|
+| 16:23 | 3.50 V — charging starts |
+| 16:49 | 3.57 V |
+| 17:32 | __3.64 V__ — ~15–20% |
+
+__Empty to full is about 4.5 hours__ at that rate, the slow top-off included. With XIAO-ESP32S3-lora also drawing, it does not charge at all — so XIAO-ESP32S3-lora draws __more than ~115 mA__ ([Two chargers on one battery](#two-chargers-on-one-battery)).
+
+__Measure the battery, not the pigtail.__ With the battery unplugged and USB in, the XIAO's BAT pigtail read __4.03 V__ — that is the charger idling with nothing to charge, looking for a battery (the same reason its light flashes), not a charge level.
 
 ### Where it goes — on the PayloadSled, forward of the carrier
 
