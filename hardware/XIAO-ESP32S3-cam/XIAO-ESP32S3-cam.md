@@ -18,14 +18,14 @@ __This XIAO's chip MAC is `e0:72:a1:fa:41:30`__ — USB serial number `E0:72:A1:
 
 __The photograph shows a wiring slip, since fixed.__ The two I2C wires sat on __D3/D4__, one pin short of D4/D5. `bringup-cam` then reports *nothing on the bus* while both sensors' power LEDs are lit. [`i2c-find`](../../firmware/i2c-find/) located them — pull-ups on D3 and D4, both sensors answering there — and moving each wire one pin away from the USB-C fixed it. __Count pins from the USB-C end: D0 is the first, D4 the fifth.__
 
-__Bring-up, 2026-09-12__ ([#7](https://github.com/jwilleke/js-rocket-avionics/issues/7)), on USB, no Sense board:
+__Bring-up, 2026-09-12__ ([#7](https://github.com/jwilleke/js-rocket-avionics/issues/7)), on USB — first without the Sense board, then with it:
 
 | Check | Result |
 |---|---|
 | I2C | BMP388 at `0x77` and LSM6DSO32 at `0x6A`, no clash — details on each part's page |
 | IMU at ±32 g, FIFO running | __pass__ — see [LSM6DSO32.md](../LSM6DSO32/LSM6DSO32.md#on-the-bench) |
 | PSRAM | present, 8 384 784 bytes free |
-| Camera + microSD | __not run__ — no Sense board fitted. The camera driver then says `Detected camera not supported` (`0x106`), not "not found": __misleading, it means nothing is there__ |
+| Camera + microSD | __pass__, second run with the Sense board and a FAT32 card: OV3660 (`0x3660`), 800 × 600 JPEG written — [Sense-camera-board.md](../Sense-camera-board/Sense-camera-board.md), [microSD.md](../microSD/microSD.md#on-the-bench). With no Sense board the driver says `Detected camera not supported` (`0x106`), not "not found": __misleading, it means nothing is there__ |
 | Buzzer | __works__ — measured by microphone, not by ear; strongest at 4 kHz. See [PS1240-buzzer.md](../PS1240-buzzer/PS1240-buzzer.md#on-the-bench--measured-not-listened-to) |
 
 ## Heights

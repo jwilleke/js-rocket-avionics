@@ -13,8 +13,10 @@ Camera and card. It is XIAO-ESP32S3-cam's only payload; everything else on that 
 | Carrier face | XIAO-ESP32S3-cam's — with LSM6DSO32, BMP388 and the buzzer |
 | Position | __centred at carrier y = 18 mm__, which is what puts the camera at nose z 30..45 |
 | Camera | __OV3660__ on a __DVP parallel bus__ — 14 GPIO plus I2C/SCCB for control. Frames land in PSRAM by DMA |
-| microSD | SPI, on the expansion board |
+| microSD | SPI, on the expansion board — SCK GPIO7, MISO GPIO8, MOSI GPIO9, __CS GPIO21__ (shared with the user LED). Seeed's wiring, and what works: [microSD.md](../microSD/microSD.md#on-the-bench) |
 | PSRAM | __8 MB__ on the XIAO (ESP32-S3R8) — where frames land |
+
+__On the bench, 2026-09-12__ ([#7](https://github.com/jwilleke/js-rocket-avionics/issues/7)): the camera answers __PID `0x3660`__ over SCCB — the OV3660, read off the part, not the listing — and `bringup-cam` captured an __800 × 600 JPEG, 18 320 bytes__, and wrote it to the card. Without this board fitted, the camera driver reports `Detected camera not supported` (`0x106`) rather than "not found".
 
 __Which carrier face is which sled azimuth is unsettled__, and it now matters: the Nosecone port is at azimuth 270° ([#13](https://github.com/jwilleke/js-rocket-avionics/issues/13)).
 

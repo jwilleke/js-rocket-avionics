@@ -40,7 +40,8 @@
 #include <esp_system.h>
 #include "esp_camera.h"
 #include "FS.h"
-#include "SD_MMC.h"
+#include <SPI.h>
+#include "SD.h"
 
 // ---- configuration, all overridable from platformio.ini --------------------
 #ifndef SOAK_FRAMESIZE
@@ -60,7 +61,9 @@ static const char *LOG_PATH = "/soak-power.csv";
 
 // ---- pins, from docs/module-pinouts.md and bringup-cam ---------------------
 static const int PIN_BUZZER = 1;                 // D0
-static const int SD_CLK = 7, SD_CMD = 9, SD_D0 = 8;   // Sense microSD, 1-bit
+// Sense microSD over SPI, CS on GPIO21 -- Seeed's wiring, proven by bringup-cam
+// on 2026-09-12. SD_MMC 1-bit on 7/9/8 was never run and leaves CS to chance.
+static const int SD_SCK = 7, SD_MISO = 8, SD_MOSI = 9, SD_CS = 21;
 
 #define CAM_PIN_XCLK   10
 #define CAM_PIN_SIOD   40
@@ -148,7 +151,7 @@ static const char *reset_name(esp_reset_reason_t r) {
 static void log_line(const String &line) {
   Serial.println(line);
   if (!have_sd) return;
-  File f = SD_MMC.open(LOG_PATH, FILE_APPEND);
+  File f = SD.open(LOG_PATH, FILE_APPEND);
   if (!f) { have_sd = false; return; }
   f.println(line);
   f.close();
@@ -156,8 +159,8 @@ static void log_line(const String &line) {
 
 static void soak_open_log() {
   if (!have_sd) return;
-  if (SD_MMC.exists(LOG_PATH)) return;
-  File f = SD_MMC.open(LOG_PATH, FILE_WRITE);
+  if (SD.exists(LOG_PATH)) return;
+  File f = SD.open(LOG_PATH, FILE_WRITE);
   if (!f) { have_sd = false; return; }
   // boot      increments once per power-up or reset, from RTC memory when it
   //           survived; count the rows to get the true number
@@ -233,8 +236,8 @@ void setup() {
   xTaskCreatePinnedToCore(vbat_task, "vbat", 2048, nullptr, 1, nullptr, 0);
 #endif
 
-  SD_MMC.setPins(SD_CLK, SD_CMD, SD_D0);
-  have_sd = SD_MMC.begin("/sdcard", true);            // true = 1-bit mode
+  SPI.begin(SD_SCK, SD_MISO, SD_MOSI, SD_CS);
+  have_sd = SD.begin(SD_CS);
   if (!have_sd) {
     Serial.println(F("microSD did not mount -- serial only, so a reset loses"));
     Serial.println(F("the run. Fix the card before spending a charge on this."));
@@ -277,7 +280,7 @@ void loop() {
   uint32_t t1 = millis();
   size_t wrote = 0;
   if (have_sd) {
-    File f = SD_MMC.open(path, FILE_WRITE);
+    File f = SD.open(path, FILE_WRITE);
     if (f) { wrote = f.write(fb->buf, fb->len); f.close(); }
   }
   uint32_t write_ms = millis() - t1;
