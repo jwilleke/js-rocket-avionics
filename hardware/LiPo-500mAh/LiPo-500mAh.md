@@ -58,7 +58,7 @@ __One port at a time removes that fight. It does not make charging normal, becau
 
 __Measured, 2026-09-12 — it does not charge.__ No meter could go in series at the JSTs, so it was measured by resting voltage instead: XIAO-ESP32S3-cam on USB, both boards on the battery, XIAO-ESP32S3-lora running Meshtastic. Over __1 h 25 min the battery fell from 3.5 V to 3.4 V__ — XIAO-ESP32S3-lora's draw exceeds the ~100 mA the charger gives ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)).
 
-__So the battery is charged off the carrier, on its own charger__ — unplugged from the JST. The beacon cannot be switched off (there is no arming switch), so while it is connected it eats the charge. With the battery on the sled, that costs reaching the JST every time ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)).
+__Fixed in the carrier design, 2026-09-12__ ([#11](https://github.com/jwilleke/js-rocket-avionics/issues/11)): while USB is in XIAO-ESP32S3-cam, a MOSFET switches XIAO-ESP32S3-lora off the battery, so the charge goes in — [PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#xiao-esp32s3-lora-off-the-battery-while-usb-is-in--decided-not-yet-in-the-generator). That restores charging through the service pigtail. __Until the carrier exists, charge the battery on its own__ — unplugged from the JST, or through XIAO-ESP32S3-cam's USB with XIAO-ESP32S3-lora unplugged from the harness.
 
 __A second trap found the same day: the JST joins both boards' BAT pads, so USB into either XIAO powers both.__ Unplugging one board's USB does not power it down while the other is plugged in — which is why the microSD, jammed by a reset mid-write, stayed jammed until both were out.
 

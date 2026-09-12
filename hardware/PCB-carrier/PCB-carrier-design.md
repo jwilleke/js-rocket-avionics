@@ -47,6 +47,19 @@ __The bridge__ is unchanged in principle: its fins stand beside the board's edge
 
 __One regulator per load.__ XIAO-ESP32S3-cam feeds the +3V3 plane and the sensors; XIAO-ESP32S3-lora feeds only the L76K-GNSS, on its own net, off the plane. __One board means no battery link__ between boards: the JST feeds both XIAOs' BAT pigtail pads directly. The connection table is in the [README](../../README.md#connections).
 
+### XIAO-ESP32S3-lora off the battery while USB is in — decided, not yet in the generator
+
+__Operator, 2026-09-12 ([#11](https://github.com/jwilleke/js-rocket-avionics/issues/11)).__ Charging in the nose did not work: with USB in XIAO-ESP32S3-cam, XIAO-ESP32S3-lora kept drawing from the battery and out-drew the cam's ~100 mA charger — the battery fell 3.5 → 3.4 V in 1 h 25 min ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)). That would have ended field charging through the service pigtail. __The fix: while USB is in XIAO-ESP32S3-cam, XIAO-ESP32S3-lora is switched off the battery__, so nothing drains it and the whole charge goes in.
+
+- __A P-channel MOSFET, high side, in XIAO-ESP32S3-lora's battery feed__ — source to `VBAT`, drain to XIAO-ESP32S3-lora's BAT pigtail pad. It takes the Wio-SX1262 and the L76K-GNSS down with it, which draw through that XIAO
+- __Its gate reads XIAO-ESP32S3-cam's `5V` pin__, through a resistor, with a pull-down (~100 kΩ) to `GND`. `5V` carries USB power whenever USB is in — directly or through the service pigtail — and nothing on the battery. USB in: gate at 5 V, above the battery, FET off. USB out: gate pulled low, FET on. No wire added to the service pigtail, no switch to reach
+- __Body diode points the safe way__: with the FET off, the battery cannot feed XIAO-ESP32S3-lora through it
+- __It must never cut XIAO-ESP32S3-lora in flight.__ With no USB there is nothing to pull the gate up; the one way it could is the pull-down failing open, leaving the gate floating. Choose a resistor that fails safe, and bench-test the switch before copper
+- __The two `5V` pins still never meet__ — this is a sense connection to the gate, not a power path
+- __Owed before it is drawn:__ the part — a logic-level P-FET that is fully on at a 3.3 V battery (SOT-23 class, tens of mΩ) — and a bench check with the harness: USB in, XIAO-ESP32S3-lora goes dark and the battery's resting voltage climbs; USB out, XIAO-ESP32S3-lora boots
+
+__This should have been caught at design time.__ [LiPo-500mAh.md](../LiPo-500mAh/LiPo-500mAh.md#two-chargers-on-one-battery) wrote down on 2026-09-10 that the net charge "may be near zero" and deferred it to a measurement, instead of designing it out. The measurement found it before copper; it should not have needed to.
+
 ### Two data links, each behind an open jumper — decided, not yet in the generator
 
 __Operator, 2026-09-12 ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)).__ Both are nice-to-have, so the copper is built now and the features are chosen later. Each link runs through a __standard 2-pin 2.54 mm header with a slide-on shunt__: shunt off, the boards are exactly as isolated as without the link; shunt on, the feature is available to firmware.
