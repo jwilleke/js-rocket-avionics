@@ -6,13 +6,20 @@ __Video only, and already in hand.__ Rides the Sense expansion board on XIAO-ESP
 
 __Video only.__ Nothing else is written to the card during flight — the flight log buffers in PSRAM and flushes after landing. That makes this a __sequential write__ job and a speed-class question; __no A1/A2 or pSLC rating is needed__.
 
-__It cannot carry the flight log.__ SD write latency is unbounded — wear-levelling and garbage collection make a normally-2 ms write take __100–250 ms__, spec-legally. At 500 Hz that is hundreds of samples lost during boost.
+__It cannot carry the flight log.__ SD write latency is unbounded — wear-levelling and garbage collection make a normally-2 ms write take __100–250 ms__, spec-legally, and __this card was measured stalling 570–731 ms__ ([on the bench](#on-the-bench)). At 500 Hz that is hundreds of samples lost during boost.
 
 ## On the bench
 
 __2026-09-12__, in the Sense camera board's slot, FAT32: `bringup-cam` mounted it and wrote `/bringup.jpg` ([#7](https://github.com/jwilleke/js-rocket-avionics/issues/7)).
 
-__Mount it over SPI, CS on GPIO21__ — `SPI.begin(7, 8, 9, 21)` then `SD.begin(21)`, as Seeed's own examples do. The first `bringup-cam` used `SD_MMC` in 1-bit mode on 7/9/8, which leaves the card's CS/DAT3 line to chance at power-up; it was switched before it ever ran. Write speed has not been measured — it matters for video, and is [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)'s and [#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)'s to find.
+__Mount it over SPI, CS on GPIO21__ — `SPI.begin(7, 8, 9, 21)` then `SD.begin(21)`, as Seeed's own examples do. The first `bringup-cam` used `SD_MMC` in 1-bit mode on 7/9/8, which leaves the card's CS/DAT3 line to chance at power-up; it was switched before it ever ran. __Run the SPI clock at 20 MHz, not the library's 4 MHz default.__ Measured by `bringup-cam`, 800 × 600 JPEG frames and a 1 MB flush:
+
+| SPI clock | Throughput | Video | Write per frame, mean / worst | 1 MB flush |
+|---|---|---|---|---|
+| 4 MHz (default) | 123 KB/s | 6.4 fps | 143 / __731 ms__ | 8.6 s |
+| __20 MHz__ | __475 KB/s__ | __24.7 fps__ | 27 / __570 ms__ | __1.05 s__ |
+
+__The worst stall is the design number.__ Over half a second, at either clock — 2–3× the 100–250 ms design.md assumed. A recorder writing video must hold __at least ~0.6 s of frames in PSRAM__ to ride one out ([#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)); the flight log never touches the card until landing, which is why it is safe.
 
 > __The card is the more durable of the two records.__ If XIAO-ESP32S3-cam resets in flight the PSRAM log is gone entirely and __the SD video survives__. Worth remembering when deciding what the firmware writes and when.
 

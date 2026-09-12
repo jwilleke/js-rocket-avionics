@@ -6,9 +6,9 @@ A sketch carries its build configuration in IDE menu state — which board, whet
 
 | Project | For | State |
 |---|---|---|
-| [`bringup-cam/`](bringup-cam/) | [XIAO-ESP32S3-cam](../hardware/XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) + [Sense-camera-board](../hardware/Sense-camera-board/Sense-camera-board.md) bench bring-up, [#7](https://github.com/jwilleke/js-rocket-avionics/issues/7) | __run 2026-09-12__: I2C, IMU, and one camera frame to microSD (SPI, CS on GPIO21) all pass. Video and a flushed PSRAM log are not in it yet |
+| [`bringup-cam/`](bringup-cam/) | [XIAO-ESP32S3-cam](../hardware/XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) + [Sense-camera-board](../hardware/Sense-camera-board/Sense-camera-board.md) bench bring-up, [#7](https://github.com/jwilleke/js-rocket-avionics/issues/7) | __run 2026-09-12, all pass__: I2C, IMU, a camera frame, 5 s of video, and a 1 MB PSRAM log flushed and read back. SD over SPI at 20 MHz, CS on GPIO21. Prints its device name, `mj-cam` |
 | [`i2c-find/`](i2c-find/) | when `bringup-cam` finds nothing on the bus: which XIAO pins carry the I2C pull-ups, and on which pair the sensors answer | __run 2026-09-12__ — found the wires on D3/D4 |
-| [`soak-power/`](soak-power/) | the shared-battery load test, [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) — drives capture + SD write bursts and logs every cycle and every reset to the card | __untested — no hardware has run it__ |
+| [`soak-power/`](soak-power/) | the shared-battery load test, [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) — drives capture + SD write bursts and logs every cycle and every reset to the card | __untested — no hardware has run it__. SD now the proven SPI setup, 20 MHz |
 | [`gps-check/`](gps-check/) | the [L76K-GNSS](../hardware/L76K-GNSS/L76K-GNSS.md) read directly, no Meshtastic, [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6) — fix, satellites in view, best SNR, time to first fix. __Flashed onto XIAO-ESP32S3-cam__, so a GPS with no position in Meshtastic can be split into "module or antenna" against "Meshtastic not reading D6/D7" | __untested — no hardware has run it__ |
 
 __Unplug XIAO-ESP32S3-lora before any upload.__ PlatformIO uploads to the first port it finds, and with both boards on USB that can be the one that must only ever carry stock Meshtastic.

@@ -237,7 +237,7 @@ void setup() {
 #endif
 
   SPI.begin(SD_SCK, SD_MISO, SD_MOSI, SD_CS);
-  have_sd = SD.begin(SD_CS);
+  have_sd = SD.begin(SD_CS, SPI, 20000000);   // 20 MHz: 475 KB/s on the bench; the 4 MHz default managed 123
   if (!have_sd) {
     Serial.println(F("microSD did not mount -- serial only, so a reset loses"));
     Serial.println(F("the run. Fix the card before spending a charge on this."));

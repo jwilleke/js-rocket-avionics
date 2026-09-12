@@ -124,7 +124,7 @@ __Everything else about it belongs to [Arming-switch.md](../hardware/Arming-swit
 
 __The camera is not on SPI.__ The OV3660 uses a __DVP parallel bus__ (14 GPIO) plus I2C/SCCB for control, with frames landing in PSRAM by DMA. What touches SPI is *writing those frames to the microSD*.
 
-__SD latency is unbounded.__ Cards run wear-levelling and garbage collection at will; a normally-2 ms write can take __100–250 ms__, spec-legally.
+__SD latency is unbounded.__ Cards run wear-levelling and garbage collection at will; a normally-2 ms write can take __100–250 ms__, spec-legally — and __the card in hand stalled 570–731 ms__ on the bench, 2026-09-12 ([microSD.md](../hardware/microSD/microSD.md#on-the-bench)).
 
 __Internal flash is worse.__ Writing ESP32 internal flash __disables the instruction cache__. A 4 KB sector erase takes ~20–40 ms, during which code executing *from* flash stalls, including ISRs not marked `IRAM_ATTR`. At 500 Hz the sample period is 2 ms, so one erase silently drops __10–20 samples__ — during boost, where the data matters most.
 

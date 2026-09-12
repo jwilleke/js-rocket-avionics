@@ -28,7 +28,7 @@ __2026-09-12__, on [XIAO-ESP32S3-cam](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md#on
 | Address, `WHO_AM_I` | `0x6A`, `0x6C` | the LSM6DSO32, answering with `CS` unconnected — the breakout holds it high ([#19](https://github.com/jwilleke/js-rocket-avionics/issues/19)) |
 | `CTRL1_XL` | `0x74` | 833 Hz, `FS = 01` — __±32 g on this part__, where `11` would be ±16 |
 | At rest, flat | 0.04, −0.05, __1.02 g__ | 1 g on Z: the scale is right |
-| FIFO | 81 words in 100 ms | 833 Hz batching into the FIFO, continuous mode |
+| FIFO | 81 words in 100 ms; __2 448 in 3.00 s = 816 Hz__ | 833 Hz nominal, 2% slow on this part's own clock. No overrun, every word tagged accelerometer, mean \|a\| 1.023 g |
 
 Its power LED is __green__.
 
