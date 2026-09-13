@@ -48,7 +48,7 @@ __Until those rows say "works", treat the rest of this page as the plan.__
 
 __There is no on/off switch on this rocket. Plugging in the battery is "on".__
 
-1. __Plug the battery in last__, on the pad, then load the electronics into the nose and close it. From this moment you have roughly __100 minutes__ before a fully charged battery runs down — measured roughly on the bench, not yet timed from full. __Do not plug in early and then wait__
+1. __Plug the battery in last__, on the pad, then load the electronics into the nose and close it. From this moment you have about __100 minutes__ before a fully charged battery runs down — __timed on the bench at 103 minutes__ with the camera recording the whole time. __Do not plug in early and then wait__
 2. __Power the receiver__ and open the Meshtastic app. The rocket's node should appear, and once its GPS has the sky, its position
 3. __Check the rocket is alive__ — how, exactly, is not decided yet ([#25](https://github.com/jwilleke/js-rocket-avionics/issues/25)). The planned answer is a status you can read on your phone, not only beeps
 4. __Launch.__ If the launch is delayed past about an hour, the battery is the problem: getting it out means opening the nose, which also unhooks the recovery cord
@@ -66,7 +66,7 @@ __You do not need to do anything.__ The camera records from the moment the batte
 
 ## After you have it back
 
-1. __Unplug the battery__ as soon as it is safe to open the nose — everything stays on otherwise
+1. __Unplug the battery__ as soon as it is safe to open the nose — everything stays on otherwise, and __a battery left connected drains past its safe limit within hours__. On the bench, one left connected overnight was below that limit by morning
 2. __Get the video and flight data__ — today, take the microSD card out of the camera computer and read it on a computer; the video plays in VLC. The plan is to download it to your phone over Wi-Fi without opening the nose
 3. __Recharge__ before the next flight
 

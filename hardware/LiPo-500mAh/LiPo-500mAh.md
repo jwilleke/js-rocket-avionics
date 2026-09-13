@@ -1,6 +1,6 @@
 # LiPo battery
 
-__One battery feeds both MCUs.__ ~300 mA average at full load, measured by voltage and time — ~100 minutes from full ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)).
+__One battery feeds both MCUs.__ __103 minutes from full to the first brownout__ at full load — timed on the bench, ~290 mA average ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)).
 
 ## The part
 
@@ -30,7 +30,7 @@ __Measure it resting:__ unplugged from everything for at least a minute. Chargin
 | 3.60 V | ~15% | |
 | 3.50 V | ~5% | where the #8 run ended, after 67 minutes at full load |
 | below 3.4 V | empty | recharge now |
-| __3.0 V__ | __never go below__ | a LiPo taken deeply flat may not come back |
+| __3.0 V__ | __never go below__ | a LiPo taken deeply flat may not come back. __Left connected after the timed run, it reached 2.77 V__ within ~5 hours |
 
 __Approximate__ — the curve varies with the battery, its age and temperature, and it is flattest in the middle, so a 0.05 V difference there is a lot of charge. Read the ends of the table with more confidence than the middle.
 
@@ -50,6 +50,10 @@ __Charging, measured on the bench__ (2026-09-12), through XIAO-ESP32S3-cam's USB
 | 18:43 | __3.83 V__ — ~55%, after ~2 h 20 min of charging: ~115 mA × 2.3 h ≈ 270 mAh, which fits |
 
 __Empty to full is about 4.5 hours__ at that rate, the slow top-off included. With XIAO-ESP32S3-lora also drawing, it does not charge at all — so XIAO-ESP32S3-lora draws __more than ~115 mA__ ([Two chargers on one battery](#two-chargers-on-one-battery)).
+
+__Runtime, timed from full__ (2026-09-12): charged to __4.17 V__, both boards on it through the harness, XIAO-ESP32S3-cam running `soak-power` flat out and XIAO-ESP32S3-lora sending a Range Test packet every 15 s. __XIAO-ESP32S3-cam browned out after 6 161 s — 102.7 minutes__ — then restarted over twenty times as the battery collapsed ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)). About 290 mA average.
+
+> __Unplug the battery as soon as a run — or a flight — is over.__ Stock Meshtastic cannot switch itself off, so a powered rocket drains the battery past the 3.0 V floor. Left connected overnight after the timed run, it read __2.77 V__.
 
 __Measure the battery, not the pigtail.__ With the battery unplugged and USB in, the XIAO's BAT pigtail read __4.03 V__ — that is the charger idling with nothing to charge, looking for a battery (the same reason its light flashes), not a charge level.
 
