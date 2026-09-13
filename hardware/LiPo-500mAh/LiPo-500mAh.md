@@ -53,7 +53,7 @@ __Empty to full is about 4.5 hours__ at that rate, the slow top-off included. Wi
 
 __Runtime, timed from full__ (2026-09-12): charged to __4.17 V__, both boards on it through the harness, XIAO-ESP32S3-cam running `soak-power` flat out and XIAO-ESP32S3-lora sending a Range Test packet every 15 s. __XIAO-ESP32S3-cam browned out after 6 161 s — 102.7 minutes__ — then restarted over twenty times as the battery collapsed ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)). About 290 mA average.
 
-> __Unplug the battery as soon as a run — or a flight — is over.__ Stock Meshtastic cannot switch itself off, so a powered rocket drains the battery past the 3.0 V floor. Left connected overnight after the timed run, it read __2.77 V__.
+> __Unplug the battery as soon as a run — or a flight — is over.__ Stock Meshtastic cannot switch itself off, so a powered rocket drains the battery past the 3.0 V floor. Left connected overnight after the timed run, it read __2.77 V__. It recovered: charged through XIAO-ESP32S3-cam's USB, it read __4.06 V__ by 08:17 on 2026-09-13. __Owed: re-measure it at rest after a day disconnected__ — a battery run that low can lose capacity or self-discharge; a clear drop means retire it.
 
 __Measure the battery, not the pigtail.__ With the battery unplugged and USB in, the XIAO's BAT pigtail read __4.03 V__ — that is the charger idling with nothing to charge, looking for a battery (the same reason its light flashes), not a charge level.
 
