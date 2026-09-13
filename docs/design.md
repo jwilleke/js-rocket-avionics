@@ -227,6 +227,8 @@ __Board B's flight firmware does not exist yet.__ Camera, sensors, PSRAM bufferi
 
 ## Flight sequencing
 
+> __Superseded — operator, 2026-09-13: the avionics fly all or nothing.__ The first avionics flight, [js-rocket flight 3](https://github.com/jwilleke/js-rocket/issues/63), carries the beacon, the recorder and the camera together, or it flies on ballast alone. No beacon-only flight. The staging below is kept as the reasoning it replaced: its job — prove each part before trusting the next — was done on the bench instead ([#4](https://github.com/jwilleke/js-rocket-avionics/issues/4)): the beacon's GPS and Meshtastic ([#6](https://github.com/jwilleke/js-rocket-avionics/issues/6)), the recorder and video, and all of it together on one battery with zero dropped samples ([#7](https://github.com/jwilleke/js-rocket-avionics/issues/7), [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)). What the bench cannot prove — range from altitude, GPS through PLA in flight — rides on the one flight. So the recorder firmware ([#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)) gates flight 3.
+
 Do not fly all the variables at once.
 
 ```text
