@@ -86,7 +86,7 @@ __The holes are already in the generator__ (`WIRE_PADS`, `TestPoint_THTPad_D2.0m
 | XIAO-ESP32S3-cam | y 28.5 | `TP_CAM_BAT_P` (8.8, 30.0), `TP_CAM_BAT_N` (12.0, 30.0) |
 | XIAO-ESP32S3-lora | y 78.5 | `TP_LORA_BAT_P` (10.4, 80.8), `TP_LORA_BAT_N` (13.6, 80.8) — `VBAT` side fed through Q1 |
 
-- __Labelled on both sides__ — `BAT`, `+` and `-` at each pair, mirrored on the low side so it reads from there (`BAT_LABELS` in `gen_carrier.py`, 2026-09-13; DRC 0 violations). No `CAM`/`LORA` label is needed: each pair sits directly behind its own XIAO
+- __Labelled on both sides__ — `BAT`, `+` and `-` at each pair, mirrored on the low side so it reads from there (`BAT_LABELS` in `gen_carrier.py`, 2026-09-13; DRC 0 violations). Each module's name is also on the board under it, on its own side — `XIAO-ESP32S3 / cam`, `L76K-GNSS`, `XIAO-ESP32S3 / lora` on the tall side, `LSM6DSO32` and `BMP388` mirrored on the low side (`MODULE_LABELS`) — so the carrier says what goes where during assembly
 - __Assembly order — the sensors sit over the holes on the low side.__ XIAO-ESP32S3-cam's holes are under the LSM6DSO32 (y 29.0–54.5), XIAO-ESP32S3-lora's under the end of the BMP388 (y 55.5–81.0), each standing ~1 mm off the carrier. So the pigtails are soldered __before the sensors go on__, and the joints trimmed flush so the sensor boards clear them
 - __Polarity__ is fixed by the holes, not a connector: `+` to `+`, checked with a meter before first power-up
 - __Superseded:__ JST sockets on the board for the pigtails (decided and dropped the same day — no room within the pigtail's ~10 mm)

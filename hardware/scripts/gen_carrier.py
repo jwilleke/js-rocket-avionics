@@ -182,6 +182,18 @@ BAT_LABELS = [
     ("+", 8.8, 28.1), ("-", 12.0, 28.1), ("BAT", 5.3, 30.0),     # XIAO-ESP32S3-cam
     ("+", 10.4, 78.9), ("-", 13.6, 78.9), ("BAT", 17.2, 80.6),   # XIAO-ESP32S3-lora
 ]
+# Each module's name on the board surface under it, on its own side, so the
+# carrier says what goes where during assembly (operator, 2026-09-13). Centred
+# in each outline, between its pin rows; the low-side names are mirrored to read
+# from there. DRC proves they stay off every pad.
+MODULE_LABELS = [
+    # (text, x, y, size, back)
+    ("XIAO-ESP32S3", 12.0, 16.8, 0.8, False), ("cam", 12.0, 19.2, 1.5, False),
+    ("L76K-GNSS", 12.0, 44.0, 1.0, False),
+    ("XIAO-ESP32S3", 12.0, 66.8, 0.8, False), ("lora", 12.0, 69.2, 1.5, False),
+    ("LSM6DSO32", 12.0, 41.75, 1.0, True),
+    ("BMP388", 12.0, 68.25, 1.0, True),
+]
 # Two surface-mount M3 standoffs on the low side, 10 mm (Wuerth WA-SMSI
 # 9774100360). Screws come in from the web's far face. Each has a 4.4 mm hole
 # through the board, so neither sits under a module: standoff 1 is at the aft
@@ -396,6 +408,8 @@ def add_power_and_wires(board):
         board.Add(t)
     for x, y in PLUS_MARKS:
         silk_text("+", x, y)
+    for text, x, y, size, back in MODULE_LABELS:
+        silk_text(text, x, y, back=back, size=size)
     for text, x, y in BAT_LABELS:
         size = 1.0 if text == "BAT" else 1.2
         silk_text(text, x, y, back=False, size=size)
