@@ -61,19 +61,19 @@ __Claim the AIG insurance window on both Seeed boxes now if at all__ — 7 days 
 
 ## To order — the charging bench (#30)
 
-__For [charging-bench.md](bench-work/charging-bench.md)__ — the carrier's charging circuit on a breadboard before it goes into copper ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)). Part numbers are in [BOM.md](BOM.md); why each was chosen, in [PCB-carrier-design.md](../hardware/PCB-carrier/PCB-carrier-design.md#charging-on-the-carrier--q1-the-charge-isolation-fet-and-a-charger-chip--decided-not-yet-in-the-generator). __Prices and delivery dates as the listings showed them on 2026-09-13, logged out__ — not receipts; your cart shows what is Prime.
+__For [charging-bench.md](bench-work/charging-bench.md)__ — the carrier's charging circuit on a breadboard before it goes into copper ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)). Part numbers are in [BOM.md](BOM.md); why each was chosen, in [PCB-carrier-design.md](../hardware/PCB-carrier/PCB-carrier-design.md#charging-on-the-carrier--q1-the-charge-isolation-fet-and-a-charger-chip--decided-not-yet-in-the-generator). __Prices, shipping and dates as the listings showed them on 2026-09-13, logged out__ — not receipts. __Read the shipping line on every listing before it goes in the cart__: the first pick for the chip, a $0.49 single, carried __$8.95 shipping each__ — $26.85 of freight on $1.47 of chips, and $26.85 of the $28.34 shipping charged at checkout; the other $1.49 was the 2.7 kΩ (operator, 2026-09-13).
 
-| Part | Listing | Listed | Delivery shown | Note |
+| Part | Listing | Price | Shipping, date | Note |
 |---|---|---|---|---|
-| __AO3401A__ P-channel FET, SOT-23 — Q1 and Q2 | [100-pack](https://www.amazon.com/dp/B08RHFLH1K) | $6.95 | Sep 20–22, ships from Amazon | Enough for the bench and every carrier |
-| __MCP73831T-2ACI/OT__ charger, SOT-23-5 — U1 | [single, listed as Microchip](https://www.amazon.com/dp/B005T6AIIO) — buy 3 | $0.49 each | Sep 17–21 | One for the bench, one for the first carrier, one for a slip. Or [a 10-pack](https://www.amazon.com/dp/B09WV8PN7V), $3.99, Oct 1–8 |
-| __SOT-23 to DIP adapters__, 6-pad | [20-pack](https://www.amazon.com/dp/B088M72B54) | $7.79 | Sep 23–28 | Fits SOT-23 and SOT-23-5. Header pins are not listed as included — any 2.54 mm male strip |
-| __2.7 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHH1DHF) | $9.09 | — | Sets U1's current, 370 mA |
-| __100 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHGY3VG) | $9.09 | — | The FETs' gate pull-down. __Skip if you have one__ |
-| __4.7 µF__ ceramic, 50 V, 5.08 mm leads | [100-pack](https://www.amazon.com/dp/B0CN68WGZ6) | $9.24 | Sep 22–Oct 1 | U1's two capacitors |
+| __AO3401A__ P-channel FET, SOT-23 — Q1 and Q2 | [100-pack](https://www.amazon.com/dp/B08RHFLH1K) | $6.95 | ships from Amazon, Sep 20–22 | Enough for the bench and every carrier |
+| __MCP73831T-2ACI/OT__ charger, SOT-23-5 — U1 | [20-pack](https://www.amazon.com/dp/B0H332MZV5) | $7.50 | $1, Sep 28–Oct 13 | No Prime listing found. A marketplace chip can be a relabel — the bench's charge-current reading is the check |
+| __SOT-23 to DIP adapters__, 6-pad | [20-pack](https://www.amazon.com/dp/B088M72B54) | $7.79 | free, Sep 23–28 | Fits SOT-23 and SOT-23-5. Header pins are not listed as included — any 2.54 mm male strip |
+| __2.7 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHH1DHF) | $9.09 | $1.49 | Sets U1's current, 370 mA |
+| __100 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHGY3VG) | $9.09 | $1.49 | The FETs' gate pull-down. __Skip if you have one__ |
+| __4.7 µF__ ceramic, 50 V, 5.08 mm leads | [100-pack](https://www.amazon.com/dp/B0CN68WGZ6) | $9.24 | $1, Sep 22–Oct 1 | U1's two capacitors. __Skip if you have two__ of 4.7–10 µF |
 | __JST-PH 2-pin pigtails__, male and female | [CHANZON, 30 pairs, 10 cm, 22 AWG](https://www.amazon.com/dp/B0B2DC8ST8) | — | __in hand__ (operator, 2026-09-13) | Battery and both XIAO pigtails onto the breadboard — the join harness has no place for the FETs. __Meter every one: [JST polarity is not fixed](../hardware/LiPo-500mAh/LiPo-500mAh.md#on-the-bench--the-join-harness)__ — the listing itself says not to trust the wire colour |
 
-__$43.63 listed for the rest; $34.54 without the 100 kΩ__ — plus shipping on anything not Prime. The carrier needs the same FETs and chip, from these packs, and its own small surface-mount resistors and capacitors; those go with the carrier order.
+__All of it: $49.66 + $4.98 shipping. Without the 100 kΩ and the capacitors: $31.33 + $2.49.__ The carrier needs the same FETs and chip, from these packs, and its own small surface-mount resistors and capacitors; those go with the carrier order.
 
 ## What is actually blocking
 
