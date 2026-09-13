@@ -59,7 +59,9 @@ __Claim the AIG insurance window on both Seeed boxes now if at all__ — 7 days 
 | M3 plastic machine screws, __M3 × 10__, ×2; Würth WA-SMSI M3 10 mm SMT standoffs (9774100360), ×2 | — | The carrier hangs off the web on the standoffs; screws from the web side. Longer than 10 mm pokes through the board's tall side ([PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md)). The old "2×7 stacking headers, ~14 mm" line is gone: the kit's standard 7-pin headers are the flight part |
 | Solder, flux, PET window, zip ties, standoffs | ~$15 | Consumables |
 
-## To order — the charging bench (#30)
+## The charging bench (#30) — ordered
+
+__Ordered 2026-09-13 (operator).__ The MCP73831 is the last to land — its listing showed Sep 28–Oct 13 — and it is what the bench waits on.
 
 __For [charging-bench.md](bench-work/charging-bench.md)__ — the carrier's charging circuit on a breadboard before it goes into copper ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)). Part numbers are in [BOM.md](BOM.md); why each was chosen, in [PCB-carrier-design.md](../hardware/PCB-carrier/PCB-carrier-design.md#charging-on-the-carrier--q1-the-charge-isolation-fet-and-a-charger-chip--decided-not-yet-in-the-generator). __Prices, shipping and dates as the listings showed them on 2026-09-13, logged out__ — not receipts. __Read the shipping line on every listing before it goes in the cart__: the first pick for the chip, a $0.49 single, carried __$8.95 shipping each__ — $26.85 of freight on $1.47 of chips, and $26.85 of the $28.34 shipping charged at checkout; the other $1.49 was the 2.7 kΩ (operator, 2026-09-13).
 
@@ -69,7 +71,7 @@ __For [charging-bench.md](bench-work/charging-bench.md)__ — the carrier's char
 | __MCP73831T-2ACI/OT__ charger, SOT-23-5 — U1 | [20-pack](https://www.amazon.com/dp/B0H332MZV5) | $7.50 | $1, Sep 28–Oct 13 | No Prime listing found. A marketplace chip can be a relabel — the bench's charge-current reading is the check |
 | __SOT-23 to DIP adapters__, 6-pad | [20-pack](https://www.amazon.com/dp/B088M72B54) | $7.79 | free, Sep 23–28 | Fits SOT-23 and SOT-23-5. Header pins are not listed as included — any 2.54 mm male strip |
 | __2.7 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHH1DHF) | $9.09 | $1.49 | Sets U1's current, 370 mA |
-| __100 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHGY3VG) | $9.09 | $1.49 | The FETs' gate pull-down. __Skip if you have one__ |
+| __100 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHGY3VG) | $9.09 | $1.49 | The FETs' gate pull-down. __The bench does without it__: XIAO-ESP32S3-cam's own R9, 100 kΩ, already holds the gate low. The carrier gets one as a second |
 | __4.7 µF__ ceramic, 50 V, 5.08 mm leads | [100-pack](https://www.amazon.com/dp/B0CN68WGZ6) | $9.24 | $1, Sep 22–Oct 1 | U1's two capacitors. __Skip if you have two__ of 4.7–10 µF |
 | __JST-PH 2-pin pigtails__, male and female | [CHANZON, 30 pairs, 10 cm, 22 AWG](https://www.amazon.com/dp/B0B2DC8ST8) | — | __in hand__ (operator, 2026-09-13) | Battery and both XIAO pigtails onto the breadboard — the join harness has no place for the FETs. __Meter every one: [JST polarity is not fixed](../hardware/LiPo-500mAh/LiPo-500mAh.md#on-the-bench--the-join-harness)__ — the listing itself says not to trust the wire colour |
 

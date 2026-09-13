@@ -5,7 +5,7 @@ description: Step by step, the carrier's charging circuit built on a breadboard 
 
 # The charging bench — Q1, Q2 and the charger chip
 
-__This page proves the carrier's charging circuit on a breadboard before it is drawn in copper__ — [#30](https://github.com/jwilleke/js-rocket-avionics/issues/30), which blocks the carrier order ([#11](https://github.com/jwilleke/js-rocket-avionics/issues/11)). Why the circuit exists and what each part is, is owned by [PCB-carrier-design.md](../../hardware/PCB-carrier/PCB-carrier-design.md#charging-on-the-carrier--q1-the-charge-isolation-fet-and-a-charger-chip--decided-not-yet-in-the-generator); this page is the procedure. The parts to buy are in [shopping-list.md](../shopping-list.md#to-order--the-charging-bench-30).
+__This page proves the carrier's charging circuit on a breadboard before it is drawn in copper__ — [#30](https://github.com/jwilleke/js-rocket-avionics/issues/30), which blocks the carrier order ([#11](https://github.com/jwilleke/js-rocket-avionics/issues/11)). Why the circuit exists and what each part is, is owned by [PCB-carrier-design.md](../../hardware/PCB-carrier/PCB-carrier-design.md#charging-on-the-carrier--q1-the-charge-isolation-fet-and-a-charger-chip--decided-not-yet-in-the-generator); this page is the procedure. The parts to buy are in [shopping-list.md](../shopping-list.md#the-charging-bench-30--ordered).
 
 ## What it must show
 
