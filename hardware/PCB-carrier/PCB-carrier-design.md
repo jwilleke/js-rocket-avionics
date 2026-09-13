@@ -75,16 +75,21 @@ __Decided, operator 2026-09-13.__ The XIAO's own charger is fixed at ~115–120 
 
 __This should have been caught at design time.__ [LiPo-500mAh.md](../LiPo-500mAh/LiPo-500mAh.md#two-chargers-on-one-battery) wrote down on 2026-09-10 that the net charge "may be near zero" and deferred it to a measurement, instead of designing it out. The measurement found it before copper; it should not have needed to.
 
-### The XIAO pigtails plug into the carrier — decided, not yet in the generator
+### The XIAO pigtails go through holes behind each XIAO — decided, not yet fully in the generator
 
-> __Under review, 2026-09-13 — sockets on the board may not fit.__ Each pigtail is ~10 mm and leaves its XIAO at the end away from the USB-C, which on the carrier is the forward end: XIAO-ESP32S3-cam's at y 28.5, with a 5.0 mm gap before the L76K-GNSS; XIAO-ESP32S3-lora's at y 78.5, where the battery JST and standoff 2 leave ~3.9 mm. A JST-PH socket is ~6 × 4.5 mm. The alternative being weighed: short leads soldered to carrier pads, each ending in a JST socket the pigtail plugs into. __Do not build from the line above until this is settled__ ([#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)).
+__Operator, 2026-09-13 ([#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)).__ Each XIAO's battery pigtail — soldered to its underside BAT pads before it goes onto its headers, ~10 mm long, leaving at the end away from the USB-C — __goes through two holes directly behind that XIAO and is soldered on the far (low) side__, with the holes labelled. The XIAO pads, a miserable job, are never re-soldered; the bench JST plug is cut off.
 
-__Operator, 2026-09-13 ([#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)).__ Each XIAO's battery pigtail — soldered to its underside BAT pads before it goes onto its headers, and ending in a JST-PH plug — __plugs into a JST-PH socket on the carrier__, in place of the solder wire pads the generator draws today. Nothing is soldered to the carrier, and the XIAO pads, a miserable job, are never re-soldered.
+__The holes are already in the generator__ (`WIRE_PADS`, `TestPoint_THTPad_D2.0mm_Drill1.0mm`), just past each XIAO's forward end:
 
-- __Three JST-PH sockets on the tall side__: the battery's (already drawn), XIAO-ESP32S3-cam's pigtail, XIAO-ESP32S3-lora's pigtail — the last fed through Q1
-- __Polarity differs:__ the pigtail sockets are wired opposite to the battery socket, because the battery's plug and the pigtails' plugs disagree (the bench harness crosses its wires for exactly this). Silkscreen `+` at each, and meter each against its plug before the first power-up
-- __Room is not yet shown.__ A JST-PH socket is ~6 × 4.5 mm and ~6 mm tall. Beside XIAO-ESP32S3-cam there is ~4.5 mm to the L76K-GNSS; beside XIAO-ESP32S3-lora the space is shared with the battery socket and standoff 2. `gen_carrier.py` has to fit them, and its checks prove they fit
-- __Retention:__ each plug gets a dab of hot glue or tape once seated — a JST-PH holds by friction, and boost is 17.6 g
+| | XIAO's forward end | Holes |
+|---|---|---|
+| XIAO-ESP32S3-cam | y 28.5 | `TP_CAM_BAT_P` (8.8, 30.0), `TP_CAM_BAT_N` (12.0, 30.0) |
+| XIAO-ESP32S3-lora | y 78.5 | `TP_LORA_BAT_P` (10.4, 80.8), `TP_LORA_BAT_N` (13.6, 80.8) — `VBAT` side fed through Q1 |
+
+- __Owed in the generator: labels__ — silkscreen on both sides, `CAM BAT + −` and `LORA BAT + −`; today they are drawn with `silk=False`
+- __Assembly order — the sensors sit over the holes on the low side.__ XIAO-ESP32S3-cam's holes are under the LSM6DSO32 (y 29.0–54.5), XIAO-ESP32S3-lora's under the end of the BMP388 (y 55.5–81.0), each standing ~1 mm off the carrier. So the pigtails are soldered __before the sensors go on__, and the joints trimmed flush so the sensor boards clear them
+- __Polarity__ is fixed by the holes, not a connector: `+` to `+`, checked with a meter before first power-up
+- __Superseded:__ JST sockets on the board for the pigtails (decided and dropped the same day — no room within the pigtail's ~10 mm)
 
 ### Two data links, each behind an open jumper — decided, not yet in the generator
 

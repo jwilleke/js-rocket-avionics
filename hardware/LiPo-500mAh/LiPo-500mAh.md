@@ -122,10 +122,7 @@ So the wire is anchored to the board, and the joint carries current only:
 
 __No connector at the pad end.__ A connector there would put mass and leverage on the weakest joint in the assembly, which is the opposite of what is wanted. The disconnect belongs at the far end.
 
-__At the far end, each pigtail plugs into a JST socket on the carrier__ — decided, operator 2026-09-13 ([#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)) — __and under review the same day: there may be no room for a socket on the board__ within the pigtail's ~10 mm; see [PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#the-xiao-pigtails-plug-into-the-carrier--decided-not-yet-in-the-generator). Nothing is soldered to the carrier and nobody re-solders a XIAO pad: the pigtails as soldered for the bench, plugs and all, plug straight in. The carrier carries __three JST-PH sockets__: the battery's, and one per XIAO pigtail — XIAO-ESP32S3-lora's fed through Q1 ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)).
-
-- __The pigtail sockets are wired the opposite way from the battery socket__ — the battery's plug and the pigtails' plugs disagree on polarity, as the bench harness showed. Meter each one
-- __Secure each plug once seated__ — a dab of hot glue or tape, as for the strain relief ([#20](https://github.com/jwilleke/js-rocket-avionics/issues/20)). A JST-PH holds by friction, and boost is 17.6 g
+__At the far end, each pigtail goes through two holes directly behind its XIAO and is soldered on the carrier's far side__ — decided, operator 2026-09-13 ([#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)). The bench JST plug is cut off; the XIAO pads are never re-soldered. The battery itself plugs into the carrier's JST. Holes, labels and the assembly order — pigtails before the sensors, which sit over the holes — are in [PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#the-xiao-pigtails-go-through-holes-behind-each-xiao--decided-not-yet-fully-in-the-generator).
 
 ## The known risk, observed: no brownout at bench load
 
