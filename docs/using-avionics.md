@@ -23,7 +23,7 @@ __The rocket flies fine without any of it.__ The electronics find it and record 
 
 | | Today |
 |---|---|
-| Finding the rocket — position on your phone's map | __works on the bench__. Needs the ground receiver, which is ordered ([#23](https://github.com/jwilleke/js-rocket-avionics/issues/23)) |
+| Finding the rocket — position on your phone's map | __works on the bench__, through the ground receiver `mj-ground` ([#23](https://github.com/jwilleke/js-rocket-avionics/issues/23)). How far it reaches is not measured yet ([#6](https://github.com/jwilleke/js-rocket-avionics/issues/6)) |
 | Recording video and flight data | __proven on the bench, not written as a flight program yet__ ([#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)) |
 | Status on the pad — "ready", "recording" | __not decided__: beeps, or a phone screen ([#25](https://github.com/jwilleke/js-rocket-avionics/issues/25)) |
 | Getting the video off without opening the nose | __planned__ — phone over Bluetooth, then Wi-Fi ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)) |
