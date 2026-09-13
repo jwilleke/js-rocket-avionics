@@ -75,7 +75,7 @@ __Decided, operator 2026-09-13.__ The XIAO's own charger is fixed at ~115–120 
 
 __This should have been caught at design time.__ [LiPo-500mAh.md](../LiPo-500mAh/LiPo-500mAh.md#two-chargers-on-one-battery) wrote down on 2026-09-10 that the net charge "may be near zero" and deferred it to a measurement, instead of designing it out. The measurement found it before copper; it should not have needed to.
 
-### The XIAO pigtails go through holes behind each XIAO — decided, not yet fully in the generator
+### The XIAO pigtails go through holes behind each XIAO — decided, in the generator
 
 __Operator, 2026-09-13 ([#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)).__ Each XIAO's battery pigtail — soldered to its underside BAT pads before it goes onto its headers, ~10 mm long, leaving at the end away from the USB-C — __goes through two holes directly behind that XIAO and is soldered on the far (low) side__, with the holes labelled. The XIAO pads, a miserable job, are never re-soldered; the bench JST plug is cut off.
 
@@ -86,7 +86,7 @@ __The holes are already in the generator__ (`WIRE_PADS`, `TestPoint_THTPad_D2.0m
 | XIAO-ESP32S3-cam | y 28.5 | `TP_CAM_BAT_P` (8.8, 30.0), `TP_CAM_BAT_N` (12.0, 30.0) |
 | XIAO-ESP32S3-lora | y 78.5 | `TP_LORA_BAT_P` (10.4, 80.8), `TP_LORA_BAT_N` (13.6, 80.8) — `VBAT` side fed through Q1 |
 
-- __Owed in the generator: labels__ — silkscreen on both sides, `CAM BAT + −` and `LORA BAT + −`; today they are drawn with `silk=False`
+- __Labelled on both sides__ — `BAT`, `+` and `-` at each pair, mirrored on the low side so it reads from there (`BAT_LABELS` in `gen_carrier.py`, 2026-09-13; DRC 0 violations). No `CAM`/`LORA` label is needed: each pair sits directly behind its own XIAO
 - __Assembly order — the sensors sit over the holes on the low side.__ XIAO-ESP32S3-cam's holes are under the LSM6DSO32 (y 29.0–54.5), XIAO-ESP32S3-lora's under the end of the BMP388 (y 55.5–81.0), each standing ~1 mm off the carrier. So the pigtails are soldered __before the sensors go on__, and the joints trimmed flush so the sensor boards clear them
 - __Polarity__ is fixed by the holes, not a connector: `+` to `+`, checked with a meter before first power-up
 - __Superseded:__ JST sockets on the board for the pigtails (decided and dropped the same day — no room within the pigtail's ~10 mm)

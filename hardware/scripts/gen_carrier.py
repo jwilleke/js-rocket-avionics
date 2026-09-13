@@ -171,7 +171,17 @@ WIRE_PADS = [
     ("TP_LORA_BAT_P", (10.4, 80.8), "VBAT"), ("TP_LORA_BAT_N", (13.6, 80.8), "GND"),
 ]
 # Polarity on the silkscreen: reversing a LiPo into a XIAO destroys it.
-PLUS_MARKS = [(JST_XY[0] - 2.0, JST_XY[1] - 2.6), (8.8, 28.1), (10.4, 78.9)]
+PLUS_MARKS = [(JST_XY[0] - 2.0, JST_XY[1] - 2.6)]
+# Each XIAO's battery pigtail goes through the two holes directly behind it and
+# is soldered on the low side (operator, 2026-09-13, #14), so the holes are
+# labelled on BOTH sides -- BAT, + and - -- mirrored on the back. The low-side
+# labels end up under the LSM6DSO32 and BMP388; they are for assembly, which
+# solders the pigtails before the sensors go on. Positions keep the text off
+# every pad, the JST body and standoff 2.
+BAT_LABELS = [
+    ("+", 8.8, 28.1), ("-", 12.0, 28.1), ("BAT", 5.3, 30.0),     # XIAO-ESP32S3-cam
+    ("+", 10.4, 78.9), ("-", 13.6, 78.9), ("BAT", 17.2, 80.6),   # XIAO-ESP32S3-lora
+]
 # Two surface-mount M3 standoffs on the low side, 10 mm (Wuerth WA-SMSI
 # 9774100360). Screws come in from the web's far face. Each has a 4.4 mm hole
 # through the board, so neither sits under a module: standoff 1 is at the aft
@@ -375,14 +385,21 @@ def add_power_and_wires(board):
     for ref, (x, y), net in WIRE_PADS:
         tp = place(board, TP_LIB, "TestPoint_THTPad_D2.0mm_Drill1.0mm", ref, x, y, silk=False)
         tp.FindPadByNumber("1").SetNet(board.nets[net])
-    for x, y in PLUS_MARKS:
+    def silk_text(text, x, y, back=False, size=1.2):
         t = pcbnew.PCB_TEXT(board)
-        t.SetText("+")
+        t.SetText(text)
         t.SetPosition(pcbnew.VECTOR2I(MM(x), MM(y)))
-        t.SetLayer(pcbnew.F_SilkS)
-        t.SetTextSize(pcbnew.VECTOR2I(MM(1.2), MM(1.2)))
-        t.SetTextThickness(MM(0.2))
+        t.SetLayer(pcbnew.B_SilkS if back else pcbnew.F_SilkS)
+        t.SetMirrored(back)                 # reads the right way from the low side
+        t.SetTextSize(pcbnew.VECTOR2I(MM(size), MM(size)))
+        t.SetTextThickness(MM(0.2 if size >= 1.2 else 0.15))
         board.Add(t)
+    for x, y in PLUS_MARKS:
+        silk_text("+", x, y)
+    for text, x, y in BAT_LABELS:
+        size = 1.0 if text == "BAT" else 1.2
+        silk_text(text, x, y, back=False, size=size)
+        silk_text(text, x, y, back=True, size=size)
     for i, (x, y) in enumerate(STANDOFFS, 1):
         place(board, SO_LIB, STANDOFF_FP, "SO%d" % i, x, y, back=True)
 

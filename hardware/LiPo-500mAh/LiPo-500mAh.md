@@ -122,7 +122,7 @@ So the wire is anchored to the board, and the joint carries current only:
 
 __No connector at the pad end.__ A connector there would put mass and leverage on the weakest joint in the assembly, which is the opposite of what is wanted. The disconnect belongs at the far end.
 
-__At the far end, each pigtail goes through two holes directly behind its XIAO and is soldered on the carrier's far side__ — decided, operator 2026-09-13 ([#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)). The bench JST plug is cut off; the XIAO pads are never re-soldered. The battery itself plugs into the carrier's JST. Holes, labels and the assembly order — pigtails before the sensors, which sit over the holes — are in [PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#the-xiao-pigtails-go-through-holes-behind-each-xiao--decided-not-yet-fully-in-the-generator).
+__At the far end, each pigtail goes through two holes directly behind its XIAO and is soldered on the carrier's far side__ — decided, operator 2026-09-13 ([#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)). The bench JST plug is cut off; the XIAO pads are never re-soldered. The battery itself plugs into the carrier's JST. Holes, labels and the assembly order — pigtails before the sensors, which sit over the holes — are in [PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#the-xiao-pigtails-go-through-holes-behind-each-xiao--decided-in-the-generator).
 
 ## The known risk, observed: no brownout at bench load
 
