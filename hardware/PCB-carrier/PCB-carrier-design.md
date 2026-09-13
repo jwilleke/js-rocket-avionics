@@ -77,6 +77,8 @@ __This should have been caught at design time.__ [LiPo-500mAh.md](../LiPo-500mAh
 
 ### The XIAO pigtails plug into the carrier — decided, not yet in the generator
 
+> __Under review, 2026-09-13 — sockets on the board may not fit.__ Each pigtail is ~10 mm and leaves its XIAO at the end away from the USB-C, which on the carrier is the forward end: XIAO-ESP32S3-cam's at y 28.5, with a 5.0 mm gap before the L76K-GNSS; XIAO-ESP32S3-lora's at y 78.5, where the battery JST and standoff 2 leave ~3.9 mm. A JST-PH socket is ~6 × 4.5 mm. The alternative being weighed: short leads soldered to carrier pads, each ending in a JST socket the pigtail plugs into. __Do not build from the line above until this is settled__ ([#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)).
+
 __Operator, 2026-09-13 ([#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)).__ Each XIAO's battery pigtail — soldered to its underside BAT pads before it goes onto its headers, and ending in a JST-PH plug — __plugs into a JST-PH socket on the carrier__, in place of the solder wire pads the generator draws today. Nothing is soldered to the carrier, and the XIAO pads, a miserable job, are never re-soldered.
 
 - __Three JST-PH sockets on the tall side__: the battery's (already drawn), XIAO-ESP32S3-cam's pigtail, XIAO-ESP32S3-lora's pigtail — the last fed through Q1
