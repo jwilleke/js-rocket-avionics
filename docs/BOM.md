@@ -38,7 +38,7 @@ __Not in the nose, not in the mass budget — and the rocket cannot be recovered
 
 | Part | Part number | Vendor | Why |
 |---|---|---|---|
-| __Ground receiver__ — Seeed XIAO ESP32S3 & Wio-SX1262 Meshtastic node, pre-flashed, 3D-printed case, __2 dBi SMA antenna__ | [B0GY4QC6GN](https://www.amazon.com/dp/B0GY4QC6GN) | Amazon | Hears the flight node on the private channel and hands the position to the phone over Bluetooth. The same hardware as the flight node; the SMA antenna is for range |
+| __Ground receiver__ (`mj-ground`) — Seeed XIAO ESP32S3 & Wio-SX1262, 3D-printed case, __2 dBi SMA antenna__. __Arrived running LoRaHUB, not Meshtastic__ — a LoRaWAN single-channel gateway set for Europe (868.1 MHz, The Things Network EU). Flashed with Meshtastic `2.7.26.54e0d8d` on 2026-09-13, the flight node's version | [B0GY4QC6GN](https://www.amazon.com/dp/B0GY4QC6GN) | Amazon | Hears the flight node on the private channel and hands the position to the phone over Bluetooth. The same hardware as the flight node; the SMA antenna is for range |
 | USB power bank | any | held | The receiver has no battery of its own, going by the listing |
 
 __The receiver must match the flight node__ — region `US`, modem preset `LONG_FAST`, and the private channel, joined by its QR code. Setting-up and the range check: [#23](https://github.com/jwilleke/js-rocket-avionics/issues/23).
