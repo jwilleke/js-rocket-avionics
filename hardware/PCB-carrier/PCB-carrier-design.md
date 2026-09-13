@@ -58,6 +58,12 @@ __Operator, 2026-09-12 — tracked in [#30](https://github.com/jwilleke/js-rocke
 - __The two `5V` pins still never meet__ — this is a sense connection to the gate, not a power path
 - __Owed before it is drawn:__ the part — a logic-level P-FET that is fully on at a 3.3 V battery (SOT-23 class, tens of mΩ) — and a bench check with the harness: USB in, XIAO-ESP32S3-lora goes dark and the battery's resting voltage climbs; USB out, XIAO-ESP32S3-lora boots
 
+__A faster charger on the carrier — decided, operator 2026-09-13__ ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)). The XIAO's own charger is fixed at ~115–120 mA, ~4½ hours from empty. A single-cell linear charger chip on the carrier — __MCP73831-class__, SOT-23-5, ~$0.50–1 plus a current-setting resistor and two capacitors, __~$1 a board__ — fed from the service pigtail's USB, at __~400 mA__ (0.8C) takes it to __~1½ hours__.
+
+- __Heat:__ a linear charger burns (5 − 3.7 V) × 0.4 A ≈ __0.5 W__ at the start of a charge, on a small board in a closed nose. ~400 mA is the ceiling; give it copper to spread into, and check the part's thermal regulation
+- __Only one charger may charge the battery.__ XIAO-ESP32S3-cam's own charger switches on with the same USB. So __the switch above moves to where the battery feed splits, and disconnects both XIAOs' BAT pads__ while USB is in: XIAO-ESP32S3-cam runs from USB, XIAO-ESP32S3-lora is off, and the carrier's charger alone sees the battery. Still one FET
+- __Owed with the switch:__ the part and its current resistor, and a bench check of charge time and temperature
+
 __This should have been caught at design time.__ [LiPo-500mAh.md](../LiPo-500mAh/LiPo-500mAh.md#two-chargers-on-one-battery) wrote down on 2026-09-10 that the net charge "may be near zero" and deferred it to a measurement, instead of designing it out. The measurement found it before copper; it should not have needed to.
 
 ### Two data links, each behind an open jumper — decided, not yet in the generator
