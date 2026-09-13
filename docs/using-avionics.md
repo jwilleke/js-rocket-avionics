@@ -55,7 +55,7 @@ __There is no on/off switch on this rocket. Plugging in the battery is "on".__
 
 ## During the flight
 
-__You do not need to do anything.__ The camera records from the moment the battery goes in until landing, then stops so the battery that is left keeps the beacon talking. The beacon sends the rocket's position every so often — expect a position or two on the way up and down, not a live track.
+__You do not need to do anything.__ On the pad the camera computer waits without recording, to save the battery; __it starts recording at launch__ — keeping the few seconds before it — and stops at landing, so the battery that is left keeps the beacon talking. The beacon sends the rocket's position every so often — expect a position or two on the way up and down, not a live track.
 
 ## Finding it
 

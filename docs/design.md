@@ -139,7 +139,11 @@ The whole flight fits roughly nine times over.
 
 __And the log goes to the card in slices as it is recorded__ (operator, 2026-09-12, [#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)). The sampler never touches the card: a separate writer task, the one that writes the video, copies each new slice from PSRAM to the card, and the PSRAM copy stays whole until landing. A card stall delays a slice and costs no sample — measured: zero dropped at 833 Hz accel + gyro while the card stalled up to 1.2 s ([camera-stack.md](../hardware/camera-stack/camera-stack.md#at-flight-load--stack-load-test)). What slicing buys is a reset: it now costs only the slice not yet written, not the flight. This replaces "zero SD writes in flight, flush on landing", which assumed one thread doing everything.
 
-__Video runs from arming until landing is detected__, then stops (operator, 2026-09-12). One battery feeds the beacon too, and the camera and card are its largest load; recording on would spend the battery recovery depends on.
+__Video runs from launch until landing is detected__, then stops (operator, 2026-09-12 and 2026-09-13, [#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)). One battery feeds the beacon too, and the camera and card are its largest load.
+
+- __Idle on the pad, not recording__ (2026-09-13). Plugging the battery in is "on" and the pad wait can be long; at full load the battery lasts 103 minutes ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)), and most of that went to recording a rocket sitting still. __Launch detection starts the card writes__
+- __A few seconds kept from before launch__ — a ring of recent frames in PSRAM, flushed when launch is detected, so the ignition is on the video. That needs the camera running on the pad, which costs part of the saving; __the pad draw with and without it is to be measured__ (USB meter) before the firmware settles it. Camera off until launch saves more but loses the first ~½–1 s of boost while it starts
+- __After landing, recording stops__, and what is left of the battery keeps the beacon talking
 
 ## Sensor rationale
 

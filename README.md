@@ -22,7 +22,7 @@ __Planned, not yet written.__ The recorder firmware on XIAO-ESP32S3-cam is __not
 |---|---|---|---|
 | Acceleration and rotation | [LSM6DSO32](hardware/LSM6DSO32/LSM6DSO32.md), XIAO-ESP32S3-cam | __planned__ — 500 Hz, read from the sensor's FIFO | PSRAM through the flight (~900 KB a minute), __written to microSD in slices as it goes__ |
 | Pressure, so altitude | [BMP388](hardware/BMP388-barometer/BMP388-barometer.md), XIAO-ESP32S3-cam | __planned__ — in the same log | the same |
-| Video | OV3660 on the [Sense camera board](hardware/Sense-camera-board/Sense-camera-board.md), XIAO-ESP32S3-cam | __planned__ — from arming until landing is detected | microSD, as it records |
+| Video | OV3660 on the [Sense camera board](hardware/Sense-camera-board/Sense-camera-board.md), XIAO-ESP32S3-cam | __planned__ — from launch, with a few seconds before it, until landing is detected; idle on the pad | microSD, as it records |
 | Position and GPS altitude | [L76K-GNSS](hardware/L76K-GNSS/L76K-GNSS.md), XIAO-ESP32S3-lora | __no__ — broadcast over LoRa by stock Meshtastic every so often, stored nowhere on the rocket | the ground receiver and the phone on it — [#23](https://github.com/jwilleke/js-rocket-avionics/issues/23), ordered 2026-09-11 |
 
 __Two things that follow:__

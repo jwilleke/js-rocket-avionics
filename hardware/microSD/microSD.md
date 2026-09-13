@@ -4,7 +4,7 @@ __Video and the flight log's slices, and already in hand.__ Rides the Sense expa
 
 ## What it holds
 
-__Video, from arming until landing, and the flight log in slices__ (operator, 2026-09-12, [#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)). The sampler writes only PSRAM; a writer task copies the log to the card a slice at a time, alongside the video. Both are __sequential writes__ — a speed-class question; __no A1/A2 or pSLC rating is needed__.
+__Video, from launch until landing — idle on the pad — and the flight log in slices__ (operator, 2026-09-12 and 2026-09-13, [#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)). The sampler writes only PSRAM; a writer task copies the log to the card a slice at a time, alongside the video. Both are __sequential writes__ — a speed-class question; __no A1/A2 or pSLC rating is needed__.
 
 __It cannot be in the sampler's path.__ SD write latency is unbounded — wear-levelling and garbage collection make a normally-2 ms write take __100–250 ms__, spec-legally, and __this card was measured stalling up to 1 191 ms__ ([on the bench](#on-the-bench)). At 500 Hz that is hundreds of samples lost during boost.
 
