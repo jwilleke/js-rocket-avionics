@@ -71,9 +71,9 @@ __For [charging-bench.md](bench-work/charging-bench.md)__ — the carrier's char
 | __2.7 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHH1DHF) | $9.09 | — | Sets U1's current, 370 mA |
 | __100 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHGY3VG) | $9.09 | — | The FETs' gate pull-down. __Skip if you have one__ |
 | __4.7 µF__ ceramic, 50 V, 5.08 mm leads | [100-pack](https://www.amazon.com/dp/B0CN68WGZ6) | $9.24 | Sep 22–Oct 1 | U1's two capacitors |
-| __JST-PH 2-pin pigtails__, male and female | [20 pairs](https://www.amazon.com/dp/B0F6T4LKDG) | $8.99 | ships from Amazon | Battery and both XIAO pigtails onto the breadboard — the join harness has no place for the FETs. __Meter every one: [JST polarity is not fixed](../hardware/LiPo-500mAh/LiPo-500mAh.md#on-the-bench--the-join-harness)__ |
+| __JST-PH 2-pin pigtails__, male and female | [CHANZON, 30 pairs, 10 cm, 22 AWG](https://www.amazon.com/dp/B0B2DC8ST8) | — | __in hand__ (operator, 2026-09-13) | Battery and both XIAO pigtails onto the breadboard — the join harness has no place for the FETs. __Meter every one: [JST polarity is not fixed](../hardware/LiPo-500mAh/LiPo-500mAh.md#on-the-bench--the-join-harness)__ — the listing itself says not to trust the wire colour |
 
-__$52.62 listed for all of it; $43.53 without the 100 kΩ__ — plus shipping on anything not Prime. The carrier needs the same FETs and chip, from these packs, and its own small surface-mount resistors and capacitors; those go with the carrier order.
+__$43.63 listed for the rest; $34.54 without the 100 kΩ__ — plus shipping on anything not Prime. The carrier needs the same FETs and chip, from these packs, and its own small surface-mount resistors and capacitors; those go with the carrier order.
 
 ## What is actually blocking
 
