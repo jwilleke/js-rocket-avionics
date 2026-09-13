@@ -13,7 +13,7 @@ Two small computers and one battery:
 
 | | What it does | You will see it as |
 |---|---|---|
-| __The beacon__ ([XIAO-ESP32S3-lora](../hardware/XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md)) | Knows where the rocket is (GPS) and radios it out, so you can find it | a node in the __Meshtastic__ phone app |
+| __The beacon__ ([XIAO-ESP32S3-lora](../hardware/XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md)) | Knows where the rocket is (GPS) and radios it out, so you can find it | a node called __`MJR1`__ in the __Meshtastic__ phone app |
 | __The camera computer__ ([XIAO-ESP32S3-cam](../hardware/XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md)) | Records video and the flight — acceleration, spin, altitude — to a memory card | `mj-cam` |
 | __The battery__ | Powers both, from the moment it is plugged in | — |
 
@@ -34,7 +34,7 @@ __Until those rows say "works", treat the rest of this page as the plan.__
 ## What you need on the ground
 
 - __Your phone__ with the __Meshtastic__ app
-- __The ground receiver__ — a second Meshtastic radio, in its case, with its antenna — and a __USB power bank__ for it
+- __The ground receiver, `mj-ground`__ — a second Meshtastic radio, in its case, with its antenna — and a __USB power bank__ for it. __Your phone connects to `mj-ground` by Bluetooth, never to the rocket__: the phone has no LoRa radio, so `mj-ground` hears the rocket and passes it on
 - The receiver must be on __the same private channel__ as the rocket. That is done once, by scanning a QR code in the app; whoever set up the rocket has it. __Never post that QR code or a screenshot of the map anywhere public__ — the map shows where the rocket is, which on the bench means where you live
 
 ## Before launch day
