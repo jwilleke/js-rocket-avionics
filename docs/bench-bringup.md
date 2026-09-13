@@ -115,3 +115,7 @@ Not "it worked". A __stated verdict__ on the coupling, because that is the one t
 - __needs the second cell__ — which was priced and rejected at +8 g, and can only be re-priced now that somebody knows how bad the coupling actually is
 
 Write the numbers down even when they are boring. The predictions this epic exists to test have been sitting in [BOM.md](BOM.md) as accepted risks for weeks, and an accepted risk nobody measured is just a guess with a checkbox.
+
+## After this epic — the charging bench
+
+__[#30](https://github.com/jwilleke/js-rocket-avionics/issues/30) also blocks the order__, and has its own bench session: the carrier's charging circuit — Q1, Q2 and the charger chip — on a breadboard with both XIAOs and the battery. It needs parts bought first. Procedure: [charging-bench.md](bench-work/charging-bench.md).

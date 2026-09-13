@@ -27,7 +27,7 @@ __The rocket flies fine without any of it.__ The electronics find it and record 
 | Recording video and flight data | __proven on the bench, not written as a flight program yet__ ([#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)) |
 | Status on the pad — "ready", "recording" | __not decided__: beeps, or a phone screen ([#25](https://github.com/jwilleke/js-rocket-avionics/issues/25)) |
 | Getting the video off without opening the nose | __planned__ — phone over Bluetooth, then Wi-Fi ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)) |
-| Charging without opening the nose | __not yet__ — today the beacon uses more than the charger gives. The fix is designed into the carrier: USB in switches the beacon off so the battery charges ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)). Until then, charge the battery on its own |
+| Charging without opening the nose | __not yet__ — today the beacon uses more than the charger gives. The fix is designed into the carrier: USB in switches the beacon off so the battery charges ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)); its parts are chosen and a bench check comes next. Until then, charge the battery on its own |
 
 __Until those rows say "works", treat the rest of this page as the plan.__
 

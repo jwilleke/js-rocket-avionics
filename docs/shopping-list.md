@@ -59,6 +59,22 @@ __Claim the AIG insurance window on both Seeed boxes now if at all__ — 7 days 
 | M3 plastic machine screws, __M3 × 10__, ×2; Würth WA-SMSI M3 10 mm SMT standoffs (9774100360), ×2 | — | The carrier hangs off the web on the standoffs; screws from the web side. Longer than 10 mm pokes through the board's tall side ([PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md)). The old "2×7 stacking headers, ~14 mm" line is gone: the kit's standard 7-pin headers are the flight part |
 | Solder, flux, PET window, zip ties, standoffs | ~$15 | Consumables |
 
+## To order — the charging bench (#30)
+
+__For [charging-bench.md](bench-work/charging-bench.md)__ — the carrier's charging circuit on a breadboard before it goes into copper ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)). Part numbers are in [BOM.md](BOM.md); why each was chosen, in [PCB-carrier-design.md](../hardware/PCB-carrier/PCB-carrier-design.md#charging-on-the-carrier--q1-the-charge-isolation-fet-and-a-charger-chip--decided-not-yet-in-the-generator). __Prices and delivery dates as the listings showed them on 2026-09-13, logged out__ — not receipts; your cart shows what is Prime.
+
+| Part | Listing | Listed | Delivery shown | Note |
+|---|---|---|---|---|
+| __AO3401A__ P-channel FET, SOT-23 — Q1 and Q2 | [100-pack](https://www.amazon.com/dp/B08RHFLH1K) | $6.95 | Sep 20–22, ships from Amazon | Enough for the bench and every carrier |
+| __MCP73831T-2ACI/OT__ charger, SOT-23-5 — U1 | [single, listed as Microchip](https://www.amazon.com/dp/B005T6AIIO) — buy 3 | $0.49 each | Sep 17–21 | One for the bench, one for the first carrier, one for a slip. Or [a 10-pack](https://www.amazon.com/dp/B09WV8PN7V), $3.99, Oct 1–8 |
+| __SOT-23 to DIP adapters__, 6-pad | [20-pack](https://www.amazon.com/dp/B088M72B54) | $7.79 | Sep 23–28 | Fits SOT-23 and SOT-23-5. Header pins are not listed as included — any 2.54 mm male strip |
+| __2.7 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHH1DHF) | $9.09 | — | Sets U1's current, 370 mA |
+| __100 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHGY3VG) | $9.09 | — | The FETs' gate pull-down. __Skip if you have one__ |
+| __4.7 µF__ ceramic, 50 V, 5.08 mm leads | [100-pack](https://www.amazon.com/dp/B0CN68WGZ6) | $9.24 | Sep 22–Oct 1 | U1's two capacitors |
+| __JST-PH 2-pin pigtails__, male and female | [20 pairs](https://www.amazon.com/dp/B0F6T4LKDG) | $8.99 | ships from Amazon | Battery and both XIAO pigtails onto the breadboard — the join harness has no place for the FETs. __Meter every one: [JST polarity is not fixed](../hardware/LiPo-500mAh/LiPo-500mAh.md#on-the-bench--the-join-harness)__ |
+
+__$52.62 listed for all of it; $43.53 without the 100 kΩ__ — plus shipping on anything not Prime. The carrier needs the same FETs and chip, from these packs, and its own small surface-mount resistors and capacitors; those go with the carrier order.
+
 ## What is actually blocking
 
 __Nothing is on a truck any more.__ Every ordered part is on the bench as of __2026-08-13__. __Shipping has stopped being the blocker; bench work is.__ The copper order is now gated on the breadboard and on one caliper reading, both of which are available today.

@@ -60,18 +60,43 @@ __A P-channel MOSFET, high side, in XIAO-ESP32S3-lora's battery feed__ — sourc
 | none — flight, pad | on (closed) | on the battery | on the battery | powers both |
 | in XIAO-ESP32S3-cam, directly or through the service pigtail | __off (open)__ | on, from USB | __off__ — with the Wio-SX1262 and the L76K-GNSS, which draw through it | charges |
 
-- __Its gate reads XIAO-ESP32S3-cam's `5V` pin__, through a resistor, with a pull-down (~100 kΩ) to `GND`. `5V` carries USB power whenever USB is in, and nothing on the battery. USB in: gate at 5 V, above the battery, Q1 off. USB out: gate pulled low, Q1 on. No wire added to the service pigtail
+- __The part: AO3401A__ (AOS), P-channel, SOT-23 — −30 V, ±12 V gate, < 85 mΩ at a −2.5 V gate and < 60 mΩ at −4.5 V, threshold −0.5 to −1.3 V (AOS datasheet, rev 3.1). Fully on from a 3.0 V battery; at ~0.3 A it drops ~20 mV. Chosen 2026-09-13
+- __Its gate reads XIAO-ESP32S3-cam's `5V` pin__, with a pull-down (~100 kΩ) to `GND`. `5V` carries USB power whenever USB is in, and nothing on the battery. USB in: gate at 5 V, above the battery, Q1 off. USB out: gate pulled low, Q1 on. No wire added to the service pigtail
 - __Body diode points the safe way__: with Q1 off, the battery cannot feed XIAO-ESP32S3-lora through it
-- __It must never cut XIAO-ESP32S3-lora in flight.__ With no USB nothing pulls the gate up; the one way it could is the pull-down failing open, leaving the gate floating. Choose a resistor that fails safe, and bench-test before copper
+- __It must never cut XIAO-ESP32S3-lora in flight.__ With no USB nothing pulls the gate up; the one way it could is the pull-down failing open. __It has a second one already__: Seeed's schematic puts R9, 100 kΩ, from the XIAO's `VBUS` — which is the `5V` pin — to `GND`. Either resistor alone holds the gate low
+- __Seeed's XIAO does the same thing inside__: its own Q1 (LP0404N3T5G, a P-channel FET) has its gate on `VBUS` with R9 pulling it down, and takes the XIAO's regulator off its battery while USB is in (XIAO ESP32S3 schematic v1.2)
+- __A data-link shunt must not power it while it is off.__ With the mj-cam → lora shunt on ([below](#two-data-links-each-behind-an-open-jumper--decided-not-yet-in-the-generator)), a high output from XIAO-ESP32S3-cam would push ~3 mA through the 1 kΩ into an unpowered XIAO-ESP32S3-lora. Firmware holds that pin low while USB is in, or the shunt is off while charging
 - __The two `5V` pins still never meet__ — a sense connection to the gate, not a power path
 - __Q1 cannot cover both XIAOs.__ Moved to where the battery feed splits, the two XIAOs would share its far side, and XIAO-ESP32S3-cam's own charger would power XIAO-ESP32S3-lora through that shared node — it would not go off. (Written that way on 2026-09-13 and corrected the same day.)
 
 #### A faster charger chip
 
-__Decided, operator 2026-09-13.__ The XIAO's own charger is fixed at ~115–120 mA, ~4½ hours from empty. A single-cell linear charger chip on the carrier — __MCP73831-class__, SOT-23-5, ~$0.50–1 plus a current-setting resistor and two capacitors, __~$1 a board__ — fed from XIAO-ESP32S3-cam's `5V` pin at __~400 mA__ (0.8C) takes it to __~1½ hours__.
+__Decided, operator 2026-09-13.__ The XIAO's own charger is fixed at ~115–120 mA, ~4½ hours from empty. A single-cell linear charger chip on the carrier, fed from XIAO-ESP32S3-cam's `5V` pin, cuts that to __~1½–2 hours__ — the bench times it ([charging-bench.md](../../docs/bench-work/charging-bench.md)).
 
-- __Heat:__ a linear charger burns (5 − 3.7 V) × 0.4 A ≈ __0.5 W__ at the start of a charge, in a closed nose. ~400 mA is the ceiling; give it copper to spread into, and check its thermal regulation
-- __Open — two chargers on the battery.__ XIAO-ESP32S3-cam's own charger cannot be disabled and stays connected, so with the chip, two chargers charge together from the one USB. Both stop at 4.2 V, which is probably benign, but not assumed. The alternative is a second FET, Q2, taking XIAO-ESP32S3-cam's feed off the battery while USB is in — whose body diode would still let the cam's charger into the battery, so it needs working through. __Settle it at the bench check, before copper__
+| | Chosen 2026-09-13 — from Microchip's datasheet, DS20001984H |
+|---|---|
+| __U1, the charger__ | __MCP73831T-2ACI/OT__ — SOT-23-5, 4.20 V, 15–500 mA. Pins: 1 `STAT`, 2 `VSS`, 3 `VBAT`, 4 `VDD`, 5 `PROG` |
+| __Current resistor__ | __2.7 kΩ__ on `PROG`: I = 1000 V ÷ R = __370 mA__, and 333–407 mA across the datasheet's ±10% |
+| __Capacitors__ | 4.7 µF on `VDD` and 4.7 µF on `VBAT` — the datasheet's minimum for each |
+| `STAT` | not connected — a light inside a closed nose is seen by nobody |
+
+- __Why 370 mA and not 400:__ the battery's maker says charge it "at a rate of 500mA or less" (Adafruit 1578 listing). 2.7 kΩ keeps even the top of the chip's tolerance under that
+- __The `5V` pin can feed it — checked on Seeed's schematic (XIAO ESP32S3 v1.2).__ Header pin 7 (`5V`) is the `VBUS` net itself: copper straight from the USB-C's `VBUS` pins, no fuse and no diode between. So nothing in the path limits the current; its copper and the USB-C connector carry XIAO-ESP32S3-cam's own draw plus ~0.4 A. Seeed writes no rating for it, so the bench reads the pin's voltage under load
+- __The USB source must give ~0.6 A.__ The XIAO's USB-C has 5.1 kΩ on both `CC` pins, so a USB-C charger or power bank sees a device and gives its full current; an old USB-A port through an A-to-C cable promises 500 mA, and may sag. For [using-avionics.md](../../docs/using-avionics.md) once it is built
+- __Heat:__ at the start of a charge the chip burns (5.0 − 3.5 V) × 0.37 A ≈ __0.56 W__. Microchip gives the SOT-23-5 230 °C/W with minimal copper and ~130 °C/W or better with a large copper area — a die __72–128 °C above ambient__. So it will likely hit its __thermal regulation__, which cuts the current to hold the die temperature (shutdown at 150 °C). That costs charge time, not safety. __Give it copper__, away from the sensors
+- __Hand-soldered.__ The carrier is bare boards from OSH Park, assembled by hand, and "module footprints, not bare chips" ([PCB-carrier.md](PCB-carrier.md)) was written for the LSM6DSO32's 2.5 × 3 mm LGA. Q1, Q2 and U1 are SOT-23s — 0.95 mm pin spacing, leads you can see — plus a few passives, to be drawn at a hand-solderable size. The bench soldering them onto adapters is the rehearsal; if that goes badly, the answer is a charger module footprint, before copper
+
+#### Q2 — XIAO-ESP32S3-cam's charger off the battery — recommended, needs the operator's OK
+
+__With U1 and no Q2, two chargers share the battery__ while USB is in: XIAO-ESP32S3-cam's own ~115–120 mA cannot be disabled. 370 + 120 = 490 mA, and up to ~527 mA at U1's tolerance — __over the battery's 500 mA__. Dropping U1 to 3.0 kΩ (333 mA) would keep the sum under, with two chargers still ending the charge together.
+
+__Q2 takes XIAO-ESP32S3-cam's BAT pigtail off the battery while USB is in__, so U1 alone charges — same part as Q1, AO3401A, gate on the same `5V` pin and pull-down.
+
+- __Q2 faces the other way from Q1: drain to `VBAT`, source to XIAO-ESP32S3-cam's BAT pigtail.__ Its body diode then conducts only from the battery toward XIAO-ESP32S3-cam. That is the working-through owed on 2026-09-13: facing Q1's way, the body diode would let XIAO-ESP32S3-cam's charger into the battery whenever the battery is under ~3.5 V (its 4.2 V less a diode drop) — the start of a charge, when the current is highest
+- __Unplugging USB is the moment to watch.__ The battery reaches XIAO-ESP32S3-cam through Q2's body diode until Q2's channel is fully on — but `VBUS` falls slowly once U1 stops drawing (the two 100 kΩ pull-downs against ~5.7 µF, a time constant near 0.3 s), so for a moment Q2 is only partly on, and XIAO-ESP32S3-cam's supply sits a diode drop or two low. Whether it rides through without a reset is not worked out on paper; __the bench checks it__. If it resets, a smaller pull-down empties `VBUS` faster
+- __Cost:__ one more AO3401A, from the same pack
+
+__This page's recommendation is Q2__ — one part, a single charger ending the charge, and the full 370 mA.
 
 __This should have been caught at design time.__ [LiPo-500mAh.md](../LiPo-500mAh/LiPo-500mAh.md#two-chargers-on-one-battery) wrote down on 2026-09-10 that the net charge "may be near zero" and deferred it to a measurement, instead of designing it out. The measurement found it before copper; it should not have needed to.
 
