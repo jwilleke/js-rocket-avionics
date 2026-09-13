@@ -120,7 +120,12 @@ So the wire is anchored to the board, and the joint carries current only:
 
 > __A broken pigtail is silent.__ With both `3V3` pins on the same plane, the surviving regulator back-feeds the dead module and the rocket still works — so the first failure hides the fault and only the second one grounds you. __Inspect both joints as a step, rather than waiting to be told about them.__ It is also the strongest argument for keeping the plane tie until [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) says otherwise.
 
-__No connector at the pad end.__ A connector there would put mass and leverage on the weakest joint in the assembly, which is the opposite of what is wanted. The disconnect belongs at the far end and already exists — the JST.
+__No connector at the pad end.__ A connector there would put mass and leverage on the weakest joint in the assembly, which is the opposite of what is wanted. The disconnect belongs at the far end.
+
+__At the far end, each pigtail plugs into a JST socket on the carrier__ — decided, operator 2026-09-13 ([#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)). Nothing is soldered to the carrier and nobody re-solders a XIAO pad: the pigtails as soldered for the bench, plugs and all, plug straight in. The carrier carries __three JST-PH sockets__: the battery's, and one per XIAO pigtail — XIAO-ESP32S3-lora's fed through Q1 ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)).
+
+- __The pigtail sockets are wired the opposite way from the battery socket__ — the battery's plug and the pigtails' plugs disagree on polarity, as the bench harness showed. Meter each one
+- __Secure each plug once seated__ — a dab of hot glue or tape, as for the strain relief ([#20](https://github.com/jwilleke/js-rocket-avionics/issues/20)). A JST-PH holds by friction, and boost is 17.6 g
 
 ## The known risk, observed: no brownout at bench load
 
