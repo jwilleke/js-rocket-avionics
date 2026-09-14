@@ -136,7 +136,9 @@ __Operator, 2026-09-14.__ The battery lies on the carrier's __low face__, betwee
 
 __Why there.__ It is the only place beside the carrier that passes the 40 mm door: corners at __r 15.79__, 4.2 mm inside it, and __6.1 mm__ clear of the cavity along its length. Everywhere else beside the board a 29 mm battery reaches r 22–23. The old spot — on the sled's D-flat at nose z 125–161 — put its forward corners __~1.2 mm into the Nosecone wall__, read off `nosecone.stl` on 2026-09-13 ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99#issuecomment-5654142688)).
 
-__What moves with it__ — nose z = layout y + 25.4:
+> __Correction, same day: the table below fails the generator.__ Run through `gen_carrier.py` in a scratch copy, the BMP388's two M2 legs — 20.6 mm apart, [its 2026-09-11 mounting](../BMP388-barometer/BMP388-barometer.md) — land on the L76K-GNSS's header joints at the positions below. Both legs must fall in the gaps between the tall side's header rows, which pins the BMP388 to very few places. __A variant that passes__ (all 72 holes clear, DRC 0 violations): LSM6DSO32 nose z 33.4–58.9, __battery 70.5–106.5__, BMP388 107.3–132.8, forward standoff 135.9, board 115.7 mm — battery centre at nose z 88.5. __The other way__ keeps the battery at 101–137 by mounting the BMP388 on its header alone, without legs. __Operator's choice, pending.__ Nothing below is in the generator.
+
+__What moves with it__ — nose z = layout y + 25.4 (as first drawn; see the correction above):
 
 | | Was | Now | Layout |
 |---|---|---|---|
