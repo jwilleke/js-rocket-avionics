@@ -65,7 +65,7 @@ __The 14 pads are the XIAO's own pattern__, two rows of 7, and Seeed labels each
 
 ## Antenna
 
-__Active patch on U.FL__, in a cradle at the ElectronicsSled's forward end, forward of the battery, __face toward the nose tip__, with nothing metal in front of it. Keep it __≥50 mm__ from the LoRa strip, which runs aft — see [Antennas.md](../Antennas/Antennas.md), which owns this.
+__Active patch on U.FL__, at the ElectronicsSled's forward end — exact spot open since the battery moved behind the carrier (2026-09-14, [Antennas.md](../Antennas/Antennas.md#mounting-the-gnss-antenna)) — __face toward the nose tip__, with nothing metal in front of it. Keep it __≥50 mm__ from the LoRa strip, which runs aft — see [Antennas.md](../Antennas/Antennas.md), which owns this.
 
 ## The mass problem
 

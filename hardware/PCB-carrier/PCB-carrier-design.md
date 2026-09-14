@@ -130,6 +130,33 @@ __Operator, 2026-09-12 ([#26](https://github.com/jwilleke/js-rocket-avionics/iss
 - __Set before the nose is closed__ — the shunts are not reachable after
 - __Owed before they are drawn:__ which spare pins — mj-cam's `D1` (GPIO2) is the clean choice for the GPS input, `D2` is a strapping pin; the lora side is whatever Meshtastic's `seeed-xiao-s3` variant leaves free beside the Wio-SX1262 — and a bench check that the Serial module does what is described on firmware `2.7.26` ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26))
 
+## The battery sits behind the carrier — decided, not yet in the generator
+
+__Operator, 2026-09-14.__ The battery lies on the carrier's __low face__, between the board and the moved web: __nose z 101–137__, long axis along the sled, 29 mm across (2.5 mm past each board edge), 4.75 mm thick on a __1 mm insulating pad__ — r 1.5 to 6.25 toward 90°. __This page now owns the battery's position__; [payload-sled.md](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-sled.md) and [LiPo-500mAh.md](../LiPo-500mAh/LiPo-500mAh.md) point here.
+
+__Why there.__ It is the only place beside the carrier that passes the 40 mm door: corners at __r 15.79__, 4.2 mm inside it, and __6.1 mm__ clear of the cavity along its length. Everywhere else beside the board a 29 mm battery reaches r 22–23. The old spot — on the sled's D-flat at nose z 125–161 — put its forward corners __~1.2 mm into the Nosecone wall__, read off `nosecone.stl` on 2026-09-13 ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99#issuecomment-5654142688)).
+
+__What moves with it__ — nose z = layout y + 25.4:
+
+| | Was | Now | Layout |
+|---|---|---|---|
+| Board length | 90.4 mm, ends nose z 115.8 | __120.1 mm, ends nose z 145.5__ — inside the web, which ends at 146 | `h` 120.1 |
+| LSM6DSO32 | nose z 54.4–79.9 | __34.4–59.9__ | y 9.0–34.5 |
+| BMP388 | nose z 80.9–106.4 | __60.9–86.4__ | y 35.5–61.0 |
+| Forward standoff | nose z 110.6 | __141.5__ — forward of everything on the tall side, __under no module__ | (16.5, 116.1) |
+| Aft standoff | nose z 29.4 | unchanged | (12.0, 4.0) |
+
+__Owed before it is drawn:__
+
+1. __Stability.__ The battery's centre moves to nose z 119, __24 mm aft__ of where it was documented, and aft mass is expensive ([payload-ballast.md](https://github.com/jwilleke/js-rocket/blob/main/docs/payload-ballast.md)). Re-derive the nose's CG and re-run the flight-3 stability numbers before the carrier is ordered
+2. __Retention.__ There are __4.25 mm__ of air between the battery and the web. Fill it with a foam spacer, or tie the battery to the board clear of the modules — __never clamp the pouch__ between board and web
+3. __The pad covers every through-hole joint under it__, including XIAO-ESP32S3-lora's BAT pigtail joints at nose z 106, trimmed flush
+4. __The charger chip ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)) goes outside nose z 101–137 on either face__ — ~0.56 W at the start of a charge must not heat the pouch through the board
+5. __The battery lead__ reaches the JST on the tall side (nose z 105–114) around the board's edge
+6. __The GNSS patch is still open.__ The sled's forward end is free again; flat on the forward disc it clears the nose by only 0.33 mm (js-rocket#99)
+
+Drawing: [`nose-assembly-6e81cfc.html`](https://github.com/jwilleke/js-rocket/blob/main/docs/designs/nose-assembly-6e81cfc.html), layout *Battery behind the carrier*.
+
 ## What changes in the sled — js-rocket#99
 
 - __Web offset__ to r 10.5–13.5 toward 90° (its centre 12.0 mm off the axis), still 3 mm and one piece. The D-flat, discs and clocking loop do not move

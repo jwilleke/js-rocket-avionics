@@ -15,7 +15,7 @@ A GNSS patch needs a __30–40 mm ground plane__ and a 24 mm board never will be
 
 ## Mounting the GNSS antenna
 
-__It and the battery are the two heaviest single things in the nose__ (masses in [BOM.md](../../docs/BOM.md)), so it is held, not stuck. Its documented home was the forward disc's face, and that is where the battery overhangs past the sled's forward end ([payload-sled.md](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-sled.md#where-the-cell-goes)). So the sled carries a __cradle forward of the battery__:
+__It and the battery are the two heaviest single things in the nose__ (masses in [BOM.md](../../docs/BOM.md)), so it is held, not stuck. __Where it goes is open again__ (2026-09-14). The battery moved behind the carrier ([PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#the-battery-sits-behind-the-carrier--decided-not-yet-in-the-generator)), so the sled's forward end is free — but flat on the forward disc the patch's corners clear the Nosecone by only __0.33 mm__ ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99)). The cradle below was written for a spot forward of the battery that no longer exists; its principles still hold:
 
 - __A back wall__ between battery and antenna takes boost. __Arms at the edge midpoints__, not the corners, locate it. __A lip or a nylon tie wrap over the front__ retains it against ejection and landing
 - __Nothing metal in front of its face.__ Nylon over the front is fine. The nose's plastic is all that should lie between the antenna and the sky

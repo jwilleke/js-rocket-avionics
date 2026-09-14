@@ -57,15 +57,15 @@ __Runtime, timed from full__ (2026-09-12): charged to __4.17 V__, both boards on
 
 __Measure the battery, not the pigtail.__ With the battery unplugged and USB in, the XIAO's BAT pigtail read __4.03 V__ — that is the charger idling with nothing to charge, looking for a battery (the same reason its light flashes), not a charge level.
 
-### Where it goes — on the PayloadSled, forward of the carrier
+### Where it goes — behind the carrier
 
-__Decided__ (operator, 2026-09-07 and 2026-09-08). [`payload-sled.md`](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-sled.md#where-the-cell-goes) owns the placement and every number in it. In outline: flat on the sled's D-flat, resting on the forward disc, long axis along the sled, held by tie wraps, and sticking out past the sled's forward end into the nose taper. __It is forward of the carrier, not on it.__ Drawing: [Battery in the nose taper](https://github.com/jwilleke/js-rocket/blob/main/docs/designs/nose-battery-8548227.html).
+__Decided__ (operator, 2026-09-14): on the carrier's low face, between the board and the sled's web, nose z 101–137, on an insulating pad. [PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#the-battery-sits-behind-the-carrier--decided-not-yet-in-the-generator) owns the position and every number in it. __Superseded:__ flat on the sled's D-flat at nose z 125–161 (2026-09-07/08) — its forward corners met the Nosecone wall.
 
 What that decides on this side:
 
-- __The JST goes toward the carrier's forward end.__ The lead leaves the battery's aft end, just forward of the carrier, so the 80 mm has slack to spare and the forward end keeps the run shortest. Placement is [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)'s
+- __The lead reaches the JST around the board's edge__ — the battery is on the low face, the JST on the tall side at nose z 105–114. Its routing is owed ([PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#the-battery-sits-behind-the-carrier--decided-not-yet-in-the-generator), item 5)
 - __The battery is not reachable without pulling the sled.__ Changing it, or charging it on its own charger, means the M3 × 55 out and the sled pushed out of the nose ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)). Charging on the carrier through USB __did not work__ with XIAO-ESP32S3-lora connected ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)); the carrier's switch that takes it off the battery while USB is in ([#11](https://github.com/jwilleke/js-rocket-avionics/issues/11)) is what makes field charging work — see [Two chargers on one battery](#two-chargers-on-one-battery)
-- __The tie wraps restrain it, never the JST__
+- __Something restrains it, never the JST__ — a foam spacer in the 4.25 mm to the web, or ties clear of the modules; still owed. Never clamp the pouch
 
 ## Distribution
 
