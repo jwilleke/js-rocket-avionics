@@ -20,7 +20,7 @@ ls /dev/cu.usbmodem*
 | USB calls itself | `seeed_xiao_s3` | `USB JTAG_serial debug unit` |
 | Phone app | shows up on Bluetooth as __`MJR1`__ — node `!8f60ca48`; named `Meshtastic ca48` until 2026-09-13 | nothing |
 
-__A third Meshtastic board is now on the bench: the ground receiver `mj-ground`__ ([#23](https://github.com/jwilleke/js-rocket-avionics/issues/23)), MAC `10:b4:1d:e9:32:d8`. It also runs Meshtastic, shows up on Bluetooth and has a long port name — ending `D81`, not `CA481`. __Only the MAC or that port suffix tells it from this one__; check before any flash.
+__A third XIAO ESP32-S3 is now on the bench, and the second one running Meshtastic: the ground receiver `mj-ground`__ ([#23](https://github.com/jwilleke/js-rocket-avionics/issues/23)), MAC `10:b4:1d:e9:32:d8`. Like this one it runs Meshtastic, shows up on Bluetooth and has a long port name — ending `D81`, not `CA481`. __Only the MAC or that port suffix tells it from this one__; check before any flash.
 
 __Not in bootloader mode.__ While being flashed, __any__ XIAO shows up as `USB JTAG_serial debug unit` on a short port — including this one — so the port name is no guide then. __The chip's MAC is__: the upload tool prints it first, and this one is __`68:ee:8f:60:ca:48`__. Check it before writing anything.
 
