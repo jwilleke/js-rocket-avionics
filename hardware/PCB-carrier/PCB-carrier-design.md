@@ -17,7 +17,7 @@ __Status: adopted, operator 2026-09-11.__ This is the design record for the carr
 
 __One two-sided board on the sled's centre line.__ The __tall side__ faces 270°, the camera port: XIAO-ESP32S3-cam aft, under the camera; the L76K-GNSS; XIAO-ESP32S3-lora forward; the JST. The __low side__ faces 90°, the web: the LSM6DSO32 and BMP388, and two standoffs. The web is moved toward 90°, clear of the low side, and the board hangs off it. Take out two screws and the whole board comes off the sled.
 
-__Board: 24 × 115.7 × 1.6 mm, nose z 25.4 → 141.1, ~8.3 g__ — the battery on its low face (2026-09-15). Station lists for both sides are in [PCB-carrier.md](PCB-carrier.md#layout).
+__Every number — size, stations, clearances, the battery's position — is in [PCB-carrier.md](PCB-carrier.md), the carrier's one source of truth.__ This page is the discussion: why each choice was made, and what is decided but not yet drawn. Where the two disagree, PCB-carrier.md wins.
 
 ### What makes it work
 
@@ -31,17 +31,9 @@ __4. The board does not touch the web.__ It hangs 10 mm off it, so there are no 
 
 ## Across the bore
 
-Looking forward, 270° down; r from the sled's centre line. __The board's low face stays at r 0.5__, where the standoffs put it against the web, so at 1.6 mm (2026-09-15, 1.0 before) the extra 0.6 mm goes toward 270° and everything on the tall side moves with it.
+The table is in [PCB-carrier.md](PCB-carrier.md#across-the-bore). __Why the board grew toward 270° at 1.6 mm:__ its low face has to stay at r 0.5, where the standoffs put it against the web, so the extra 0.6 mm (1.0 until 2026-09-15) went toward 270° and took the tall side with it. That cost the camera pad 0.6 mm: 2.3 mm over the cam stack, where [#89](https://github.com/jwilleke/js-rocket/issues/89) was designed with 2.9.
 
-| | r | Clearance |
-|---|---|---|
-| Board | −1.1 to +0.5 | low face 0.5 toward 90°, as at 1.0 mm |
-| Cam stack top | 11.8 toward 270° | __2.3 mm__ to the camera pad floor (r 14.09) — 2.9 as [#89](https://github.com/jwilleke/js-rocket/issues/89) was designed, on a 1.0 mm board. Corners r 14.78, 5.2 mm inside the 40 mm door |
-| Lora stack top | 12.9 toward 270° | corners r 15.67, __4.3 mm__ inside the door |
-| Sensors top | 8.8 toward 90° | 1.7 mm to the web |
-| __Web__ | __10.5–13.5 toward 90°__ | 24 mm wide; the bore is 29.5 mm wide at r 13.5 |
-
-__The bridge__ is unchanged in principle: its fins stand beside the board's edges and carry the camera pad over the cam stack. They now root on a web 12 mm further toward 90°, so they are longer.
+__The bridge__ was to stand its fins beside the board's edges and carry the camera pad over the cam stack. __It is left out of the ElectronicsSled fit article__ (2026-09-15): the pad sits in the carrier's path as the carrier goes onto its standoffs from the 270° side. How the camera is held is open.
 
 ## Electrically
 
@@ -112,7 +104,7 @@ __The holes are already in the generator__ (`WIRE_PADS`, `TestPoint_THTPad_D2.0m
 | XIAO-ESP32S3-lora | y 78.5 | `TP_LORA_BAT_P` (10.4, 80.8), `TP_LORA_BAT_N` (13.6, 80.8) — `VBAT` side fed through Q1 |
 
 - __Labelled on both sides__ — `BAT`, `+` and `-` at each pair, mirrored on the low side so it reads from there (`BAT_LABELS` in `gen_carrier.py`, 2026-09-13; DRC 0 violations). Each module's name is also on the board under it, on its own side — `XIAO-ESP32S3 / cam`, `L76K-GNSS`, `XIAO-ESP32S3 / lora` on the tall side, `LSM6DSO32` and `BMP388` mirrored on the low side (`MODULE_LABELS`) — so the carrier says what goes where during assembly
-- __Assembly order — the sensors sit over the holes on the low side.__ XIAO-ESP32S3-cam's holes are under the LSM6DSO32 (y 29.0–54.5), XIAO-ESP32S3-lora's under the end of the BMP388 (y 55.5–81.0), each standing ~1 mm off the carrier. So the pigtails are soldered __before the sensors go on__, and the joints trimmed flush so the sensor boards clear them
+- __Assembly order — the LSM6DSO32 sits over XIAO-ESP32S3-cam's holes on the low side__, ~1 mm off the carrier, so that pigtail is soldered __before the sensor goes on__ and its joints trimmed flush. XIAO-ESP32S3-lora's holes lie under the battery, which is 5.25 mm off the board in the sled's cage
 - __Polarity__ is fixed by the holes, not a connector: `+` to `+`, checked with a meter before first power-up
 - __Superseded:__ JST sockets on the board for the pigtails (decided and dropped the same day — no room within the pigtail's ~10 mm)
 
@@ -132,43 +124,31 @@ __Operator, 2026-09-12 ([#26](https://github.com/jwilleke/js-rocket-avionics/iss
 
 ## The battery sits behind the carrier — decided 2026-09-14, layout B2 2026-09-15
 
-__Operator: behind the carrier on 2026-09-14, layout B2 on 2026-09-15.__ The battery lies on the carrier's __low face__, between the board and the moved web: __nose z 70.5–106.5__, long axis along the sled, 29 mm across (2.5 mm past each board edge), 4.75 mm thick on a __1 mm insulating pad__ — r 1.5 to 6.25 toward 90°. __This page owns the battery's position__; [payload-sled.md](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-sled.md) and [LiPo-500mAh.md](../LiPo-500mAh/LiPo-500mAh.md) point here.
+__Operator: behind the carrier on 2026-09-14, layout B2 on 2026-09-15.__ The battery lies behind the carrier's __low face__, between the board and the moved web, long axis along the sled, 29 mm across (2.5 mm past each board edge). __Its position is in [PCB-carrier.md](PCB-carrier.md#low-side--faces-90-the-web)__, which owns it.
 
-__Why behind the board.__ It is the only place beside the carrier that passes the 40 mm door: corners at __r 15.79__, 4.2 mm inside it. Everywhere else beside the board a 29 mm battery reaches r 22–23. The old spot — on the sled's D-flat at nose z 125–161 — put its forward corners __~1.2 mm into the Nosecone wall__, read off `nosecone.stl` on 2026-09-13 ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99#issuecomment-5654142688)).
+__It moved once more on 2026-09-15.__ B2 first drew it on a 1 mm insulating pad against the board. It was then set __against the web__ instead, in a cage, and 1.2 mm further aft so the cage's forward wall clears the BMP388. [PCB-carrier.md](PCB-carrier.md#low-side--faces-90-the-web) records the position; the ElectronicsSled's cage ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99)) is built to it.
+
+__Why behind the board.__ It is the only place beside the carrier that passes the 40 mm door ([Across the bore](PCB-carrier.md#across-the-bore)). Everywhere else beside the board a 29 mm battery reaches r 22–23. The old spot — on the sled's D-flat at nose z 125–161 — put its forward corners __~1.2 mm into the Nosecone wall__, read off `nosecone.stl` on 2026-09-13 ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99#issuecomment-5654142688)).
 
 __Why B2, and not the first drawing.__ The first drawing (2026-09-14) put the battery at nose z 101–137 with both sensors slid 20 mm aft. `gen_carrier.py`'s clearance check rejected it: the BMP388's two M2 legs, 20.6 mm apart ([its 2026-09-11 mounting](../BMP388-barometer/BMP388-barometer.md)), landed on the L76K-GNSS's header joints. Both legs have to fall in the gaps between the tall side's header rows and clear the JST, which leaves the BMP388 very few places. B2 moves the LSM6DSO32 aft and the BMP388 forward, and the battery takes the low side between them. The other way — the BMP388 on its header alone, keeping the battery at 101–137 — was offered and not chosen.
 
-__Layout B2 — in the generator, 2026-09-15.__ `verify_clearances()` passes (72 through-holes clear of each other, the standoffs and the BMP388 legs); kicad-cli DRC 0 violations, 10 unconnected items — the unrouted nets, as before. Nose z = layout y + 25.4:
-
-| | Was | B2 | Layout |
-|---|---|---|---|
-| Board length | 90.4 mm, ends nose z 115.8 | __115.7 mm, ends nose z 141.1__ — inside the web, which ends at 146 | `BOARD_H` 115.7 |
-| LSM6DSO32 | nose z 54.4–79.9 | __33.4–58.9__ | `LSM_Y` 20.75 |
-| Battery | on the sled, nose z 125–161 | __70.5–106.5__ — not a footprint | y 45.1–81.1 |
-| BMP388 | nose z 80.9–106.4 | __107.25–132.75__ | `BMP_Y` 94.6 |
-| Forward standoff | nose z 110.6 | __135.9__ — 5.2 mm from the board's end, as before, under no module | (16.5, 110.5) |
-| Aft standoff | nose z 29.4 | unchanged | (12.0, 4.0) |
+__Layout B2 — in the generator, 2026-09-15.__ `verify_clearances()` passes (72 through-holes clear of each other, the standoffs and the BMP388 legs); kicad-cli DRC 0 violations, 10 unconnected items — the unrouted nets, as before. B2 lengthened the board from 90.4 mm, moved the LSM6DSO32 aft and the BMP388 and the forward standoff forward, and put the battery on the low side between the sensors. __Where everything now is: [PCB-carrier.md](PCB-carrier.md#layout).__
 
 __Owed before the carrier is ordered:__
 
-1. __Stability.__ The battery's centre is at nose z 88.5 — __54.5 mm aft__ of where it was documented, and aft mass is expensive ([payload-ballast.md](https://github.com/jwilleke/js-rocket/blob/main/docs/payload-ballast.md)). Re-derive the nose's CG and re-run the flight-3 stability numbers
-2. __Stiffness.__ The standoffs are now __106.5 mm apart__ (81 before), with the battery's 10.9 g on the span. The board is __1.6 mm__ since 2026-09-15 — OSH Park's only 4-layer thickness — about 4× as stiff as the 1.0 mm it was judged at over 81 mm. Still check it; the fit mock is a first look, not an answer
-3. __Retention.__ There are __4.25 mm__ of air between the battery and the web. A foam spacer, or ties to the board clear of the modules — __never clamp the pouch__ between board and web
-4. __The pad covers every through-hole joint under it__: the L76K-GNSS's and XIAO-ESP32S3-lora's header joints and XIAO-ESP32S3-lora's BAT pigtail joints (nose z 106), trimmed flush
-5. __The charger chip ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)) goes outside nose z 70.5–106.5__ on either face — the tall side is clear from 113.7 to 141.1
-6. __The battery lead__ reaches the JST (tall side, nose z 105–114) around the board's edge — right at the battery's forward end
-7. __The GNSS patch is still open.__ The sled's forward end is free; flat on the forward disc it clears the nose by only 0.33 mm (js-rocket#99)
+1. __Stability.__ The battery's centre is now __~56 mm aft__ of the old D-flat spot, and aft mass is expensive ([payload-ballast.md](https://github.com/jwilleke/js-rocket/blob/main/docs/payload-ballast.md)). Re-derive the nose's CG and re-run the flight-3 stability numbers
+2. __Stiffness.__ The standoffs are further apart than the 81 mm the board was first judged at. The battery no longer loads the span: it rides the sled, in its cage. The board is __1.6 mm__ since 2026-09-15 — OSH Park's only 4-layer thickness — about 4× as stiff as the 1.0 mm it was judged at. Still check it; the fit mock is a first look, not an answer
+3. __Retention.__ The sled's cage holds it: three-sided, taped on its open sides ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99)). __Never clamp the pouch__
+4. __The joints under the battery__ — the L76K-GNSS's and XIAO-ESP32S3-lora's header joints and XIAO-ESP32S3-lora's BAT pigtail joints — face 5.25 mm of air, not the pouch. Trim them flush anyway
+5. __The charger chip ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)) goes clear of the battery__ — where that is, and the clear stretch on the tall side, is in [PCB-carrier.md](PCB-carrier.md#layout)
+6. __The battery lead__ reaches the JST on the tall side around the board's edge — right at the battery's forward end
+7. __The GNSS patch__ sits in a pocket in the sled's forward disc, off the carrier ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99))
 
-Drawing: [`nose-assembly-6e81cfc.html`](https://github.com/jwilleke/js-rocket/blob/main/docs/designs/nose-assembly-6e81cfc.html), layout *Battery behind the carrier*.
+Drawing: [`nose-assembly-6e81cfc.html`](https://github.com/jwilleke/js-rocket/blob/main/docs/designs/nose-assembly-6e81cfc.html) — it draws the one carrier in PCB-carrier.md.
 
 ## What changes in the sled — js-rocket#99
 
-- __Web offset__ to r 10.5–13.5 toward 90° (its centre 12.0 mm off the axis), still 3 mm and one piece. The D-flat, discs and clocking loop do not move
-- __Two M3 clearance holes__ through the web — __modelled in the mesh, printed, not drilled__ (operator, 2026-09-14) — at the standoffs: nose z 29.4 on the board's centre line, and nose z 135.9, 4.5 mm off it. Screws from the web's 90° face
-- __Bridge fins__ reach from the moved web, past the board's edges, to the camera pad
-- __Battery unmoved.__ The web edge it partly rests on moves 12 mm toward 90°, still under the battery but off its centre line — check its tie wraps
-- __GNSS antenna cradle__ unchanged: with the battery unmoved it keeps ~0.9 mm at its corners in the taper
-- __No pads, no slots, no board-to-web contact__
+__Built 2026-09-15 as the ElectronicsSled fit article__ ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99), js-rocket `6d7ba00`). The web moves to r 10.5–13.5 toward 90°. The two M3 holes are printed at the standoffs, not drilled. It adds the battery cage, a ballast cup, and a 2 mm GNSS patch pocket in the forward disc. There are no pads, no slots and no board-to-web contact. __Left out: #89's camera pad__, which blocks the carrier going on. The sled's own page owns its numbers: [payload-sled.md](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-sled.md).
 
 ## Checks owed before building
 

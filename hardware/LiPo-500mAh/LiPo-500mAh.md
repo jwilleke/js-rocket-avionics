@@ -59,7 +59,7 @@ __Measure the battery, not the pigtail.__ With the battery unplugged and USB in,
 
 ### Where it goes — behind the carrier
 
-__Decided__ (operator, 2026-09-14; position B2 chosen 2026-09-15): on the carrier's low face, between the board and the sled's web, __nose z 70.5–106.5__, on an insulating pad. [PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#the-battery-sits-behind-the-carrier--decided-2026-09-14-layout-b2-2026-09-15) owns the position and every number in it. __Superseded:__ flat on the sled's D-flat at nose z 125–161 (2026-09-07/08) — its forward corners met the Nosecone wall.
+__Decided__ (operator, 2026-09-14; position B2 chosen 2026-09-15): behind the carrier's low face, in the ElectronicsSled's cage against the web, 5.25 mm off the board. [PCB-carrier.md](../PCB-carrier/PCB-carrier.md#low-side--faces-90-the-web) owns the position and every number in it. __Superseded:__ flat on the sled's D-flat at nose z 125–161 (2026-09-07/08) — its forward corners met the Nosecone wall.
 
 What that decides on this side:
 

@@ -33,6 +33,7 @@ INK, NOTE, DIM = "#1b1b1b", "#5b5b5b", "#2f5fcc"
 BOARD_BG, BOARD_ED = "#e9f1e4", "#5f7f52"
 SIDE_COLOUR = {"tall": "#9a3412", "low": "#1d6b3f"}
 STANDOFF = "#b7791f"
+BATTERY = "#5a6b8c"
 NET_COLOUR = {"+3V3": "#cc2f2f", "+3V3_LORA": "#f08a4b", "GND": "#222222", "VBAT": "#e03b3b",
               "SDA": "#2f5fcc", "SCL": "#d99b00", "BUZZER": "#6f6f6f", "GPS_TX": "#1d8a4a",
               "GPS_RX": "#7a3fb5"}
@@ -125,6 +126,21 @@ def main():
             else:
                 svg.text(px(side, so["x"]), py(so["y"]) + 3, "standoff,", 7.5, STANDOFF, "middle")
                 svg.text(px(side, so["x"]), py(so["y"]) + 12, "other side", 7.5, STANDOFF, "middle")
+        # the battery: not on the board, held by the sled's cage 5.25 mm off the low face
+        bat = L["battery"]
+        mine = side == "low"
+        xa, xb = sorted((px(side, bat["x0"]), px(side, bat["x1"])))
+        svg.rect(xa, py(bat["y1"]), xb - xa, (bat["y1"] - bat["y0"]) * S,
+                 BATTERY if mine else "none", BATTERY, 1.2 if mine else 0.8, 3,
+                 0.22 if mine else 0.0, "6,3")
+        if mine:
+            cx, cy = (xa + xb) / 2, py((bat["y0"] + bat["y1"]) / 2)
+            svg.text(cx, cy - 10, "battery", 10.5, BATTERY, "middle", "bold")
+            svg.text(cx, cy + 3, "nose z %.1f–%.1f" % (z0 + bat["y0"], z0 + bat["y1"]), 8.5, BATTERY,
+                     "middle")
+            svg.text(cx, cy + 14, "in the sled's cage,", 8.5, BATTERY, "middle")
+            svg.text(cx, cy + 25, "%.2f mm off the board" % (bat["r0"] - 0.5), 8.5, BATTERY, "middle")
+
         if side == "low":
             for leg in L["bmp_legs"]:
                 svg.circle(px(side, leg["x"]), py(leg["y"]), 1.9 * S, "none",
@@ -153,7 +169,7 @@ def main():
                          10.5 if name != "JST" else 9, SIDE_COLOUR[side], "middle", "bold")
 
     # nose z, shared, at the stations that matter
-    ys = {0.0, bh} | {s_["y"] for s_ in L["standoffs"]}
+    ys = {0.0, bh} | {s_["y"] for s_ in L["standoffs"]} | {L["battery"]["y0"], L["battery"]["y1"]}
     for b in L["bodies"]:
         if b["name"] != "JST-PH":
             ys |= {b["y0"], b["y1"]}
@@ -184,6 +200,11 @@ def main():
             "",
             "Dashed rings on the low side: the BMP388's",
             "M2 bolt-head legs.",
+            "",
+            "The battery is not on the board: the",
+            "PayloadSled's cage holds it against the",
+            "web, 29 mm wide, 2.5 mm past each edge.",
+            "The fit mock marks its two ends.",
             "",
             "The sensors stand ~1 mm proud on their",
             "pins, header plastic up against the",

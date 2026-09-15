@@ -38,7 +38,6 @@ SIDECAR = os.path.join(OUT_DIR, "PCB-carrier-fit-mock-labels.json")   # for gen_
 KICAD_CLI = "/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli"
 
 HOLE_GROW = 0.30           # mm on diameter: 1.0 header drill -> 1.3 printed
-BATTERY_Y = (45.1, 81.1)   # layout y of the battery's ends -- PCB-carrier-design.md, layout B2
 THICKNESS = 1.6            # the real board, OSH Park 4-layer. KiCad exports its core alone;
                            # scaled in z so the mock stands the headers at their true height
 MARK_R = 0.75              # the battery marker holes
@@ -92,14 +91,16 @@ def to_binary_scaled(path):
     print("scaled   %.3f -> %.3f mm thick, %d triangles, binary" % (zmax, THICKNESS, len(tris)))
 
 
-def BOARD_H_MM(board):
-    """From the layout JSON gen_carrier.py writes -- KiCad 10's binding will not return the box."""
-    lay = json.load(open(os.path.join(REPO, "hardware", "PCB-carrier", "PCB-carrier-layout.json")))
-    return lay["board"]["h"]
+def layout():
+    """The layout JSON gen_carrier.py writes -- KiCad 10's binding will not return the
+    board's box, and the battery is not on the board at all."""
+    return json.load(open(os.path.join(REPO, "hardware", "PCB-carrier", "PCB-carrier-layout.json")))
 
 
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
+    lay = layout()
+    BATTERY_Y = (lay["battery"]["y0"], lay["battery"]["y1"])   # the battery's two ends
     board = pcbnew.LoadBoard(BOARD)
     grown = 0
     for fp in board.GetFootprints():
@@ -124,7 +125,7 @@ def main():
         size = re.search(r"\(size ([\d.]+) ([\d.]+)\)", m.group(5))
         labels.append({"text": m.group(1), "x": float(m.group(2)), "y": float(m.group(3)),
                        "size": float(size.group(1)) if size else 1.0, "back": m.group(4) == "B"})
-    json.dump({"thickness": THICKNESS, "board": [0.0, 0.0, 24.0, BOARD_H_MM(board)], "labels": labels,
+    json.dump({"thickness": THICKNESS, "board": [0.0, 0.0, 24.0, lay["board"]["h"]], "labels": labels,
                "holes": holes, "arrow": ARROW, "marks": [[x, y, MARK_R] for y in BATTERY_Y for x in MARK_X]},
               open(SIDECAR, "w"), indent=1)
     board.Save(TMP)

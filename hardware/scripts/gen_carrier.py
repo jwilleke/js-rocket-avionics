@@ -166,6 +166,14 @@ def low_side_top_xy_route2(px, py, cy):
 # reversing a LiPo into a XIAO destroys it, and JST-PH polarity is not standard.
 JST_XY = (4.2, 81.5)
 JST_NETS = {1: "VBAT", 2: "GND"}
+# The battery, from PCB-carrier.md -- the carrier's source of truth (operator,
+# 2026-09-15). Change it there first, then here. Not a footprint: it lies on the
+# low side against the web, 5.25 mm off the board, and the PayloadSled's cage is
+# built to this position. Written to the layout JSON so the diagram and the fit
+# mock both draw it from here rather than from copies of their own.
+BATTERY_Y = (43.9, 79.9)     # nose z 69.3..105.3
+BATTERY_HALF_W = 14.5        # 29 mm across, 2.5 past each board edge
+BATTERY_R = (5.75, 10.5)     # toward 90 deg: 4.75 thick, against the web's inner face
 # Wire pads, 3.2 apart: each XIAO's BAT pigtail, and the buzzer's flying leads
 # (the PS1240 sits against the nose wall, not on the board).
 WIRE_PADS = [
@@ -596,6 +604,9 @@ def write_layout(board):
         "bodies": [dict(zip(("name", "side", "x0", "y0", "x1", "y1"), b)) for b in bodies],
         "standoffs": [{"x": x, "y": y, "r": STANDOFF_R} for x, y in STANDOFFS],
         "bmp_legs": [{"x": x, "y": y} for x, y in bmp_legs()],
+        "battery": {"x0": CX - BATTERY_HALF_W, "y0": BATTERY_Y[0],
+                    "x1": CX + BATTERY_HALF_W, "y1": BATTERY_Y[1],
+                    "r0": BATTERY_R[0], "r1": BATTERY_R[1]},
         "pads": sorted(pads, key=lambda p: (p["ref"], p["num"])),
     }
     with open(LAYOUT, "w") as f:
