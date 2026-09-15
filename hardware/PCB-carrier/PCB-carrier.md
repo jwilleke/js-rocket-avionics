@@ -132,7 +132,7 @@ An earlier generator revision put GPS on pins 6/7 and I2C on 4/5 — __D5/D6 and
 __[`fit-mock/PCB-carrier-fit-mock.stl`](fit-mock/PCB-carrier-fit-mock.stl)__ — the generated board's own body, exported by KiCad, so it cannot drift from the design. Regenerate it after any board change with [`gen_carrier_fitmock.py`](../scripts/gen_carrier_fitmock.py); do not edit it. It is a copy with three changes, never the board:
 
 - __Every hole opened 0.3 mm__ on diameter, because printed holes come out small: header holes Ø1.3 (Ø1.0 on the real board), standoff holes Ø4.7 (4.4)
-- __An arrow cut through the board, pointing forward__ — toward the nose tip — over the tall side's clear stretch past the JST. Seen from the tall side with the arrow pointing up, XIAO-ESP32S3-cam's end is at the bottom
+- __An arrow cut through the board, pointing forward__ — toward the nose tip — over the tall side's clear stretch past the JST. It shows which end is forward, not which face is which: a hole looks the same from both sides. __The face that was on top in the printer is the tall side__ — and seen from it with the arrow pointing up, the JST's two holes are on the right, as in the layout picture above
 - __Four small marker holes at the edges__ where the battery's two ends fall on the low side, nose z 70.5 and 106.5 — the battery is not a footprint, so nothing else on the board shows it
 
 __1.0 mm thick__, like the real board — KiCad exports the core alone at 0.91 mm, so the script scales it — which puts the header plastic at its true height.

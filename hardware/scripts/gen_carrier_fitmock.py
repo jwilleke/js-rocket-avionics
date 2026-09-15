@@ -9,8 +9,9 @@ changes a COPY, never the board:
   - every drilled hole opened by HOLE_GROW, because a printed hole comes out
     undersize and the real header pins, pigtail wires and M3 screws must pass
   - an arrow cut through the board, pointing forward (nose tip), on the tall
-    side's clear stretch -- so the mock says which end is forward and, read
-    the right way round, which face is the tall side
+    side's clear stretch -- it says which end is forward. It cannot say which
+    face is which (a hole looks the same from both sides): printed low side
+    down, the top face is the tall side
   - four small marker holes at the board's edges where the battery's aft and
     forward ends fall on the low side (it is not a footprint, so nothing else
     on the board shows it)
