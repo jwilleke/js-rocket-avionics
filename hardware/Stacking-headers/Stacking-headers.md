@@ -10,9 +10,9 @@ __They are standard male headers: the board sits ~2.50 mm above whatever they ar
 
 ## The pad geometry they have to match
 
-The XIAO presents __14 pads, two rows of 7__, rows __17.0 mm apart__, pitch __2.54 mm__.
+The XIAO presents __14 pads, two rows of 7__. The header pins sit at __±7.62 mm, rows 15.24 mm apart__, pitch __2.54 mm__ ([Seeed's footprint](../XIAO-ESP32S3-cam/PCB_Design_XIAO4.png), [#33](https://github.com/jwilleke/js-rocket-avionics/issues/33)). This page said 17.0 until 2026-09-15, which was wrong.
 
-> __A dual-row `2×7` header does not fit and never could__ — its two rows are 2.54 mm apart, not 17.0. The part is __two separate 1×7 strips__, spaced by the board. Where a document says "2×7", it means two 7-pin headers.
+> __A dual-row `2×7` header does not fit and never could__ — its two rows are 2.54 mm apart, not 15.24. The part is __two separate 1×7 strips__, spaced by the board. Where a document says "2×7", it means two 7-pin headers.
 
 ## Mass
 

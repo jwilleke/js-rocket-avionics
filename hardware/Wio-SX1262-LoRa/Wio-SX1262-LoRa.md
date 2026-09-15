@@ -42,7 +42,7 @@ Silkscreen: __`Wio-SX1262`, `FCC ID: Z4T-WIO-SX1262`__, CE and MIC marks. Outlin
 
 > __A 2×5 header is currently fitted, standing off one edge.__ That is bench kit, not the flight fit: the flight connection is __two 1×7 strips, one down each long edge__ — see [Stacking-headers.md](../Stacking-headers/Stacking-headers.md), which owns the part and the standoff.
 >
-> __This line previously called for a "2×7, ~14 mm standoff" stack and both halves were wrong.__ There is no 2×7 part — the XIAO's rows are 17.0 mm apart, not 2.54, so a dual-row header never fits. And the ~14 mm standoff came from a retracted revision of [design.md](../../docs/design.md) that had the expansion board hanging *below* the XIAO; the kit's standard ~2.50 mm headers are the flight part and no tall stacking headers are needed.
+> __This line previously called for a "2×7, ~14 mm standoff" stack and both halves were wrong.__ There is no 2×7 part — the XIAO's rows are 15.24 mm apart, not 2.54 ([#33](https://github.com/jwilleke/js-rocket-avionics/issues/33)), so a dual-row header never fits. And the ~14 mm standoff came from a retracted revision of [design.md](../../docs/design.md) that had the expansion board hanging *below* the XIAO; the kit's standard ~2.50 mm headers are the flight part and no tall stacking headers are needed.
 
 ## Interfaces
 

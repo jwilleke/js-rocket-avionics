@@ -14,6 +14,8 @@ The sled side of the interface is [js-rocket#99](https://github.com/jwilleke/js-
 | Nets | __9__: +3V3, +3V3_LORA, GND, VBAT, SDA, SCL, BUZZER, GPS_TX, GPS_RX |
 | Mounting | two __surface-mount M3 standoffs__, 10 mm (Würth WA-SMSI 9774100360), on the low side. __M3 plastic screws, M3 × 10__, from the web's far face |
 
+> __Blocked by [#33](https://github.com/jwilleke/js-rocket-avionics/issues/33), 2026-09-15: the XIAO header rows were drawn 17.0 mm apart, and they are 15.24.__ Seeed's footprint puts the pins at ±7.62 mm ([screenshot](../XIAO-ESP32S3-cam/PCB_Design_XIAO4.png)). The 17.0 was the centre of KiCad's SMD pads. So neither XIAO nor the L76K-GNSS fits the committed board, the layout drawing or the fit mock, and the fit mock proved it. `gen_carrier.py` is corrected to ±7.62 and now checks every XIAO-pattern row against Seeed's footprint. At the real spacing it refuses the LSM6DSO32 where it is: its rows land 1.28 mm from XIAO-ESP32S3-cam's pins. __The LSM6DSO32 needs a new position.__ Until that is decided the drawing and the mock below are the 17.0 board. __Do not print or order from them.__
+
 ## Layout
 
 ![PCB-carrier from both sides, forward up. Tall side, seen from the camera side: XIAO-ESP32S3-cam at the aft end, the L76K-GNSS, XIAO-ESP32S3-lora and the JST at the forward end. Low side, seen from the web: the LSM6DSO32 and BMP388 running lengthwise and two M3 standoffs. Pads coloured by net](PCB-carrier-layout.svg)
@@ -44,7 +46,7 @@ Layout B2, 2026-09-15 ([PCB-carrier-design.md](PCB-carrier-design.md#the-battery
 | 107.25–132.75 | __BMP388__, lengthwise | forward of the battery. Pin row soldered; free edge on M2 bolt heads, which land clear of every header joint and the JST |
 | 135.9 | __standoff 2__ | 106.5 mm from standoff 1, 5.2 mm from the board's end, under no module |
 
-__The sensors run lengthwise, not turned.__ Their pin rows then sit __2.15 mm inboard of the tall-side modules' rows__, parallel, so no hole ever lands on another. Turned 90°, their rows would cross the modules' rows. They stand __~1 mm proud of the board on their pins__, header plastic up against the sensor, so the plastic clears the tall side's solder joints on the low face.
+__The sensors run lengthwise, not turned.__ This layout put their pin rows __2.15 mm inboard of the tall-side modules' rows__. That was true only at the wrong 17.0 mm spacing; at 15.24 a sensor behind a XIAO-pattern module lands 1.27 mm from its rows ([#33](https://github.com/jwilleke/js-rocket-avionics/issues/33)). The BMP388, which sits behind no module, is unaffected. Turned 90°, their rows would cross the modules' rows. They stand __~1 mm proud of the board on their pins__, header plastic up against the sensor, so the plastic clears the tall side's solder joints on the low face.
 
 __The battery sits behind the board__, between its low face and the web. Decided 2026-09-14; position B2 chosen 2026-09-15. The same day it was set at nose z 69.3–105.3, against the web, 1.2 mm aft of B2's first figure, so a cage's forward wall clears the BMP388. __This page is where the position is decided.__ `BATTERY_Y` in `gen_carrier.py` copies it for the drawing and the mock, and the sled's cage is built to it. What it moved, and what is still owed: [PCB-carrier-design.md](PCB-carrier-design.md#the-battery-sits-behind-the-carrier--decided-2026-09-14-layout-b2-2026-09-15).
 

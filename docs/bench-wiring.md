@@ -60,17 +60,15 @@ __Both XIAOs are bare in the photograph__, which is the moment to check item 3 b
 
 __1 — The cam copy has no headers soldered on.__ [XIAO-ESP32S3-cam](../hardware/XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) ships its two 7-pin strips loose; [the lora copy](../hardware/XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md) already has its soldered. No headers means nothing to push into a breadboard, so those two strips have to go on first — pins pointing __down__, because the Sense camera board sits on top.
 
-__2 — Test-fit the header strips in the breadboard before you solder them.__ [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) records the two pad rows as __17.0 mm apart__, and breadboard holes are 2.54 mm apart, so the strips have to land on a whole number of pitches.
-
-__Count in millimetres, not in holes.__ The centre channel is 7.62 mm wide — three pitches, not one — so counting letters gives the wrong answer. Measuring from column `a`:
+__2 — Test-fit the header strips in the breadboard before you solder them.__ The XIAO's header pins sit __15.24 mm apart__, six pitches ([Seeed's footprint](../hardware/XIAO-ESP32S3-cam/PCB_Design_XIAO4.png), [#33](https://github.com/jwilleke/js-rocket-avionics/issues/33)), so the strips straddle the centre channel on any pair six pitches apart. Count in millimetres, not in holes: the channel is 7.62 mm wide, three pitches, so letters mislead.
 
 ```text
 a 0.00   b 2.54   c 5.08   d 7.62   e 10.16  | channel |  f 17.78  g 20.32  h 22.86  i 25.40  j 27.94
 ```
 
-__7 pitches = 17.78 mm is the fit__, 0.78 mm wider than the pads, which the pins take up without complaint. 6 pitches is 15.24 mm and 1.76 mm short — too far to spring. Any pair 17.78 mm apart works: __`c` and `h`__, or equally `a`/`f`, `b`/`g`, `d`/`i`, `e`/`j`. Note that `c` to `h` is only five letters but seven pitches; that is the channel, and it is why an earlier revision of this line said "six apart" and was ambiguous at best.
+__`c` and `g`__ are 15.24 mm apart, as are `d`/`h` and `e`/`i`.
 
-__Confirmed on the bench__ — both XIAOs are seated across the channel in the photograph below. If the recorded 17.0 turns out to be edge-to-edge rather than centre-to-centre, correct `XIAO-ESP32S3-cam.md` while the calipers are out.
+> __Corrected 2026-09-15.__ This step used to say the rows were 17.0 mm apart and that seven pitches (17.78 mm, `c`/`h`) was the fit. The 17.0 was the centre of KiCad's SMD pads, not the pins, and the 17.78 was worked from it, not measured. It asked for a caliper check that was never made, and the same wrong figure went into the carrier ([#33](https://github.com/jwilleke/js-rocket-avionics/issues/33)). If a XIAO in the photograph below sits seven pitches wide, its strips are not in its holes.
 
 __3 — Solder the BAT pigtails with the XIAO out of the breadboard.__ `BAT+`/`BAT−` are pads on the __back face__, inboard of the `D3`/`D4` edge, and the back face is whatever the XIAO is standing on — the breadboard now, the carrier later at 2.50 mm. __The expansion board is not the obstruction__: its B2B is on the *front*, so it can go on and come off with the pigtails already fitted. Faces and evidence are in [XIAO-ESP32S3-cam.md](../hardware/XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md#which-face-carries-what--settled-off-seeeds-two-drawings-and-the-stack-itself). __Lift the module, solder, seat it again__ — do not try to work under a seated one.
 

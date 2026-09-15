@@ -19,8 +19,11 @@ The web is offset toward 90 deg, clear of the low side, and two M3 plastic
 screws come in from its far face into the standoffs (js-rocket#99). Nothing
 fastens through to the tall side, so no screw head ever sits under a module.
 
-WHY THE SENSORS RUN LENGTHWISE. Their pin rows sit 2.14 mm inboard of the
-tall-side modules' rows (x 3.5 / 20.5), parallel, so no hole meets another.
+WHY THE SENSORS RUN LENGTHWISE. Written when the XIAO rows were drawn at
+x 3.5 / 20.5 and the sensors' rows sat 2.14 mm inboard of them. At the real
+spacing (#33) the XIAO rows are x 4.38 / 19.62, and a sensor row 12.7 mm wide
+behind a XIAO-pattern module lands 1.27 mm from its rows: verify_clearances()
+now refuses it.
 Turned 90 deg, their rows would cross the modules' rows. They stand ~1 mm proud
 of the board on their pins, header plastic up against the sensor, so the
 plastic clears the tall-side modules' solder joints on the low face.
@@ -38,14 +41,18 @@ are positioned from their front photographs by two independent routes, and the
 L76K-GNSS, face up on the tall side, shows a XIAO's back pattern and is written
 out from Seeed's drawing. verify_pins() holds each to a second source.
 
-XIAO HEADER GEOMETRY, from RF_Module:MCU_Seeed_ESP32C3:
+XIAO HEADER GEOMETRY, from Seeed's own XIAO ESP32S3 footprint (Flux; screenshot in
+hardware/XIAO-ESP32S3-cam/PCB_Design_XIAO4.png): through-hole pins at x = +/-7.62,
+rows 15.24 mm apart (#33). NOT KiCad's RF_Module:MCU_Seeed_ESP32C3, whose +/-8.5
+is the centre of each castellated SMD pad -- this file used that until 2026-09-15
+and no XIAO could be fitted. Pin numbering still follows that footprint:
 
-    14 pads, x = +/-8.5 mm (rows 17.0 mm apart)
+    14 pins, x = +/-7.62 mm (rows 15.24 mm apart)
     y = -7.62..+7.62, 7 per row at 2.54 mm pitch
     board 17.5 x 21 mm
 
-Pin numbering follows that footprint: 1..7 down the -8.5 mm row, 8..14 back up
-the +8.5 mm row, so pin 8 faces pin 7. That footprint is a FRONT view, so it
+Pin numbering: 1..7 down the -7.62 mm row, 8..14 back up
+the +7.62 mm row, so pin 8 faces pin 7. That footprint is a FRONT view, so it
 holds as drawn for a XIAO on the tall side -- which both are.
 """
 import json
@@ -72,7 +79,10 @@ PITCH = 2.54
 MM = pcbnew.FromMM
 
 # ---- the two XIAOs, tall side, USB-C aft -------------------------------------
-XIAO_ROW_DX = 8.5          # header rows at +/-8.5 mm from the XIAO centreline
+XIAO_ROW_DX = 7.62         # header rows at +/-7.62 mm from the XIAO centreline (#33)
+# Seeed's footprint, held separately so verify_pins() can check the board against
+# it: 5V at (7.62, 7.62), TX at (-7.62, -7.62), pitch 2.54, hole 1.1.
+SEEED_XIAO_ROW_DX = 7.62
 XIAO_PINS_PER_ROW = 7
 # XIAO-ESP32S3-cam sits under the camera pad, centred at nose z 43.435
 # (payload-sled.md, #89): 43.4 - 25.4. XIAO-ESP32S3-lora at the forward end.
@@ -106,17 +116,17 @@ XIAOS = [("J_CAM_", CAM_Y, CAM_SIGNALS), ("J_LORA_", LORA_Y, LORA_SIGNALS)]
 # at D6, TX at D7, WAKE at D0, RESET at D2. Face up it shows a XIAO's BACK
 # pattern, so it is written out, not derived from XIAO_PIN.
 L76K_TOPVIEW = {
-    "D6": (-8.5, -7.62), "D5": (-8.5, -5.08), "D4": (-8.5, -2.54), "D3": (-8.5, 0.0),
-    "D2": (-8.5, 2.54), "D1": (-8.5, 5.08), "D0": (-8.5, 7.62),
-    "D7": (8.5, -7.62), "D8": (8.5, -5.08), "D9": (8.5, -2.54), "D10": (8.5, 0.0),
-    "3V3": (8.5, 2.54), "GND": (8.5, 5.08), "5V": (8.5, 7.62),
+    "D6": (-7.62, -7.62), "D5": (-7.62, -5.08), "D4": (-7.62, -2.54), "D3": (-7.62, 0.0),
+    "D2": (-7.62, 2.54), "D1": (-7.62, 5.08), "D0": (-7.62, 7.62),
+    "D7": (7.62, -7.62), "D8": (7.62, -5.08), "D9": (7.62, -2.54), "D10": (7.62, 0.0),
+    "3V3": (7.62, 2.54), "GND": (7.62, 5.08), "5V": (7.62, 7.62),
 }
 L76K_Y = 44.0              # body y 33.5..54.5
 L76K_NETS = {"D6": "GPS_TX", "D7": "GPS_RX", "3V3": "+3V3_LORA", "GND": "GND"}
 # The same picture turned by eye so the antenna points forward (+y): each
 # column listed aft to forward. verify_pins() holds the code's turn to it.
-L76K_COL_X20 = ["D0", "D1", "D2", "D3", "D4", "D5", "D6"]      # at x 20.5
-L76K_COL_X3 = ["5V", "GND", "3V3", "D10", "D9", "D8", "D7"]    # at x 3.5
+L76K_COL_X20 = ["D0", "D1", "D2", "D3", "D4", "D5", "D6"]      # at x 19.62
+L76K_COL_X3 = ["5V", "GND", "3V3", "D10", "D9", "D8", "D7"]    # at x 4.38
 
 # ---- sensors, low side, rows lengthwise --------------------------------------
 # Front photographs (module-pinouts.md): 25.5 x 17.8 mm, header row along the
@@ -355,7 +365,7 @@ def add_row(board, ref, fp_name, pads, nets, back=False):
 
 
 def add_xiao(board, ref, cy, signals):
-    """Two 1x7 headers 17.0 mm apart, a XIAO on the tall side, USB-C aft."""
+    """Two 1x7 headers 15.24 mm apart, a XIAO on the tall side, USB-C aft."""
     netmap = {XIAO_PIN[k]: v for k, v in signals.items()}
     rows = {"A": [], "B": []}
     for pin in range(1, 15):
@@ -431,7 +441,7 @@ def add_power_and_wires(board):
 
 
 # The footprint the pin numbering follows, RF_Module:MCU_Seeed_ESP32C3, as a
-# pin -> (x, y) table. Row -8.5 runs 1..7 with y increasing; row +8.5 runs 8..14
+# pin -> (x, y) table. Row -7.62 runs 1..7 with y increasing; row +7.62 runs 8..14
 # with y decreasing, so 1 faces 14 and 7 faces 8. BOTH coordinates matter: pins
 # 7 and 8 share y = +7.62, as do 1 and 14 at -7.62, so only x tells the rows apart.
 FOOTPRINT_PIN = {p: (-XIAO_ROW_DX, -7.62 + (p - 1) * PITCH) for p in range(1, 8)}
@@ -515,6 +525,15 @@ def verify_pins(board):
                 bad.append("%s %s: route 1 (%.2f, %.2f), route 2 (%.2f, %.2f)" % (name, lab, *a, *b))
             if lab in nets and not near(got.get((ref, nets[lab]), []), *a):
                 bad.append("%s %s (%s) not at (%.2f, %.2f)" % (name, lab, nets[lab], *a))
+
+    # every XIAO-pattern header row where Seeed's footprint puts it (#33)
+    for fp in board.GetFootprints():
+        if fp.GetReference()[:-1] in ("J_CAM_", "J_LORA_", "J_L76K_"):
+            for pad in fp.Pads():
+                dx = abs(pcbnew.ToMM(pad.GetX()) - CX)
+                if abs(dx - SEEED_XIAO_ROW_DX) > 0.01:
+                    bad.append("%s pad %s is %.2f mm off centre; Seeed's footprint says %.2f"
+                               % (fp.GetReference(), pad.GetNumber(), dx, SEEED_XIAO_ROW_DX))
 
     if bad:
         raise AssertionError("pin mapping wrong:\n  " + "\n  ".join(bad))

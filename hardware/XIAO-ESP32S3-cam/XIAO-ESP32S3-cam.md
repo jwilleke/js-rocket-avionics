@@ -60,7 +60,7 @@ Both copies are the same part — `Model: XIAO-ESP32-S3`, `FCC ID: Z4T-XIAOESP32
 | | |
 |---|---|
 | Outline | __17.5 × 21 mm__ |
-| Pads | __14 castellated__, two rows of 7, rows __17.0 mm apart__, pitch __2.54 mm__, pads 3 × 2 mm |
+| Pads | __14 castellated__, two rows of 7. __Header pins at ±7.62 mm: rows 15.24 mm apart__, pitch __2.54 mm__, hole Ø1.1 ([Seeed's footprint](PCB_Design_XIAO4.png), [#33](https://github.com/jwilleke/js-rocket-avionics/issues/33)). 17.0 until 2026-09-15 — the centres of KiCad's SMD pads, never the pins |
 | Connectors | USB-C, __U.FL__, and the B2B connector an expansion board mates to |
 | PSRAM | __8 MB__ (ESP32-S3R8) |
 | Battery | __BAT+/BAT− are pads on the back face__ (footprint pads 16/17, 2.3 × 1.3 mm at x = −4.5), inboard of the `D3`/`D4` edge and __not on the castellated edge__ — see the drawing below |
@@ -101,7 +101,7 @@ __Both XIAO chargers sit in parallel on one battery — charge through one USB p
 
 __Reversing a LiPo into a XIAO destroys it.__ The carrier silkscreens the pigtail polarity.
 
-__The expansion board is the same outline as the XIAO__ (±8.75 mm against pads at ±8.5). Two consequences: no carrier cutout can clear one, because any hole wide enough removes the copper the pads solder to — and it covers the whole back face, which is what puts the BAT pads out of reach above.
+__The expansion board is the same outline as the XIAO__ (±8.75 mm against header pins at ±7.62). Two consequences: no carrier cutout can clear one, because any hole wide enough removes the copper the pads solder to — and it covers the whole back face, which is what puts the BAT pads out of reach above.
 
 ---
 
