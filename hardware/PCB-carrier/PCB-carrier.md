@@ -127,6 +127,28 @@ An earlier generator revision put GPS on pins 6/7 and I2C on 4/5 — __D5/D6 and
 
 `PCB-carrier.kicad_pcb`, `PCB-carrier.kicad_pro` and `PCB-carrier.kicad_dru` sit beside this page, with `PCB-carrier-layout.json`, which the diagram reads. The generator writes the board, the rules and the layout; the CLI recipes in the [repo README](../../README.md) read from the board. `.kicad_prl` is local editor state and is gitignored.
 
+## PLA fit mock — print it before ordering copper
+
+__[`fit-mock/PCB-carrier-fit-mock.stl`](fit-mock/PCB-carrier-fit-mock.stl)__ — the generated board's own body, exported by KiCad, so it cannot drift from the design. Regenerate it after any board change with [`gen_carrier_fitmock.py`](../scripts/gen_carrier_fitmock.py); do not edit it. It is a copy with three changes, never the board:
+
+- __Every hole opened 0.3 mm__ on diameter, because printed holes come out small: header holes Ø1.3 (Ø1.0 on the real board), standoff holes Ø4.7 (4.4)
+- __An arrow cut through the board, pointing forward__ — toward the nose tip — over the tall side's clear stretch past the JST. Seen from the tall side with the arrow pointing up, XIAO-ESP32S3-cam's end is at the bottom
+- __Four small marker holes at the edges__ where the battery's two ends fall on the low side, nose z 70.5 and 106.5 — the battery is not a footprint, so nothing else on the board shows it
+
+__1.0 mm thick__, like the real board — KiCad exports the core alone at 0.91 mm, so the script scales it — which puts the header plastic at its true height.
+
+__Print:__ PLA, flat, __low side down__ (the STL has it at z 0), 0.2 mm layers — five layers, solid. No support, no brim needed. A few grams.
+
+__What it checks, with the bench parts:__
+
+1. __Both XIAO stacks and the L76K-GNSS push onto their holes__ without forcing — the header row spacing and every pin position, before copper
+2. __The sensors on the low side__, if their headers are fitted, land in their own holes, clear of the tall side's pins
+3. __The whole populated mock passes a 40 mm bore__ — the stacks' corners are worked at r 14.31 and 15.18 against the door's r 20
+4. __The battery between its marks__ on the low side, on its pad: its lead reaches the JST around the edge, and nothing is squeezed
+5. __Screw it through the standoff holes__ — to spacers or the sled, once #99 is cut — and see how the span behaves. PLA is roughly five times more flexible than FR4, so a mock that holds its shape says the real board will; a mock that sags says nothing either way
+
+If the pins will not pass, open the holes with a 1.2–1.3 mm drill, or regenerate with a larger `HOLE_GROW`.
+
 ## Ordering
 
 __Do not order copper before breadboarding.__ A layout error costs ~$33 and __two weeks__; a wiring error costs minutes. The gate is [#4](https://github.com/jwilleke/js-rocket-avionics/issues/4); the ordering epic is [#11](https://github.com/jwilleke/js-rocket-avionics/issues/11). Three copies from OSH Park: one to fly, two spares.
