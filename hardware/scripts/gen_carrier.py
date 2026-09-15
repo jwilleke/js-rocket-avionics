@@ -63,7 +63,7 @@ BOARD_W = 24.0             # the PayloadSled web's width
 BOARD_H = 115.7            # y 0 at nose z 25.4, forward positive. 90.4 until 2026-09-15, when the
                            # battery moved behind the board (layout B2, PCB-carrier-design.md)
 BOARD_NOSE_Z0 = 25.4       # payload-sled.md: the board's aft end
-THICKNESS = 1.0
+THICKNESS = 1.6                # OSH Park 4-layer is 1.6 mm only (operator, 2026-09-15); was 1.0
 COPPER_LAYERS = 4
 CORNER_R = 2.0
 CX = BOARD_W / 2.0

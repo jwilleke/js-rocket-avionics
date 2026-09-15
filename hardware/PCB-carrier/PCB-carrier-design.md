@@ -17,7 +17,7 @@ __Status: adopted, operator 2026-09-11.__ This is the design record for the carr
 
 __One two-sided board on the sled's centre line.__ The __tall side__ faces 270°, the camera port: XIAO-ESP32S3-cam aft, under the camera; the L76K-GNSS; XIAO-ESP32S3-lora forward; the JST. The __low side__ faces 90°, the web: the LSM6DSO32 and BMP388, and two standoffs. The web is moved toward 90°, clear of the low side, and the board hangs off it. Take out two screws and the whole board comes off the sled.
 
-__Board: 24 × 115.7 mm, nose z 25.4 → 141.1, ~5.2 g__ — the battery on its low face (2026-09-15). Station lists for both sides are in [PCB-carrier.md](PCB-carrier.md#layout).
+__Board: 24 × 115.7 × 1.6 mm, nose z 25.4 → 141.1, ~8.3 g__ — the battery on its low face (2026-09-15). Station lists for both sides are in [PCB-carrier.md](PCB-carrier.md#layout).
 
 ### What makes it work
 
@@ -31,13 +31,13 @@ __4. The board does not touch the web.__ It hangs 10 mm off it, so there are no 
 
 ## Across the bore
 
-Looking forward, 270° down; r from the sled's centre line.
+Looking forward, 270° down; r from the sled's centre line. __The board's low face stays at r 0.5__, where the standoffs put it against the web, so at 1.6 mm (2026-09-15, 1.0 before) the extra 0.6 mm goes toward 270° and everything on the tall side moves with it.
 
 | | r | Clearance |
 |---|---|---|
-| Board | −0.5 to +0.5 | on the centre line |
-| Cam stack top | 11.2 toward 270° | __2.9 mm__ to the camera pad floor — as [#89](https://github.com/jwilleke/js-rocket/issues/89) was designed |
-| Lora stack top | 12.3 toward 270° | ~5.6 mm to the bore at its corners |
+| Board | −1.1 to +0.5 | low face 0.5 toward 90°, as at 1.0 mm |
+| Cam stack top | 11.8 toward 270° | __2.3 mm__ to the camera pad floor (r 14.09) — 2.9 as [#89](https://github.com/jwilleke/js-rocket/issues/89) was designed, on a 1.0 mm board. Corners r 14.78, 5.2 mm inside the 40 mm door |
+| Lora stack top | 12.9 toward 270° | corners r 15.67, __4.3 mm__ inside the door |
 | Sensors top | 8.8 toward 90° | 1.7 mm to the web |
 | __Web__ | __10.5–13.5 toward 90°__ | 24 mm wide; the bore is 29.5 mm wide at r 13.5 |
 
@@ -152,7 +152,7 @@ __Layout B2 — in the generator, 2026-09-15.__ `verify_clearances()` passes (72
 __Owed before the carrier is ordered:__
 
 1. __Stability.__ The battery's centre is at nose z 88.5 — __54.5 mm aft__ of where it was documented, and aft mass is expensive ([payload-ballast.md](https://github.com/jwilleke/js-rocket/blob/main/docs/payload-ballast.md)). Re-derive the nose's CG and re-run the flight-3 stability numbers
-2. __Stiffness.__ The standoffs are now __106.5 mm apart__ (81 before), with the battery's 10.9 g on the span. 1.0 mm FR4 was judged against 81 mm; check it — the PLA fit mock is a first look, not an answer
+2. __Stiffness.__ The standoffs are now __106.5 mm apart__ (81 before), with the battery's 10.9 g on the span. The board is __1.6 mm__ since 2026-09-15 — OSH Park's only 4-layer thickness — about 4× as stiff as the 1.0 mm it was judged at over 81 mm. Still check it; the fit mock is a first look, not an answer
 3. __Retention.__ There are __4.25 mm__ of air between the battery and the web. A foam spacer, or ties to the board clear of the modules — __never clamp the pouch__ between board and web
 4. __The pad covers every through-hole joint under it__: the L76K-GNSS's and XIAO-ESP32S3-lora's header joints and XIAO-ESP32S3-lora's BAT pigtail joints (nose z 106), trimmed flush
 5. __The charger chip ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)) goes outside nose z 70.5–106.5__ on either face — the tall side is clear from 113.7 to 141.1

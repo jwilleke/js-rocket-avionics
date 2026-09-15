@@ -11,7 +11,7 @@ Related: [BOM.md](BOM.md) (parts and masses) · [shopping-list.md](shopping-list
 | Decision | Value | Why |
 |---|---|---|
 | MCU | __Two__ XIAO ESP32S3, told apart by the expansion board on each — __XIAO-ESP32S3-lora__ and __XIAO-ESP32S3-cam__ | Restores a zero-firmware recovery beacon and isolates it from flight-firmware failure |
-| Interconnect | __One two-sided carrier PCB__ on the sled's centre line, hanging off an offset web on two M3 standoffs, 1.0 mm FR4, 4-layer, __24 × 115.7 mm__, the battery on its low face | Both XIAO stacks on one side, facing the camera; the web moved out of the board's way; removable as one unit |
+| Interconnect | __One two-sided carrier PCB__ on the sled's centre line, hanging off an offset web on two M3 standoffs, 1.6 mm FR4, 4-layer, __24 × 115.7 mm__, the battery on its low face | Both XIAO stacks on one side, facing the camera; the web moved out of the board's way; removable as one unit |
 | XIAO-ESP32S3-lora firmware | __Stock Meshtastic__, pre-flashed by Seeed. No code written | The Wio-SX1262 + XIAO ESP32S3 kit is a supported Meshtastic device out of the box |
 | XIAO-ESP32S3-cam firmware | Custom — camera, sensors, PSRAM logging, Wi-Fi | Not yet started |
 | Camera | __OV3660__ on the Sense expansion board — __confirmed off the ribbon 2026-09-06__, having been recorded as an OV2640 throughout | Estes AstroCam was considered and dropped |
@@ -70,8 +70,8 @@ __Measured on the assembled stacks__ — heights from the bottom of the XIAO's P
 __How they fit across the 40 mm bore__, with the board on the centre line and the web offset toward 90°:
 
 ```text
-tall side, toward 270   cam stack top r 11.2   camera pad floor r 14.09   2.9 mm for the ribbon
-                        lora stack top r 12.3   bore at its corners r 17.9
+tall side, toward 270   cam stack top r 11.8   camera pad floor r 14.09   2.3 mm for the ribbon
+                        lora stack top r 12.9   its corners r 15.67        4.3 mm inside the door
 low side,  toward 90    sensors top r 8.8       web r 10.5-13.5            1.7 mm clear
 ```
 
@@ -114,7 +114,7 @@ __Everything else about it belongs to [Arming-switch.md](../hardware/Arming-swit
 ### Build rules
 
 - __4-layer, solid ground plane.__ A few dollars more at this size; fixes return paths and coupling from the camera's DVP flex.
-- __1.0 mm FR4.__ The board hangs off the web on two standoffs 81 mm apart; the web is the structure.
+- __1.6 mm FR4__ — OSH Park's only 4-layer thickness ([why](../README.md#the-interface-to-the-sled)). The board hangs off the web on two standoffs 106.5 mm apart; the web is the structure.
 - __Module footprints, not bare chips.__ A bare LSM6DSO32 is an LGA-14 at 2.5 × 3 mm and is not hand-solderable. Soldering breakouts down still gives one rigid assembly — apart from the battery pigtails and link, which are unavoidable.
 - __Low side first.__ The sensors stand ~1 mm proud on their pins and are soldered before the tall side's modules — [PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md#build-rules).
 - __Shock.__ Solder the headers — no loose sockets. The battery is tie-wrapped to the sled, never hung off the JST. Conformal coat after bench testing.
