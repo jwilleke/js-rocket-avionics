@@ -38,10 +38,10 @@ __One board on the PayloadSled's centre line__, hanging off the web on two stand
 
 | | Value |
 |---|---|
-| Board | __24.0 × 90.4 mm__, aft end at nose z 25.4 |
+| Board | __24.0 × 115.7 mm__, aft end at nose z 25.4, forward end 141.1 |
 | Thickness | __1.0 mm__, 4 copper layers |
 | Corner radius | 2.0 mm |
-| Standoffs | __2 × Würth WA-SMSI M3, 10 mm__ (9774100360), low side, at board (x, y) __(12.0, 4.0)__ and __(16.5, 85.2)__ — nose z 29.4 and 110.6, neither under a module. M3 plastic screws, __M3 × 10__, from the web's far face |
+| Standoffs | __2 × Würth WA-SMSI M3, 10 mm__ (9774100360), low side, at board (x, y) __(12.0, 4.0)__ and __(16.5, 110.5)__ — nose z 29.4 and 135.9, neither under a module. M3 plastic screws, __M3 × 10__, from the web's far face |
 | XIAO-ESP32S3-cam centre | board y __18.0__ (nose z 43.4), under the camera pad |
 | XIAO-ESP32S3-lora centre | board y __68.0__ (nose z 93.4) |
 
@@ -49,9 +49,9 @@ Board x runs across the board, y from the aft end, forward positive, in KiCad's 
 
 __Why 24 mm wide.__ It matches the web. The sensors, 17.8 mm across when lengthwise, sit inside it.
 
-__Why 90.4 mm long.__ The camera fixes the cam XIAO at the aft end, and the tall side then carries the L76K-GNSS, the lora XIAO and the JST end to end; the low side's sensors sit behind them. The battery, forward of the board, keeps its position with ~9 mm to spare.
+__Why 115.7 mm long.__ The camera fixes the cam XIAO at the aft end, and the tall side then carries the L76K-GNSS, the lora XIAO and the JST end to end. The low side carries the battery as well as the sensors (layout B2, 2026-09-15): LSM6DSO32 aft, the battery behind the L76K and the lora XIAO, the BMP388 forward of it — and the BMP388's M2 legs have to land between the tall side's header rows, which is what fixes where it can go. 90.4 mm until the battery moved onto the board.
 
-__Why 1.0 mm.__ The board hangs off the web on two standoffs 81 mm apart; 1.0 mm FR4 is stiff enough over that span with the modules on it.
+__Why 1.0 mm.__ The board hangs off the web on two standoffs, now __106.5 mm apart__ (81 before 2026-09-15), carrying the modules and the battery. 1.0 mm FR4 was judged stiff enough over 81 mm; __over 106.5 with the battery on it is not yet checked__ — the PLA fit mock is the first look
 
 ## The XIAO stack
 
@@ -140,6 +140,6 @@ DRC must report __0 violations__ before anything is ordered.
 
 __Do not order copper before breadboarding.__ A layout error costs ~$32 and two weeks; a wiring error costs minutes.
 
-Fab target is __OSH Park__. The 24 × 70 mm version quoted **$26.00 for 3 copies** — $9.32/in² — so 24 × 90.4 mm (3.36 in²) should land near __$32__. Re-upload to confirm; three copies — one to fly, two spares.
+Fab target is __OSH Park__. The 24 × 70 mm version quoted **$26.00 for 3 copies** — $9.32/in² — so 24 × 115.7 mm (4.30 in²) should land near __$40__. Re-upload to confirm; three copies — one to fly, two spares.
 
 __OSH Park accepts the `.kicad_pcb` directly__ — confirmed by upload, not assumed. It read the layer count and outline unaided, so `fab/gerbers/` is not in the ordering path and exists only as a check that the export chain works.

@@ -60,7 +60,8 @@ OUT = os.path.join(REPO, "hardware", "PCB-carrier", "PCB-carrier.kicad_pcb")
 LAYOUT = os.path.join(REPO, "hardware", "PCB-carrier", "PCB-carrier-layout.json")
 
 BOARD_W = 24.0             # the PayloadSled web's width
-BOARD_H = 90.4             # y 0 at nose z 25.4, forward positive
+BOARD_H = 115.7            # y 0 at nose z 25.4, forward positive. 90.4 until 2026-09-15, when the
+                           # battery moved behind the board (layout B2, PCB-carrier-design.md)
 BOARD_NOSE_Z0 = 25.4       # payload-sled.md: the board's aft end
 THICKNESS = 1.0
 COPPER_LAYERS = 4
@@ -122,11 +123,13 @@ L76K_COL_X3 = ["5V", "GND", "3V3", "D10", "D9", "D8", "D7"]    # at x 3.5
 # bottom edge, VIN on the left, 2.54 mm pitch, rows 12.70 mm apart (measured).
 # As (px, py) from the board's centre on screen, y down:
 ROW_PY = 17.8 / 2 - 2.54            # the header row, 2.54 from the bottom edge
-LSM_Y = 41.75                       # body y 29.0..54.5
+LSM_Y = 20.75                       # body y 8.0..33.5 -- aft, clear of the aft standoff (B2)
 LSM_PRIMARY = ["VIN", "3Vo", "GND", "SCL", "SDA", "DO", "CS", "I1", "I2"]
 LSM_AUX = ["SCX", "SDX", "CS", "DO", "GND"]    # over Primary pins 3..7
 LSM_NETS = {"VIN": "+3V3", "GND": "GND", "SCL": "SCL", "SDA": "SDA"}
-BMP_Y = 68.25                       # body y 55.5..81.0
+BMP_Y = 94.6                        # body y 81.85..107.35 -- forward of the battery (B2). Its M2 legs
+                                    # must land between the tall side's header rows and clear the JST;
+                                    # verify_clearances() holds it to that
 BMP_PINS = ["VIN", "3Vo", "GND", "SCL", "SDO", "SDA", "CS", "INT"]
 # CS tied high forces I2C, which settles #19's unverified pull-up on the part.
 BMP_NETS = {"VIN": "+3V3", "GND": "GND", "SCL": "SCL", "SDA": "SDA", "CS": "+3V3"}
@@ -191,8 +194,8 @@ MODULE_LABELS = [
     ("XIAO-ESP32S3", 12.0, 16.8, 0.8, False), ("cam", 12.0, 19.2, 1.5, False),
     ("L76K-GNSS", 12.0, 44.0, 1.0, False),
     ("XIAO-ESP32S3", 12.0, 66.8, 0.8, False), ("lora", 12.0, 69.2, 1.5, False),
-    ("LSM6DSO32", 12.0, 41.75, 1.0, True),
-    ("BMP388", 12.0, 68.25, 1.0, True),
+    ("LSM6DSO32", 12.0, LSM_Y, 1.0, True),
+    ("BMP388", 12.0, BMP_Y, 1.0, True),
 ]
 # Two surface-mount M3 standoffs on the low side, 10 mm (Wuerth WA-SMSI
 # 9774100360). Screws come in from the web's far face. Each has a 4.4 mm hole
@@ -201,7 +204,8 @@ MODULE_LABELS = [
 # forward as the board allows. M3 x 10 through the 3 mm web stops inside the
 # standoff. (Standoff 1 was first put under the cam XIAO, where a long screw
 # would have reached the XIAO's back -- operator, 2026-09-11.)
-STANDOFFS = [(CX, 4.0), (16.5, 85.2)]
+STANDOFFS = [(CX, 4.0), (16.5, 110.5)]   # forward one 5.2 mm from the board's end, as before, under
+                                          # no module; 85.2 until 2026-09-15
 STANDOFF_FP = "Mounting_Wuerth_WA-SMSI-M3_H10mm_9774100360"
 STANDOFF_R = 3.95          # its courtyard
 BMP_LEG_R = 1.9            # an M2 bolt head resting on the board

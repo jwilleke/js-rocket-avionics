@@ -11,7 +11,7 @@ Related: [BOM.md](BOM.md) (parts and masses) · [shopping-list.md](shopping-list
 | Decision | Value | Why |
 |---|---|---|
 | MCU | __Two__ XIAO ESP32S3, told apart by the expansion board on each — __XIAO-ESP32S3-lora__ and __XIAO-ESP32S3-cam__ | Restores a zero-firmware recovery beacon and isolates it from flight-firmware failure |
-| Interconnect | __One two-sided carrier PCB__ on the sled's centre line, hanging off an offset web on two M3 standoffs, 1.0 mm FR4, 4-layer, __24 × 90.4 mm__ | Both XIAO stacks on one side, facing the camera; the web moved out of the board's way; removable as one unit |
+| Interconnect | __One two-sided carrier PCB__ on the sled's centre line, hanging off an offset web on two M3 standoffs, 1.0 mm FR4, 4-layer, __24 × 115.7 mm__, the battery on its low face | Both XIAO stacks on one side, facing the camera; the web moved out of the board's way; removable as one unit |
 | XIAO-ESP32S3-lora firmware | __Stock Meshtastic__, pre-flashed by Seeed. No code written | The Wio-SX1262 + XIAO ESP32S3 kit is a supported Meshtastic device out of the box |
 | XIAO-ESP32S3-cam firmware | Custom — camera, sensors, PSRAM logging, Wi-Fi | Not yet started |
 | Camera | __OV3660__ on the Sense expansion board — __confirmed off the ribbon 2026-09-06__, having been recorded as an OV2640 throughout | Estes AstroCam was considered and dropped |

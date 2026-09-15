@@ -59,11 +59,11 @@ __Measure the battery, not the pigtail.__ With the battery unplugged and USB in,
 
 ### Where it goes — behind the carrier
 
-__Decided__ (operator, 2026-09-14): on the carrier's low face, between the board and the sled's web, nose z 101–137, on an insulating pad. [PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#the-battery-sits-behind-the-carrier--decided-not-yet-in-the-generator) owns the position and every number in it. __Superseded:__ flat on the sled's D-flat at nose z 125–161 (2026-09-07/08) — its forward corners met the Nosecone wall.
+__Decided__ (operator, 2026-09-14; position B2 chosen 2026-09-15): on the carrier's low face, between the board and the sled's web, __nose z 70.5–106.5__, on an insulating pad. [PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#the-battery-sits-behind-the-carrier--decided-2026-09-14-layout-b2-2026-09-15) owns the position and every number in it. __Superseded:__ flat on the sled's D-flat at nose z 125–161 (2026-09-07/08) — its forward corners met the Nosecone wall.
 
 What that decides on this side:
 
-- __The lead reaches the JST around the board's edge__ — the battery is on the low face, the JST on the tall side at nose z 105–114. Its routing is owed ([PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#the-battery-sits-behind-the-carrier--decided-not-yet-in-the-generator), item 5)
+- __The lead reaches the JST around the board's edge__ — the battery is on the low face, the JST on the tall side at nose z 105–114 — right at the battery's forward end. Its routing is owed ([PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#the-battery-sits-behind-the-carrier--decided-2026-09-14-layout-b2-2026-09-15), item 5)
 - __The battery is not reachable without pulling the sled.__ Changing it, or charging it on its own charger, means the M3 × 55 out and the sled pushed out of the nose ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)). Charging on the carrier through USB __did not work__ with XIAO-ESP32S3-lora connected ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)); the carrier's switch that takes it off the battery while USB is in ([#11](https://github.com/jwilleke/js-rocket-avionics/issues/11)) is what makes field charging work — see [Two chargers on one battery](#two-chargers-on-one-battery)
 - __Something restrains it, never the JST__ — a foam spacer in the 4.25 mm to the web, or ties clear of the modules; still owed. Never clamp the pouch
 

@@ -22,13 +22,13 @@ Weights measured 2026-08-17 unless the row says `est`.
 | Piezo buzzer PS1240 | 160 | Adafruit | B | 0.6 |
 | LiPo 3.7 V 500 mAh | 1578 | Adafruit | shared | 10.9 |
 | microSD card | — held | — | B | __0.15__ |
-| Carrier PCB, 4-layer 1.0 mm, 24 × 90.4, two-sided | — not ordered | OSH Park | both | est 4.1 |
+| Carrier PCB, 4-layer 1.0 mm, 24 × 115.7, two-sided | — not ordered | OSH Park | both | est 5.2 |
 | Charging on the carrier — Q1 and Q2, U1, 2.7 kΩ, 100 kΩ, 2 × 4.7 µF ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30); Q2 recommended, not decided) | Q1, Q2 __AO3401A__ (AOS); U1 __MCP73831T-2ACI/OT__ (Microchip) | Amazon — [shopping-list.md](shopping-list.md#the-charging-bench-30--ordered) | both | < 0.1, not counted |
 | 7-pin header, 4 off — two per XIAO | Seeed kits — __2 pre-soldered on XIAO-ESP32S3-lora, 2 loose in the Sense kit__ | Seeed | both | __0.6__ |
 | Arming switch + wiring | — not bought | — | shared | est 1.5 |
-| __Avionics subtotal__ | | | | __45.1__ |
+| __Avionics subtotal__ | | | | __46.2__ |
 | ElectronicsSled, PLA | v7.7.0 | printed | — | __9.3?__ |
-| __Nose total__ | | | | __54.4__ |
+| __Nose total__ | | | | __55.5__ |
 
 __Also in the kits and not flying:__ the 2.4G A-02 antenna, 0.3 g — the XIAO's WiFi/BLE antenna — and the __two aluminium heat sinks__ shipped with the Sense kit. The heat sinks adhere to the XIAO's top face, which is the face the expansion board mates to, and a sealed nose has no airflow for them to work with. See [XIAO-ESP32S3-Sense.md](../hardware/Sense-camera-board/Sense-camera-board.md#what-is-in-the-kit-and-what-flies).
 
@@ -43,17 +43,17 @@ __Not in the nose, not in the mass budget — and the rocket cannot be recovered
 
 __The receiver must match the flight node__ — region `US`, modem preset `LONG_FAST`, and the private channel, joined by its QR code. Setting-up and the range check: [#23](https://github.com/jwilleke/js-rocket-avionics/issues/23).
 
-__The sled's 9.3 g is disputed.__ The rocket repo weighed it at __7.1 g__ on 2026-08-07 ([sections.md](https://github.com/jwilleke/js-rocket/blob/main/docs/sections.md) note 6) and both figures claim the scale. Its geometry moved at v7.7.0, which may or may not explain 2.2 g. __Reweigh it__ — nose total is __52.2__ if 7.1 is right.
+__The sled's 9.3 g is disputed.__ The rocket repo weighed it at __7.1 g__ on 2026-08-07 ([sections.md](https://github.com/jwilleke/js-rocket/blob/main/docs/sections.md) note 6) and both figures claim the scale. Its geometry moved at v7.7.0, which may or may not explain 2.2 g. __Reweigh it__ — nose total is __53.3__ if 7.1 is right.
 
 ## Mass budget
 
 | | g |
 |---|---|
-| Nose total | __54.4__ |
+| Nose total | __55.5__ |
 | Target | ~50 |
 | Weathercock limit | ~65 |
 
-__Over target, under the limit__ — a budget problem, not a grounding. 39.5 g of the total is weighed, __5.8 g still estimated__ — only the carrier PCB and the arming switch are left. __The microSD card was in the table but in none of the totals__ until 2026-09-07: the subtotal ran weighed + PCB + switch and the card sat there looking counted. It is now weighed and folded in.
+__Over target, under the limit__ — a budget problem, not a grounding. 39.5 g of the total is weighed, __6.7 g still estimated__ — only the carrier PCB (5.2, scaled from 4.1 g at 90.4 mm to 115.7 mm on 2026-09-15) and the arming switch (1.5) are left. __The microSD card was in the table but in none of the totals__ until 2026-09-07: the subtotal ran weighed + PCB + switch and the card sat there looking counted. It is now weighed and folded in.
 
 __The card is 0.15 g, not the 0.4 g estimated__ — and that is two readings, not one. A single card reads __0.1 g__ on a scale with 0.1 g resolution and __two read 0.3 g__, so the pair is the better number and a single card is ~0.15. The estimate was high by nearly 3×; it changes nothing, which is the point of writing it down. A payload gram displaces only __0.75 g__ of ballast, so overruns cost more than they look — see [payload-ballast.md](https://github.com/jwilleke/js-rocket/blob/main/docs/payload-ballast.md).
 
