@@ -134,6 +134,13 @@ L76K_COL_X3 = ["5V", "GND", "3V3", "D10", "D9", "D8", "D7"]    # at x 4.38
 # As (px, py) from the board's centre on screen, y down:
 ROW_PY = 17.8 / 2 - 2.54            # the header row, 2.54 from the bottom edge
 LSM_Y = 20.75                       # body y 8.0..33.5 -- aft, clear of the aft standoff (B2)
+# Slid toward +x (operator, 2026-09-15, #33): at the real XIAO spacing its rows,
+# 12.7 mm apart, cannot sit inside the cam XIAO's 15.24. So the 9-pin row goes
+# OUTSIDE the cam XIAO's +x row (x 19.62) and the 5-pin row inside it. 3.45 puts
+# the 9-pin row at x 21.81: its joints clear that row's header plastic (to x 20.89)
+# by FILLET_R, and its holes sit 2.18 mm from the XIAO's. The body hangs ~0.36 mm
+# past the board edge, at r <= 8.8 -- inside the door.
+LSM_DX = 3.45
 LSM_PRIMARY = ["VIN", "3Vo", "GND", "SCL", "SDA", "DO", "CS", "I1", "I2"]
 LSM_AUX = ["SCX", "SDX", "CS", "DO", "GND"]    # over Primary pins 3..7
 LSM_NETS = {"VIN": "+3V3", "GND": "GND", "SCL": "SCL", "SDA": "SDA"}
@@ -209,10 +216,10 @@ BAT_LABELS = [
 # from there. DRC proves they stay off every pad.
 MODULE_LABELS = [
     # (text, x, y, size, back)
-    ("XIAO-ESP32S3", 12.0, 16.8, 0.8, False), ("cam", 12.0, 19.2, 1.5, False),
+    ("XIAO-ESP32S3", 12.0, 13.0, 0.8, False), ("cam", 12.0, 19.2, 1.5, False),
     ("L76K-GNSS", 12.0, 44.0, 1.0, False),
     ("XIAO-ESP32S3", 12.0, 66.8, 0.8, False), ("lora", 12.0, 69.2, 1.5, False),
-    ("LSM6DSO32", 12.0, LSM_Y, 1.0, True),
+    ("LSM6DSO32", 14.4, LSM_Y, 1.0, True),   # between its 5-pin row and the cam's x 19.62 row
     ("BMP388", 12.0, BMP_Y, 1.0, True),
 ]
 # Two surface-mount M3 standoffs on the low side, 10 mm (Wuerth WA-SMSI
@@ -393,12 +400,16 @@ def add_l76k(board):
         add_row(board, ref, "PinHeader_1x07_P2.54mm_Vertical", pads, L76K_NETS)
 
 
-def sensor_pads(front, cy):
-    return [(lab, *low_side_top_xy(px, py, cy)) for lab, px, py in front]
+def sensor_pads(front, cy, dx=0.0):
+    out = []
+    for lab, px, py in front:
+        x, y = low_side_top_xy(px, py, cy)
+        out.append((lab, x + dx, y))
+    return out
 
 
 def add_sensors(board):
-    lsm = sensor_pads(front_pins_lsm(), LSM_Y)
+    lsm = sensor_pads(front_pins_lsm(), LSM_Y, LSM_DX)
     add_row(board, "J_LSM_P", "PinHeader_1x09_P2.54mm_Vertical",
             [p for p in lsm if not p[0].endswith("_AUX")], LSM_NETS, back=True)
     add_row(board, "J_LSM_A", "PinHeader_1x05_P2.54mm_Vertical",
@@ -516,11 +527,12 @@ def verify_pins(board):
         if not near(got.get((ref, net), []), ex, ey):
             bad.append("L76K %s (%s) not at (%.2f, %.2f)" % (label, net, ex, ey))
 
-    for name, front, cy, nets, ref in (("LSM6DSO32", front_pins_lsm(), LSM_Y, LSM_NETS, "J_LSM_P"),
-                                       ("BMP388", front_pins_bmp(), BMP_Y, BMP_NETS, "J_BMP")):
+    for name, front, cy, nets, ref, dx in (("LSM6DSO32", front_pins_lsm(), LSM_Y, LSM_NETS, "J_LSM_P", LSM_DX),
+                                           ("BMP388", front_pins_bmp(), BMP_Y, BMP_NETS, "J_BMP", 0.0)):
         for lab, px, py in front:
             a = low_side_top_xy(px, py, cy)
             b = low_side_top_xy_route2(px, py, cy)
+            a, b = (a[0] + dx, a[1]), (b[0] + dx, b[1])
             if abs(a[0] - b[0]) > 0.01 or abs(a[1] - b[1]) > 0.01:
                 bad.append("%s %s: route 1 (%.2f, %.2f), route 2 (%.2f, %.2f)" % (name, lab, *a, *b))
             if lab in nets and not near(got.get((ref, nets[lab]), []), *a):
@@ -562,6 +574,24 @@ def verify_clearances(board):
             d = ((a[2] - b[2]) ** 2 + (a[3] - b[3]) ** 2) ** 0.5
             if d < 2.1:
                 bad.append("%s-%s and %s-%s only %.2f mm apart" % (a[0], a[1], b[0], b[1], d))
+    # A sensor's joint on the tall face must clear a XIAO-pattern header's plastic
+    # strip, which sits on that face: 2.54 mm wide, 1.27 past its end pins. The
+    # hole-to-hole distance above never saw this (#33).
+    strips = {}
+    for fp in board.GetFootprints():
+        if fp.GetReference()[:-1] in ("J_CAM_", "J_LORA_", "J_L76K_"):
+            xs = [pcbnew.ToMM(p.GetX()) for p in fp.Pads()]
+            ys = [pcbnew.ToMM(p.GetY()) for p in fp.Pads()]
+            strips[fp.GetReference()] = (min(xs) - 1.27, max(xs) + 1.27, min(ys) - 1.27, max(ys) + 1.27)
+    for ref, num, px, py in holes:
+        if not ref.startswith(("J_LSM", "J_BMP")):
+            continue
+        for sref, (x0, x1, y0, y1) in strips.items():
+            gx = max(x0 - px, 0.0, px - x1)
+            gy = max(y0 - py, 0.0, py - y1)
+            if (gx * gx + gy * gy) ** 0.5 < FILLET_R:
+                bad.append("%s pad %s joint at (%.2f, %.2f) under %s's header plastic"
+                           % (ref, num, px, py, sref))
     keep = [(x, y, STANDOFF_R + FILLET_R, "standoff") for x, y in STANDOFFS]
     keep += [(x, y, BMP_LEG_R + FILLET_R, "BMP388 leg") for x, y in bmp_legs()]
     for ref, num, px, py in holes:
@@ -613,7 +643,7 @@ def write_layout(board):
         ("L76K-GNSS", "tall", CX - 9.0, L76K_Y - 10.5, CX + 9.0, L76K_Y + 10.5),
         ("XIAO-ESP32S3-lora", "tall", CX - 8.9, LORA_Y - 10.5, CX + 8.9, LORA_Y + 10.5),
         ("JST-PH", "tall", JST_XY[0] - 2.45, JST_XY[1] - 1.85, JST_XY[0] + 4.45, JST_XY[1] + 6.75),
-        ("LSM6DSO32", "low", CX - 8.9, LSM_Y - 12.75, CX + 8.9, LSM_Y + 12.75),
+        ("LSM6DSO32", "low", CX + LSM_DX - 8.9, LSM_Y - 12.75, CX + LSM_DX + 8.9, LSM_Y + 12.75),
         ("BMP388", "low", CX - 8.9, BMP_Y - 12.75, CX + 8.9, BMP_Y + 12.75),
     ]
     out = {

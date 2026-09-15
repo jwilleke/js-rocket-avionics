@@ -9,16 +9,20 @@ changes a COPY, never the board:
   - every drilled hole opened by HOLE_GROW, because a printed hole comes out
     undersize and the real header pins, pigtail wires and M3 screws must pass
   - an arrow cut through the board, pointing forward (nose tip), at the
-    forward end -- it says which end is forward. The labels say which face is
-    which: printed low side down, the top face is the tall side
+    forward end -- it says which end is forward. Printed low side down, the
+    top face is the tall side
   - four small marker holes at the board's edges where the battery's aft and
     forward ends fall on the low side (it is not a footprint, so nothing else
     on the board shows it)
 
-then exports the board body alone as STL with kicad-cli, and writes the
-board's silkscreen texts and holes to a sidecar for the second step,
-gen_carrier_fitmock_labels.py (Blender), which puts the labels on. Print it
-flat, low side on the bed: KiCad's STL has the low side (B.Cu) at z 0.
+then exports the board body alone as STL with kicad-cli, and writes its holes,
+the arrow and the battery markers to a sidecar that gen_carrier_template.py
+draws the paper template from. Print it flat, low side on the bed: KiCad's STL
+has the low side (B.Cu) at z 0.
+
+NO LABELS (operator, 2026-09-15). Raised or engraved silkscreen came out of the
+slicer as nothing -- ~0.15 mm strokes against a 0.42 mm line -- so the mock is
+bare, and the paper template says what goes where.
 """
 import json
 import os
@@ -34,7 +38,7 @@ BOARD = os.path.join(REPO, "hardware", "PCB-carrier", "PCB-carrier.kicad_pcb")
 OUT_DIR = os.path.join(REPO, "hardware", "PCB-carrier", "fit-mock")
 TMP = os.path.join(OUT_DIR, "PCB-carrier-fit-mock.kicad_pcb")
 STL = os.path.join(OUT_DIR, "PCB-carrier-fit-mock.stl")
-SIDECAR = os.path.join(OUT_DIR, "PCB-carrier-fit-mock-labels.json")   # for gen_carrier_fitmock_labels.py
+SIDECAR = os.path.join(OUT_DIR, "PCB-carrier-fit-mock-holes.json")    # for gen_carrier_template.py
 KICAD_CLI = "/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli"
 
 HOLE_GROW = 0.30           # mm on diameter: 1.0 header drill -> 1.3 printed
@@ -117,16 +121,8 @@ def main():
     for y in BATTERY_Y:
         for x in MARK_X:
             edge_circle(board, x, y, MARK_R)
-    # labels and holes for the Blender step, read off the board rather than retyped
-    labels, holes = [], HOLES
-    # KiCad 10's binding will not iterate the board's drawings, so read the texts off the file
-    for m in re.finditer(r'\(gr_text "([^"]*)"\s*\(at ([-\d.]+) ([-\d.]+)[^)]*\)\s*\(layer "([FB])\.SilkS"\)(.*?)\n\t\)',
-                         open(BOARD).read(), re.S):
-        size = re.search(r"\(size ([\d.]+) ([\d.]+)\)", m.group(5))
-        labels.append({"text": m.group(1), "x": float(m.group(2)), "y": float(m.group(3)),
-                       "size": float(size.group(1)) if size else 1.0, "back": m.group(4) == "B"})
-    json.dump({"thickness": THICKNESS, "board": [0.0, 0.0, 24.0, lay["board"]["h"]], "labels": labels,
-               "holes": holes, "arrow": ARROW, "marks": [[x, y, MARK_R] for y in BATTERY_Y for x in MARK_X]},
+    json.dump({"thickness": THICKNESS, "board": [0.0, 0.0, 24.0, lay["board"]["h"]],
+               "holes": HOLES, "arrow": ARROW, "marks": [[x, y, MARK_R] for y in BATTERY_Y for x in MARK_X]},
               open(SIDECAR, "w"), indent=1)
     board.Save(TMP)
     print("holes    %d opened by %.2f mm on diameter" % (grown, HOLE_GROW))

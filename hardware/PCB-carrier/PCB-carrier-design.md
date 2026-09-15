@@ -21,7 +21,7 @@ __Every number — size, stations, clearances, the battery's position — is in 
 
 ### What makes it work
 
-__1. Every part sits in its own holes, and no hole meets another across the two sides.__ The L76K-GNSS already has its pins soldered, so it takes its own footprint on the tall side between the two XIAOs. The sensors run __lengthwise__ on the low side, their pin rows 2.15 mm inboard of the tall-side modules' rows and parallel to them. Turned 90°, they would cross. `gen_carrier.py` checks every through-hole against every other on each run.
+__1. Every part sits in its own holes, and no hole meets another across the two sides.__ The L76K-GNSS already has its pins soldered, so it takes its own footprint on the tall side between the two XIAOs. The sensors run __lengthwise__ on the low side, parallel to the tall-side modules' rows. Turned 90°, they would cross. The LSM6DSO32 is slid sideways to clear XIAO-ESP32S3-cam's real rows ([#33](https://github.com/jwilleke/js-rocket-avionics/issues/33); where, in [PCB-carrier.md](PCB-carrier.md#low-side--faces-90-the-web)). `gen_carrier.py` checks every through-hole against every other on each run.
 
 __2. The sensors stand ~1 mm proud on their pins__, header plastic up against the sensor, so the plastic clears the tall side's solder joints on the low face.
 

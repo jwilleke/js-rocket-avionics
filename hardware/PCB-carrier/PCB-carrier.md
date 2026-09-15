@@ -14,7 +14,7 @@ The sled side of the interface is [js-rocket#99](https://github.com/jwilleke/js-
 | Nets | __9__: +3V3, +3V3_LORA, GND, VBAT, SDA, SCL, BUZZER, GPS_TX, GPS_RX |
 | Mounting | two __surface-mount M3 standoffs__, 10 mm (Würth WA-SMSI 9774100360), on the low side. __M3 plastic screws, M3 × 10__, from the web's far face |
 
-> __Blocked by [#33](https://github.com/jwilleke/js-rocket-avionics/issues/33), 2026-09-15: the XIAO header rows were drawn 17.0 mm apart, and they are 15.24.__ Seeed's footprint puts the pins at ±7.62 mm ([screenshot](../XIAO-ESP32S3-cam/PCB_Design_XIAO4.png)). The 17.0 was the centre of KiCad's SMD pads. So neither XIAO nor the L76K-GNSS fits the committed board, the layout drawing or the fit mock, and the fit mock proved it. `gen_carrier.py` is corrected to ±7.62 and now checks every XIAO-pattern row against Seeed's footprint. At the real spacing it refuses the LSM6DSO32 where it is: its rows land 1.28 mm from XIAO-ESP32S3-cam's pins. __The LSM6DSO32 needs a new position.__ Until that is decided the drawing and the mock below are the 17.0 board. __Do not print or order from them.__
+> __Corrected 2026-09-15 ([#33](https://github.com/jwilleke/js-rocket-avionics/issues/33)): the XIAO header rows are 15.24 mm apart, not 17.0.__ Seeed's footprint puts the pins at ±7.62 mm ([screenshot](../XIAO-ESP32S3-cam/PCB_Design_XIAO4.png)). The 17.0 was the centre of KiCad's SMD pads, and the fit mock printed with it could not take either XIAO. Both XIAOs and the L76K-GNSS now sit at ±7.62, and `verify_pins()` checks every XIAO-pattern pin against Seeed's footprint on every run. __The LSM6DSO32 is slid 3.45 mm toward +x__ (operator): its rows are narrower than the XIAO's, so they cannot both sit inside XIAO-ESP32S3-cam's. Its 9-pin row now runs outside the cam's row and its 5-pin row inside. A new check keeps every sensor joint clear of a XIAO header's plastic.
 
 ## Layout
 
@@ -41,12 +41,12 @@ Layout B2, 2026-09-15 ([PCB-carrier-design.md](PCB-carrier-design.md#the-battery
 | Nose z | Part | Note |
 |---|---|---|
 | 29.4 | __standoff 1__ | at the aft end, under the USB-C plug room — __not under the XIAO__, where its hole would meet the BAT pigtail. ~14 mm from the camera |
-| 33.4–58.9 | __LSM6DSO32__, lengthwise | behind XIAO-ESP32S3-cam and the start of the L76K-GNSS. Both pin rows soldered |
+| 33.4–58.9 | __LSM6DSO32__, lengthwise, __slid 3.45 mm toward +x__ | behind XIAO-ESP32S3-cam and the start of the L76K-GNSS. Its 9-pin row (x 21.81) is outside the cam's row (x 19.62), its 5-pin row (x 9.11) inside; the body hangs ~0.36 mm past the board edge, inside the door. Both pin rows soldered |
 | 69.3–105.3 | __the battery__, in the PayloadSled's cage | not on the board: it lies against the web, r 5.75–10.5, __5.25 mm off the low face__, behind the L76K-GNSS and XIAO-ESP32S3-lora. The ElectronicsSled's cage is built to this position ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99)); the fit mock marks its two ends |
 | 107.25–132.75 | __BMP388__, lengthwise | forward of the battery. Pin row soldered; free edge on M2 bolt heads, which land clear of every header joint and the JST |
 | 135.9 | __standoff 2__ | 106.5 mm from standoff 1, 5.2 mm from the board's end, under no module |
 
-__The sensors run lengthwise, not turned.__ This layout put their pin rows __2.15 mm inboard of the tall-side modules' rows__. That was true only at the wrong 17.0 mm spacing; at 15.24 a sensor behind a XIAO-pattern module lands 1.27 mm from its rows ([#33](https://github.com/jwilleke/js-rocket-avionics/issues/33)). The BMP388, which sits behind no module, is unaffected. Turned 90°, their rows would cross the modules' rows. They stand __~1 mm proud of the board on their pins__, header plastic up against the sensor, so the plastic clears the tall side's solder joints on the low face.
+__The sensors run lengthwise, not turned.__ Turned 90°, a sensor's rows would cross the modules' rows. The BMP388 sits behind no module. The LSM6DSO32 sits behind XIAO-ESP32S3-cam, and its rows, 12.7 mm apart, cannot fit inside the cam's 15.24. So it is slid sideways until one row is outside: its holes sit 2.18 mm from the cam's, and its joints clear the cam's header plastic. The sensors stand __~1 mm proud of the board on their pins__, header plastic up against the sensor, so the plastic clears the tall side's solder joints on the low face.
 
 __The battery sits behind the board__, between its low face and the web. Decided 2026-09-14; position B2 chosen 2026-09-15. The same day it was set at nose z 69.3–105.3, against the web, 1.2 mm aft of B2's first figure, so a cage's forward wall clears the BMP388. __This page is where the position is decided.__ `BATTERY_Y` in `gen_carrier.py` copies it for the drawing and the mock, and the sled's cage is built to it. What it moved, and what is still owed: [PCB-carrier-design.md](PCB-carrier-design.md#the-battery-sits-behind-the-carrier--decided-2026-09-14-layout-b2-2026-09-15).
 
@@ -59,7 +59,7 @@ Looking forward, 270° down; r from the sled's centre line. __The board's low fa
 | Board | −1.1 to +0.5 | low face at r 0.5 toward 90° |
 | Cam stack top (10.72 above the board) | 11.8 toward 270° | __2.3 mm__ to the camera pad floor (r 14.09). Corners r 14.78, 5.2 mm inside the 40 mm door |
 | Lora stack top (11.82) | 12.9 toward 270° | corners r 15.67, __4.3 mm__ inside the door |
-| Sensors top (1 mm air + 2.5 header + 4.8 board and Qwiic) | 8.8 toward 90° | 1.7 mm to the web |
+| Sensors top (1 mm air + 2.5 header + 4.8 board and Qwiic) | 8.8 toward 90° | 1.7 mm to the web. The slid LSM6DSO32's outer corner is at r 15.16, 4.8 mm inside the door |
 | __Battery__ | __5.75–10.5 toward 90°__ | against the web, 5.25 mm off the board. Corners r 17.90, __2.1 mm__ inside the door; the cage's outer corners r 19.58 |
 | __Web__ | __10.5–13.5 toward 90°__ | 24 mm wide; the bore is 29.5 mm wide at r 13.5 |
 
@@ -145,16 +145,17 @@ An earlier generator revision put GPS on pins 6/7 and I2C on 4/5 — __D5/D6 and
 
 ## Fit mock — print it before ordering copper
 
-__[`fit-mock/PCB-carrier-fit-mock.stl`](fit-mock/PCB-carrier-fit-mock.stl)__ — the generated board's own body, exported by KiCad, so it cannot drift from the design. Regenerate it after any board change with [`gen_carrier_fitmock.py`](../scripts/gen_carrier_fitmock.py), then [`gen_carrier_fitmock_labels.py`](../scripts/gen_carrier_fitmock_labels.py) in Blender; do not edit it. It is a copy with four changes, never the board:
+__[`fit-mock/PCB-carrier-fit-mock.stl`](fit-mock/PCB-carrier-fit-mock.stl)__ — the generated board's own body, exported by KiCad, so it cannot drift from the design. Regenerate it after any board change with [`gen_carrier_fitmock.py`](../scripts/gen_carrier_fitmock.py); do not edit it. It is a copy with three changes, never the board:
 
 - __Every hole opened 0.3 mm__ on diameter, because printed holes come out small: header holes Ø1.3 (Ø1.0 on the real board), standoff holes Ø4.7 (4.4)
-- __An arrow cut through the board, pointing forward__ — toward the nose tip — at the forward end, beside the forward standoff. It shows which end is forward; the labels show which face is which
+- __An arrow cut through the board, pointing forward__ — toward the nose tip — at the forward end, beside the forward standoff. It shows which end is forward. Printed low side down, the top face is the tall side
 - __Four small marker holes at the edges__ where the battery's two ends fall, nose z 69.3 and 105.3, read from `PCB-carrier-layout.json`. The battery is not a footprint, so nothing else on the board shows it
-- __The board's silkscreen, in plastic__ — module names, `BAT` and the `+`/`−` marks. __Tall side raised 0.4 mm__ on the top face; __low side cut 0.4 mm__ into the bed face, mirrored as on the board, so it reads from below. Each label is printed as large as it can be without touching a hole, a mark, the arrow or another label — up to 1.8× its board size, which is too small for a 0.4 mm nozzle. The sizes used are printed by the script
 
-__1.6 mm thick__, like the real board — KiCad exports the core alone at 1.51 mm, so the script scales it — which puts the header plastic at its true height. The first mock, printed 2026-09-15, was 1.0 mm: the thickness this page carried until then.
+__1.6 mm thick__, like the real board — KiCad exports the core alone at 1.51 mm, so the script scales it — which puts the header plastic at its true height. Two mocks printed on 2026-09-15 are scrap: the first at 1.0 mm, and both with the XIAO rows 17.0 mm apart (#33).
 
-__Print:__ PETG HF, flat, __low side down__ (the STL has it at z 0), 0.2 mm layers, 2 walls, no support, no brim. About 5 g and 25 minutes.
+__No labels on it__ (operator, 2026-09-15). Raised and engraved silkscreen was tried, and the slicer dropped it: strokes of ~0.15 mm against a 0.42 mm line, 21 mm of extrusion on each label layer. __What goes where is on paper instead__ — [`PCB-carrier-template.pdf`](PCB-carrier-template.pdf), both sides at full size, generated by [`gen_carrier_template.py`](../scripts/gen_carrier_template.py) from the layout and the mock's own holes. Print it at 100 % and check its 100 mm bar with a ruler.
+
+__Print:__ PETG HF, flat, __low side down__ (the STL has it at z 0), 0.2 mm layers, 2 walls, no support, no brim. About 5 g and 23 minutes. __Before sending a plate, prove it in the G-code__: every hole open on every layer, and the height 1.6 mm. A mesh swapped into an old plate keeps the old plate's position, and the 2026-09-15 swap left the mock floating 0.2 mm above the bed, 1.8 mm thick, until the G-code showed it.
 
 __What it checks, with the bench parts:__
 
