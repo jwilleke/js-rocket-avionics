@@ -6,7 +6,7 @@ __One battery feeds both MCUs.__ __103 minutes from full to the first brownout__
 
 | | |
 |---|---|
-| Body | __29 × 36 × 4.75 mm__ — verified against the part, 2026-09-07 |
+| Body | __29 × 36 × 4.75 mm__ — verified against the part, 2026-09-07. __36.6 mm long with the lead taped over its end__ (operator, 2026-09-16), which is what the sled's cage is sized to — [PCB-carrier.md](../PCB-carrier/PCB-carrier.md#low-side--faces-90-the-web) |
 | Mass | __10.9 g__ with its pigtail — weighed. Adafruit's label says 10.5 |
 | Leads | __80 mm__ measured, JST-PH. Adafruit's page says 102 — __the 80 is what governs__ |
 | Output | 500 mAh at 3.7 V nominal |

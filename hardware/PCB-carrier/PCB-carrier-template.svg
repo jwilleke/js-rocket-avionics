@@ -6,7 +6,7 @@
 <text x="50.00" y="29.50" font-size="2.40" fill="#555555" text-anchor="middle" font-weight="normal">the fit mock's TOP face as printed</text>
 <text x="50.00" y="32.80" font-size="2.20" fill="#555555" text-anchor="middle" font-weight="normal">↑ forward, nose tip</text>
 <rect x="38.00" y="34.00" width="24.00" height="115.70" rx="2.00" fill="#eef3ea" fill-opacity="1.00" stroke="#5f7f52" stroke-width="0.30"/>
-<rect x="35.50" y="69.80" width="29.00" height="36.00" rx="1.00" fill="none" fill-opacity="0.00" stroke="#5a6b8c" stroke-width="0.20" stroke-dasharray="1.2,0.8"/>
+<rect x="35.50" y="69.80" width="29.00" height="37.40" rx="1.00" fill="none" fill-opacity="0.00" stroke="#5a6b8c" stroke-width="0.20" stroke-dasharray="1.2,0.8"/>
 <rect x="41.10" y="121.20" width="17.80" height="21.00" rx="0.60" fill="#9a3412" fill-opacity="0.12" stroke="#9a3412" stroke-width="0.35"/>
 <rect x="41.00" y="95.20" width="18.00" height="21.00" rx="0.60" fill="#9a3412" fill-opacity="0.12" stroke="#9a3412" stroke-width="0.35"/>
 <rect x="41.10" y="71.20" width="17.80" height="21.00" rx="0.60" fill="#9a3412" fill-opacity="0.12" stroke="#9a3412" stroke-width="0.35"/>
@@ -93,8 +93,8 @@
 <circle cx="40.19" cy="123.87" r="0.80" fill="#ffffff" stroke="#1d6b3f" stroke-width="0.30"/>
 <circle cx="40.19" cy="121.33" r="0.80" fill="#ffffff" stroke="#1d6b3f" stroke-width="0.30"/>
 <circle cx="40.19" cy="118.79" r="0.80" fill="#ffffff" stroke="#1d6b3f" stroke-width="0.30"/>
-<circle cx="60.80" cy="105.80" r="0.75" fill="#ffffff" stroke="#5a6b8c" stroke-width="0.25"/>
-<circle cx="39.20" cy="105.80" r="0.75" fill="#ffffff" stroke="#5a6b8c" stroke-width="0.25"/>
+<circle cx="60.80" cy="107.20" r="0.75" fill="#ffffff" stroke="#5a6b8c" stroke-width="0.25"/>
+<circle cx="39.20" cy="107.20" r="0.75" fill="#ffffff" stroke="#5a6b8c" stroke-width="0.25"/>
 <circle cx="60.80" cy="69.80" r="0.75" fill="#ffffff" stroke="#5a6b8c" stroke-width="0.25"/>
 <circle cx="39.20" cy="69.80" r="0.75" fill="#ffffff" stroke="#5a6b8c" stroke-width="0.25"/>
 <polygon points="53.50,35.30 50.50,39.30 52.30,39.30 52.30,42.10 54.70,42.10 54.70,39.30 56.50,39.30" fill="#ffffff" stroke="#1b1b1b" stroke-width="0.20"/>
@@ -181,7 +181,7 @@
 <text x="140.00" y="29.50" font-size="2.40" fill="#555555" text-anchor="middle" font-weight="normal">the fit mock's BED face as printed</text>
 <text x="140.00" y="32.80" font-size="2.20" fill="#555555" text-anchor="middle" font-weight="normal">↑ forward, nose tip</text>
 <rect x="128.00" y="34.00" width="24.00" height="115.70" rx="2.00" fill="#eef3ea" fill-opacity="1.00" stroke="#5f7f52" stroke-width="0.30"/>
-<rect x="125.50" y="69.80" width="29.00" height="36.00" rx="1.00" fill="#5a6b8c" fill-opacity="0.15" stroke="#5a6b8c" stroke-width="0.30" stroke-dasharray="1.2,0.8"/>
+<rect x="125.50" y="69.80" width="29.00" height="37.40" rx="1.00" fill="#5a6b8c" fill-opacity="0.15" stroke="#5a6b8c" stroke-width="0.30" stroke-dasharray="1.2,0.8"/>
 <rect x="131.10" y="121.20" width="17.80" height="21.00" rx="0.60" fill="none" fill-opacity="0.00" stroke="#9a3412" stroke-width="0.20" stroke-dasharray="1,0.7"/>
 <rect x="131.00" y="95.20" width="18.00" height="21.00" rx="0.60" fill="none" fill-opacity="0.00" stroke="#9a3412" stroke-width="0.20" stroke-dasharray="1,0.7"/>
 <rect x="131.10" y="71.20" width="17.80" height="21.00" rx="0.60" fill="none" fill-opacity="0.00" stroke="#9a3412" stroke-width="0.20" stroke-dasharray="1,0.7"/>
@@ -266,8 +266,8 @@
 <circle cx="149.81" cy="123.87" r="0.80" fill="#ffffff" stroke="#1d6b3f" stroke-width="0.30"/>
 <circle cx="149.81" cy="121.33" r="0.80" fill="#ffffff" stroke="#1d6b3f" stroke-width="0.30"/>
 <circle cx="149.81" cy="118.79" r="0.80" fill="#ffffff" stroke="#1d6b3f" stroke-width="0.30"/>
-<circle cx="129.20" cy="105.80" r="0.75" fill="#ffffff" stroke="#5a6b8c" stroke-width="0.25"/>
-<circle cx="150.80" cy="105.80" r="0.75" fill="#ffffff" stroke="#5a6b8c" stroke-width="0.25"/>
+<circle cx="129.20" cy="107.20" r="0.75" fill="#ffffff" stroke="#5a6b8c" stroke-width="0.25"/>
+<circle cx="150.80" cy="107.20" r="0.75" fill="#ffffff" stroke="#5a6b8c" stroke-width="0.25"/>
 <circle cx="129.20" cy="69.80" r="0.75" fill="#ffffff" stroke="#5a6b8c" stroke-width="0.25"/>
 <circle cx="150.80" cy="69.80" r="0.75" fill="#ffffff" stroke="#5a6b8c" stroke-width="0.25"/>
 <polygon points="136.50,35.30 139.50,39.30 137.70,39.30 137.70,42.10 135.30,42.10 135.30,39.30 133.50,39.30" fill="#ffffff" stroke="#1b1b1b" stroke-width="0.20"/>
@@ -317,16 +317,16 @@
 <line x1="146.96" y1="55.10" x2="157.70" y2="50.50" stroke="#555555" stroke-width="0.12"/>
 <text x="158.50" y="51.10" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">BMP388, low side: its 8-hole row, green,</text>
 <text x="158.50" y="53.40" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">and two M2 bolt heads on the far edge</text>
-<text x="140.00" y="98.30" font-size="2.40" fill="#5a6b8c" text-anchor="middle" font-weight="bold">battery</text>
-<text x="140.00" y="101.10" font-size="1.70" fill="#5a6b8c" text-anchor="middle" font-weight="normal">in the sled's cage,</text>
-<text x="140.00" y="103.30" font-size="1.70" fill="#5a6b8c" text-anchor="middle" font-weight="normal">5.25 mm off the board</text>
+<text x="140.00" y="99.00" font-size="2.40" fill="#5a6b8c" text-anchor="middle" font-weight="bold">battery</text>
+<text x="140.00" y="101.80" font-size="1.70" fill="#5a6b8c" text-anchor="middle" font-weight="normal">in the sled's cage,</text>
+<text x="140.00" y="104.00" font-size="1.70" fill="#5a6b8c" text-anchor="middle" font-weight="normal">5.25 mm off the board</text>
 <text x="140.00" y="146.40" font-size="2.00" fill="#b7791f" text-anchor="middle" font-weight="bold">M3</text>
 <text x="144.50" y="39.90" font-size="2.00" fill="#b7791f" text-anchor="middle" font-weight="bold">M3</text>
 <text x="29.00" y="150.40" font-size="1.80" fill="#2f5fcc" text-anchor="end" font-weight="normal">25.4</text>
 <text x="29.00" y="142.90" font-size="1.80" fill="#2f5fcc" text-anchor="end" font-weight="normal">32.9</text>
 <text x="29.00" y="121.90" font-size="1.80" fill="#2f5fcc" text-anchor="end" font-weight="normal">53.9</text>
 <text x="29.00" y="116.90" font-size="1.80" fill="#2f5fcc" text-anchor="end" font-weight="normal">58.9</text>
-<text x="29.00" y="106.50" font-size="1.80" fill="#2f5fcc" text-anchor="end" font-weight="normal">69.3</text>
+<text x="29.00" y="107.90" font-size="1.80" fill="#2f5fcc" text-anchor="end" font-weight="normal">67.9</text>
 <text x="29.00" y="95.90" font-size="1.80" fill="#2f5fcc" text-anchor="end" font-weight="normal">79.9</text>
 <text x="29.00" y="92.90" font-size="1.80" fill="#2f5fcc" text-anchor="end" font-weight="normal">82.9</text>
 <text x="29.00" y="71.90" font-size="1.80" fill="#2f5fcc" text-anchor="end" font-weight="normal">103.9</text>

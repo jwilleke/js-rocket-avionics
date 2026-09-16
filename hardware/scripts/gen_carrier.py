@@ -188,7 +188,7 @@ JST_NETS = {1: "VBAT", 2: "GND"}
 # low side against the web, 5.25 mm off the board, and the PayloadSled's cage is
 # built to this position. Written to the layout JSON so the diagram and the fit
 # mock both draw it from here rather than from copies of their own.
-BATTERY_Y = (43.9, 79.9)     # nose z 69.3..105.3
+BATTERY_Y = (42.5, 79.9)     # nose z 67.9..105.3 -- the cage cavity, 37.4 mm (js-rocket#99)
 BATTERY_HALF_W = 14.5        # 29 mm across, 2.5 past each board edge
 BATTERY_R = (5.75, 10.5)     # toward 90 deg: 4.75 thick, against the web's inner face
 # Wire pads, 3.2 apart: each XIAO's BAT pigtail, and the buzzer's flying leads

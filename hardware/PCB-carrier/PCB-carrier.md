@@ -49,7 +49,7 @@ __XIAO header rows are 15.24 mm apart__ (±7.62 from the module centreline), per
 |---|---|---|
 | 29.4 | __standoff 1__ | at the aft end, under the USB-C plug room, __not under the XIAO__, where its hole would meet the BAT pigtail. ~14 mm from the camera |
 | 33.4–58.9 | __LSM6DSO32__, lengthwise, __slid 3.45 mm toward +x__ | behind XIAO-ESP32S3-cam and the start of the L76K-GNSS. Its 9-pin row (x 21.81) is outside the cam's row (x 19.62), its 5-pin row (x 9.11) inside; the body hangs ~0.36 mm past the board edge, inside the 40 mm bore. Both pin rows soldered |
-| 69.3–105.3 | __the battery__, in the ElectronicsSled's cage | not on the board: it lies against the web, r 5.75–10.5, __5.25 mm off the low face__, behind the L76K-GNSS and XIAO-ESP32S3-lora. The cage is built to this position ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99)); the fit mock marks its two ends |
+| 67.9–105.3 | __the battery__, in the ElectronicsSled's cage | __36.6 mm long with its lead taped on, in a 37.4 mm cavity__ — 0.4 mm at each end. The forward end is fixed by the BMP388 beyond the cage wall; any growth goes aft. Not on the board: it lies against the web, r 5.75–10.5, __5.25 mm off the low face__, behind the L76K-GNSS and XIAO-ESP32S3-lora. The cage is built to this position ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99)); the fit mock marks its two ends |
 | 107.25–132.75 | __BMP388__, lengthwise | forward of the battery. Pin row soldered; free edge on M2 bolt heads, which land clear of every header joint and the JST |
 | 135.9 | __standoff 2__ | 106.5 mm from standoff 1, 5.2 mm from the board's end, under no module |
 
@@ -158,7 +158,7 @@ __[`fit-mock/PCB-carrier-fit-mock.stl`](fit-mock/PCB-carrier-fit-mock.stl)__ —
 
 - __Every hole opened 0.3 mm__ on diameter, because printed holes come out small: header holes Ø1.3 (Ø1.0 on the real board), standoff holes Ø4.7 (4.4)
 - __An arrow cut through the board, pointing forward__ (toward the nose tip) at the forward end, beside the forward standoff. Printed low side down, the top face is the tall side
-- __Four small marker holes at the edges__ where the battery's two ends fall, nose z 69.3 and 105.3, read from `PCB-carrier-layout.json`
+- __Four small marker holes at the edges__ where the battery cavity's two ends fall, nose z 67.9 and 105.3, read from `PCB-carrier-layout.json`
 
 __1.6 mm thick__, like the real board. KiCad exports the core alone at 1.51 mm, so the script scales it, which puts the header plastic at its true height.
 
