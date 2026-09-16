@@ -67,10 +67,10 @@ __For [charging-bench.md](bench-work/charging-bench.md)__ — the carrier's char
 
 | Part | Listing | Price | Shipping, date | Note |
 |---|---|---|---|---|
-| __AO3401A__ P-channel FET, SOT-23 — Q1 and Q2 | [100-pack](https://www.amazon.com/dp/B08RHFLH1K) | $6.95 | ships from Amazon, Sep 20–22 | Enough for the bench and every carrier |
+| __AO3401A__ P-channel FET, SOT-23 — the lora cut-off switch | [100-pack](https://www.amazon.com/dp/B08RHFLH1K) | $6.95 | ships from Amazon, Sep 20–22 | Enough for the bench and every carrier |
 | __MCP73831T-2ACI/OT__ charger, SOT-23-5 — U1 | [20-pack](https://www.amazon.com/dp/B0H332MZV5) | $7.50 | $1, Sep 28–Oct 13 | No Prime listing found. A marketplace chip can be a relabel — the bench's charge-current reading is the check |
 | __SOT-23 to DIP adapters__, 6-pad | [20-pack](https://www.amazon.com/dp/B088M72B54) | $7.79 | free, Sep 23–28 | Fits SOT-23 and SOT-23-5. Header pins are not listed as included — any 2.54 mm male strip |
-| __2.7 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHH1DHF) | $9.09 | $1.49 | Sets U1's current, 370 mA |
+| __2.7 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHH1DHF) | $9.09 | $1.49 | The charger chip's `PROG` resistor on the bench: __two in series__, never one alone — [charging-bench.md](bench-work/charging-bench.md#the-circuit). The carrier's value is on [PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md#charging) |
 | __100 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHGY3VG) | $9.09 | $1.49 | The FETs' gate pull-down. __The bench does without it__: XIAO-ESP32S3-cam's own R9, 100 kΩ, already holds the gate low. The carrier gets one as a second |
 | __4.7 µF__ ceramic, 50 V, 5.08 mm leads | [100-pack](https://www.amazon.com/dp/B0CN68WGZ6) | $9.24 | $1, Sep 22–Oct 1 | U1's two capacitors. __Skip if you have two__ of 4.7–10 µF |
 | __JST-PH 2-pin pigtails__, male and female | [CHANZON, 30 pairs, 10 cm, 22 AWG](https://www.amazon.com/dp/B0B2DC8ST8) | — | __in hand__ (operator, 2026-09-13) | Battery and both XIAO pigtails onto the breadboard — the join harness has no place for the FETs. __Meter every one: [JST polarity is not fixed](../hardware/LiPo-500mAh/LiPo-500mAh.md#on-the-bench--the-join-harness)__ — the listing itself says not to trust the wire colour |
