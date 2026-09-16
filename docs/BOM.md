@@ -23,7 +23,7 @@ Weights measured 2026-08-17 unless the row says `est`.
 | LiPo 3.7 V 500 mAh | 1578 | Adafruit | shared | 10.9 |
 | microSD card | — held | — | B | __0.15__ |
 | Carrier PCB, 4-layer 1.6 mm, 24 × 115.7, two-sided | — not ordered | OSH Park | both | est 8.3 |
-| Charging on the carrier — the lora cut-off switch, the charger chip, its `PROG` resistor, 100 kΩ, 2 × 4.7 µF ([PCB-carrier.md → Charging](../hardware/PCB-carrier/PCB-carrier.md#charging), [#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)) | cut-off switch __AO3401A__ (AOS); charger __MCP73831T-2ACI/OT__ (Microchip) | Amazon — [shopping-list.md](shopping-list.md#the-charging-bench-30--ordered) | both | < 0.1, not counted |
+| Charging on the carrier — the charger chip on a SOT-23-to-DIP adapter, its `PROG` resistor, 2 × 4.7 µF ([charge-circuit.md](../hardware/charge-circuit/charge-circuit.md), [#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)) | charger __MCP73831T-2ACI/OT__ (Microchip); 6-pad SOT-23-to-DIP adapter | Amazon — [shopping-list.md](shopping-list.md#the-charging-bench-30--ordered) | both | < 0.1, not counted |
 | 7-pin header, 4 off — two per XIAO | Seeed kits — __2 pre-soldered on XIAO-ESP32S3-lora, 2 loose in the Sense kit__ | Seeed | both | __0.6__ |
 | Arming switch + wiring | — not bought | — | shared | est 1.5 |
 | __Avionics subtotal__ | | | | __49.3__ |

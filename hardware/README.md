@@ -28,6 +28,7 @@ __These are the names. Nothing else is a name for these things:__
 | `Antennas` | Both U.FL antennas |
 | `microSD` | The card |
 | `PCB-carrier` | The carrier board |
+| `charge-circuit` | The battery's charger on the carrier: the charger chip on its adapter, and its resistor and capacitors. Not "the charger" alone — XIAO-ESP32S3-cam has one built in too |
 | `camera-stack` | XIAO-ESP32S3-cam __with__ its Sense board — the assembly, not either part |
 | `GNSS-stack` | __A rejected arrangement, not a thing that exists.__ Kept so it is not proposed again |
 
@@ -48,6 +49,7 @@ __These pages hold no part numbers and no masses.__ [BOM.md](../docs/BOM.md) own
 | Sensor | [BMP388-barometer.md](BMP388-barometer/BMP388-barometer.md) | carrier | grid + 2 close | Unported barometer, 0x77 |
 | Output | [PS1240-buzzer.md](PS1240-buzzer/PS1240-buzzer.md) | carrier | __none__ | Passive piezo. The only status channel on the pad |
 | Power | [LiPo-500mAh.md](LiPo-500mAh/LiPo-500mAh.md) | carrier | __none__ | One battery, both XIAOs |
+| Power | [charge-circuit.md](charge-circuit/charge-circuit.md) | carrier | __none__ | Charges the battery from XIAO-ESP32S3-cam's USB, both XIAOs running |
 | Power | [Arming-switch.md](Arming-switch/Arming-switch.md) | battery lead | __n/a__ | In the battery line. __Flight 3 carries none__ |
 | Storage | [microSD.md](microSD/microSD.md) | Sense camera board | __none__ | Video only |
 | RF | [Antennas.md](Antennas/Antennas.md) | Wio-SX1262, L76K | grid | Both off-board on U.FL. ≥50 mm apart |

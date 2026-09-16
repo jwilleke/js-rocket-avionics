@@ -39,27 +39,9 @@ __The bridge__ was to stand its fins beside the board's edges and carry the came
 
 __One regulator per load.__ XIAO-ESP32S3-cam feeds the +3V3 plane and the sensors; XIAO-ESP32S3-lora feeds only the L76K-GNSS, on its own net, off the plane. __One board means no battery link__ between boards: the JST feeds both XIAOs' BAT pigtail pads directly. The connection table is in the [README](../../README.md#connections).
 
-### Charging on the carrier — Q1, the charge-isolation FET, and a charger chip — decided, not yet in the generator
+### Charging on the carrier — a charger chip on an adapter, no cut-off switches
 
-__Operator, 2026-09-12 and 2026-09-13 — tracked in [#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)__, under the battery-charging epic [#32](https://github.com/jwilleke/js-rocket-avionics/issues/32); it blocks the carrier order, [#11](https://github.com/jwilleke/js-rocket-avionics/issues/11). Charging in the nose did not work: with USB in XIAO-ESP32S3-cam, XIAO-ESP32S3-lora kept drawing from the battery and out-drew the cam's ~115 mA charger — the battery fell 3.5 → 3.4 V in 1 h 25 min ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)). That would have ended field charging through the service pigtail.
-
-#### Q1 — the charge-isolation FET
-
-__A P-channel MOSFET, high side, in XIAO-ESP32S3-lora's battery feed__ — source to `VBAT`, drain to XIAO-ESP32S3-lora's BAT pigtail pad. It is an electronic switch with nothing to operate: __USB decides it.__
-
-| USB | Q1 | XIAO-ESP32S3-cam | XIAO-ESP32S3-lora | Battery |
-|---|---|---|---|---|
-| none — flight, pad | on (closed) | on the battery | on the battery | powers both |
-| in XIAO-ESP32S3-cam, directly or through the service pigtail | __off (open)__ | on, from USB | __off__ — with the Wio-SX1262 and the L76K-GNSS, which draw through it | charges |
-
-- __The part: AO3401A__ (AOS), P-channel, SOT-23 — −30 V, ±12 V gate, < 85 mΩ at a −2.5 V gate and < 60 mΩ at −4.5 V, threshold −0.5 to −1.3 V (AOS datasheet, rev 3.1). Fully on from a 3.0 V battery; at ~0.3 A it drops ~20 mV. Chosen 2026-09-13
-- __Its gate reads XIAO-ESP32S3-cam's `5V` pin__, with a pull-down (~100 kΩ) to `GND`. `5V` carries USB power whenever USB is in, and nothing on the battery. USB in: gate at 5 V, above the battery, Q1 off. USB out: gate pulled low, Q1 on. No wire added to the service pigtail
-- __Body diode points the safe way__: with Q1 off, the battery cannot feed XIAO-ESP32S3-lora through it
-- __It must never cut XIAO-ESP32S3-lora in flight.__ With no USB nothing pulls the gate up; the one way it could is the pull-down failing open. __It has a second one already__: Seeed's schematic puts R9, 100 kΩ, from the XIAO's `VBUS` — which is the `5V` pin — to `GND`. Either resistor alone holds the gate low
-- __Seeed's XIAO does the same thing inside__: its own Q1 (LP0404N3T5G, a P-channel FET) has its gate on `VBUS` with R9 pulling it down, and takes the XIAO's regulator off its battery while USB is in (XIAO ESP32S3 schematic v1.2)
-- __A data-link shunt must not power it while it is off.__ With the mj-cam → lora shunt on ([below](#two-data-links-each-behind-an-open-jumper--decided-not-yet-in-the-generator)), a high output from XIAO-ESP32S3-cam would push ~3 mA through the 1 kΩ into an unpowered XIAO-ESP32S3-lora. Firmware holds that pin low while USB is in, or the shunt is off while charging
-- __The two `5V` pins still never meet__ — a sense connection to the gate, not a power path
-- __Q1 cannot cover both XIAOs.__ Moved to where the battery feed splits, the two XIAOs would share its far side, and XIAO-ESP32S3-cam's own charger would power XIAO-ESP32S3-lora through that shared node — it would not go off. (Written that way on 2026-09-13 and corrected the same day.)
+__Tracked in [#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)__, under the battery-charging epic [#32](https://github.com/jwilleke/js-rocket-avionics/issues/32); it blocks the carrier order, [#11](https://github.com/jwilleke/js-rocket-avionics/issues/11). Charging in the nose did not work with XIAO-ESP32S3-cam's built-in charger alone: XIAO-ESP32S3-lora kept drawing from the battery and out-drew the ~115 mA charger, and the battery fell 3.5 → 3.4 V in 1 h 25 min ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)). The fix is more charge current, not less load. The circuit is on [charge-circuit.md](../charge-circuit/charge-circuit.md).
 
 #### A faster charger chip
 
@@ -67,20 +49,23 @@ __Decided, operator 2026-09-13.__ The XIAO's own charger is fixed at ~115–120 
 
 | | Chosen 2026-09-13 — from Microchip's datasheet, DS20001984H |
 |---|---|
-| __U1, the charger__ | __MCP73831T-2ACI/OT__ — SOT-23-5, 4.20 V, 15–500 mA. Pins: 1 `STAT`, 2 `VSS`, 3 `VBAT`, 4 `VDD`, 5 `PROG` |
-| __Current resistor__ | set on [PCB-carrier.md → Charging](PCB-carrier.md#charging), which owns the value and the current. I = 1000 V ÷ R |
+| __The charger chip__ | __MCP73831T-2ACI/OT__ — SOT-23-5, 4.20 V, 15–500 mA. Pins: 1 `STAT`, 2 `VSS`, 3 `VBAT`, 4 `VDD`, 5 `PROG` |
+| __Current resistor__ | set on [charge-circuit.md](../charge-circuit/charge-circuit.md), which owns the value and the current. I = 1000 V ÷ R |
 | __Capacitors__ | 4.7 µF on `VDD` and 4.7 µF on `VBAT` — the datasheet's minimum for each |
 | `STAT` | not connected — a light inside a closed nose is seen by nobody |
 
-- __Why the current is capped:__ the battery's maker says charge it "at a rate of 500mA or less" (Adafruit 1578 listing), and the chip charges alongside XIAO-ESP32S3-cam's own charger. The sum stays under 500 mA at the top of the chip's tolerance — numbers on [PCB-carrier.md → Charging](PCB-carrier.md#charging)
+- __Why the current is capped:__ the battery's maker says charge it "at a rate of 500mA or less" (Adafruit 1578 listing), and the chip charges alongside XIAO-ESP32S3-cam's own charger. The sum stays under 500 mA at the top of the chip's tolerance — numbers on [charge-circuit.md](../charge-circuit/charge-circuit.md)
 - __The `5V` pin can feed it — checked on Seeed's schematic (XIAO ESP32S3 v1.2).__ Header pin 7 (`5V`) is the `VBUS` net itself: copper straight from the USB-C's `VBUS` pins, no fuse and no diode between. So nothing in the path limits the current; its copper and the USB-C connector carry XIAO-ESP32S3-cam's own draw plus ~0.4 A. Seeed writes no rating for it, so the bench reads the pin's voltage under load
 - __The USB source must give ~0.6 A.__ The XIAO's USB-C has 5.1 kΩ on both `CC` pins, so a USB-C charger or power bank sees a device and gives its full current; an old USB-A port through an A-to-C cable promises 500 mA, and may sag. For [using-avionics.md](../../docs/using-avionics.md) once it is built
-- __Heat:__ at the start of a charge the chip burns (5.0 − 3.5 V) × 0.33 A ≈ __0.5 W__. Microchip gives the SOT-23-5 230 °C/W with minimal copper and ~130 °C/W or better with a large copper area — a die __65–115 °C above ambient__. So it will likely hit its __thermal regulation__, which cuts the current to hold the die temperature (shutdown at 150 °C). That costs charge time, not safety. __Give it copper__, away from the sensors
-- __Hand-soldered.__ The carrier is bare boards from OSH Park, assembled by hand, and "module footprints, not bare chips" ([PCB-carrier.md](PCB-carrier.md)) was written for the LSM6DSO32's 2.5 × 3 mm LGA. The lora cut-off switch and the charger chip are SOT-23s — 0.95 mm pin spacing, leads you can see — plus a few passives, to be drawn at a hand-solderable size. The bench soldering them onto adapters is the rehearsal; if that goes badly, the answer is a charger module footprint, before copper
+- __Heat:__ at the start of a charge the chip burns (5.0 − 3.5 V) × 0.33 A ≈ __0.5 W__. Microchip gives the SOT-23-5 230 °C/W with minimal copper and ~130 °C/W or better with a large copper area — a die __65–115 °C above ambient__. So it will likely hit its __thermal regulation__, which cuts the current to hold the die temperature (shutdown at 150 °C). That costs charge time, not safety. On the adapter it has only six pins to shed heat into, so expect it to throttle
+- __On an adapter, not on the carrier__ (operator, 2026-09-16). The chip is soldered to a 6-pad SOT-23-to-DIP adapter on the bench, and that adapter stands on header pins in the carrier — "module footprints, not bare chips" ([PCB-carrier.md](PCB-carrier.md)). The same part is proven on the breadboard and flown, and the carrier carries no fine-pitch footprint
 
-#### No cut-off switch for XIAO-ESP32S3-cam's own charger
+#### No cut-off switches
 
-__Decided, operator 2026-09-16 ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)).__ XIAO-ESP32S3-cam's built-in charger stays on the battery and charges alongside the charger chip; the chip's resistor is set so the two together stay under the battery's 500 mA. A second FET to take the XIAO's charger off would have cost a part and raised an unchecked question, whether XIAO-ESP32S3-cam resets while `VBUS` falls slowly at unplug. The design is on [PCB-carrier.md → Charging](PCB-carrier.md#charging).
+__Decided, operator 2026-09-16 ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)).__
+
+- __Not for XIAO-ESP32S3-cam's built-in charger.__ It charges alongside the charger chip, and the chip's resistor keeps the two under the battery's 500 mA. A FET to take it off would have cost a part and raised an unchecked question: whether XIAO-ESP32S3-cam resets while `VBUS` falls slowly at unplug
+- __Not for XIAO-ESP32S3-lora.__ A FET taking it off the battery while USB is in was the answer to #8 when the only charger gave ~115 mA. With the chip, the lora side takes its share and the rest still charges. Leaving it on keeps the beacon and GPS running while charging, saves a part, and removes a trap: a data link could have powered a switched-off XIAO-ESP32S3-lora through its pins. The cost is a slower charge that never terminates while USB is in; the bench measures how much slower
 
 __This should have been caught at design time.__ [LiPo-500mAh.md](../LiPo-500mAh/LiPo-500mAh.md#two-chargers-on-one-battery) wrote down on 2026-09-10 that the net charge "may be near zero" and deferred it to a measurement, instead of designing it out. The measurement found it before copper; it should not have needed to.
 
@@ -93,7 +78,7 @@ __The holes are already in the generator__ (`WIRE_PADS`, `TestPoint_THTPad_D2.0m
 | | XIAO's forward end | Holes |
 |---|---|---|
 | XIAO-ESP32S3-cam | y 28.5 | `TP_CAM_BAT_P` (8.8, 30.0), `TP_CAM_BAT_N` (12.0, 30.0) |
-| XIAO-ESP32S3-lora | y 78.5 | `TP_LORA_BAT_P` (10.4, 80.8), `TP_LORA_BAT_N` (13.6, 80.8) — `VBAT` side fed through Q1 |
+| XIAO-ESP32S3-lora | y 78.5 | `TP_LORA_BAT_P` (10.4, 80.8), `TP_LORA_BAT_N` (13.6, 80.8) |
 
 - __Labelled on both sides__ — `BAT`, `+` and `-` at each pair, mirrored on the low side so it reads from there (`BAT_LABELS` in `gen_carrier.py`, 2026-09-13; DRC 0 violations). Each module's name is also on the board under it, on its own side — `XIAO-ESP32S3 / cam`, `L76K-GNSS`, `XIAO-ESP32S3 / lora` on the tall side, `LSM6DSO32` and `BMP388` mirrored on the low side (`MODULE_LABELS`) — so the carrier says what goes where during assembly
 - __Assembly order — the LSM6DSO32 sits over XIAO-ESP32S3-cam's holes on the low side__, ~1 mm off the carrier, so that pigtail is soldered __before the sensor goes on__ and its joints trimmed flush. XIAO-ESP32S3-lora's holes lie under the battery, which is 5.25 mm off the board in the sled's cage

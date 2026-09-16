@@ -118,4 +118,4 @@ Write the numbers down even when they are boring. The predictions this epic exis
 
 ## After this epic — the charging bench
 
-__[#30](https://github.com/jwilleke/js-rocket-avionics/issues/30) also blocks the order__, and has its own bench session: the carrier's charging circuit — the charger chip and the lora cut-off switch — on a breadboard with both XIAOs and the battery. It needs parts bought first. Procedure: [charging-bench.md](bench-work/charging-bench.md).
+__[#30](https://github.com/jwilleke/js-rocket-avionics/issues/30) also blocks the order__, and has its own bench session: the carrier's charging circuit — the charger chip on its adapter — on a breadboard with both XIAOs and the battery. It needs parts bought first. Procedure: [charging-bench.md](bench-work/charging-bench.md).

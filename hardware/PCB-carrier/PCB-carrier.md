@@ -11,7 +11,7 @@ The sled side of the interface is [js-rocket#99](https://github.com/jwilleke/js-
 | Size | __24 × 115.7 mm__, nose z 25.4 → 141.1 |
 | Stackup | __4-layer__, solid ground plane |
 | Thickness | __1.6 mm FR4__, OSH Park's only 4-layer thickness. Low face at r 0.5 — [why](../../README.md#the-interface-to-the-sled) |
-| Nets | +3V3, +3V3_LORA, GND, VBAT, SDA, SCL, BUZZER, GPS_TX, GPS_RX. [Charging](#charging) adds the cam XIAO's `5V` and the lora XIAO's switched battery feed |
+| Nets | +3V3, +3V3_LORA, GND, VBAT, SDA, SCL, BUZZER, GPS_TX, GPS_RX. the [charge circuit](../charge-circuit/charge-circuit.md) adds the cam XIAO's `5V` |
 | Mounting | two __surface-mount M3 standoffs__, 10 mm (Würth WA-SMSI 9774100360), on the low side. __M3 plastic screws, M3 × 10__, from the web's far face |
 
 ## Not yet in the generator
@@ -19,7 +19,7 @@ The sled side of the interface is [js-rocket#99](https://github.com/jwilleke/js-
 __The layout drawing, the fit mock and the paper template do not show these yet.__ Each is part of the design on this page. __No fit mock is printed until this list is empty__ ([#34](https://github.com/jwilleke/js-rocket-avionics/issues/34)).
 
 - __XIAO-ESP32S3-lora turned 90°__, USB-C out a long edge — [Tall side](#tall-side--faces-270-the-camera)
-- __The charging circuit__: the charger chip, the lora cut-off switch, their resistors and capacitors — [Charging](#charging)
+- __The [charge circuit](../charge-circuit/charge-circuit.md)__: six through-holes for the charger chip's adapter, its resistor and two capacitors. Waits on the adapter's measured row spacing
 - __Two data links__, each behind an open 2-pin jumper — [why](PCB-carrier-design.md#two-data-links-each-behind-an-open-jumper--decided-not-yet-in-the-generator), [#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)
 - __The PS1240 driven from two pins__ in opposite phase, for about +6 dB. `TP_BUZ_G` becomes the second drive net instead of `GND`; both holes stay where they are. Which XIAO-ESP32S3-cam pin is still open — [#25](https://github.com/jwilleke/js-rocket-avionics/issues/25)
 
@@ -41,7 +41,7 @@ __XIAO header rows are 15.24 mm apart__ (±7.62 from the module centreline), per
 | 58.9–79.9 | __L76K-GNSS__, on its own soldered pins | antenna end forward, toward the GNSS antenna's cradle |
 | from 82.9 | __XIAO-ESP32S3-lora__ + Wio-SX1262, __turned 90°__ | its 21 mm length runs across the 24 mm board, so it takes 17.8 mm of board length. __USB-C out a long edge__: a plug fits for flashing and testing, and the L76K-GNSS antenna connector has room. Which edge, and the exact z, are set when the generator draws it |
 | ~104–113 | its BAT pigtail pads; the __JST__ | right at the battery's forward end, on the other face |
-| 113.7–141.1 | __the charging circuit__ | the charger chip, the lora cut-off switch, their resistors and capacitors — [Charging](#charging). Clear of the battery, which ends at nose z 105.3 |
+| 113.7–141.1 | __the charging circuit__ | the charger chip on its adapter, standing on six header pins, with its resistor and two capacitors — [charge-circuit.md](../charge-circuit/charge-circuit.md). Clear of the battery, which ends at nose z 105.3 |
 
 ### Low side — faces 90°, the web
 
@@ -74,7 +74,7 @@ Looking forward, 270° down; r from the sled's centre line. __The board's low fa
 
 | Rail | Volts | Where it comes from | On the carrier? |
 |---|---|---|---|
-| __USB__ | __5.0__ | A USB-C lead, only while one is plugged in | __From XIAO-ESP32S3-cam's `5V` pin only__: it feeds the charger chip and switches the lora cut-off switch. XIAO-ESP32S3-lora's `5V` pin is not connected. On battery power there is no voltage on it |
+| __USB__ | __5.0__ | A USB-C lead, only while one is plugged in | __From XIAO-ESP32S3-cam's `5V` pin only__: it feeds the charger chip. XIAO-ESP32S3-lora's `5V` pin is not connected. On battery power there is no voltage on it |
 | __Battery__ | __3.7 nominal__ | The [LiPo](../LiPo-500mAh/LiPo-500mAh.md), to the JST, then by soldered pigtail to each XIAO's underside __BAT pads__ | As `VBAT`, between the JST, the charging circuit and the wire pads. It does __not__ reach the headers |
 | __Logic__ | __3.3__ | Each XIAO's own regulator | __Yes__ — see below |
 
@@ -85,7 +85,7 @@ __One regulator per load.__ XIAO-ESP32S3-cam's `3V3` feeds the +3V3 plane and th
      |  lead from the forward end
      v
   JST-PH -- VBAT/GND --+-- pigtail ---------------------------> XIAO-ESP32S3-cam  BAT pads
-                       +-- lora cut-off switch -- pigtail ----> XIAO-ESP32S3-lora BAT pads
+                       +-- pigtail ---------------------------> XIAO-ESP32S3-lora BAT pads
                        +-- charger chip <-- XIAO-ESP32S3-cam 5V pin (USB only)
   XIAO-ESP32S3-cam  3V3 --> +3V3 plane --> LSM6DSO32, BMP388 (BMP388 CS tied high: I2C, #19)
   XIAO-ESP32S3-lora 3V3 --> +3V3_LORA  --> L76K-GNSS
@@ -97,18 +97,7 @@ __Everything else is powered by the XIAO it plugs onto__, through that module's 
 
 ## Charging
 
-__USB into XIAO-ESP32S3-cam charges the battery__, directly or through the service pigtail ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)). Two chargers do it together, and XIAO-ESP32S3-lora is taken off the battery while they do. There is nothing to operate: plugging USB in is the switch.
-
-| Part | What it does | Part and values |
-|---|---|---|
-| __Charger chip__ | charges the battery from XIAO-ESP32S3-cam's `5V` pin | __MCP73831T-2ACI/OT__, SOT-23-5. __3.0 kΩ__ on `PROG`: 1000 V ÷ 3.0 kΩ = __333 mA__, 300–367 mA across the datasheet's ±10%. __4.7 µF__ on `VDD` and on `VBAT`. `STAT` not connected |
-| __XIAO-ESP32S3-cam's built-in charger__ | charges the battery through its BAT pigtail. It cannot be turned off | inside the XIAO, ~115–120 mA |
-| __Lora cut-off switch__ | while USB is in XIAO-ESP32S3-cam, takes XIAO-ESP32S3-lora off the battery, and the Wio-SX1262 and L76K-GNSS with it. __No beacon while charging.__ USB out: it is back on the battery and boots | __AO3401A__ P-channel FET, SOT-23. Source to `VBAT`, drain to XIAO-ESP32S3-lora's BAT pigtail pad, gate to XIAO-ESP32S3-cam's `5V` pin, __100 kΩ__ from gate to `GND` |
-
-- __Charge current: up to ~487 mA__ (the chip's 367 at the top of its tolerance plus the XIAO's 120), __under the battery's 500 mA limit__. That limit is why the resistor is 3.0 kΩ
-- __No cut-off switch for XIAO-ESP32S3-cam's built-in charger__ (operator, [#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)). The two chargers charge together and both stop at 4.2 V. That is one part fewer, and nothing happens to XIAO-ESP32S3-cam when USB is unplugged
-- __The cut-off switch cannot cut XIAO-ESP32S3-lora in flight.__ With no USB, nothing pulls the gate up. The 100 kΩ holds it low, and Seeed's own 100 kΩ from the XIAO's `VBUS` to `GND` is a second pull-down on the same gate
-- __Owed before copper:__ proof that XIAO-ESP32S3-cam's `5V` pin carries the charger chip's current. The [charging bench](../../docs/bench-work/charging-bench.md) measures it
+__The charge circuit is its own page: [charge-circuit.md](../charge-circuit/charge-circuit.md)__ — what it is, how it behaves, and its values. On this board it is the charger chip's adapter standing on __six through-holes__ in the tall side's forward end, with its resistor and two capacitors beside it, fed from XIAO-ESP32S3-cam's `5V` pin.
 
 ### Charge through the Sense stack, and only that one
 
@@ -116,12 +105,12 @@ __XIAO-ESP32S3-cam's USB-C is the service port.__ It is the Sense stack, the onl
 
 __XIAO-ESP32S3-lora's USB-C is for flashing and testing on the bench.__ It runs [stock Meshtastic and nothing else](../XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md#firmware--stock-meshtastic-only-updated-on-purpose-frozen-for-flight), and nothing on the carrier is fed from it. Plugged in, it runs from its own USB and beacons as normal. Turned 90°, its port is reachable with the module soldered down.
 
-__USB into one XIAO at a time, never both.__ With both in, XIAO-ESP32S3-lora's own charger feeds the battery through the cut-off switch's body diode, alongside the other two, and the total passes the battery's 500 mA — [Two chargers on one battery](../LiPo-500mAh/LiPo-500mAh.md#two-chargers-on-one-battery).
+__USB into one XIAO at a time, never both__ — [charge-circuit.md](../charge-circuit/charge-circuit.md#how-it-behaves).
 
 ## Build rules
 
 - __4-layer, solid ground plane.__ A few dollars more at this size; fixes return paths and coupling from the camera's DVP flex
-- __Module footprints, not bare chips__, for the modules. A bare LSM6DSO32 is an LGA-14 at 2.5 × 3 mm and is not hand-solderable. The charging circuit's SOT-23 parts are hand-soldered; their leads are visible
+- __Module footprints, not bare chips.__ A bare LSM6DSO32 is an LGA-14 at 2.5 × 3 mm and is not hand-solderable, and the charger chip goes on its adapter rather than onto the carrier
 - __Solder the headers — no loose sockets.__ Conformal coat after bench testing
 - __Assembly order: the low side first.__ Solder the sensors, standing ~1 mm proud, and trim their tails on the tall face, then the tall side's modules. A sensor joint on the tall face sits right beside a module header's plastic
 - __The screws stop inside the standoffs.__ Each standoff has a 4.4 mm hole through the board, so neither sits under a module. __M3 × 10__ through the 3 mm web leaves 3 mm short of the board; a longer one pokes into the USB-C plug room
