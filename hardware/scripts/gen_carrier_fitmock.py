@@ -121,6 +121,9 @@ def main():
     for y in BATTERY_Y:
         for x in MARK_X:
             edge_circle(board, x, y, MARK_R)
+    # KiCad hands the footprints back in no fixed order, so sort: the sidecar, the
+    # template drawn from it and their diffs then depend only on the board.
+    HOLES.sort(key=lambda h: (round(h["x"], 3), round(h["y"], 3)))
     json.dump({"thickness": THICKNESS, "board": [0.0, 0.0, 24.0, lay["board"]["h"]],
                "holes": HOLES, "arrow": ARROW, "marks": [[x, y, MARK_R] for y in BATTERY_Y for x in MARK_X]},
               open(SIDECAR, "w"), indent=1)

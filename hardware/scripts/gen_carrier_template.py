@@ -237,6 +237,8 @@ def main():
         "is outside the cam XIAO's row, its 5-hole row inside. Pin names beside the XIAO rows are",
         "for the XIAO plugged in from the tall side. The small blue-rimmed holes at the long edges mark the",
         "battery's two ends. BAT+/BAT− are each XIAO's battery pigtail, soldered on the low side.",
+        "Row spacing, which a printed mock is here to prove: XIAO and L76K-GNSS 15.24 mm apart",
+        "(±7.62, Seeed's footprint); LSM6DSO32 12.70 mm, slid so one row clears the cam XIAO's.",
         "Source of truth: hardware/PCB-carrier/PCB-carrier.md.",
     )
     for i, t in enumerate(lines):
