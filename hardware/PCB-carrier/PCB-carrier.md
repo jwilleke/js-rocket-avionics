@@ -4,7 +4,7 @@ __One two-sided board on the PayloadSled's centre line.__ The __tall side__ face
 
 __This page is the carrier's one source of truth, and it describes the current design.__ The layout drawing, the fit mock and the [nose-assembly drawing](https://github.com/jwilleke/js-rocket/blob/main/docs/designs/nose-assembly-6e81cfc.html) must all show what this page says. [PCB-carrier-design.md](PCB-carrier-design.md) holds the reasoning behind the choices; where it gives a different number, this page wins. Decisions and their dates live on the GitHub issues linked below.
 
-The sled side of the interface is [js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99).
+The sled side of the interface is [js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99). __Board x maps to the sled mirrored: sled x = 12 − board x.__ The tall side is KiCad's front and faces 270°, so seen from there with forward up, the board's +x points to the sled's −x. Confirmed on the printed fit mock and ElectronicsSled.
 
 | | |
 |---|---|
@@ -50,7 +50,7 @@ __XIAO header rows are 15.24 mm apart__ (±7.62 from the module centreline), per
 | 29.4 | __standoff 1__ | at the aft end, under the USB-C plug room, __not under the XIAO__, where its hole would meet the BAT pigtail. ~14 mm from the camera |
 | 33.4–58.9 | __LSM6DSO32__, lengthwise, __slid 3.45 mm toward +x__ | behind XIAO-ESP32S3-cam and the start of the L76K-GNSS. Its 9-pin row (x 21.81) is outside the cam's row (x 19.62), its 5-pin row (x 9.11) inside; the body hangs ~0.36 mm past the board edge, inside the 40 mm bore. Both pin rows soldered |
 | 67.9–105.3 | __the battery__, in the ElectronicsSled's cage | __36.6 mm long with its lead taped on, in a 37.4 mm cavity__ — 0.4 mm at each end. The forward end is fixed by the BMP388 beyond the cage wall; any growth goes aft. Not on the board: it lies against the web, r 5.75–10.5, __5.25 mm off the low face__, behind the L76K-GNSS and XIAO-ESP32S3-lora. The cage is built to this position ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99)); the fit mock marks its two ends |
-| 107.25–132.75 | __BMP388__, lengthwise | forward of the battery. Pin row soldered; free edge on M2 bolt heads, which land clear of every header joint and the JST |
+| 107.25–132.75 | __BMP388__, lengthwise | forward of the battery. Pin row soldered; free edge on two M2 bolts, heads on the board, clear of every header joint and the JST. __Their tips go into two holes in the sled's web__ at nose z 109.7 and 130.3, so the web holds the free edge too |
 | 135.9 | __standoff 2__ | 106.5 mm from standoff 1, 5.2 mm from the board's end, under no module |
 
 __The sensors run lengthwise, not turned.__ Turned 90°, a sensor's rows would cross the modules' rows. The BMP388 sits behind no module. The LSM6DSO32 sits behind XIAO-ESP32S3-cam, and its rows, 12.7 mm apart, cannot fit inside the cam's 15.24. So it is slid sideways until one row is outside: its holes sit 2.18 mm from the cam's, and its joints clear the cam's header plastic. The sensors stand __~1 mm proud of the board on their pins__, header plastic up against the sensor, so the plastic clears the tall side's solder joints on the low face.

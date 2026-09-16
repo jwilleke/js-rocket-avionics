@@ -94,7 +94,7 @@ Both ride the one [carrier PCB](PCB-carrier/PCB-carrier.md), on its tall side. T
 
 __The carrier hangs off the sled's web on two surface-mount M3 standoffs__ (Würth WA-SMSI, 10 mm), with __M3 plastic screws, M3 × 10__, driven in from the web's far face (operator, 2026-09-11; [PCB-carrier.md](PCB-carrier/PCB-carrier.md)). The length matters: a longer screw passes through the standoff and out of the board's tall side. The old "M2 everywhere" standard (2026-09-05) was for screwing the breakouts down, which is no longer done.
 
-__The sensors are not screwed through the board__, because nothing may stick out of its back: the LSM6DSO32 is soldered by both its rows, and the BMP388's free edge rests on __M2 bolts through its own holes, head down__ on the board. M2 survives only there, and only because those holes measure __Ø2.35__: an M2 passes, an M2.5 does not, and an M3 never could.
+__The sensors are not screwed through the board__, because nothing may stick out of its back: the LSM6DSO32 is soldered by both its rows, and the BMP388's free edge rests on __M2 bolts through its own holes, head down__ on the board, their tips in two holes in the sled's web. M2 survives only there, and only because those holes measure __Ø2.35__: an M2 passes, an M2.5 does not, and an M3 never could.
 
 __Printed holes are modelled oversize.__ A hole modelled at nominal prints undersize by ~0.3 mm on the P2S, so the sled's M3 holes are drawn for clearance rather than at 3.0 — the same rule as the anchor bore in the rocket repo.
 
