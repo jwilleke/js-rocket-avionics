@@ -4,7 +4,7 @@ __Footprints cannot be drawn until these are read off the physical parts.__ Vend
 
 __Both sensor boards are confirmed from the parts__ — the BMP388 by caliper, the LSM6DSO32 by pin order and markings off photographs and by every dimension a footprint needs ([#5](https://github.com/jwilleke/js-rocket-avionics/issues/5), closed 2026-09-06). __Nothing else is.__
 
-Moved here from the rocket repo's `electronics-plan.md` — this is footprint input for the carrier PCB, so it belongs with the copper. What each part *is* and why it was chosen stays in [BOM.md](BOM.md); the design record stays in [electronics-plan.md](https://github.com/jwilleke/js-rocket/blob/main/docs/planing/electronics-plan.md).
+Moved here from the rocket repo's `electronics-plan.md` — this is footprint input for the carrier PCB, so it belongs with the copper. What each part *is* and why it was chosen stays in [BOM.md](BOM.md); the design record is [design.md](design.md).
 
 ## How these are measured — photograph on the grid, not calipers
 

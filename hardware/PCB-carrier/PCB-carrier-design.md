@@ -113,7 +113,7 @@ __Layout B2 — in the generator, 2026-09-15.__ `verify_clearances()` passes (72
 
 __Owed before the carrier is ordered:__
 
-1. __Stability.__ The battery's centre is now __~56 mm aft__ of the old D-flat spot, and aft mass is expensive ([payload-ballast.md](https://github.com/jwilleke/js-rocket/blob/main/docs/payload-ballast.md)). Re-derive the nose's CG and re-run the flight-3 stability numbers
+1. __Stability.__ The battery's centre is now __~56 mm aft__ of the old D-flat spot, and aft mass is expensive ([configurations.md](https://github.com/jwilleke/js-rocket/blob/main/docs/configurations.md#where-the-ballast-goes-and-why-placement-matters)). Re-derive the nose's CG and re-run the flight-3 stability numbers
 2. __Stiffness.__ The standoffs are further apart than the 81 mm the board was first judged at. The battery no longer loads the span: it rides the sled, in its cage. The board is __1.6 mm__ since 2026-09-15 — OSH Park's only 4-layer thickness — about 4× as stiff as the 1.0 mm it was judged at. Still check it; the fit mock is a first look, not an answer
 3. __Retention.__ The sled's cage holds it: three-sided, taped on its open sides ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99)). __Never clamp the pouch__
 4. __The joints under the battery__ — the L76K-GNSS's and XIAO-ESP32S3-lora's header joints and XIAO-ESP32S3-lora's BAT pigtail joints — face 5.25 mm of air, not the pouch. Trim them flush anyway

@@ -3,7 +3,7 @@
     /Applications/KiCad/KiCad.app/Contents/Frameworks/Python.framework/Versions/3.9/bin/python3 \
         hardware/scripts/gen_outline.py
 
-This is stage 2a of the plan in js-rocket/docs/planing/electronics-plan.md: the
+This is stage 2a of the carrier PCB work (hardware/PCB-carrier/PCB-carrier-design.md): the
 mechanical envelope only. It is deliberately separate from placement and
 routing because **the js-rocket sled generator derives its rail bosses from
 these numbers**, so the outline has to freeze before the printed part can be
