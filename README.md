@@ -59,7 +59,7 @@ __The expansion board — Sense or Wio-SX1262 — sits above the XIAO__, on the 
 
 ## Connections
 
-There is __no schematic file__. Nets are assigned to pads directly in the generator, which is more robust than hand-authoring schematic s-expressions for 9 nets and keeps one generator as the single source of truth. The cost is no ERC and no drawn diagram — so this table *is* the wiring diagram. __Keep it in step with `gen_carrier.py`.__
+There is __no schematic file__. Nets are assigned to pads directly in the generator, which is more robust than hand-authoring schematic s-expressions for 11 nets and keeps one generator as the single source of truth. The cost is no ERC and no drawn diagram — so this table *is* the wiring diagram. __Keep it in step with `gen_carrier.py`.__
 
 | Net | From | Also reaches |
 |---|---|---|
@@ -72,6 +72,8 @@ There is __no schematic file__. Nets are assigned to pads directly in the genera
 | `GPS_TX` | lora __D6__ (pin 7, GPIO43) | the L76K-GNSS's pad at the D6 position, which is the module's __RX__ |
 | `GPS_RX` | lora __D7__ (pin 8, GPIO44) | the L76K-GNSS's pad at the D7 position, which is the module's __TX__ |
 | `VBAT` | JST pin 1 | both XIAOs' BAT pigtail pads |
+| `LINK_GPS` | the GPS link's 2-pin header, pin 2 (pin 1 is on `GPS_RX`) | its 1 kΩ. The resistor's far end, toward a XIAO-ESP32S3-cam input, is __not netted yet__ — the pin is owed ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)) |
+| `LINK_EVT` | the event link's 2-pin header, pin 1 | its 1 kΩ. Both far ends — a XIAO-ESP32S3-cam output and a XIAO-ESP32S3-lora input — are __not netted yet__ ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)) |
 
 `GPS_TX` and `GPS_RX` are named from the XIAO's side. __Wire the L76K-GNSS by position, never by its silkscreen word__ — [L76K-GNSS.md](hardware/L76K-GNSS/L76K-GNSS.md#pinout--from-seeeds-schematic-not-the-listing).
 

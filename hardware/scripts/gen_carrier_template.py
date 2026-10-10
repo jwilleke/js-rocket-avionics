@@ -51,9 +51,11 @@ CALLOUTS = [
     (("TP_CAM_BAT_P", "TP_CAM_BAT_N", "TP_BUZ", "TP_BUZ_G"),
      ("XIAO-ESP32S3-cam pigtail: BAT+ red, BAT− black", "buzzer leads: BUZ grey, BUZ G black"), 0.0),
     (("TP_LORA_BAT_P", "TP_LORA_BAT_N"), ("XIAO-ESP32S3-lora pigtail: BAT+ red, BAT− black",), 0.0),
-    (("J_BAT",), ("JST — the battery plug, + at pin 1:", "check it against the red lead"), -6.5),
+    (("J_BAT",), ("JST — the battery plug, + at pin 1:", "check it against the red lead"), -8.0),
     (("J_LSM_P", "J_LSM_A"), ("LSM6DSO32, low side: its 9-hole row (green) outside", "the cam XIAO's row, its 5-hole row inside"), 0.0),
-    (("J_BMP",), ("BMP388, low side: its 8-hole row, green,", "and two M2 bolt heads on the far edge"), -4.0),
+    (("J_BMP",), ("BMP388, low side: its 8-hole row, green,", "and two M2 bolt heads on the far edge"), -5.9),
+    (("J_LINK_GPS", "R_LINK_GPS"), ("GPS → cam data link: 2-pin header", "and its 1 kΩ, lying flat"), -1.25),
+    (("J_LINK_EVT", "R_LINK_EVT"), ("cam → lora data link: 2-pin header", "and its 1 kΩ, lying flat"), -5.25),
 ]
 
 
@@ -68,9 +70,10 @@ class Svg:
     def add(self, s):
         self.out.append(s)
 
-    def text(self, x, y, s, size, fill=INK, anchor="middle", weight="normal"):
+    def text(self, x, y, s, size, fill=INK, anchor="middle", weight="normal", rotate=0):
+        rot = ' transform="rotate(%d %.2f %.2f)"' % (rotate, x, y) if rotate else ""
         self.add('<text x="%.2f" y="%.2f" font-size="%.2f" fill="%s" text-anchor="%s" '
-                 'font-weight="%s">%s</text>' % (x, y, size, fill, anchor, weight, esc(s)))
+                 'font-weight="%s"%s>%s</text>' % (x, y, size, fill, anchor, weight, rot, esc(s)))
 
     def rect(self, x, y, w, h, fill="none", stroke=INK, sw=0.2, r=0.0, opacity=1.0, dash=None):
         d = ' stroke-dasharray="%s"' % dash if dash else ""
@@ -94,6 +97,7 @@ class Svg:
 
 def main():
     L = json.load(open(LAYOUT))
+    lora_cy = next((b["y0"] + b["y1"]) / 2 for b in L["bodies"] if b["name"] == "XIAO-ESP32S3-lora")
     M = json.load(open(SIDECAR))
     bw, bh, z0 = L["board"]["w"], L["board"]["h"], L["board"]["nose_z0"]
 
@@ -165,7 +169,14 @@ def main():
             pads.setdefault(p["ref"], []).append((px(side, p["x"]), py(p["y"])))
             if p["net"]:
                 svg.circle(px(side, p["x"]), py(p["y"]), 0.3, NET_COLOUR.get(p["net"], "#d4af37"), "none", 0)
-            if side == "tall" and p["ref"][:-1] in ("J_CAM_", "J_LORA_"):
+            if side == "tall" and p["ref"][:-1] == "J_LORA_":
+                # turned 90 deg: rows lie across the board, so each name stands
+                # upright just outside its row, reading away from the module
+                lab = XIAO_LABELS[p["ref"][-1]][int(p["num"]) - 1]
+                up = py(p["y"]) < py(lora_cy)
+                svg.text(px(side, p["x"]) + 0.6, py(p["y"]) + (-1.3 if up else 1.3), lab, 1.4, INK,
+                         "start" if up else "end", rotate=-90)
+            elif side == "tall" and p["ref"][:-1] == "J_CAM_":
                 lab = XIAO_LABELS[p["ref"][-1]][int(p["num"]) - 1]
                 right = px(side, p["x"]) > px(side, bw / 2)
                 edge = PANELS[side] + (bw + 3.3 if right else -3.3)

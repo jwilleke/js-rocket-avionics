@@ -52,9 +52,10 @@ class Svg:
     def add(self, s):
         self.out.append(s)
 
-    def text(self, x, y, s, size=11, fill=INK, anchor="start", weight="normal"):
+    def text(self, x, y, s, size=11, fill=INK, anchor="start", weight="normal", rotate=0):
+        rot = ' transform="rotate(%d %.1f %.1f)"' % (rotate, x, y) if rotate else ""
         self.add('<text x="%.1f" y="%.1f" font-size="%.1f" fill="%s" text-anchor="%s" '
-                 'font-weight="%s">%s</text>' % (x, y, size, fill, anchor, weight, esc(s)))
+                 'font-weight="%s"%s>%s</text>' % (x, y, size, fill, anchor, weight, rot, esc(s)))
 
     def line(self, x1, y1, x2, y2, stroke=INK, w=1.0, dash=None):
         d = ' stroke-dasharray="%s"' % dash if dash else ""
@@ -75,6 +76,7 @@ class Svg:
 
 def main():
     L = json.load(open(SRC))
+    lora_cy = next((b["y0"] + b["y1"]) / 2 for b in L["bodies"] if b["name"] == "XIAO-ESP32S3-lora")
     bw, bh, z0 = L["board"]["w"], L["board"]["h"], L["board"]["nose_z0"]
 
     def px(side, x):
@@ -151,7 +153,13 @@ def main():
                 continue
             svg.circle(px(side, p["x"]), py(p["y"]), 0.8 * S,
                        NET_COLOUR.get(p["net"], "#d4af37"), INK, 0.5)
-            if side == "tall" and p["ref"][:-1] in ("J_CAM_", "J_LORA_"):
+            if side == "tall" and p["ref"][:-1] == "J_LORA_":
+                # turned 90 deg: each name upright just outside its row
+                lab = XIAO_LABELS[p["ref"][-1]][int(p["num"]) - 1]
+                up = py(p["y"]) < py(lora_cy)
+                svg.text(px(side, p["x"]) + 3, py(p["y"]) + (-11 if up else 11), lab, 7, INK,
+                         "start" if up else "end", rotate=-90)
+            elif side == "tall" and p["ref"][:-1] == "J_CAM_":
                 lab = XIAO_LABELS[p["ref"][-1]][int(p["num"]) - 1]
                 right = px(side, p["x"]) > px(side, bw / 2)
                 svg.text(px(side, p["x"]) + (11 if right else -11), py(p["y"]) + 3.5, lab, 8,

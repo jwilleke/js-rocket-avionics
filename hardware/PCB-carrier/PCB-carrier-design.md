@@ -63,7 +63,7 @@ __The holes are already in the generator__ (`WIRE_PADS`, `TestPoint_THTPad_D2.0m
 - __Polarity__ is fixed by the holes, not a connector: `+` to `+`, checked with a meter before first power-up
 - __Superseded:__ JST sockets on the board for the pigtails (decided and dropped the same day — no room within the pigtail's ~10 mm)
 
-### Two data links, each behind an open jumper — decided, not yet in the generator
+### Two data links, each behind an open jumper — in the generator, pins owed
 
 __Operator, 2026-09-12 ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)).__ Both are nice-to-have, so the copper is built now and the features are chosen later. Each link runs through a __standard 2-pin 2.54 mm header with a slide-on shunt__: shunt off, the boards are exactly as isolated as without the link; shunt on, the feature is available to firmware.
 

@@ -11,7 +11,7 @@ M3 standoffs, so it can come off the sled as one unit:
 
     tall side  F.Cu, faces 270 deg (the camera port)
                XIAO-ESP32S3-cam aft, under the camera; L76K-GNSS; XIAO-ESP32S3-lora
-               forward; the battery JST at the forward end
+               turned 90 deg; the battery JST; the two data-link jumpers forward
     low side   B.Cu, faces 90 deg (the web)
                LSM6DSO32 and BMP388, rows running lengthwise; two SMT M3 standoffs
 
@@ -78,7 +78,11 @@ PITCH = 2.54
 
 MM = pcbnew.FromMM
 
-# ---- the two XIAOs, tall side, USB-C aft -------------------------------------
+# ---- the two XIAOs, tall side -------------------------------------------------
+# XIAO-ESP32S3-cam USB-C aft. XIAO-ESP32S3-lora TURNED 90 deg (PCB-carrier.md, #34):
+# its USB-C out the -x long edge, the JST's edge, so its underside BAT pads
+# (footprint x -4.5) land forward, toward its pigtail holes. Its 21 mm length runs
+# across the 24 mm board.
 XIAO_ROW_DX = 7.62         # header rows at +/-7.62 mm from the XIAO centreline (#33)
 # Seeed's footprint, held separately so verify_pins() can check the board against
 # it: 5V at (7.62, 7.62), TX at (-7.62, -7.62), pitch 2.54, hole 1.1.
@@ -108,7 +112,14 @@ XIAO_PIN = {
 # ever paralleled. GPS_TX / GPS_RX are named from the XIAO's side.
 CAM_SIGNALS = {"D0": "BUZZER", "D4": "SDA", "D5": "SCL", "3V3": "+3V3", "GND": "GND"}
 LORA_SIGNALS = {"D6": "GPS_TX", "D7": "GPS_RX", "3V3": "+3V3_LORA", "GND": "GND"}
-XIAOS = [("J_CAM_", CAM_Y, CAM_SIGNALS), ("J_LORA_", LORA_Y, LORA_SIGNALS)]
+XIAOS = [("J_CAM_", CAM_Y, CAM_SIGNALS, False), ("J_LORA_", LORA_Y, LORA_SIGNALS, True)]
+
+
+def xiao_xy(cy, dx, dy, turned):
+    """Board position of footprint offset (dx, dy) on a XIAO centred at (CX, cy).
+    Turned: footprint (dx, dy) -> board (dy, -dx), so the USB-C end (dy -7.62)
+    points to -x and the -7.62 row (pins 1..7) lies forward."""
+    return (CX + dy, cy - dx) if turned else (CX + dx, cy + dy)
 
 # ---- L76K-GNSS, tall side, its own pins, antenna end forward ------------------
 # Seeed's V1.1 top view (hardware/L76K-GNSS), antenna end UP, as (x, y) on
@@ -198,6 +209,18 @@ WIRE_PADS = [
     ("TP_BUZ", (15.2, 30.0), "BUZZER"), ("TP_BUZ_G", (12.0, 33.2), "GND"),
     ("TP_LORA_BAT_P", (10.4, 80.8), "VBAT"), ("TP_LORA_BAT_N", (13.6, 80.8), "GND"),
 ]
+# Two data links, each a 2-pin header with a slide-on shunt and a ~1 kOhm series
+# resistor, on the tall side at the forward end (operator, 2026-09-12, #26;
+# PCB-carrier-design.md). Shunt off is the safe state. GPS -> cam: header pin 1 on
+# GPS_RX, the L76K's transmit line. cam -> lora: one way, for Meshtastic's Serial
+# module. WHICH XIAO PINS EACH FAR END MEETS IS STILL OWED, so those ends carry no
+# net yet: the holes are final, the routing is not.
+LINK_HEADERS = [("J_LINK_GPS", (10.0, 92.0), {1: "GPS_RX", 2: "LINK_GPS"}),
+                ("J_LINK_EVT", (10.0, 99.0), {1: "LINK_EVT"})]
+LINK_RESISTORS = [("R_LINK_GPS", (9.5, 95.5), {1: "LINK_GPS"}),
+                  ("R_LINK_EVT", (9.5, 102.5), {2: "LINK_EVT"})]
+LINK_LABELS = [("GPS", 15.6, 92.0), ("EVT", 15.6, 99.0)]
+R_FP = "R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal"   # pad 2 at +5.08 x at 0 deg
 # Polarity on the silkscreen: reversing a LiPo into a XIAO destroys it.
 PLUS_MARKS = [(JST_XY[0] - 2.0, JST_XY[1] - 2.6)]
 # Each XIAO's battery pigtail goes through the two holes directly behind it and
@@ -220,7 +243,7 @@ MODULE_LABELS = [
     ("L76K-GNSS", 12.0, 44.0, 1.0, False),
     ("XIAO-ESP32S3", 12.0, 66.8, 0.8, False), ("lora", 12.0, 69.2, 1.5, False),
     ("LSM6DSO32", 14.4, LSM_Y, 1.0, True),   # between its 5-pin row and the cam's x 19.62 row
-    ("BMP388", 12.0, BMP_Y, 1.0, True),
+    ("BMP388", 12.0, 97.25, 1.0, True),      # between the two data links' holes
 ]
 # Two surface-mount M3 standoffs on the low side, 10 mm (Wuerth WA-SMSI
 # 9774100360). Screws come in from the web's far face. Each has a 4.4 mm hole
@@ -240,6 +263,7 @@ FP_ROOT = "/Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints/"
 FP_LIB = FP_ROOT + "Connector_PinHeader_2.54mm.pretty"
 TP_LIB = FP_ROOT + "TestPoint.pretty"
 JST_LIB = FP_ROOT + "Connector_JST.pretty"
+R_LIB = FP_ROOT + "Resistor_THT.pretty"
 SO_LIB = FP_ROOT + "Mounting_Wuerth.pretty"
 
 
@@ -371,13 +395,13 @@ def add_row(board, ref, fp_name, pads, nets, back=False):
     return fp
 
 
-def add_xiao(board, ref, cy, signals):
-    """Two 1x7 headers 15.24 mm apart, a XIAO on the tall side, USB-C aft."""
+def add_xiao(board, ref, cy, signals, turned):
+    """Two 1x7 headers 15.24 mm apart, a XIAO on the tall side."""
     netmap = {XIAO_PIN[k]: v for k, v in signals.items()}
     rows = {"A": [], "B": []}
     for pin in range(1, 15):
-        dx, dy = FOOTPRINT_PIN[pin]
-        rows["A" if pin <= 7 else "B"].append((pin, CX + dx, cy + dy))
+        x, y = xiao_xy(cy, *FOOTPRINT_PIN[pin], turned)
+        rows["A" if pin <= 7 else "B"].append((pin, x, y))
     for side, pads in rows.items():
         fp_pads = [(str(p), x, y) for p, x, y in pads]
         add_row(board, ref + side, "PinHeader_1x07_P2.54mm_Vertical", fp_pads,
@@ -449,6 +473,16 @@ def add_power_and_wires(board):
         silk_text(text, x, y, back=True, size=size)
     for i, (x, y) in enumerate(STANDOFFS, 1):
         place(board, SO_LIB, STANDOFF_FP, "SO%d" % i, x, y, back=True)
+    for ref, (x, y), nets in LINK_HEADERS:
+        fp = place_strip(board, ref, "PinHeader_1x02_P2.54mm_Vertical", (x, y), (x + PITCH, y))
+        for num, net in nets.items():
+            fp.FindPadByNumber(str(num)).SetNet(board.nets[net])
+    for ref, (x, y), nets in LINK_RESISTORS:
+        fp = place(board, R_LIB, R_FP, ref, x, y, silk=False)
+        for num, net in nets.items():
+            fp.FindPadByNumber(str(num)).SetNet(board.nets[net])
+    for text, x, y in LINK_LABELS:
+        silk_text(text, x, y, size=0.8)
 
 
 # The footprint the pin numbering follows, RF_Module:MCU_Seeed_ESP32C3, as a
@@ -505,7 +539,7 @@ def verify_pins(board):
     pin_name = {v: k for k, v in XIAO_PIN.items()}
     bad = []
 
-    for ref, cy, signals in XIAOS:
+    for ref, cy, signals, turned in XIAOS:
         for sig, net in signals.items():
             pin = XIAO_PIN[sig]
             fx, fy = FOOTPRINT_PIN[pin]
@@ -513,8 +547,10 @@ def verify_pins(board):
             if abs(px - fx) > 0.01 or abs(py - fy) > 0.01:
                 bad.append("%s %s: footprint (%.2f, %.2f), photo (%.2f, %.2f)"
                            % (ref, sig, fx, fy, px, py))
-            if not near(got.get((ref + ("A" if pin <= 7 else "B"), net), []), CX + fx, cy + fy):
-                bad.append("%s %s (%s) not at (%.2f, %.2f)" % (ref, sig, net, CX + fx, cy + fy))
+            # the photo's offset, turned by hand here rather than through xiao_xy()
+            ex, ey = (CX + py, cy - px) if turned else (CX + px, cy + py)
+            if not near(got.get((ref + ("A" if pin <= 7 else "B"), net), []), ex, ey):
+                bad.append("%s %s (%s) not at (%.2f, %.2f)" % (ref, sig, net, ex, ey))
 
     for label, net in L76K_NETS.items():
         col = L76K_COL_X20 if label in L76K_COL_X20 else L76K_COL_X3
@@ -538,11 +574,15 @@ def verify_pins(board):
             if lab in nets and not near(got.get((ref, nets[lab]), []), *a):
                 bad.append("%s %s (%s) not at (%.2f, %.2f)" % (name, lab, nets[lab], *a))
 
-    # every XIAO-pattern header row where Seeed's footprint puts it (#33)
+    # every XIAO-pattern header row where Seeed's footprint puts it (#33); the
+    # turned lora's rows lie across the board, 7.62 either side of LORA_Y
     for fp in board.GetFootprints():
         if fp.GetReference()[:-1] in ("J_CAM_", "J_LORA_", "J_L76K_"):
             for pad in fp.Pads():
-                dx = abs(pcbnew.ToMM(pad.GetX()) - CX)
+                if fp.GetReference().startswith("J_LORA_"):
+                    dx = abs(pcbnew.ToMM(pad.GetY()) - LORA_Y)
+                else:
+                    dx = abs(pcbnew.ToMM(pad.GetX()) - CX)
                 if abs(dx - SEEED_XIAO_ROW_DX) > 0.01:
                     bad.append("%s pad %s is %.2f mm off centre; Seeed's footprint says %.2f"
                                % (fp.GetReference(), pad.GetNumber(), dx, SEEED_XIAO_ROW_DX))
@@ -641,15 +681,16 @@ def write_layout(board):
         # name, side, x0, y0, x1, y1 -- outlines in KiCad's top view
         ("XIAO-ESP32S3-cam", "tall", CX - 8.9, CAM_Y - 10.5, CX + 8.9, CAM_Y + 10.5),
         ("L76K-GNSS", "tall", CX - 9.0, L76K_Y - 10.5, CX + 9.0, L76K_Y + 10.5),
-        ("XIAO-ESP32S3-lora", "tall", CX - 8.9, LORA_Y - 10.5, CX + 8.9, LORA_Y + 10.5),
+        ("XIAO-ESP32S3-lora", "tall", CX - 10.5, LORA_Y - 8.9, CX + 10.5, LORA_Y + 8.9),   # turned
+        ("data links", "tall", 8.2, 90.6, 16.6, 103.6),
         ("JST-PH", "tall", JST_XY[0] - 2.45, JST_XY[1] - 1.85, JST_XY[0] + 4.45, JST_XY[1] + 6.75),
         ("LSM6DSO32", "low", CX + LSM_DX - 8.9, LSM_Y - 12.75, CX + LSM_DX + 8.9, LSM_Y + 12.75),
         ("BMP388", "low", CX - 8.9, BMP_Y - 12.75, CX + 8.9, BMP_Y + 12.75),
     ]
     out = {
         "board": {"w": BOARD_W, "h": BOARD_H, "r": CORNER_R, "nose_z0": BOARD_NOSE_Z0},
-        "usb_c": [{"x0": CX - 4.0, "y0": y - 11.7, "x1": CX + 4.0, "y1": y - 10.5}
-                  for y in (CAM_Y, LORA_Y)],
+        "usb_c": [{"x0": CX - 4.0, "y0": CAM_Y - 11.7, "x1": CX + 4.0, "y1": CAM_Y - 10.5},
+                  {"x0": CX - 11.7, "y0": LORA_Y - 4.0, "x1": CX - 10.5, "y1": LORA_Y + 4.0}],
         "bodies": [dict(zip(("name", "side", "x0", "y0", "x1", "y1"), b)) for b in bodies],
         "standoffs": [{"x": x, "y": y, "r": STANDOFF_R} for x, y in STANDOFFS],
         "bmp_legs": [{"x": x, "y": y} for x, y in bmp_legs()],
@@ -685,14 +726,14 @@ def main():
 
     board.nets = {}
     for name in ("GND", "+3V3", "+3V3_LORA", "VBAT", "GPS_TX", "GPS_RX", "SDA", "SCL",
-                 "BUZZER"):
+                 "BUZZER", "LINK_GPS", "LINK_EVT"):
         n = pcbnew.NETINFO_ITEM(board, name)
         board.Add(n)
         board.nets[name] = n
 
     outline(board, BOARD_W, BOARD_H, CORNER_R)
-    for ref, cy, signals in XIAOS:
-        add_xiao(board, ref, cy, signals)
+    for ref, cy, signals, turned in XIAOS:
+        add_xiao(board, ref, cy, signals, turned)
     add_l76k(board)
     add_sensors(board)
     add_power_and_wires(board)
