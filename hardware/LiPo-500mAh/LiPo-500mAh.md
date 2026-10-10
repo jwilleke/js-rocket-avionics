@@ -64,7 +64,7 @@ __Decided__ (operator, 2026-09-14; position B2 chosen 2026-09-15): behind the ca
 What that decides on this side:
 
 - __The lead reaches the JST around the board's edge__ — the battery is on the low face, the JST on the tall side at nose z 105–114 — right at the battery's forward end. Its routing is owed ([PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#the-battery-sits-behind-the-carrier--decided-2026-09-14-layout-b2-2026-09-15), item 5)
-- __The battery is not reachable without pulling the sled.__ Changing it, or charging it on its own charger, means the M3 × 55 out and the sled pushed out of the nose ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)). Charging on the carrier through USB __did not work__ with XIAO-ESP32S3-lora connected ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)); the carrier's [charge circuit](../charge-circuit/charge-circuit.md) is what makes field charging work
+- __The battery is not reachable without pulling the sled; its plug is.__ Changing the battery means the M3 × 55 out and the sled pushed out of the nose ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)). Charging does not: the battery is unplugged below the sled and charged on its own charger — [LiPo-charger.md](../LiPo-charger/LiPo-charger.md)
 - __Something restrains it, never the JST__ — a foam spacer in the 4.25 mm to the web, or ties clear of the modules; still owed. Never clamp the pouch
 
 ## Distribution
@@ -93,7 +93,7 @@ The charger is an __SGM40567-4.2__ on each XIAO, a linear charger with a 4.2 V l
 
 __Both USB ports at once is the case the rule exists for.__ Two chargers push into one battery, and each one sees only its own current, so neither knows the true state of the pack. The carrier keeps the two `5V` pins apart ([PCB-carrier.md](../PCB-carrier/PCB-carrier.md)), so one cable never switches on both chargers. Only a second cable does. __Never plug in both, on the bench or in the rocket.__
 
-__One port at a time removes that fight. It does not make charging normal, because the other board keeps running.__ Charging through [XIAO-ESP32S3-cam](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md), as [PCB-carrier.md](../PCB-carrier/PCB-carrier.md#charge-through-the-sense-stack-and-only-that-one) decides, leaves XIAO-ESP32S3-lora powered from the battery. Its whole draw (ESP32-S3, Wio-SX1262, L76K) flows through the cam's charger along with the charge current. Three consequences:
+__One port at a time removes that fight. It does not make charging normal, because the other board keeps running.__ Charging through [XIAO-ESP32S3-cam](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md), the service port, leaves XIAO-ESP32S3-lora powered from the battery. Its whole draw (ESP32-S3, Wio-SX1262, L76K) flows through the cam's charger along with the charge current. Three consequences:
 
 - __Net charge may be near zero.__ The charger supplies ~100 mA in total. What reaches the battery is that minus XIAO-ESP32S3-lora's running draw, which has never been measured on its own. The [L76K](../L76K-GNSS/L76K-GNSS.md#pinout--from-seeeds-schematic-not-the-listing) alone is __41 mA__ by its datasheet, before the ESP32-S3 and the radio. Against a ~300 mA total for both boards, the lora side could take most of the 100 mA
 - __The charger never terminates.__ It stops when its current falls below 0.9 mA, and XIAO-ESP32S3-lora's draw keeps it far above that. So the battery sits at 4.2 V for as long as the cable is in, and __the red LED never goes out__. The usual "charged" signal does not exist in this configuration
@@ -101,7 +101,7 @@ __One port at a time removes that fight. It does not make charging normal, becau
 
 __Measured, 2026-09-12 — it does not charge.__ No meter could go in series at the JSTs, so it was measured by resting voltage instead: XIAO-ESP32S3-cam on USB, both boards on the battery, XIAO-ESP32S3-lora running Meshtastic. Over __1 h 25 min the battery fell from 3.5 V to 3.4 V__ — XIAO-ESP32S3-lora's draw exceeds the ~100 mA the charger gives ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)).
 
-__Fixed in the carrier design__ ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30), under the charging epic [#32](https://github.com/jwilleke/js-rocket-avionics/issues/32)): a charger chip on the carrier adds ~333 mA, so the charge goes in with XIAO-ESP32S3-lora still running — [charge-circuit.md](../charge-circuit/charge-circuit.md). __Until the carrier exists, charge the battery on its own__ — unplugged from the JST, or through XIAO-ESP32S3-cam's USB with XIAO-ESP32S3-lora unplugged from the harness.
+__So the battery is charged on its own__, unplugged from both XIAOs — [LiPo-charger.md](../LiPo-charger/LiPo-charger.md) ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30), under the charging epic [#32](https://github.com/jwilleke/js-rocket-avionics/issues/32)).
 
 __A second trap found the same day: the JST joins both boards' BAT pads, so USB into either XIAO powers both.__ Unplugging one board's USB does not power it down while the other is plugged in — which is why the microSD, jammed by a reset mid-write, stayed jammed until both were out.
 

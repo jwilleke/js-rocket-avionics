@@ -27,7 +27,7 @@ __The rocket flies fine without any of it.__ The electronics find it and record 
 | Recording video and flight data | __proven on the bench, not written as a flight program yet__ ([#24](https://github.com/jwilleke/js-rocket-avionics/issues/24)) |
 | Status on the pad — "ready", "recording" | __not decided__: beeps, or a phone screen ([#25](https://github.com/jwilleke/js-rocket-avionics/issues/25)) |
 | Getting the video off without opening the nose | __planned__ — phone over Bluetooth, then Wi-Fi ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)) |
-| Charging without opening the nose | __not yet__ — today the beacon uses more than the charger gives. The fix is designed into the carrier: USB in switches the beacon off so the battery charges ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)); its parts are chosen and a bench check comes next. Until then, charge the battery on its own |
+| Charging without opening the nose | __yes__ — unplug the battery below the sled and charge it on its own charger ([LiPo-charger.md](../hardware/LiPo-charger/LiPo-charger.md)). Charger ordered 2026-10-10 |
 
 __Until those rows say "works", treat the rest of this page as the plan.__
 
@@ -39,7 +39,7 @@ __Until those rows say "works", treat the rest of this page as the plan.__
 
 ## Before launch day
 
-1. __Charge the battery on its own__ — unplugged from the rocket, on a LiPo charger (or through the camera computer's USB with the beacon unplugged). __Charging it while it is connected to both boards does not work__: the beacon uses more than the charger gives, and the battery goes down, not up
+1. __Charge the battery on its own__ — unplugged below the sled, on its charger, with the sled left in. Check the plug polarity the first time. How: [LiPo-charger.md](../hardware/LiPo-charger/LiPo-charger.md). __Charging through a XIAO's USB with the battery connected does not work__: the beacon uses more than the built-in charger gives, and the battery goes down, not up
 2. __Leave the battery unplugged.__ Plugging it in turns everything on, and the clock starts
 3. __Charge the receiver's power bank__ and your phone
 4. __Check the receiver works__: power it, open the app, and see the rocket's node when the rocket is powered

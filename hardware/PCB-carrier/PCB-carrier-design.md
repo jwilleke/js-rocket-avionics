@@ -39,35 +39,14 @@ __The bridge__ was to stand its fins beside the board's edges and carry the came
 
 __One regulator per load.__ XIAO-ESP32S3-cam feeds the +3V3 plane and the sensors; XIAO-ESP32S3-lora feeds only the L76K-GNSS, on its own net, off the plane. __One board means no battery link__ between boards: the JST feeds both XIAOs' BAT pigtail pads directly. The connection table is in the [README](../../README.md#connections).
 
-### Charging on the carrier — a charger chip on an adapter, no cut-off switches
+### Charging — off the carrier, at the battery's plug below the sled
 
-__Tracked in [#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)__, under the battery-charging epic [#32](https://github.com/jwilleke/js-rocket-avionics/issues/32); it blocks the carrier order, [#11](https://github.com/jwilleke/js-rocket-avionics/issues/11). Charging in the nose did not work with XIAO-ESP32S3-cam's built-in charger alone: XIAO-ESP32S3-lora kept drawing from the battery and out-drew the ~115 mA charger, and the battery fell 3.5 → 3.4 V in 1 h 25 min ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)). The fix is more charge current, not less load. The circuit is on [charge-circuit.md](../charge-circuit/charge-circuit.md).
+__Decided, operator 2026-10-10 ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)).__ The carrier has no charging parts. The battery is unplugged below the sled, through the nosecone adapter, and charged on its own charger — [LiPo-charger.md](../LiPo-charger/LiPo-charger.md).
 
-#### A faster charger chip
-
-__Decided, operator 2026-09-13.__ The XIAO's own charger is fixed at ~115–120 mA, ~4½ hours from empty. A single-cell linear charger chip on the carrier, fed from XIAO-ESP32S3-cam's `5V` pin, cuts that to __~1½–2 hours__ — the bench times it ([charging-bench.md](../../docs/bench-work/charging-bench.md)).
-
-| | Chosen 2026-09-13 — from Microchip's datasheet, DS20001984H |
-|---|---|
-| __The charger chip__ | __MCP73831T-2ACI/OT__ — SOT-23-5, 4.20 V, 15–500 mA. Pins: 1 `STAT`, 2 `VSS`, 3 `VBAT`, 4 `VDD`, 5 `PROG` |
-| __Current resistor__ | set on [charge-circuit.md](../charge-circuit/charge-circuit.md), which owns the value and the current. I = 1000 V ÷ R |
-| __Capacitors__ | 4.7 µF on `VDD` and 4.7 µF on `VBAT` — the datasheet's minimum for each |
-| `STAT` | not connected — a light inside a closed nose is seen by nobody |
-
-- __Why the current is capped:__ the battery's maker says charge it "at a rate of 500mA or less" (Adafruit 1578 listing), and the chip charges alongside XIAO-ESP32S3-cam's own charger. The sum stays under 500 mA at the top of the chip's tolerance — numbers on [charge-circuit.md](../charge-circuit/charge-circuit.md)
-- __The `5V` pin can feed it — checked on Seeed's schematic (XIAO ESP32S3 v1.2).__ Header pin 7 (`5V`) is the `VBUS` net itself: copper straight from the USB-C's `VBUS` pins, no fuse and no diode between. So nothing in the path limits the current; its copper and the USB-C connector carry XIAO-ESP32S3-cam's own draw plus ~0.4 A. Seeed writes no rating for it, so the bench reads the pin's voltage under load
-- __The USB source must give ~0.6 A.__ The XIAO's USB-C has 5.1 kΩ on both `CC` pins, so a USB-C charger or power bank sees a device and gives its full current; an old USB-A port through an A-to-C cable promises 500 mA, and may sag. For [using-avionics.md](../../docs/using-avionics.md) once it is built
-- __Heat:__ at the start of a charge the chip burns (5.0 − 3.5 V) × 0.33 A ≈ __0.5 W__. Microchip gives the SOT-23-5 230 °C/W with minimal copper and ~130 °C/W or better with a large copper area — a die __65–115 °C above ambient__. So it will likely hit its __thermal regulation__, which cuts the current to hold the die temperature (shutdown at 150 °C). That costs charge time, not safety. On the adapter it has only six pins to shed heat into, so expect it to throttle
-- __On an adapter, not on the carrier__ (operator, 2026-09-16). The chip is soldered to a 6-pad SOT-23-to-DIP adapter on the bench, and that adapter stands on header pins in the carrier — "module footprints, not bare chips" ([PCB-carrier.md](PCB-carrier.md)). The same part is proven on the breadboard and flown, and the carrier carries no fine-pitch footprint
-
-#### No cut-off switches
-
-__Decided, operator 2026-09-16 ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)).__
-
-- __Not for XIAO-ESP32S3-cam's built-in charger.__ It charges alongside the charger chip, and the chip's resistor keeps the two under the battery's 500 mA. A FET to take it off would have cost a part and raised an unchecked question: whether XIAO-ESP32S3-cam resets while `VBUS` falls slowly at unplug
-- __Not for XIAO-ESP32S3-lora.__ A FET taking it off the battery while USB is in was the answer to #8 when the only charger gave ~115 mA. With the chip, the lora side takes its share and the rest still charges. Leaving it on keeps the beacon and GPS running while charging, saves a part, and removes a trap: a data link could have powered a switched-off XIAO-ESP32S3-lora through its pins. The cost is a slower charge that never terminates while USB is in; the bench measures how much slower
-
-__This should have been caught at design time.__ [LiPo-500mAh.md](../LiPo-500mAh/LiPo-500mAh.md#two-chargers-on-one-battery) wrote down on 2026-09-10 that the net charge "may be near zero" and deferred it to a measurement, instead of designing it out. The measurement found it before copper; it should not have needed to.
+- __Why not XIAO-ESP32S3-cam's built-in charger:__ at ~115 mA it loses to XIAO-ESP32S3-lora's draw, and the battery fell 3.5 → 3.4 V in 1 h 25 min of "charging" ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8))
+- __Why not a charger chip on the carrier:__ the chip is a SOT-23-5, a fine-pitch hand-soldering job the operator is not confident doing. The design had assumed it could be done by hand without asking. A ready-made charger needs no soldering at all
+- __Why the battery's plug:__ it is already reached below the sled without pulling it, so charging there costs no access. With the battery off both XIAOs, nothing else draws while it charges: the whole 0.5 A goes in, and the charger's light goes out when it is full
+- __What it asks of the carrier:__ the battery's disconnect stays below the sled — [Not yet in the generator](PCB-carrier.md#not-yet-in-the-generator)
 
 ### The XIAO pigtails go through holes behind each XIAO — decided, in the generator
 
@@ -117,9 +96,8 @@ __Owed before the carrier is ordered:__
 2. __Stiffness.__ The standoffs are further apart than the 81 mm the board was first judged at. The battery no longer loads the span: it rides the sled, in its cage. The board is __1.6 mm__ since 2026-09-15 — OSH Park's only 4-layer thickness — about 4× as stiff as the 1.0 mm it was judged at. Still check it; the fit mock is a first look, not an answer
 3. __Retention.__ The sled's cage holds it: three-sided, taped on its open sides ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99)). __Never clamp the pouch__
 4. __The joints under the battery__ — the L76K-GNSS's and XIAO-ESP32S3-lora's header joints and XIAO-ESP32S3-lora's BAT pigtail joints — face 5.25 mm of air, not the pouch. Trim them flush anyway
-5. __The charger chip ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)) goes clear of the battery__ — where that is, and the clear stretch on the tall side, is in [PCB-carrier.md](PCB-carrier.md#layout)
-6. __The battery lead__ reaches the JST on the tall side around the board's edge — right at the battery's forward end
-7. __The GNSS patch__ sits in a pocket in the sled's forward disc, off the carrier ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99))
+5. __The battery lead__ ends at a disconnect below the sled, reached without pulling the sled ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)). The JST on the tall side, at the battery's forward end, does not meet that — [PCB-carrier.md](PCB-carrier.md#not-yet-in-the-generator)
+6. __The GNSS patch__ sits in a pocket in the sled's forward disc, off the carrier ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99))
 
 Drawing: [`nose-assembly-6e81cfc.html`](https://github.com/jwilleke/js-rocket/blob/main/docs/designs/nose-assembly-6e81cfc.html) — it draws the one carrier in PCB-carrier.md.
 

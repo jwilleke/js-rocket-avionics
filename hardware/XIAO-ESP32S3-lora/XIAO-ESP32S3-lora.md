@@ -97,7 +97,7 @@ __On battery power there is no voltage on the 5V pin__, so nothing can be fed fr
 
 __Both XIAO chargers sit in parallel on one battery — charge through one USB port at a time.__
 
-> __This module's USB-C is not used in the flight build__ (operator, 2026-09-08). Charging and service go through the [Sense stack](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) instead, because __this module runs stock Meshtastic and nothing else__ ([the firmware rule](#firmware--stock-meshtastic-only-updated-on-purpose-frozen-for-flight)) — which is the whole reason there are two of them. Its port is reachable only by taking the nose apart. See [PCB-carrier.md](../PCB-carrier/PCB-carrier.md#charge-through-the-sense-stack-and-only-that-one).
+> __This module's USB-C is not used in the flight build__ (operator, 2026-09-08). Service goes through the [Sense stack](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) instead, because __this module runs stock Meshtastic and nothing else__ ([the firmware rule](#firmware--stock-meshtastic-only-updated-on-purpose-frozen-for-flight)) — which is the whole reason there are two of them. Its port is reachable only by taking the nose apart. See [PCB-carrier.md](../PCB-carrier/PCB-carrier.md#usb-ports). The battery is charged on its own charger — [LiPo-charger.md](../LiPo-charger/LiPo-charger.md).
 
 __Reversing a LiPo into a XIAO destroys it.__ The carrier silkscreens the pigtail polarity.
 

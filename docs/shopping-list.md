@@ -32,6 +32,7 @@ __Part numbers are in [BOM.md](BOM.md)__ — order from there, not from this pag
 | __BMP388__ barometer, STEMMA QT clone | [DIYmall](https://www.amazon.com/dp/B0GSYYT1K5) | — | ~$6–12 est. | __In hand.__ Measured 2026-08-08 |
 | __microSD__ | already held | — | — | __In hand__ — several. See the note below on why the A1/A2 spec no longer binds |
 | __Ground receiver__ — XIAO ESP32S3 & Wio-SX1262 Meshtastic node, cased, 2 dBi SMA antenna. Ground equipment, [#23](https://github.com/jwilleke/js-rocket-avionics/issues/23) | [Amazon](https://www.amazon.com/dp/B0GY4QC6GN) | — | — | __In hand 2026-09-13__ — arrived running LoRaHUB, reflashed to Meshtastic ([#23](https://github.com/jwilleke/js-rocket-avionics/issues/23)) |
+| __LiPo charger__ — USB lead, JST-PH 2.0, 4.2 V 0.5 A, 2-pack ([LiPo-charger.md](../hardware/LiPo-charger/LiPo-charger.md)) | Amazon | — | __$7.99__ listed | __Ordered 2026-10-10__ (operator). Ships from Amazon; the listing showed delivery Oct 11 |
 
 Freight and tax are not in the rows above: Seeed shipping __$7.82**, Adafruit **UPS Ground $24.77 + $3.39 tax__.
 
@@ -59,18 +60,20 @@ __Claim the AIG insurance window on both Seeed boxes now if at all__ — 7 days 
 | M3 plastic machine screws, __M3 × 10__, ×2; Würth WA-SMSI M3 10 mm SMT standoffs (9774100360), ×2 | — | The carrier hangs off the web on the standoffs; screws from the web side. Longer than 10 mm pokes through the board's tall side ([PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md)). The old "2×7 stacking headers, ~14 mm" line is gone: the kit's standard 7-pin headers are the flight part |
 | Solder, flux, PET window, zip ties, standoffs | ~$15 | Consumables |
 
-## The charging bench (#30) — ordered
+## The charging bench (#30) — ordered, not used
+
+__Not used: charging came off the carrier on 2026-10-10__ — the battery is charged on its own charger ([LiPo-charger.md](../hardware/LiPo-charger/LiPo-charger.md), [#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)). Nothing below is needed. The rows are kept as what was bought.
 
 __Ordered 2026-09-13 (operator).__ The MCP73831 is the last to land — its listing showed Sep 28–Oct 13 — and it is what the bench waits on.
 
-__For [charging-bench.md](bench-work/charging-bench.md)__ — the carrier's charging circuit on a breadboard before it goes into copper ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)). Part numbers are in [BOM.md](BOM.md); why each was chosen, in [PCB-carrier-design.md](../hardware/PCB-carrier/PCB-carrier-design.md#charging-on-the-carrier--a-charger-chip-on-an-adapter-no-cut-off-switches). __Prices, shipping and dates as the listings showed them on 2026-09-13, logged out__ — not receipts. __Read the shipping line on every listing before it goes in the cart__: the first pick for the chip, a $0.49 single, carried __$8.95 shipping each__ — $26.85 of freight on $1.47 of chips, and $26.85 of the $28.34 shipping charged at checkout; the other $1.49 was the 2.7 kΩ (operator, 2026-09-13).
+__For the charging bench (page removed)__ — the carrier's charging circuit on a breadboard before it goes into copper ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)). Part numbers are in [BOM.md](BOM.md); why each was chosen, in [PCB-carrier-design.md](../hardware/PCB-carrier/PCB-carrier-design.md#charging--off-the-carrier-at-the-batterys-plug-below-the-sled). __Prices, shipping and dates as the listings showed them on 2026-09-13, logged out__ — not receipts. __Read the shipping line on every listing before it goes in the cart__: the first pick for the chip, a $0.49 single, carried __$8.95 shipping each__ — $26.85 of freight on $1.47 of chips, and $26.85 of the $28.34 shipping charged at checkout; the other $1.49 was the 2.7 kΩ (operator, 2026-09-13).
 
 | Part | Listing | Price | Shipping, date | Note |
 |---|---|---|---|---|
-| __AO3401A__ P-channel FET, SOT-23 — __no longer used__: the carrier has no cut-off switches ([PCB-carrier.md](../hardware/charge-circuit/charge-circuit.md)) | [100-pack](https://www.amazon.com/dp/B08RHFLH1K) | $6.95 | ships from Amazon, Sep 20–22 | Enough for the bench and every carrier |
+| __AO3401A__ P-channel FET, SOT-23 — __no longer used__: the carrier has no cut-off switches ([PCB-carrier.md](../hardware/LiPo-charger/LiPo-charger.md)) | [100-pack](https://www.amazon.com/dp/B08RHFLH1K) | $6.95 | ships from Amazon, Sep 20–22 | Enough for the bench and every carrier |
 | __MCP73831T-2ACI/OT__ charger, SOT-23-5 — U1 | [20-pack](https://www.amazon.com/dp/B0H332MZV5) | $7.50 | $1, Sep 28–Oct 13 | No Prime listing found. A marketplace chip can be a relabel — the bench's charge-current reading is the check |
 | __SOT-23 to DIP adapters__, 6-pad | [20-pack](https://www.amazon.com/dp/B088M72B54) | $7.79 | free, Sep 23–28 | Fits SOT-23 and SOT-23-5. Header pins are not listed as included — any 2.54 mm male strip |
-| __2.7 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHH1DHF) | $9.09 | $1.49 | The charger chip's `PROG` resistor on the bench: __two in series__, never one alone — [charging-bench.md](bench-work/charging-bench.md#the-circuit). The carrier's value is on [PCB-carrier.md](../hardware/charge-circuit/charge-circuit.md) |
+| __2.7 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHH1DHF) | $9.09 | $1.49 | The charger chip's `PROG` resistor on the bench: __two in series__, never one alone |
 | __100 kΩ__, ¼ W, 1% | [100-pack](https://www.amazon.com/dp/B07DHGY3VG) | $9.09 | $1.49 | __No longer used__ — it was the cut-off switches' gate pull-down |
 | __4.7 µF__ ceramic, 50 V, 5.08 mm leads | [100-pack](https://www.amazon.com/dp/B0CN68WGZ6) | $9.24 | $1, Sep 22–Oct 1 | U1's two capacitors. __Skip if you have two__ of 4.7–10 µF |
 | __JST-PH 2-pin pigtails__, male and female | [CHANZON, 30 pairs, 10 cm, 22 AWG](https://www.amazon.com/dp/B0B2DC8ST8) | — | __in hand__ (operator, 2026-09-13) | Battery and both XIAO pigtails onto the breadboard — the join harness has no place for the FETs. __Meter every one: [JST polarity is not fixed](../hardware/LiPo-500mAh/LiPo-500mAh.md#on-the-bench--the-join-harness)__ — the listing itself says not to trust the wire colour |
