@@ -17,8 +17,6 @@ Part number and vendor are in [BOM.md](../../docs/BOM.md).
 
 __The battery's plug is reached through the nosecone adapter, slightly below the sled.__ On the rocket as built, the battery's lead goes to a Y-connector, and each branch goes to a JST soldered to one XIAO's underside BAT pads. The battery comes off the Y there. __The sled is not pulled to charge.__
 
-__The carrier must keep this.__ Whatever replaces the Y-harness has to leave the battery's disconnect below the sled, where it is reached without pulling the sled — [PCB-carrier.md](../PCB-carrier/PCB-carrier.md#not-yet-in-the-generator).
-
 ## Check the polarity before the first charge
 
 __JST-PH 2.0 plugs are wired both ways, and a reversed LiPo can be damaged or catch fire.__ The listing gives the check:

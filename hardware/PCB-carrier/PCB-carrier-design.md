@@ -46,7 +46,6 @@ __Decided, operator 2026-10-10 ([#30](https://github.com/jwilleke/js-rocket-avio
 - __Why not XIAO-ESP32S3-cam's built-in charger:__ at ~115 mA it loses to XIAO-ESP32S3-lora's draw, and the battery fell 3.5 → 3.4 V in 1 h 25 min of "charging" ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8))
 - __Why not a charger chip on the carrier:__ the chip is a SOT-23-5, a fine-pitch hand-soldering job the operator is not confident doing. The design had assumed it could be done by hand without asking. A ready-made charger needs no soldering at all
 - __Why the battery's plug:__ it is already reached below the sled without pulling it, so charging there costs no access. With the battery off both XIAOs, nothing else draws while it charges: the whole 0.5 A goes in, and the charger's light goes out when it is full
-- __What it asks of the carrier:__ the battery's disconnect stays below the sled — [Not yet in the generator](PCB-carrier.md#not-yet-in-the-generator)
 
 ### The XIAO pigtails go through holes behind each XIAO — decided, in the generator
 
@@ -96,7 +95,7 @@ __Owed before the carrier is ordered:__
 2. __Stiffness.__ The standoffs are further apart than the 81 mm the board was first judged at. The battery no longer loads the span: it rides the sled, in its cage. The board is __1.6 mm__ since 2026-09-15 — OSH Park's only 4-layer thickness — about 4× as stiff as the 1.0 mm it was judged at. Still check it; the fit mock is a first look, not an answer
 3. __Retention.__ The sled's cage holds it: three-sided, taped on its open sides ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99)). __Never clamp the pouch__
 4. __The joints under the battery__ — the L76K-GNSS's and XIAO-ESP32S3-lora's header joints and XIAO-ESP32S3-lora's BAT pigtail joints — face 5.25 mm of air, not the pouch. Trim them flush anyway
-5. __The battery lead__ ends at a disconnect below the sled, reached without pulling the sled ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)). The JST on the tall side, at the battery's forward end, does not meet that — [PCB-carrier.md](PCB-carrier.md#not-yet-in-the-generator)
+5. __The battery lead__ reaches the JST on the tall side around the board's edge — right at the battery's forward end
 6. __The GNSS patch__ sits in a pocket in the sled's forward disc, off the carrier ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99))
 
 Drawing: [`nose-assembly-6e81cfc.html`](https://github.com/jwilleke/js-rocket/blob/main/docs/designs/nose-assembly-6e81cfc.html) — it draws the one carrier in PCB-carrier.md.

@@ -18,8 +18,7 @@ The sled side of the interface is [js-rocket#99](https://github.com/jwilleke/js-
 
 __The layout drawing, the fit mock and the paper template do not show these yet.__ Each is part of the design on this page. __No fit mock is printed until this list is empty__ ([#34](https://github.com/jwilleke/js-rocket-avionics/issues/34)).
 
-- __XIAO-ESP32S3-lora turned 90°__, USB-C out a long edge — [Tall side](#tall-side--faces-270-the-camera)
-- __The battery's disconnect below the sled__, reached through the nosecone adapter without pulling the sled, as the Y-harness does today. The JST at nose z ~104–113 on the tall side is behind the sled and loses that access. How the carrier meets it is not decided — [LiPo-charger.md](../LiPo-charger/LiPo-charger.md#where-the-battery-is-unplugged), [#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)
+- __Both XIAOs turned 90°__, USB-C out a long edge, so the USB ports and the BAT pigtails are easier to reach (operator, 2026-10-10). XIAO-ESP32S3-cam turned moves its lens and turns its picture 90°, so the camera port and shelf must be checked against it — [Tall side](#tall-side--faces-270-the-camera), [js-rocket#88](https://github.com/jwilleke/js-rocket/issues/88), [js-rocket#89](https://github.com/jwilleke/js-rocket/issues/89)
 - __Two data links__, each behind an open 2-pin jumper — [why](PCB-carrier-design.md#two-data-links-each-behind-an-open-jumper--decided-not-yet-in-the-generator), [#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)
 - __The PS1240 driven from two pins__ in opposite phase, for about +6 dB. `TP_BUZ_G` becomes the second drive net instead of `GND`; both holes stay where they are. Which XIAO-ESP32S3-cam pin is still open — [#25](https://github.com/jwilleke/js-rocket-avionics/issues/25)
 
@@ -36,7 +35,7 @@ __XIAO header rows are 15.24 mm apart__ (±7.62 from the module centreline), per
 | Nose z | Part | Why it is there |
 |---|---|---|
 | 25.4–31.7 | clear | USB-C plug room for XIAO-ESP32S3-cam's service port ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)) |
-| 32.9–53.9 | __XIAO-ESP32S3-cam__ + Sense board | __Fixed by the camera__: centred at nose z 43.4, under the camera pad. USB-C aft |
+| 32.9–53.9 | __XIAO-ESP32S3-cam__ + Sense board, __to be turned 90°__ | __Fixed by the camera__: centred at nose z 43.4, under the camera pad. Drawn USB-C aft; turned, it takes 17.8 mm of board length and its USB-C comes out a long edge. The exact z is set when the generator draws it |
 | ~55–59 | wire pads | its BAT pigtail and the buzzer's leads |
 | 58.9–79.9 | __L76K-GNSS__, on its own soldered pins | antenna end forward, toward the GNSS antenna's cradle |
 | from 82.9 | __XIAO-ESP32S3-lora__ + Wio-SX1262, __turned 90°__ | its 21 mm length runs across the 24 mm board, so it takes 17.8 mm of board length. __USB-C out a long edge__: a plug fits for flashing and testing, and the L76K-GNSS antenna connector has room. Which edge, and the exact z, are set when the generator draws it |
