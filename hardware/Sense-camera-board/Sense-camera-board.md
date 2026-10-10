@@ -49,6 +49,7 @@ From the mounting surface up: __7-pin headers → [XIAO](../XIAO-ESP32S3-cam/XIA
 |---|---|
 | Module body | __8 × 8 mm__ |
 | Thickness | __5.52 mm__ — base, including its adhesive pad, to the top of the lens |
+| Square body height | __at least 1.97 mm__ — base, including its adhesive pad, to the top of the square part, where the round barrel starts (operator, 2026-10-10). The rest of the 5.52 is barrel |
 | Lens barrel | __6.9 mm OD at the base__, stepped to __~5 mm__ at the top |
 | Glass, __across__ | __~3.5 mm__ — the clear aperture, and what sizes the port |
 | Glass, __recess__ | __0.5–1.0 mm__ back inside the barrel. __A bracket, not a measurement__ — a depth down a 5 mm barrel is not a caliper reading and no point value is obtainable |
