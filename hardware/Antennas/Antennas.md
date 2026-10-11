@@ -8,7 +8,7 @@ __Both mount on the ElectronicsSled, not the carrier__ (operator, 2026-09-11). W
 
 | | Where | Rule |
 |---|---|---|
-| __LoRa, `860-930M A-03`__ — a flat flexible-PCB strip ≈40 × 10 mm on an ~82 mm U.FL lead, __not a wire whip__ | U.FL on the Wio-SX1262, the strip run __aft__ along the sled | ≥50 mm from the GNSS antenna |
+| __LoRa, `860-930M A-03`__ — a flat flexible-PCB strip ≈40 × 10 mm on an ~82 mm U.FL lead, __not a wire whip__ | U.FL on the Wio-SX1262; the strip __taped flat on the outer face of the sled's web at the PORT end__, tilted 20–30° from the rocket's axis — [where](#where-the-lora-strip-goes) | ≥50 mm from the GNSS antenna |
 | __GNSS antenna__ — the active patch on its own small board, ≈25 × 25 × 8.3 mm, on a 100 mm U.FL lead. __Not the [L76K module](../L76K-GNSS/L76K-GNSS.md)__, which is the receiver it plugs into | In a __cradle at the ElectronicsSled's forward end, forward of the battery, face toward the nose tip__ | Nothing metal in front of its face |
 
 A GNSS patch needs a __30–40 mm ground plane__ and a 24 mm board never will be — which is why the antenna is off-board rather than on the carrier.
@@ -29,7 +29,19 @@ __It and the battery are the two heaviest single things in the nose__ (masses in
 
 __`seeed studio 860-930M A-03` — a printed antenna on a thin flexible substrate, roughly 40 × 10 mm, on an ~82 mm U.FL lead.__ The 82 mm is the lead, not the radiator.
 
-__A flat strip has to lie against something__, and that surface must be non-conductive and clear of the GNSS antenna. With the GNSS antenna at the sled's forward end, the strip goes __aft__: the lead leaves the Wio-SX1262 at nose z ~45 and reaches back along the sled, well over 50 mm from the forward cradle. It is also far less likely to foul the payload bore than anything stood up the ogive.
+__A flat strip has to lie against something__, and that surface must be non-conductive and clear of the GNSS antenna.
+
+### Where the LoRa strip goes
+
+__Decided (operator, 2026-10-11, at the first fit of the printed sled):__
+
+- __On the web's outer face__ — the flat face of the plank the carrier's standoffs screw into, on the side away from the board — __at the PORT end__, the end engraved `PORT`, where the camera holder mounts.
+- __Clear of the battery's footprint__ on the other side of the web. Its foil pouch, 3 mm away through the web, would detune the strip and soak up its signal. And __≥50 mm from the GNSS patch__ at the other end; at the PORT end it is about 10 cm away.
+- __Tilted 20–30° from the rocket's axis__, because the ~82 mm lead does not reach far enough for the strip to lie straight along the web and still clear the battery. The tilt brings the feed end nearer the web's edge, where the lead comes round from the Wio-SX1262. Against an upright ground antenna it costs ~0.5 dB at 20° and ~1.2 dB at 30° (cos² of the tilt).
+- __The web's face is 24 mm wide__, and the 40 × 10 mm strip spans ~23 mm across at 20° and ~29 mm at 30°. Past ~22°, __wrap the overhanging corners over the web's edges and tape them__. Left flat, they reach the 20.0 mm bore wall and can catch as the sled goes in.
+- __Tape the strip flat and the lead down__ along its route, round the board's and the web's edges, so nothing snags during insertion.
+
+After landing the rocket lies on its side and so does the strip. When hunting for it, tilt the ground receiver's antenna toward horizontal, or turn it for the strongest signal. The beacon range test ([#6](https://github.com/jwilleke/js-rocket-avionics/issues/6)) should be run with the strip where it flies.
 
 The other strip in the photograph, __`seeed studio 2.4G A-02`__ (~37 × 23 mm), is the XIAO's WiFi/BLE antenna and __does not fly__.
 
