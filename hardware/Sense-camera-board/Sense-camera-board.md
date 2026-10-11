@@ -56,19 +56,15 @@ From the mounting surface up: __7-pin headers → [XIAO](../XIAO-ESP32S3-cam/XIA
 | Mounting | __adhesive pad on the module's base__ — the face opposite the lens |
 | Ribbon, free length | __~8.5 mm__ — connector face to the module edge |
 
-__The module's own thickness covers most of the gap.__ The connector sits ~__r 11.2 mm__ from the airframe axis and the bore wall is at __r 20.0__. With the barrel seated in the port's counterbore the module's base sits at __r 16.086__ (nose z 43.435), so the ribbon travels __4.886 mm__ radially against 8.5 mm free. Comfortable.
+__Where it sits: looking straight out, on its own holder__ (operator, 2026-10-10; [js-rocket camera-mount.md](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/camera-mount.md), [js-rocket#89](https://github.com/jwilleke/js-rocket/issues/89)). The module sits on a seat on the camera holder, which is screwed to the sled, and looks out at azimuth 270° through a window insert in the Nosecone's collar. Its base is at __r 13.98__, centred at __nose z 37.5__, so the barrel's top is at r 19.5, half a millimetre inside the 20.0 bore. It never crosses the wall, so the sled slides up the bore with the camera already in place. The holder's seat is 0.96 mm above this board's top at r 11.82.
 
-> __Read `r 14.48` in an older revision of this page as wrong.__ It assumed a *radial* port and no counterbore: 20.0 − 5.52. The port is tilted 30° aft, so the module's thickness costs only 5.52·cos 30 = 4.78 mm of radius, and the 1.0 mm counterbore puts the barrel a further 0.87 mm out.
+__The ribbon decides where along the rocket it can go.__ The connector is at the end of this board away from the USB-C, its face ~6.8 mm from that end: about __nose z 47__ on the sled, read off the grid photograph above (±1 mm). The ribbon enters the module on the edge facing the connector, so with ~2.8 mm spent rising to the seat, the module's centre can sit anywhere in nose z ~35–43. Check the reach on the first fit.
 
-__It is adhesive-backed__, so the 5.52 mm includes the pad and retention can be the pad plus a pocket lip.
+> __The 30°-tilted placement is superseded.__ It put the base at r 16.086 and seated the barrel in a counterbore in the Nosecone wall. The sled could not slide in with the camera there: pulled in far enough to pass the bore, the tilted module lands on this board ([js-rocket nose-assembly-4706d94.html](https://github.com/jwilleke/js-rocket/blob/main/docs/designs/nose-assembly-4706d94.html)).
 
-> __The port is sized by the glass, not by the barrel.__ Light leaves only through the glass, so the barrel's 6.9 mm base and ~5 mm top are what a __pocket__ has to clear, not what the __hole__ has to be. Across a 4.2 mm collar wall a 25° half-angle cone widens by __3.92 mm__; on the tilted axis the path is 4.85 mm and it widens by 4.52.
->
-> With a 3.5 mm glass that gives a port of __Ø4.0 at the bore face opening to Ø8.423 × 10.258 at the collar__ ([js-rocket#88](https://github.com/jwilleke/js-rocket/issues/88), cut 2026-09-06).
->
-> __The recess is taken up by a counterbore, so it never reaches the cone.__ Every 1 mm the glass sits back would otherwise add 0.93 mm to the outer diameter — at the top of the bracket that is a cone short 0.93 mm at *both* faces, clipping the corners of the frame. Instead the port is counterbored __Ø7.2 × 1.0 mm__ at the bore face to receive the barrel's ~5 mm top step, cut for the top of the bracket so a 0.5 mm part just leaves the glass 0.5 mm outboard of the floor. The bracket stops mattering.
->
-> __The counterbore floor is also what locates the camera__, and this page used to credit the bore wall. That was true while the port was radial; a barrel on a 30°-tilted axis meets the *cylindrical* bore on an ellipse and rocks on it. The counterbore floor is normal to the port axis, so the barrel seats flat — no clamp, nothing proud.
+__It is adhesive-backed__, so the 5.52 mm includes the pad, and the holder's seat has a lip either side.
+
+> __The opening is sized by the glass, not by the barrel.__ Light leaves only through the glass, so the insert's view cone runs from the glass at its deepest (r 18.5, 1.0 mm back inside the barrel), Ø3.5, at a 30° half-angle on the diagonal — a 60° lens. The focal length is unpublished; a wider lens loses its corners to the insert, which can be replaced without reprinting the Nosecone.
 
 __The flex is not to be extended__ — the DVP bus runs a ~20 MHz XCLK. What is available is what is there.
 
