@@ -25,6 +25,8 @@ __JST-PH 2.0 plugs are wired both ways, and a reversed LiPo can be damaged or ca
 2. Hold the battery's plug facing it, __convex side up__
 3. The __black__ wire must be on the __left__ and the __red__ on the __right__
 
+__Checked 2026-10-11 on the chargers in hand: they match__ (operator) — red to red, black to black. Check again for any new cable.
+
 __If they do not match, do not plug it in.__ Once a charger has passed, mark its `+` side so the check is not repeated.
 
 ## Charging
