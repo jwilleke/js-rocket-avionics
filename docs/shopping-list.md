@@ -32,7 +32,7 @@ __Part numbers are in [BOM.md](BOM.md)__ — order from there, not from this pag
 | __BMP388__ barometer, STEMMA QT clone | [DIYmall](https://www.amazon.com/dp/B0GSYYT1K5) | — | ~$6–12 est. | __In hand.__ Measured 2026-08-08 |
 | __microSD__ | already held | — | — | __In hand__ — several. See the note below on why the A1/A2 spec no longer binds |
 | __Ground receiver__ — XIAO ESP32S3 & Wio-SX1262 Meshtastic node, cased, 2 dBi SMA antenna. Ground equipment, [#23](https://github.com/jwilleke/js-rocket-avionics/issues/23) | [Amazon](https://www.amazon.com/dp/B0GY4QC6GN) | — | — | __In hand 2026-09-13__ — arrived running LoRaHUB, reflashed to Meshtastic ([#23](https://github.com/jwilleke/js-rocket-avionics/issues/23)) |
-| __LiPo charger__ — USB lead, JST-PH 2.0, 4.2 V 0.5 A, 2-pack ([LiPo-charger.md](../hardware/LiPo-charger/LiPo-charger.md)) | Amazon | — | __$7.99__ listed | __Ordered 2026-10-10__ (operator). Ships from Amazon; the listing showed delivery Oct 11 |
+| __LiPo charger__ — USB lead, JST-PH 2.0, 4.2 V 0.5 A, 2-pack ([LiPo-charger.md](../hardware/LiPo-charger/LiPo-charger.md)) | Amazon | — | __$7.99__ listed | __In hand 2026-10-11__ (operator), ordered 2026-10-10. Check its plug's polarity against the battery before the first charge — [LiPo-charger.md](../hardware/LiPo-charger/LiPo-charger.md#check-the-polarity-before-the-first-charge) |
 
 Freight and tax are not in the rows above: Seeed shipping __$7.82**, Adafruit **UPS Ground $24.77 + $3.39 tax__.
 
