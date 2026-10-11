@@ -63,27 +63,27 @@ __Decided__ (operator, 2026-09-14; position B2 chosen 2026-09-15): behind the ca
 
 What that decides on this side:
 
-- __The lead reaches the JST around the board's edge__ — the battery is on the low face, the JST on the tall side at nose z 105–114 — right at the battery's forward end. Its routing is owed ([PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#the-battery-sits-behind-the-carrier--decided-2026-09-14-layout-b2-2026-09-15), item 5)
+- __The lead leaves the battery's aft end__ and runs to below the sled, to the Y-cable, where it unplugs for the charger (operator, 2026-10-11) — [The Y-cable](#the-y-cable)
 - __The battery is not reachable without pulling the sled; its plug is.__ Changing the battery means the M3 × 55 out and the sled pushed out of the nose ([#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)). Charging does not: the battery is unplugged below the sled and charged on its own charger — [LiPo-charger.md](../LiPo-charger/LiPo-charger.md)
-- __Something restrains it, never the JST__ — a foam spacer in the 4.25 mm to the web, or ties clear of the modules; still owed. Never clamp the pouch
+- __Something restrains it, never its lead__ — a foam spacer in the 4.25 mm to the web, or ties clear of the modules; still owed. Never clamp the pouch
 
 ## Distribution
 
-The battery lands on a __JST-PH on the carrier__, toward its forward end, and short __soldered pigtails__ run to each XIAO's underside BAT pads. That indirection is forced, not chosen: __BAT+/BAT− are not on the castellated edge__, so the battery cannot reach a XIAO through the headers.
+The battery plugs into a __Y-cable__, and the Y's two legs plug into the __soldered pigtails__ on each XIAO's underside BAT pads (operator, 2026-10-11). Nothing battery-side touches the carrier's copper; the pigtails only lace through anchor holes. The pigtails are forced, not chosen: __BAT+/BAT− are not on the castellated edge__, so the battery cannot reach a XIAO through the headers.
 
 - __Solder the pigtails before the XIAO goes onto its headers.__ Not before the expansion board — that mates to the *front* face and never covers the pads. What covers them is the __carrier__, at the header's 2.50 mm, and the breadboard does the same on the bench. Faces and evidence in [XIAO-ESP32S3-cam.md](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md#which-face-carries-what--settled-off-seeeds-two-drawings-and-the-stack-itself)
 - __Both XIAO chargers sit in parallel on one battery — charge through one USB port at a time.__ This avoids adding a charge IC. It breaks a general rule on purpose, and one port at a time is necessary but not sufficient — see [Two chargers on one battery](#two-chargers-on-one-battery)
 - __On battery power there is no voltage on the 5V pin__
 - __Reversing a LiPo into a XIAO destroys it__ — [design.md](../../docs/design.md) requires the pigtail polarity be silkscreened. Seeed's wiki: __BAT− is the pad nearer the USB-C__
-- __The battery is mechanically restrained, never hangs off the JST.__ On the sled that is the tie wraps. __The JST is a connector, not a mount__
+- __The battery is mechanically restrained, never hangs off its lead.__ On the sled that is the cage and tape. __A plug is a connector, not a mount__
 
-### On the bench — the join harness
+### The Y-cable
 
 ![The bench join harness: one JST plug for the battery, soldered and heat-shrunk into two plugs, one for each XIAO's pigtail](pigtail-joinharness.jpg)
 
-__What the carrier's JST does in copper, this does on the bench__ (operator, 2026-09-12): one plug takes the battery, and two plugs take the XIAOs' pigtails. Each joint is under its own heat-shrink.
+__Built for the bench on 2026-09-12, and the flight harness from 2026-10-11__ (operator): one plug takes the battery, and two plugs take the XIAOs' pigtails. Each joint is under its own heat-shrink. The carrier never had to carry the battery after all.
 
-> __The battery's JST and the XIAO pigtails' JSTs are wired opposite ways.__ Mated as bought, red met black. The harness is built with its wires crossed to correct it, and was checked with a meter — 3.95 V at each XIAO plug, red positive. __This is the trap the carrier's owed check — JST pin 1 against the battery's red lead — exists for__ ([PCB-carrier-design.md](../PCB-carrier/PCB-carrier-design.md#checks-owed-before-building)): JST-PH housings do not fix a polarity, and two parts that both look right can disagree. Check with a meter, every new cable.
+> __The battery's JST and the XIAO pigtails' JSTs are wired opposite ways.__ Mated as bought, red met black. The harness is built with its wires crossed to correct it, and was checked with a meter — 3.95 V at each XIAO plug, red positive. __JST-PH housings do not fix a polarity__, and two parts that both look right can disagree. Check with a meter, every new cable — the charger's plug too ([LiPo-charger.md](../LiPo-charger/LiPo-charger.md#check-the-polarity-before-the-first-charge)).
 
 ### Two chargers on one battery
 
@@ -103,7 +103,7 @@ __Measured, 2026-09-12 — it does not charge.__ No meter could go in series at 
 
 __So the battery is charged on its own__, unplugged from both XIAOs — [LiPo-charger.md](../LiPo-charger/LiPo-charger.md) ([#30](https://github.com/jwilleke/js-rocket-avionics/issues/30), under the charging epic [#32](https://github.com/jwilleke/js-rocket-avionics/issues/32)).
 
-__A second trap found the same day: the JST joins both boards' BAT pads, so USB into either XIAO powers both.__ Unplugging one board's USB does not power it down while the other is plugged in — which is why the microSD, jammed by a reset mid-write, stayed jammed until both were out.
+__A second trap found the same day: the Y-cable joins both boards' BAT pads, so USB into either XIAO powers both.__ Unplugging one board's USB does not power it down while the other is plugged in — which is why the microSD, jammed by a reset mid-write, stayed jammed until both were out.
 
 ### The pigtail is the fragile part, and the solder joint must not be the anchor
 
@@ -116,7 +116,7 @@ So the wire is anchored to the board, and the joint carries current only:
 - __Leave a service loop.__ Slack, so nothing is ever in tension. A taut pigtail is a pigtail under load whenever anything moves
 - __Dress it through the 2.50 mm gap__ between the XIAO's back face and the carrier — clear of the header pins, and not lying on carrier copper. Route and tack it __before__ the XIAO goes down; there is no access afterwards
 - __Conformal coat over the finished joint__, after bench testing, with the rest of the board
-- __Polarity silkscreened at the JST__ — reversing a LiPo into a XIAO destroys it
+- __`+` silkscreened at each pigtail's anchor holes__ for the red wire — reversing a LiPo into a XIAO destroys it
 
 > __A broken pigtail is silent.__ With both `3V3` pins on the same plane, the surviving regulator back-feeds the dead module and the rocket still works — so the first failure hides the fault and only the second one grounds you. __Inspect both joints as a step, rather than waiting to be told about them.__ It is also the strongest argument for keeping the plane tie until [#8](https://github.com/jwilleke/js-rocket-avionics/issues/8) says otherwise.
 

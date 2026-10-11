@@ -15,7 +15,7 @@ __Status: adopted, operator 2026-09-11.__ This is the design record for the carr
 
 ![PCB-carrier from both sides, forward up, generated from the board](PCB-carrier-layout.svg)
 
-__One two-sided board on the sled's centre line.__ The __tall side__ faces 270°, the camera port: XIAO-ESP32S3-cam aft, under the camera; the L76K-GNSS; XIAO-ESP32S3-lora forward; the JST. The __low side__ faces 90°, the web: the LSM6DSO32 and BMP388, and two standoffs. The web is moved toward 90°, clear of the low side, and the board hangs off it. Take out two screws and the whole board comes off the sled.
+__One two-sided board on the sled's centre line.__ The __tall side__ faces 270°, the camera port: XIAO-ESP32S3-cam aft, under the camera; the L76K-GNSS; XIAO-ESP32S3-lora forward; the two data-link jumpers. The __low side__ faces 90°, the web: the LSM6DSO32 and BMP388, and two standoffs. The web is moved toward 90°, clear of the low side, and the board hangs off it. Take out two screws and the whole board comes off the sled.
 
 __Every number — size, stations, clearances, the battery's position — is in [PCB-carrier.md](PCB-carrier.md), the carrier's one source of truth.__ This page is the discussion: why each choice was made, and what is decided but not yet drawn. Where the two disagree, PCB-carrier.md wins.
 
@@ -37,7 +37,7 @@ __The bridge__ was to stand its fins beside the board's edges and carry the came
 
 ## Electrically
 
-__One regulator per load.__ XIAO-ESP32S3-cam feeds the +3V3 plane and the sensors; XIAO-ESP32S3-lora feeds only the L76K-GNSS, on its own net, off the plane. __One board means no battery link__ between boards: the JST feeds both XIAOs' BAT pigtail pads directly. The connection table is in the [README](../../README.md#connections).
+__One regulator per load.__ XIAO-ESP32S3-cam feeds the +3V3 plane and the sensors; XIAO-ESP32S3-lora feeds only the L76K-GNSS, on its own net, off the plane. __No battery on the board__ (operator, 2026-10-11, [#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)): a Y-cable joins the battery to both XIAOs' BAT pigtails, and the battery's lead runs aft to below the sled, where it unplugs for the charger. The pigtail holes are anchors only. The connection table is in the [README](../../README.md#connections).
 
 ### Charging — off the carrier, at the battery's plug below the sled
 
@@ -49,7 +49,7 @@ __Decided, operator 2026-10-10 ([#30](https://github.com/jwilleke/js-rocket-avio
 
 ### The XIAO pigtails go through holes behind each XIAO — decided, in the generator
 
-__Operator, 2026-09-13 ([#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)).__ Each XIAO's battery pigtail — soldered to its underside BAT pads before it goes onto its headers, ~10 mm long, leaving at the end away from the USB-C — __goes through two holes directly behind that XIAO and is soldered on the far (low) side__, with the holes labelled. The XIAO pads, a miserable job, are never re-soldered; the bench JST plug is cut off.
+__Operator, 2026-09-13 ([#14](https://github.com/jwilleke/js-rocket-avionics/issues/14)).__ Each XIAO's battery pigtail — soldered to its underside BAT pads before it goes onto its headers, ~10 mm long, leaving at the end away from the USB-C — __goes through two holes directly behind that XIAO__, with the holes labelled. The XIAO pads, a miserable job, are never re-soldered. __From 2026-10-11 the holes are anchors only__ (operator, [#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)): the pigtail laces through them and keeps its plug, which mates with the Y-cable. They carry no net, and nothing is soldered there.
 
 __The holes are already in the generator__ (`WIRE_PADS`, `TestPoint_THTPad_D2.0mm_Drill1.0mm`), just past each XIAO's forward end:
 
@@ -95,7 +95,7 @@ __Owed before the carrier is ordered:__
 2. __Stiffness.__ The standoffs are further apart than the 81 mm the board was first judged at. The battery no longer loads the span: it rides the sled, in its cage. The board is __1.6 mm__ since 2026-09-15 — OSH Park's only 4-layer thickness — about 4× as stiff as the 1.0 mm it was judged at. Still check it; the fit mock is a first look, not an answer
 3. __Retention.__ The sled's cage holds it: three-sided, taped on its open sides ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99)). __Never clamp the pouch__
 4. __The joints under the battery__ — the L76K-GNSS's and XIAO-ESP32S3-lora's header joints and XIAO-ESP32S3-lora's BAT pigtail joints — face 5.25 mm of air, not the pouch. Trim them flush anyway
-5. __The battery lead__ reaches the JST on the tall side around the board's edge — right at the battery's forward end
+5. __The battery lead__ leaves the battery's aft end and runs to below the sled, to the Y-cable
 6. __The GNSS patch__ sits in a pocket in the sled's forward disc, off the carrier ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99))
 
 Drawing: [`nose-assembly-6e81cfc.html`](https://github.com/jwilleke/js-rocket/blob/main/docs/designs/nose-assembly-6e81cfc.html) — it draws the one carrier in PCB-carrier.md.
@@ -107,7 +107,6 @@ __Built 2026-09-15 as the ElectronicsSled fit article__ ([js-rocket#99](https://
 ## Checks owed before building
 
 1. __The standoff part__: Würth WA-SMSI M3, 10 mm (9774100360) — confirm it is stocked
-2. __JST pin 1 against the battery's red lead__
 Settled by the generator rather than owed: every sensor's pin order on the back of the board, and every hole's clearance across the two sides.
 
 __Settled on the bench, 2026-09-11:__ stock Meshtastic reads the GPS on D6/D7 — its startup log names GPIO43/44 and detects the L76K ([#6](https://github.com/jwilleke/js-rocket-avionics/issues/6#issuecomment-5639176943)). So the carrier's `GPS_TX`/`GPS_RX` nets stand as drawn.

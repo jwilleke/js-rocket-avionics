@@ -18,7 +18,7 @@ Related: [BOM.md](BOM.md) (parts and masses) · [shopping-list.md](shopping-list
 | Barometric static port | __Dropped__ | See below |
 | Apogee method | __Inertial primary__; GPS anchor by __offline timestamp merge__, not real time | The cost of putting GPS on the stock-Meshtastic board |
 | Flight log storage | __Buffer in PSRAM, and write it to the card in slices as it goes__ (operator, 2026-09-12) | The sampler never writes the card itself — a separate writer task does, so a card stall delays the slice, never a sample |
-| Power | __One battery__ to a carrier JST, distributed to each XIAO's __underside BAT pads by soldered pigtail__. __Charge through one USB port at a time__ | BAT is not on the castellated edge, so it cannot come through the headers. Avoids adding a charge IC |
+| Power | __One battery__ through a __Y-cable__, off the board, to each XIAO's __underside BAT pads by soldered pigtail__. __Charge through one USB port at a time__ | BAT is not on the castellated edge, so it cannot come through the headers. Avoids adding a charge IC |
 | Arming | __In the battery line__, not on a GPIO — and __flight 3 flies without one__ (2026-09-08). Mechanism and status: [Arming-switch.md](../hardware/Arming-switch/Arming-switch.md) | Physically cuts power; zero pins; cuts both modules at once. Deferred rather than replaced: __nothing else takes the role__ |
 | Antennas | __Both off-board on U.FL__ — GPS patch forward-facing, LoRa 82 mm whip up the ogive | A GPS patch needs a 30–40 mm ground plane; a 24 mm board never will be |
 
@@ -48,7 +48,7 @@ Side benefit: this frees the contested nose wall for the camera lens.
 
 ## The carrier PCB
 
-__One two-sided board on the PayloadSled's centre line__, hanging off the web on two M3 standoffs (operator, 2026-09-11). The __tall side__ faces 270°, the camera port, and carries both XIAO stacks, the L76K-GNSS and the JST; the __low side__ faces 90°, the web, and carries the sensors. What the board is, both sides, is [PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md); the design record is [PCB-carrier-design.md](../hardware/PCB-carrier/PCB-carrier-design.md). This section is why.
+__One two-sided board on the PayloadSled's centre line__, hanging off the web on two M3 standoffs (operator, 2026-09-11). The __tall side__ faces 270°, the camera port, and carries both XIAO stacks, the L76K-GNSS and the data-link jumpers; the __low side__ faces 90°, the web, and carries the sensors. What the board is, both sides, is [PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md); the design record is [PCB-carrier-design.md](../hardware/PCB-carrier/PCB-carrier-design.md). This section is why.
 
 ### How it got here
 
@@ -83,7 +83,7 @@ The camera hangs off the expansion board __on a flexible ribbon__, so its positi
 
 | Side | Faces | Carries |
 |---|---|---|
-| __Tall__ | 270°, the camera port | XIAO-ESP32S3-cam + Sense camera board (aft, under the camera); L76K-GNSS; XIAO-ESP32S3-lora + Wio-SX1262 (forward); the battery JST |
+| __Tall__ | 270°, the camera port | XIAO-ESP32S3-cam + Sense camera board (aft, under the camera); L76K-GNSS; XIAO-ESP32S3-lora + Wio-SX1262 (forward); the data-link jumpers |
 | __Low__ | 90°, the web | LSM6DSO32 and BMP388, lengthwise; two M3 standoffs |
 
 __The buzzer and both antennas are not on the board.__ The PS1240 sits against the nose wall on two wire pads; the antennas are on the sled ([Antennas.md](../hardware/Antennas/Antennas.md)). Net list: __9 nets__ — +3V3, +3V3_LORA, GND, VBAT, SDA, SCL, BUZZER, GPS_TX, GPS_RX. The wiring table is in the [README](../README.md).
@@ -98,7 +98,7 @@ __It plugs onto the XIAO's own 14 pads rather than presenting a header to the ca
 
 __BAT+/BAT− are underside pads on the XIAO__ (footprint pads 16/17, 2.3 × 1.3 mm at x = −4.5), not brought out to the castellated edge — so the battery __cannot__ reach a XIAO through the headers.
 
-- The battery lands on a __JST-PH at the board's forward end__; short __soldered pigtails__ run to each XIAO's BAT pads.
+- The battery plugs into a __Y-cable__ whose legs plug into short __soldered pigtails__ on each XIAO's BAT pads; nothing battery-side is on the board ([LiPo-500mAh.md](../hardware/LiPo-500mAh/LiPo-500mAh.md#the-y-cable)).
 - __Solder those pigtails before the XIAO goes onto its headers.__ The carrier, not the expansion board, is what covers the pads.
 - __On battery power there is no voltage on the 5V pin__, so nothing can be fed from a XIAO's 5V rail.
 - Both XIAO chargers sit in parallel on one battery. __Charge through one USB port at a time__ — and [one port at a time is not sufficient on its own](../hardware/LiPo-500mAh/LiPo-500mAh.md#two-chargers-on-one-battery).
@@ -117,8 +117,8 @@ __Everything else about it belongs to [Arming-switch.md](../hardware/Arming-swit
 - __1.6 mm FR4__ — OSH Park's only 4-layer thickness ([why](../README.md#the-interface-to-the-sled)). The board hangs off the web on two standoffs 106.5 mm apart; the web is the structure.
 - __Module footprints, not bare chips.__ A bare LSM6DSO32 is an LGA-14 at 2.5 × 3 mm and is not hand-solderable. Soldering breakouts down still gives one rigid assembly — apart from the battery pigtails and link, which are unavoidable.
 - __Low side first.__ The sensors stand ~1 mm proud on their pins and are soldered before the tall side's modules — [PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md#build-rules).
-- __Shock.__ Solder the headers — no loose sockets. The battery is tie-wrapped to the sled, never hung off the JST. Conformal coat after bench testing.
-- __Mark polarity__ at the JST and the `VBAT` pads — reversing a LiPo into a XIAO destroys it.
+- __Shock.__ Solder the headers — no loose sockets. The battery is held in the sled's cage, never hung off its lead. Conformal coat after bench testing.
+- __Mark polarity__: `+` at each pigtail's anchor holes for the red wire, and every Y-cable checked with a meter — reversing a LiPo into a XIAO destroys it.
 
 ## Data path — why the log lives in PSRAM
 

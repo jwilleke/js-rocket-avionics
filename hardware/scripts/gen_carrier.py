@@ -11,7 +11,7 @@ M3 standoffs, so it can come off the sled as one unit:
 
     tall side  F.Cu, faces 270 deg (the camera port)
                XIAO-ESP32S3-cam aft, under the camera; L76K-GNSS; XIAO-ESP32S3-lora
-               turned 90 deg; the battery JST; the two data-link jumpers forward
+               turned 90 deg; the two data-link jumpers forward
     low side   B.Cu, faces 90 deg (the web)
                LSM6DSO32 and BMP388, rows running lengthwise; two SMT M3 standoffs
 
@@ -80,7 +80,7 @@ MM = pcbnew.FromMM
 
 # ---- the two XIAOs, tall side -------------------------------------------------
 # XIAO-ESP32S3-cam USB-C aft. XIAO-ESP32S3-lora TURNED 90 deg (PCB-carrier.md, #34):
-# its USB-C out the -x long edge, the JST's edge, so its underside BAT pads
+# its USB-C out the -x long edge, so its underside BAT pads
 # (footprint x -4.5) land forward, toward its pigtail holes. Its 21 mm length runs
 # across the 24 mm board.
 XIAO_ROW_DX = 7.62         # header rows at +/-7.62 mm from the XIAO centreline (#33)
@@ -156,7 +156,7 @@ LSM_PRIMARY = ["VIN", "3Vo", "GND", "SCL", "SDA", "DO", "CS", "I1", "I2"]
 LSM_AUX = ["SCX", "SDX", "CS", "DO", "GND"]    # over Primary pins 3..7
 LSM_NETS = {"VIN": "+3V3", "GND": "GND", "SCL": "SCL", "SDA": "SDA"}
 BMP_Y = 94.6                        # body y 81.85..107.35 -- forward of the battery (B2). Its M2 legs
-                                    # must land between the tall side's header rows and clear the JST;
+                                    # must land between the tall side's header rows;
                                     # verify_clearances() holds it to that
 BMP_PINS = ["VIN", "3Vo", "GND", "SCL", "SDO", "SDA", "CS", "INT"]
 # CS tied high forces I2C, which settles #19's unverified pull-up on the part.
@@ -189,11 +189,11 @@ def low_side_top_xy_route2(px, py, cy):
 
 
 # ---- battery, buzzer, standoffs ----------------------------------------------
-# JST-PH on the tall side at the forward end, mating face forward toward the
-# battery. VERIFY PIN 1 AGAINST THE BATTERY'S RED LEAD BEFORE SOLDERING --
-# reversing a LiPo into a XIAO destroys it, and JST-PH polarity is not standard.
-JST_XY = (4.2, 81.5)
-JST_NETS = {1: "VBAT", 2: "GND"}
+# NO BATTERY ON THE BOARD (operator, 2026-10-11, #30). A Y-cable joins the
+# battery to the two XIAOs' BAT pigtails, off the board, and the battery's lead
+# runs aft to below the sled, where it unplugs for the charger. So there is no
+# JST and no VBAT net here; until then there was a JST-PH at (4.2, 81.5) and
+# the pigtails were soldered into a VBAT net.
 # The battery, from PCB-carrier.md -- the carrier's source of truth (operator,
 # 2026-09-15). Change it there first, then here. Not a footprint: it lies on the
 # low side against the web, 5.25 mm off the board, and the PayloadSled's cage is
@@ -202,12 +202,14 @@ JST_NETS = {1: "VBAT", 2: "GND"}
 BATTERY_Y = (42.5, 79.9)     # nose z 67.9..105.3 -- the cage cavity, 37.4 mm (js-rocket#99)
 BATTERY_HALF_W = 14.5        # 29 mm across, 2.5 past each board edge
 BATTERY_R = (5.75, 10.5)     # toward 90 deg: 4.75 thick, against the web's inner face
-# Wire pads, 3.2 apart: each XIAO's BAT pigtail, and the buzzer's flying leads
-# (the PS1240 sits against the nose wall, not on the board).
+# Wire holes, 3.2 apart: the buzzer's flying leads (the PS1240 sits against the
+# nose wall, not on the board), and each XIAO's BAT pigtail. The pigtail holes
+# are ANCHORS, not connections: no net. The wires lace through them to the
+# Y-cable, so a pull lands on the board, not on the XIAO's 2.3 x 1.3 mm pads.
 WIRE_PADS = [
-    ("TP_CAM_BAT_P", (8.8, 30.0), "VBAT"), ("TP_CAM_BAT_N", (12.0, 30.0), "GND"),
+    ("TP_CAM_BAT_P", (8.8, 30.0), None), ("TP_CAM_BAT_N", (12.0, 30.0), None),
     ("TP_BUZ", (15.2, 30.0), "BUZZER"), ("TP_BUZ_G", (12.0, 33.2), "GND"),
-    ("TP_LORA_BAT_P", (10.4, 80.8), "VBAT"), ("TP_LORA_BAT_N", (13.6, 80.8), "GND"),
+    ("TP_LORA_BAT_P", (10.4, 80.8), None), ("TP_LORA_BAT_N", (13.6, 80.8), None),
 ]
 # Two data links, each a 2-pin header with a slide-on shunt and a ~1 kOhm series
 # resistor, on the tall side at the forward end (operator, 2026-09-12, #26;
@@ -221,14 +223,12 @@ LINK_RESISTORS = [("R_LINK_GPS", (9.5, 95.5), {1: "LINK_GPS"}),
                   ("R_LINK_EVT", (9.5, 102.5), {2: "LINK_EVT"})]
 LINK_LABELS = [("GPS", 15.6, 92.0), ("EVT", 15.6, 99.0)]
 R_FP = "R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal"   # pad 2 at +5.08 x at 0 deg
-# Polarity on the silkscreen: reversing a LiPo into a XIAO destroys it.
-PLUS_MARKS = [(JST_XY[0] - 2.0, JST_XY[1] - 2.6)]
-# Each XIAO's battery pigtail goes through the two holes directly behind it and
-# is soldered on the low side (operator, 2026-09-13, #14), so the holes are
-# labelled on BOTH sides -- BAT, + and - -- mirrored on the back. The low-side
-# labels end up under the LSM6DSO32 and BMP388; they are for assembly, which
-# solders the pigtails before the sensors go on. Positions keep the text off
-# every pad, the JST body and standoff 2.
+# Each XIAO's battery pigtail laces through the two holes directly behind it
+# (operator, 2026-09-13, #14; anchors only from 2026-10-11), so the holes are
+# labelled on BOTH sides -- BAT, + and - -- mirrored on the back, + for the red
+# wire. The low-side labels end up under the LSM6DSO32 and BMP388; they are for
+# assembly, which laces the pigtails before the sensors go on. Positions keep
+# the text off every pad and standoff 2.
 BAT_LABELS = [
     ("+", 8.8, 28.1), ("-", 12.0, 28.1), ("BAT", 5.3, 30.0),     # XIAO-ESP32S3-cam
     ("+", 10.4, 78.9), ("-", 13.6, 78.9), ("BAT", 17.2, 80.6),   # XIAO-ESP32S3-lora
@@ -262,7 +262,6 @@ FILLET_R = 0.9             # a through-hole joint on the far face
 FP_ROOT = "/Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints/"
 FP_LIB = FP_ROOT + "Connector_PinHeader_2.54mm.pretty"
 TP_LIB = FP_ROOT + "TestPoint.pretty"
-JST_LIB = FP_ROOT + "Connector_JST.pretty"
 R_LIB = FP_ROOT + "Resistor_THT.pretty"
 SO_LIB = FP_ROOT + "Mounting_Wuerth.pretty"
 
@@ -447,13 +446,10 @@ def bmp_legs():
 
 
 def add_power_and_wires(board):
-    fp = place(board, JST_LIB, "JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal", "J_BAT",
-               JST_XY[0], JST_XY[1], silk=False)
-    for num, net in JST_NETS.items():
-        fp.FindPadByNumber(str(num)).SetNet(board.nets[net])
     for ref, (x, y), net in WIRE_PADS:
         tp = place(board, TP_LIB, "TestPoint_THTPad_D2.0mm_Drill1.0mm", ref, x, y, silk=False)
-        tp.FindPadByNumber("1").SetNet(board.nets[net])
+        if net:
+            tp.FindPadByNumber("1").SetNet(board.nets[net])
     def silk_text(text, x, y, back=False, size=1.2):
         t = pcbnew.PCB_TEXT(board)
         t.SetText(text)
@@ -463,8 +459,6 @@ def add_power_and_wires(board):
         t.SetTextSize(pcbnew.VECTOR2I(MM(size), MM(size)))
         t.SetTextThickness(MM(0.2 if size >= 1.2 else 0.15))
         board.Add(t)
-    for x, y in PLUS_MARKS:
-        silk_text("+", x, y)
     for text, x, y, size, back in MODULE_LABELS:
         silk_text(text, x, y, back=back, size=size)
     for text, x, y in BAT_LABELS:
@@ -683,7 +677,6 @@ def write_layout(board):
         ("L76K-GNSS", "tall", CX - 9.0, L76K_Y - 10.5, CX + 9.0, L76K_Y + 10.5),
         ("XIAO-ESP32S3-lora", "tall", CX - 10.5, LORA_Y - 8.9, CX + 10.5, LORA_Y + 8.9),   # turned
         ("data links", "tall", 8.2, 90.6, 16.6, 103.6),
-        ("JST-PH", "tall", JST_XY[0] - 2.45, JST_XY[1] - 1.85, JST_XY[0] + 4.45, JST_XY[1] + 6.75),
         ("LSM6DSO32", "low", CX + LSM_DX - 8.9, LSM_Y - 12.75, CX + LSM_DX + 8.9, LSM_Y + 12.75),
         ("BMP388", "low", CX - 8.9, BMP_Y - 12.75, CX + 8.9, BMP_Y + 12.75),
     ]
@@ -725,7 +718,7 @@ def main():
     board.GetDesignSettings().SetBoardThickness(MM(THICKNESS))
 
     board.nets = {}
-    for name in ("GND", "+3V3", "+3V3_LORA", "VBAT", "GPS_TX", "GPS_RX", "SDA", "SCL",
+    for name in ("GND", "+3V3", "+3V3_LORA", "GPS_TX", "GPS_RX", "SDA", "SCL",
                  "BUZZER", "LINK_GPS", "LINK_EVT"):
         n = pcbnew.NETINFO_ITEM(board, name)
         board.Add(n)

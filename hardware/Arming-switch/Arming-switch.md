@@ -6,7 +6,7 @@ __Flight 3 flies without one__ (operator, 2026-09-08). In the battery line, not 
 >
 > __What that costs is turnaround, not safety.__ This payload has no pyro, so an "armed" rocket here is one that is recording video. The switch only ever bought a faster way to reach the disconnect; the argument below is unchanged and kept for whenever a flight wants it.
 >
-> __What it buys back, today:__ the 80 mm battery lead no longer has to carry an inline switch, so __the JST's position is decided on its own__ rather than jointly — see [LiPo-500mAh.md](../LiPo-500mAh/LiPo-500mAh.md). One less coupling in [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14) stage 2c.
+> __What it buys back, today:__ the 80 mm battery lead no longer has to carry an inline switch, so __the battery plug's position is decided on its own__ rather than jointly — see [LiPo-500mAh.md](../LiPo-500mAh/LiPo-500mAh.md). One less coupling in [#14](https://github.com/jwilleke/js-rocket-avionics/issues/14) stage 2c.
 >
 > __The pad procedure this forces:__ runtime is ~100 minutes from the moment the battery is connected and it cannot be managed in firmware, so __the JST goes on last__, on the pad, and the clock starts there.
 >
@@ -22,11 +22,11 @@ So the sentence this page used to carry — *a welded switch is an armed rocket 
 
 __What is real is runtime.__ 500 mAh against ~300 mA is roughly __100 minutes__ from the moment the battery is connected, and it cannot be managed in firmware: [XIAO-ESP32S3-lora](../XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md) runs __stock Meshtastic with no code written__, which was a deliberate choice and means it cannot sleep. It draws from the instant it has power.
 
-__So a disconnect is needed. A switch in the nose wall is not.__ The JST already is one; the only question is when it can be reached:
+__So a disconnect is needed. A switch in the nose wall is not.__ The battery's plug at the Y-cable already is one; the only question is when it can be reached:
 
 | | Cost of a launch delay past ~100 minutes |
 |---|---|
-| No switch — connect the JST last | Pull the M3 × 55 and extract the sled. That pin also anchors the recovery cord, so it is a nose teardown plus a re-rig |
+| No switch — connect the battery last | Reach its plug at the Y-cable below the sled ([LiPo-charger.md](../LiPo-charger/LiPo-charger.md#where-the-battery-is-unplugged)). Not a sled extraction since 2026-10-11, when the plug moved off the board |
 | Switch in the nose wall | Flip it |
 
 __That difference is the whole value of the switch: turnaround, not safety.__ It is worth having against the *"rapidly reusable rocket flown by a 14-year-old"* objective, and it is not worth blocking an airframe part for.

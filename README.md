@@ -49,7 +49,7 @@ Board x runs across the board, y from the aft end, forward positive, in KiCad's 
 
 __Why 24 mm wide.__ It matches the web. The sensors, 17.8 mm across when lengthwise, sit inside it.
 
-__Why 115.7 mm long.__ The camera fixes the cam XIAO at the aft end, and the tall side then carries the L76K-GNSS, the lora XIAO and the JST end to end. The low side carries the battery as well as the sensors (layout B2, 2026-09-15): LSM6DSO32 aft, the battery behind the L76K and the lora XIAO, the BMP388 forward of it — and the BMP388's M2 legs have to land between the tall side's header rows, which is what fixes where it can go. 90.4 mm until the battery moved onto the board.
+__Why 115.7 mm long.__ The camera fixes the cam XIAO at the aft end, and the tall side then carries the L76K-GNSS, the lora XIAO and the data-link jumpers end to end. The low side carries the battery as well as the sensors (layout B2, 2026-09-15): LSM6DSO32 aft, the battery behind the L76K and the lora XIAO, the BMP388 forward of it — and the BMP388's M2 legs have to land between the tall side's header rows, which is what fixes where it can go. 90.4 mm until the battery moved onto the board.
 
 __Why 1.6 mm.__ It is the only thickness OSH Park makes a 4-layer board in — "63mil (1.6mm) nominal". The 1.0 mm this page carried until 2026-09-15 was never checked against the fab; the operator caught it on the printed fit mock ("looks too thin"). It is also the better board: the standoffs are now __106.5 mm apart__ (81 before 2026-09-15), and 1.6 mm is __about 4× as stiff__ as 1.0 over that span (stiffness goes as thickness cubed). The low face — the standoffs' face — stays at r 0.5, so the sled does not change; the tall side moves __0.6 mm toward 270°__. What that costs across the bore is in [PCB-carrier-design.md](hardware/PCB-carrier/PCB-carrier-design.md#across-the-bore)
 
@@ -63,7 +63,7 @@ There is __no schematic file__. Nets are assigned to pads directly in the genera
 
 | Net | From | Also reaches |
 |---|---|---|
-| `GND` | both XIAOs, pin 13 | In1 plane, every module, JST −, the `GND` wire pads |
+| `GND` | both XIAOs, pin 13 | In1 plane, every module, the buzzer's `GND` wire pad |
 | `+3V3` | XIAO-ESP32S3-cam pin 12 __only__ | In2 plane; LSM6DSO32 `VIN`; BMP388 `VIN` __and `CS`__ (I2C mode, [#19](https://github.com/jwilleke/js-rocket-avionics/issues/19)) |
 | `+3V3_LORA` | XIAO-ESP32S3-lora pin 12 | the L76K-GNSS's `3V3` only — __kept off the plane__, so the two regulators are never paralleled |
 | `SDA` | cam __D4__ (pin 5, GPIO5) | LSM6DSO32, BMP388 |
@@ -71,7 +71,6 @@ There is __no schematic file__. Nets are assigned to pads directly in the genera
 | `BUZZER` | cam __D0__ (pin 1, GPIO1) | the buzzer wire pad; the PS1240 sits against the nose wall |
 | `GPS_TX` | lora __D6__ (pin 7, GPIO43) | the L76K-GNSS's pad at the D6 position, which is the module's __RX__ |
 | `GPS_RX` | lora __D7__ (pin 8, GPIO44) | the L76K-GNSS's pad at the D7 position, which is the module's __TX__ |
-| `VBAT` | JST pin 1 | both XIAOs' BAT pigtail pads |
 | `LINK_GPS` | the GPS link's 2-pin header, pin 2 (pin 1 is on `GPS_RX`) | its 1 kΩ. The resistor's far end, toward a XIAO-ESP32S3-cam input, is __not netted yet__ — the pin is owed ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)) |
 | `LINK_EVT` | the event link's 2-pin header, pin 1 | its 1 kΩ. Both far ends — a XIAO-ESP32S3-cam output and a XIAO-ESP32S3-lora input — are __not netted yet__ ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)) |
 
@@ -98,12 +97,12 @@ The same staleness once reached the barometer: __BMP390 → BMP388__, settled on
 
 ## Battery — read before assembling
 
-__BAT+/BAT− are underside pads on the XIAO__, not brought out to the castellated edge, so the battery cannot reach a XIAO through the headers. The battery lands on the JST at the board's forward end and reaches each XIAO by a short __soldered pigtail__.
+__BAT+/BAT− are underside pads on the XIAO__, not brought out to the castellated edge, so the battery cannot reach a XIAO through the headers. The battery reaches each XIAO through a __Y-cable__, off the board, and a short __soldered pigtail__ on its BAT pads.
 
 - __Solder the pigtails before the XIAO goes onto its headers.__ The board, not the expansion board, is what covers the pads.
 - __On battery power there is no voltage on the 5V pin__ — nothing can be fed from a XIAO's 5V rail.
 - Both XIAO chargers sit in parallel on one battery. __Charge through one USB port at a time__, and read [why that is not sufficient on its own](hardware/LiPo-500mAh/LiPo-500mAh.md#two-chargers-on-one-battery).
-- __Check JST pin 1 against the battery's red lead before soldering.__ The silkscreen marks `+`; reversing a LiPo into a XIAO destroys it.
+- __The battery is not on the board.__ A Y-cable joins it to both XIAOs' pigtails ([LiPo-500mAh.md](hardware/LiPo-500mAh/LiPo-500mAh.md#the-y-cable)). Check every new cable's polarity with a meter; reversing a LiPo into a XIAO destroys it.
 
 ## No RF on this board
 

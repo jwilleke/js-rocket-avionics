@@ -53,14 +53,6 @@
    "y1": 103.6
   },
   {
-   "name": "JST-PH",
-   "side": "tall",
-   "x0": 1.75,
-   "y0": 79.65,
-   "x1": 8.65,
-   "y1": 88.25
-  },
-  {
    "name": "LSM6DSO32",
    "side": "low",
    "x0": 6.549999999999999,
@@ -108,22 +100,6 @@
   "r1": 10.5
  },
  "pads": [
-  {
-   "ref": "J_BAT",
-   "num": "1",
-   "net": "VBAT",
-   "side": "tall",
-   "x": 4.2,
-   "y": 81.5
-  },
-  {
-   "ref": "J_BAT",
-   "num": "2",
-   "net": "GND",
-   "side": "tall",
-   "x": 6.2,
-   "y": 81.5
-  },
   {
    "ref": "J_BMP",
    "num": "1",
@@ -863,7 +839,7 @@
   {
    "ref": "TP_CAM_BAT_N",
    "num": "1",
-   "net": "GND",
+   "net": "",
    "side": "tall",
    "x": 12.0,
    "y": 30.0
@@ -871,7 +847,7 @@
   {
    "ref": "TP_CAM_BAT_P",
    "num": "1",
-   "net": "VBAT",
+   "net": "",
    "side": "tall",
    "x": 8.8,
    "y": 30.0
@@ -879,7 +855,7 @@
   {
    "ref": "TP_LORA_BAT_N",
    "num": "1",
-   "net": "GND",
+   "net": "",
    "side": "tall",
    "x": 13.6,
    "y": 80.8
@@ -887,7 +863,7 @@
   {
    "ref": "TP_LORA_BAT_P",
    "num": "1",
-   "net": "VBAT",
+   "net": "",
    "side": "tall",
    "x": 10.4,
    "y": 80.8
