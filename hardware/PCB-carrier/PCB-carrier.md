@@ -152,7 +152,7 @@ __No labels on it.__ The slicer drops silkscreen-sized strokes. __What goes wher
 
 __Print:__ Generic PLA at 210 °C (operator, 2026-10-11; PETG HF until then), flat, __low side down__ (the STL has it at z 0), 0.2 mm layers, 2 walls, no support, no brim. About 5 g and 23 minutes. __Before sending a plate, prove it in the G-code__: every hole open on every layer, the height 1.6 mm, and the first layer on the bed.
 
-__The plate__ is js-rocket's `rocket/printing/carrier-fit-mock.gcode.3mf`, sliced headless from this mesh. Sliced output is gitignored there, so __re-slice it after any board change__ rather than trusting the file on disk.
+__The plate__ is js-rocket's `rocket/printing/ready/carrier-fit-mock.gcode.3mf`, sliced headless from this mesh. Sliced output is gitignored there, so __re-slice it after any board change__ rather than trusting the file on disk.
 
 __What it checks, with the bench parts:__
 
