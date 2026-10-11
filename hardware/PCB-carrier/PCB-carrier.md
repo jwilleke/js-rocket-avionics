@@ -97,7 +97,7 @@ __Nothing on the carrier charges the battery.__ It is unplugged below the sled a
 
 ### USB ports
 
-__XIAO-ESP32S3-cam's USB-C is the service port.__ It is the Sense stack, the only one that reaches the microSD, and the one reflashed most. [#1](https://github.com/jwilleke/js-rocket-avionics/issues/1)'s service pigtail is wired to it.
+__XIAO-ESP32S3-cam's USB-C is the service port.__ It is the Sense stack, the only one that reaches the microSD, and the one reflashed most. __It is reached from below the sled__, through a USB-C slot in the ElectronicsSled's PORT disc ([js-rocket#117](https://github.com/jwilleke/js-rocket/issues/117), 13.12.0): a plug goes straight in, about 15 mm. No pigtail; the carrier stays on.
 
 __XIAO-ESP32S3-lora's USB-C is for flashing and testing on the bench.__ It runs [stock Meshtastic and nothing else](../XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md#firmware--stock-meshtastic-only-updated-on-purpose-frozen-for-flight), and nothing on the carrier is fed from it. Plugged in, it runs from its own USB and beacons as normal. Turned 90°, its port is reachable with the module soldered down.
 
