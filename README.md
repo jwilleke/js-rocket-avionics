@@ -47,9 +47,9 @@ __One board on the PayloadSled's centre line__, hanging off the web on two stand
 
 Board x runs across the board, y from the aft end, forward positive, in KiCad's top view (the tall side). Everything above is read out of the generated board by `gen_carrier.py`; the gerbers in `fab/` predate it ([#16](https://github.com/jwilleke/js-rocket-avionics/issues/16)).
 
-__Why 24 mm wide.__ It matches the web. The sensors, 17.8 mm across when lengthwise, sit inside it.
+__Why 24 mm wide.__ It matches the web. The sensors fit across it or hang just past its edges, below the web — [PCB-carrier.md](hardware/PCB-carrier/PCB-carrier.md#low-side--faces-90-the-web).
 
-__Why 115.7 mm long.__ The camera fixes the cam XIAO at the aft end, and the tall side then carries the L76K-GNSS, the lora XIAO and the data-link jumpers end to end. The low side carries the battery as well as the sensors (layout B2, 2026-09-15): LSM6DSO32 aft, the battery behind the L76K and the lora XIAO, the BMP388 forward of it — and the BMP388's M2 legs have to land between the tall side's header rows, which is what fixes where it can go. 90.4 mm until the battery moved onto the board.
+__Why 115.7 mm long.__ The camera fixes the cam XIAO at the aft end, and the tall side then carries the L76K-GNSS, the lora XIAO, the data-link jumpers and the buzzer end to end. The low side carries the battery as well as the sensors (layout B2, 2026-09-15): LSM6DSO32 aft, the battery behind the L76K and the lora XIAO, the BMP388 forward of it, turned across the board under the buzzer ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36)). 90.4 mm until the battery moved onto the board.
 
 __Why 1.6 mm.__ It is the only thickness OSH Park makes a 4-layer board in — "63mil (1.6mm) nominal". The 1.0 mm this page carried until 2026-09-15 was never checked against the fab; the operator caught it on the printed fit mock ("looks too thin"). It is also the better board: the standoffs are now __106.5 mm apart__ (81 before 2026-09-15), and 1.6 mm is __about 4× as stiff__ as 1.0 over that span (stiffness goes as thickness cubed). The low face — the standoffs' face — stays at r 0.5, so the sled does not change; the tall side moves __0.6 mm toward 270°__. What that costs across the bore is in [PCB-carrier-design.md](hardware/PCB-carrier/PCB-carrier-design.md#across-the-bore)
 
@@ -63,12 +63,12 @@ There is __no schematic file__. Nets are assigned to pads directly in the genera
 
 | Net | From | Also reaches |
 |---|---|---|
-| `GND` | both XIAOs, pin 13 | In1 plane, every module, the buzzer's `GND` wire pad |
+| `GND` | both XIAOs, pin 13 | In1 plane, every module, the buzzer's `GND` lead (`TP_BUZ_G`) |
 | `+3V3` | XIAO-ESP32S3-cam pin 12 __only__ | In2 plane; LSM6DSO32 `VIN`; BMP388 `VIN` __and `CS`__ (I2C mode, [#19](https://github.com/jwilleke/js-rocket-avionics/issues/19)) |
 | `+3V3_LORA` | XIAO-ESP32S3-lora pin 12 | the L76K-GNSS's `3V3` only — __kept off the plane__, so the two regulators are never paralleled |
 | `SDA` | cam __D4__ (pin 5, GPIO5) | LSM6DSO32, BMP388 |
 | `SCL` | cam __D5__ (pin 6, GPIO6) | LSM6DSO32, BMP388 |
-| `BUZZER` | cam __D0__ (pin 1, GPIO1) | the buzzer wire pad; the PS1240 sits against the nose wall |
+| `BUZZER` | cam __D0__ (pin 1, GPIO1) | the buzzer's other lead (`TP_BUZ`); the PS1240 sits on the tall side's forward end |
 | `GPS_TX` | lora __D6__ (pin 7, GPIO43) | the L76K-GNSS's pad at the D6 position, which is the module's __RX__ |
 | `GPS_RX` | lora __D7__ (pin 8, GPIO44) | the L76K-GNSS's pad at the D7 position, which is the module's __TX__ |
 | `LINK_GPS` | the GPS link's 2-pin header, pin 2 (pin 1 is on `GPS_RX`) | its 1 kΩ. The resistor's far end, toward a XIAO-ESP32S3-cam input, is __not netted yet__ — the pin is owed ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)) |

@@ -15,13 +15,13 @@ __Status: adopted, operator 2026-09-11.__ This is the design record for the carr
 
 ![PCB-carrier from both sides, forward up, generated from the board](PCB-carrier-layout.svg)
 
-__One two-sided board on the sled's centre line.__ The __tall side__ faces 270°, the camera port: XIAO-ESP32S3-cam aft, under the camera; the L76K-GNSS; XIAO-ESP32S3-lora forward; the two data-link jumpers. The __low side__ faces 90°, the web: the LSM6DSO32 and BMP388, and two standoffs. The web is moved toward 90°, clear of the low side, and the board hangs off it. Take out two screws and the whole board comes off the sled.
+__One two-sided board on the sled's centre line.__ The __tall side__ faces 270°, the camera port: XIAO-ESP32S3-cam aft, under the camera; the L76K-GNSS; XIAO-ESP32S3-lora; the two data-link jumpers; the PS1240 buzzer at the forward end. The __low side__ faces 90°, the web: the LSM6DSO32 and BMP388, and two standoffs. The web is moved toward 90°, clear of the low side, and the board hangs off it. Take out two screws and the whole board comes off the sled.
 
 __Every number — size, stations, clearances, the battery's position — is in [PCB-carrier.md](PCB-carrier.md), the carrier's one source of truth.__ This page is the discussion: why each choice was made, and what is decided but not yet drawn. Where the two disagree, PCB-carrier.md wins.
 
 ### What makes it work
 
-__1. Every part sits in its own holes, and no hole meets another across the two sides.__ The L76K-GNSS already has its pins soldered, so it takes its own footprint on the tall side between the two XIAOs. The sensors run __lengthwise__ on the low side, parallel to the tall-side modules' rows. Turned 90°, they would cross. The LSM6DSO32 is slid sideways to clear XIAO-ESP32S3-cam's real rows ([#33](https://github.com/jwilleke/js-rocket-avionics/issues/33); where, in [PCB-carrier.md](PCB-carrier.md#low-side--faces-90-the-web)). `gen_carrier.py` checks every through-hole against every other on each run.
+__1. Every part sits in its own holes, and no hole meets another across the two sides.__ The L76K-GNSS already has its pins soldered, so it takes its own footprint on the tall side between the two XIAOs. The LSM6DSO32 runs __lengthwise__ on the low side, parallel to the tall-side modules' rows. Turned 90°, its rows would cross theirs. The BMP388 sits behind no module, so it is turned, which frees the tall side's forward end for the buzzer ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36); [below](#the-buzzer-on-the-board-the-bmp388-turned--decided-2026-10-12)). The LSM6DSO32 is slid sideways to clear XIAO-ESP32S3-cam's real rows ([#33](https://github.com/jwilleke/js-rocket-avionics/issues/33); where, in [PCB-carrier.md](PCB-carrier.md#low-side--faces-90-the-web)). `gen_carrier.py` checks every through-hole against every other on each run.
 
 __2. The sensors stand ~1 mm proud on their pins__, header plastic up against the sensor, so the plastic clears the tall side's solder joints on the low face.
 
@@ -74,8 +74,27 @@ __Operator, 2026-09-12 ([#26](https://github.com/jwilleke/js-rocket-avionics/iss
 
 - __Off is the safe state__, and the one a shaken-loose shunt fails to: a shunt lost under boost costs the feature, never the beacon. Dab it in place if a flight must have the feature
 - __Height:__ header plus shunt stands ~8–9 mm, so both go on the __tall side__, where the XIAO stacks already reach 10.7–11.8 mm
+- __Where:__ one at each long edge, just forward of XIAO-ESP32S3-lora's anchor holes, so the buzzer has the middle of the forward end ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36)). Positions: [PCB-carrier.md](PCB-carrier.md#tall-side--faces-270-the-camera)
 - __Set before the nose is closed__ — the shunts are not reachable after
 - __Owed before they are drawn:__ which spare pins — mj-cam's `D1` (GPIO2) is the clean choice for the GPS input, `D2` is a strapping pin; the lora side is whatever Meshtastic's `seeed-xiao-s3` variant leaves free beside the Wio-SX1262 — and a bench check that the Serial module does what is described on firmware `2.7.26` ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26))
+
+## The buzzer on the board, the BMP388 turned — decided 2026-10-12
+
+__Operator, 2026-10-12 ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36)).__ The PS1240 is on the carrier, at the tall side's forward end, facing a sound hole cut in the Nosecone on the camera side ([nosecone.md](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/nosecone.md)). Its two leads go into their own holes; the wire pads that took flying leads to the nose wall are gone. [PS1240-buzzer.md](../PS1240-buzzer/PS1240-buzzer.md) owns the part, [PCB-carrier.md](PCB-carrier.md#layout) where it sits.
+
+__Two things moved to make room, and nothing else did.__ XIAO-ESP32S3-cam, the L76K-GNSS and XIAO-ESP32S3-lora stay where they were.
+
+- __The BMP388 turned 90°__ on the low side, its pin row across the board, aft, and its mounting holes forward at the board's edges. It now rests on a spacer in each of its own holes, with __no bolt and no carrier hole__, so nothing crosses to the tall side — [BMP388-barometer.md](../BMP388-barometer/BMP388-barometer.md#mounting)
+- __The two data links went to the board's edges__ ([above](#two-data-links-each-behind-an-open-jumper--in-the-generator-pins-owed))
+
+__Rejected:__
+
+- __Turning the L76K-GNSS__ — it fits, but it moves XIAO-ESP32S3-lora 5.4 mm forward, which its LoRa antenna cable may not reach
+- __Swapping the L76K-GNSS and XIAO-ESP32S3-lora__ — the GNSS would land on the BMP388
+
+__Checked in the generator, 2026-10-12:__ `verify_clearances()` passes (78 through-holes clear of each other, the standoffs, the BMP388's spacers and the buzzer); kicad-cli DRC 0 violations, 11 unconnected items — the unrouted nets, unchanged. The fit mock was regenerated and re-sliced, and all 84 holes and markers are open in the G-code; the plate is js-rocket's `rocket/printing/ready/carrier-fit-mock.gcode.3mf`.
+
+__The sound hole also vents the payload bay beside the BMP388__, so it is now an unintended static port. A data-quality check, not a blocker: [BMP388-barometer.md](../BMP388-barometer/BMP388-barometer.md#the-buzzers-sound-hole-is-an-unintended-static-port).
 
 ## The battery sits behind the carrier — decided 2026-09-14, layout B2 2026-09-15
 
@@ -85,9 +104,9 @@ __It moved once more on 2026-09-15.__ B2 first drew it on a 1 mm insulating pad 
 
 __Why behind the board.__ It is the only place beside the carrier that passes the 40 mm door ([Across the bore](PCB-carrier.md#across-the-bore)). Everywhere else beside the board a 29 mm battery reaches r 22–23. The old spot — on the sled's D-flat at nose z 125–161 — put its forward corners __~1.2 mm into the Nosecone wall__, read off `nosecone.stl` on 2026-09-13 ([js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99#issuecomment-5654142688)).
 
-__Why B2, and not the first drawing.__ The first drawing (2026-09-14) put the battery at nose z 101–137 with both sensors slid 20 mm aft. `gen_carrier.py`'s clearance check rejected it: the BMP388's two M2 legs, 20.6 mm apart ([its 2026-09-11 mounting](../BMP388-barometer/BMP388-barometer.md)), landed on the L76K-GNSS's header joints. Both legs have to fall in the gaps between the tall side's header rows and clear the JST, which leaves the BMP388 very few places. B2 moves the LSM6DSO32 aft and the BMP388 forward, and the battery takes the low side between them. The other way — the BMP388 on its header alone, keeping the battery at 101–137 — was offered and not chosen.
+__Why B2, and not the first drawing.__ The first drawing (2026-09-14) put the battery at nose z 101–137 with both sensors slid 20 mm aft. `gen_carrier.py`'s clearance check rejected it: the BMP388's two M2 legs, 20.6 mm apart ([its 2026-09-11 mounting](../BMP388-barometer/BMP388-barometer.md)), landed on the L76K-GNSS's header joints. Both legs had to fall in the gaps between the tall side's header rows and clear the JST, which left the BMP388 very few places (it has had no legs since 2026-10-12: [above](#the-buzzer-on-the-board-the-bmp388-turned--decided-2026-10-12)). B2 moves the LSM6DSO32 aft and the BMP388 forward, and the battery takes the low side between them. The other way — the BMP388 on its header alone, keeping the battery at 101–137 — was offered and not chosen.
 
-__Layout B2 — in the generator, 2026-09-15.__ `verify_clearances()` passes (72 through-holes clear of each other, the standoffs and the BMP388 legs); kicad-cli DRC 0 violations, 10 unconnected items — the unrouted nets, as before. B2 lengthened the board from 90.4 mm, moved the LSM6DSO32 aft and the BMP388 and the forward standoff forward, and put the battery on the low side between the sensors. __Where everything now is: [PCB-carrier.md](PCB-carrier.md#layout).__
+__Layout B2 — in the generator, 2026-09-15.__ `verify_clearances()` passed (72 through-holes clear of each other, the standoffs and the BMP388 legs); kicad-cli DRC 0 violations, 10 unconnected items — the unrouted nets, as before. B2 lengthened the board from 90.4 mm, moved the LSM6DSO32 aft and the BMP388 and the forward standoff forward, and put the battery on the low side between the sensors. __Where everything now is: [PCB-carrier.md](PCB-carrier.md#layout).__
 
 __Owed before the carrier is ordered:__
 
@@ -107,6 +126,8 @@ __Built 2026-09-15 as the ElectronicsSled fit article__ ([js-rocket#99](https://
 ## Checks owed before building
 
 1. __The standoff part__: Würth WA-SMSI M3, 10 mm (9774100360) — confirm it is stocked
+2. __The buzzer's lead pitch__: the carrier's two holes are 5.0 mm apart, TDK's catalog figure. Caliper the part in hand ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36))
+
 Settled by the generator rather than owed: every sensor's pin order on the back of the board, and every hole's clearance across the two sides.
 
 __Settled on the bench, 2026-09-11:__ stock Meshtastic reads the GPS on D6/D7 — its startup log names GPIO43/44 and detects the L76K ([#6](https://github.com/jwilleke/js-rocket-avionics/issues/6#issuecomment-5639176943)). So the carrier's `GPS_TX`/`GPS_RX` nets stand as drawn.

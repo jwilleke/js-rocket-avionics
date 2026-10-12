@@ -12,8 +12,10 @@ M3 standoffs, so it can come off the sled as one unit:
     tall side  F.Cu, faces 270 deg (the camera port)
                XIAO-ESP32S3-cam aft, under the camera; L76K-GNSS; XIAO-ESP32S3-lora
                turned 90 deg; the two data-link jumpers forward
+               the PS1240 buzzer at the forward end, facing the Nosecone's sound hole
     low side   B.Cu, faces 90 deg (the web)
-               LSM6DSO32 and BMP388, rows running lengthwise; two SMT M3 standoffs
+               LSM6DSO32, rows lengthwise; BMP388 turned, its row across the board;
+               two SMT M3 standoffs
 
 The web is offset toward 90 deg, clear of the low side, and two M3 plastic
 screws come in from its far face into the standoffs (js-rocket#99). Nothing
@@ -155,9 +157,14 @@ LSM_DX = 3.45
 LSM_PRIMARY = ["VIN", "3Vo", "GND", "SCL", "SDA", "DO", "CS", "I1", "I2"]
 LSM_AUX = ["SCX", "SDX", "CS", "DO", "GND"]    # over Primary pins 3..7
 LSM_NETS = {"VIN": "+3V3", "GND": "GND", "SCL": "SCL", "SDA": "SDA"}
-BMP_Y = 94.6                        # body y 81.85..107.35 -- forward of the battery (B2). Its M2 legs
-                                    # must land between the tall side's header rows;
-                                    # verify_clearances() holds it to that
+# BMP388 TURNED 90 deg (operator, 2026-10-12, #36), so the tall side's forward
+# end has room for the PS1240. Its 25.5 mm length lies across the 24 mm board,
+# ~0.75 past each edge at r <= 8.8 -- clear of the web at r 10.5. Its row runs
+# across, aft, just forward of the lora's battery anchors; its two mounting holes
+# land forward at the board's edges. NO BOLT HOLES in the carrier: a spacer goes
+# through each of the BMP388's own holes and rests on the low face, so nothing
+# crosses to the tall side. Lengthwise until 2026-10-12, at BMP_Y 94.6.
+BMP_Y = 96.0                        # body y 87.1..104.9 -- clear of standoff 2's courtyard (106.55)
 BMP_PINS = ["VIN", "3Vo", "GND", "SCL", "SDO", "SDA", "CS", "INT"]
 # CS tied high forces I2C, which settles #19's unverified pull-up on the part.
 BMP_NETS = {"VIN": "+3V3", "GND": "GND", "SCL": "SCL", "SDA": "SDA", "CS": "+3V3"}
@@ -188,6 +195,19 @@ def low_side_top_xy_route2(px, py, cy):
     return CX + by, cy - bx
 
 
+def bmp_top_xy(px, py, cy):
+    """The turned BMP388, route 1: seen from the low side, turn the front view
+    180 deg (row aft), then mirror x for KiCad's top view."""
+    x_low, y = CX - px, cy - py
+    return BOARD_W - x_low, y
+
+
+def bmp_top_xy_route2(px, py, cy):
+    """Route 2: mirror first (the back view), then turn it 180 deg in the top view."""
+    bx, by = -px, py
+    return CX - bx, cy - by
+
+
 # ---- battery, buzzer, standoffs ----------------------------------------------
 # NO BATTERY ON THE BOARD (operator, 2026-10-11, #30). A Y-cable joins the
 # battery to the two XIAOs' BAT pigtails, off the board, and the battery's lead
@@ -202,13 +222,11 @@ def low_side_top_xy_route2(px, py, cy):
 BATTERY_Y = (42.5, 79.9)     # nose z 67.9..105.3 -- the cage cavity, 37.4 mm (js-rocket#99)
 BATTERY_HALF_W = 14.5        # 29 mm across, 2.5 past each board edge
 BATTERY_R = (5.75, 10.5)     # toward 90 deg: 4.75 thick, against the web's inner face
-# Wire holes, 3.2 apart: the buzzer's flying leads (the PS1240 sits against the
-# nose wall, not on the board), and each XIAO's BAT pigtail. The pigtail holes
+# Wire holes, 3.2 apart: each XIAO's BAT pigtail. The pigtail holes
 # are ANCHORS, not connections: no net. The wires lace through them to the
 # Y-cable, so a pull lands on the board, not on the XIAO's 2.3 x 1.3 mm pads.
 WIRE_PADS = [
     ("TP_CAM_BAT_P", (8.8, 30.0), None), ("TP_CAM_BAT_N", (12.0, 30.0), None),
-    ("TP_BUZ", (15.2, 30.0), "BUZZER"), ("TP_BUZ_G", (12.0, 33.2), "GND"),
     ("TP_LORA_BAT_P", (10.4, 80.8), None), ("TP_LORA_BAT_N", (13.6, 80.8), None),
 ]
 # Two data links, each a 2-pin header with a slide-on shunt and a ~1 kOhm series
@@ -217,11 +235,24 @@ WIRE_PADS = [
 # GPS_RX, the L76K's transmit line. cam -> lora: one way, for Meshtastic's Serial
 # module. WHICH XIAO PINS EACH FAR END MEETS IS STILL OWED, so those ends carry no
 # net yet: the holes are final, the routing is not.
-LINK_HEADERS = [("J_LINK_GPS", (10.0, 92.0), {1: "GPS_RX", 2: "LINK_GPS"}),
-                ("J_LINK_EVT", (10.0, 99.0), {1: "LINK_EVT"})]
-LINK_RESISTORS = [("R_LINK_GPS", (9.5, 95.5), {1: "LINK_GPS"}),
-                  ("R_LINK_EVT", (9.5, 102.5), {2: "LINK_EVT"})]
-LINK_LABELS = [("GPS", 15.6, 92.0), ("EVT", 15.6, 99.0)]
+# Between the lora's battery anchors and the BMP388's row, one link at each edge
+# (#36, 2026-10-12); in the middle at y 92..102.5 until then, where the PS1240
+# now sits.
+LINK_HEADERS = [("J_LINK_GPS", (3.5, 84.0), {1: "GPS_RX", 2: "LINK_GPS"}),
+                ("J_LINK_EVT", (16.9, 84.0), {1: "LINK_EVT"})]
+LINK_RESISTORS = [("R_LINK_GPS", (3.0, 87.0), {1: "LINK_GPS"}),
+                  ("R_LINK_EVT", (14.5, 87.0), {2: "LINK_EVT"})]
+LINK_LABELS = [("GPS", 8.4, 84.0), ("EVT", 14.2, 84.0)]
+# The PS1240 ON THE BOARD (operator, 2026-10-12, #36), tall side, forward, facing
+# a sound hole in the Nosecone at 270 deg. Its leads were flying wires to the nose
+# wall until then, from wire pads between the cam XIAO and the L76K-GNSS.
+# 12.2 x 6.5 mm (TDK catalog; Adafruit lists 11.9 x 6.53), so its top is at r 7.6
+# against the bore's 20. BUZ_PITCH is TDK's; CALIPER THE PART before ordering.
+BUZ_XY = (11.5, 103.0)              # nose z 128.4
+BUZ_R = 6.1
+BUZ_PITCH = 5.0
+BUZ_PADS = [("TP_BUZ", (BUZ_XY[0] - BUZ_PITCH / 2, BUZ_XY[1]), "BUZZER"),
+            ("TP_BUZ_G", (BUZ_XY[0] + BUZ_PITCH / 2, BUZ_XY[1]), "GND")]
 R_FP = "R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal"   # pad 2 at +5.08 x at 0 deg
 # Each XIAO's battery pigtail laces through the two holes directly behind it
 # (operator, 2026-09-13, #14; anchors only from 2026-10-11), so the holes are
@@ -243,7 +274,8 @@ MODULE_LABELS = [
     ("L76K-GNSS", 12.0, 44.0, 1.0, False),
     ("XIAO-ESP32S3", 12.0, 66.8, 0.8, False), ("lora", 12.0, 69.2, 1.5, False),
     ("LSM6DSO32", 14.4, LSM_Y, 1.0, True),   # between its 5-pin row and the cam's x 19.62 row
-    ("BMP388", 12.0, 97.25, 1.0, True),      # between the two data links' holes
+    ("BMP388", 12.0, 96.0, 1.0, True),       # between its row and the buzzer's leads
+    ("PS1240", BUZ_XY[0], BUZ_XY[1] - 2.5, 1.0, False),   # under the disc
 ]
 # Two surface-mount M3 standoffs on the low side, 10 mm (Wuerth WA-SMSI
 # 9774100360). Screws come in from the web's far face. Each has a 4.4 mm hole
@@ -256,7 +288,7 @@ STANDOFFS = [(CX, 4.0), (16.5, 110.5)]   # forward one 5.2 mm from the board's e
                                           # no module; 85.2 until 2026-09-15
 STANDOFF_FP = "Mounting_Wuerth_WA-SMSI-M3_H10mm_9774100360"
 STANDOFF_R = 3.95          # its courtyard
-BMP_LEG_R = 1.9            # an M2 bolt head resting on the board
+BMP_SPACER_R = 1.9         # a spacer's foot on the low face, under each BMP388 hole
 FILLET_R = 0.9             # a through-hole joint on the far face
 
 FP_ROOT = "/Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints/"
@@ -438,15 +470,16 @@ def add_sensors(board):
     add_row(board, "J_LSM_A", "PinHeader_1x05_P2.54mm_Vertical",
             [p for p in lsm if p[0].endswith("_AUX")], {}, back=True)
     add_row(board, "J_BMP", "PinHeader_1x08_P2.54mm_Vertical",
-            sensor_pads(front_pins_bmp(), BMP_Y), BMP_NETS, back=True)
+            [(lab,) + bmp_top_xy(px, py, BMP_Y) for lab, px, py in front_pins_bmp()],
+            BMP_NETS, back=True)
 
 
-def bmp_legs():
-    return [low_side_top_xy(s * BMP_HOLE_PX, BMP_HOLE_PY, BMP_Y) for s in (-1, 1)]
+def bmp_spacers():
+    return [bmp_top_xy(s * BMP_HOLE_PX, BMP_HOLE_PY, BMP_Y) for s in (-1, 1)]
 
 
 def add_power_and_wires(board):
-    for ref, (x, y), net in WIRE_PADS:
+    for ref, (x, y), net in WIRE_PADS + BUZ_PADS:
         tp = place(board, TP_LIB, "TestPoint_THTPad_D2.0mm_Drill1.0mm", ref, x, y, silk=False)
         if net:
             tp.FindPadByNumber("1").SetNet(board.nets[net])
@@ -477,6 +510,13 @@ def add_power_and_wires(board):
             fp.FindPadByNumber(str(num)).SetNet(board.nets[net])
     for text, x, y in LINK_LABELS:
         silk_text(text, x, y, size=0.8)
+    ring = pcbnew.PCB_SHAPE(board)          # where the PS1240 sits
+    ring.SetShape(pcbnew.SHAPE_T_CIRCLE)
+    ring.SetCenter(pcbnew.VECTOR2I(MM(BUZ_XY[0]), MM(BUZ_XY[1])))
+    ring.SetEnd(pcbnew.VECTOR2I(MM(BUZ_XY[0] + BUZ_R), MM(BUZ_XY[1])))
+    ring.SetLayer(pcbnew.F_SilkS)
+    ring.SetWidth(MM(0.15))
+    board.Add(ring)
 
 
 # The footprint the pin numbering follows, RF_Module:MCU_Seeed_ESP32C3, as a
@@ -557,11 +597,13 @@ def verify_pins(board):
         if not near(got.get((ref, net), []), ex, ey):
             bad.append("L76K %s (%s) not at (%.2f, %.2f)" % (label, net, ex, ey))
 
-    for name, front, cy, nets, ref, dx in (("LSM6DSO32", front_pins_lsm(), LSM_Y, LSM_NETS, "J_LSM_P", LSM_DX),
-                                           ("BMP388", front_pins_bmp(), BMP_Y, BMP_NETS, "J_BMP", 0.0)):
+    for name, front, cy, nets, ref, dx, r1, r2 in (
+            ("LSM6DSO32", front_pins_lsm(), LSM_Y, LSM_NETS, "J_LSM_P", LSM_DX,
+             low_side_top_xy, low_side_top_xy_route2),
+            ("BMP388", front_pins_bmp(), BMP_Y, BMP_NETS, "J_BMP", 0.0, bmp_top_xy, bmp_top_xy_route2)):
         for lab, px, py in front:
-            a = low_side_top_xy(px, py, cy)
-            b = low_side_top_xy_route2(px, py, cy)
+            a = r1(px, py, cy)
+            b = r2(px, py, cy)
             a, b = (a[0] + dx, a[1]), (b[0] + dx, b[1])
             if abs(a[0] - b[0]) > 0.01 or abs(a[1] - b[1]) > 0.01:
                 bad.append("%s %s: route 1 (%.2f, %.2f), route 2 (%.2f, %.2f)" % (name, lab, *a, *b))
@@ -587,7 +629,8 @@ def verify_pins(board):
 
 
 def verify_clearances(board):
-    """No two through-holes too close, and nothing under a standoff or a BMP388 leg.
+    """No two through-holes too close, nothing under a standoff or a BMP388
+    spacer, and nothing on the tall side under the PS1240 but its own leads.
 
     The two sides share every through-hole, so a sensor pin on the low side can
     land on a module pin on the tall side. That is the check that makes a
@@ -627,15 +670,18 @@ def verify_clearances(board):
                 bad.append("%s pad %s joint at (%.2f, %.2f) under %s's header plastic"
                            % (ref, num, px, py, sref))
     keep = [(x, y, STANDOFF_R + FILLET_R, "standoff") for x, y in STANDOFFS]
-    keep += [(x, y, BMP_LEG_R + FILLET_R, "BMP388 leg") for x, y in bmp_legs()]
+    keep += [(x, y, BMP_SPACER_R + FILLET_R, "BMP388 spacer") for x, y in bmp_spacers()]
+    keep += [(BUZ_XY[0], BUZ_XY[1], BUZ_R + FILLET_R, "PS1240")]
     for ref, num, px, py in holes:
         for x, y, r, what in keep:
+            if what == "PS1240" and ref.startswith("TP_BUZ"):
+                continue
             if (px - x) ** 2 + (py - y) ** 2 < r * r:
                 bad.append("%s pad %s at (%.2f, %.2f) under the %s at (%.1f, %.1f)"
                            % (ref, num, px, py, what, x, y))
     if bad:
         raise AssertionError("clearance breached:\n  " + "\n  ".join(bad))
-    print("verify   %d through-holes clear of each other, the standoffs and the BMP388 legs"
+    print("verify   %d through-holes clear of each other, the standoffs, the BMP388 spacers and the PS1240"
           % len(holes))
 
 
@@ -676,9 +722,10 @@ def write_layout(board):
         ("XIAO-ESP32S3-cam", "tall", CX - 8.9, CAM_Y - 10.5, CX + 8.9, CAM_Y + 10.5),
         ("L76K-GNSS", "tall", CX - 9.0, L76K_Y - 10.5, CX + 9.0, L76K_Y + 10.5),
         ("XIAO-ESP32S3-lora", "tall", CX - 10.5, LORA_Y - 8.9, CX + 10.5, LORA_Y + 8.9),   # turned
-        ("data links", "tall", 8.2, 90.6, 16.6, 103.6),
+        ("GPS link", "tall", 1.5, 82.6, 9.6, 88.3),
+        ("EVT link", "tall", 13.0, 82.6, 21.1, 88.3),
         ("LSM6DSO32", "low", CX + LSM_DX - 8.9, LSM_Y - 12.75, CX + LSM_DX + 8.9, LSM_Y + 12.75),
-        ("BMP388", "low", CX - 8.9, BMP_Y - 12.75, CX + 8.9, BMP_Y + 12.75),
+        ("BMP388", "low", CX - 12.75, BMP_Y - 8.9, CX + 12.75, BMP_Y + 8.9),   # turned
     ]
     out = {
         "board": {"w": BOARD_W, "h": BOARD_H, "r": CORNER_R, "nose_z0": BOARD_NOSE_Z0},
@@ -686,7 +733,8 @@ def write_layout(board):
                   {"x0": CX - 11.7, "y0": LORA_Y - 4.0, "x1": CX - 10.5, "y1": LORA_Y + 4.0}],
         "bodies": [dict(zip(("name", "side", "x0", "y0", "x1", "y1"), b)) for b in bodies],
         "standoffs": [{"x": x, "y": y, "r": STANDOFF_R} for x, y in STANDOFFS],
-        "bmp_legs": [{"x": x, "y": y} for x, y in bmp_legs()],
+        "bmp_spacers": [{"x": x, "y": y, "r": BMP_SPACER_R} for x, y in bmp_spacers()],
+        "buzzer": {"x": BUZ_XY[0], "y": BUZ_XY[1], "r": BUZ_R},
         "battery": {"x0": CX - BATTERY_HALF_W, "y0": BATTERY_Y[0],
                     "x1": CX + BATTERY_HALF_W, "y1": BATTERY_Y[1],
                     "r0": BATTERY_R[0], "r1": BATTERY_R[1]},

@@ -46,9 +46,11 @@ A __barometer is still carried, unported and demoted__ to ejection-event timesta
 
 Side benefit: this frees the contested nose wall for the camera lens.
 
+__The buzzer's sound hole is now an unintended port__, beside the barometer — a data-quality note, not a blocker: [BMP388-barometer.md](../hardware/BMP388-barometer/BMP388-barometer.md#the-buzzers-sound-hole-is-an-unintended-static-port).
+
 ## The carrier PCB
 
-__One two-sided board on the PayloadSled's centre line__, hanging off the web on two M3 standoffs (operator, 2026-09-11). The __tall side__ faces 270°, the camera port, and carries both XIAO stacks, the L76K-GNSS and the data-link jumpers; the __low side__ faces 90°, the web, and carries the sensors. What the board is, both sides, is [PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md); the design record is [PCB-carrier-design.md](../hardware/PCB-carrier/PCB-carrier-design.md). This section is why.
+__One two-sided board on the PayloadSled's centre line__, hanging off the web on two M3 standoffs (operator, 2026-09-11). The __tall side__ faces 270°, the camera port, and carries both XIAO stacks, the L76K-GNSS, the data-link jumpers and the buzzer; the __low side__ faces 90°, the web, and carries the sensors. What the board is, both sides, is [PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md); the design record is [PCB-carrier-design.md](../hardware/PCB-carrier/PCB-carrier-design.md). This section is why.
 
 ### How it got here
 
@@ -83,10 +85,10 @@ The camera hangs off the expansion board __on a flexible ribbon__, so its positi
 
 | Side | Faces | Carries |
 |---|---|---|
-| __Tall__ | 270°, the camera port | XIAO-ESP32S3-cam + Sense camera board (aft, under the camera); L76K-GNSS; XIAO-ESP32S3-lora + Wio-SX1262 (forward); the data-link jumpers |
-| __Low__ | 90°, the web | LSM6DSO32 and BMP388, lengthwise; two M3 standoffs |
+| __Tall__ | 270°, the camera port | XIAO-ESP32S3-cam + Sense camera board (aft, under the camera); L76K-GNSS; XIAO-ESP32S3-lora + Wio-SX1262; the data-link jumpers; the PS1240 buzzer (forward), facing a sound hole in the Nosecone |
+| __Low__ | 90°, the web | LSM6DSO32, lengthwise; BMP388, turned across the board; two M3 standoffs |
 
-__The buzzer and both antennas are not on the board.__ The PS1240 sits against the nose wall on two wire pads; the antennas are on the sled ([Antennas.md](../hardware/Antennas/Antennas.md)). Net list: __9 nets__ — +3V3, +3V3_LORA, GND, VBAT, SDA, SCL, BUZZER, GPS_TX, GPS_RX. The wiring table is in the [README](../README.md).
+__Both antennas are off the board__, on the sled ([Antennas.md](../hardware/Antennas/Antennas.md)). The net list is on [PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md); the wiring table is in the [README](../README.md#connections).
 
 ### The GPS is an L76K, not a MAX-M10S
 
@@ -153,7 +155,7 @@ __Video runs from launch until landing is detected__, then stops (operator, 2026
 - __The buzzer does three jobs.__ (1) Last-20-metre locator — GPS lands you in a 3–10 m circle and a white PLA rocket vanishes in tall grass at 2 m. (2) __The only status channel on the pad__ — with the nose assembled, USB is unreachable, Wi-Fi is off, and the GPIO21 LED is sealed inside, so beep patterns are the only way the rocket reports booted / armed / sensors alive. (3) Beeping apogee in digits after landing, needing no phone.
 - __The buzzer is *passive*, PWM-driven from D0.__ An earlier revision specified an active self-oscillating part, because the buzzer then hung off an I2C GPIO expander where a ~3 kHz tone meant 6000 bus transactions a second. Two boards freed the pins, the expander went, and a real GPIO can PWM a passive element directly — giving __multiple tones__ rather than one, which is what makes beep patterns readable as distinct codes.
 - __The buzzer is not radio redundancy__ — it shares XIAO-ESP32S3-cam's MCU. Only a self-powered beeper with its own battery (~5 g, zero pins) is immune to firmware and MCU failure. Not adopted; revisit if recovery confidence matters more than grams.
-- __Sound must escape a sealed PLA cone.__ A piezo in a closed cavity loses 20–30 dB. Mount the disc __against the nose wall__ so the shell acts as a soundboard; the camera port is a free acoustic leak, and the bay is open at its base.
+- __Sound must escape a sealed PLA cone.__ A piezo in a closed cavity loses 20–30 dB, so the buzzer faces a sound hole in the Nosecone — [PS1240-buzzer.md](../hardware/PS1240-buzzer/PS1240-buzzer.md#sound-has-to-escape-a-sealed-pla-cone).
 - __The barometer is interchangeable.__ With the static port dropped it is not the altimeter. __BMP388__ shares the BMP3xx driver so it is a drop-in for the out-of-stock BMP390, and a generic BMP280 would serve.
 
 ### IMU substitutes — the ±16 g trap
@@ -251,7 +253,7 @@ Each flight adds one thing, and the recovery beacon is proven before anything ex
 3. __PCB bring-up__ — power, then XIAO-ESP32S3-lora: GPS UART and LoRa; then XIAO-ESP32S3-cam: I2C enumeration and camera. __Measure GPS lock time with the LoRa transmitting__, since desense cannot be reasoned about from a schematic.
 4. __Sample-rate integrity under load__ — run XIAO-ESP32S3-cam's 500 Hz sampler with the camera recording to SD and confirm __zero dropped samples__ by checking timestamp deltas, not by trusting the loop. __Done on the bench, 2026-09-12: zero dropped__ at 833 Hz accel + gyro for 60 s while recording, judged by the FIFO's own overrun flag — [camera-stack.md](../hardware/camera-stack/camera-stack.md#at-flight-load--stack-load-test). Repeat on the carrier and on the battery ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)).
 5. __Shared-battery behaviour__ — confirm the camera's inrush on XIAO-ESP32S3-cam does not brown out XIAO-ESP32S3-lora, and that charging through one USB port with both BAT pads connected behaves.
-6. __Buzzer audibility, assembled__ — beep inside a closed Nosecone and listen from 20 m. A sealed cavity costs 20–30 dB; couple the disc harder to the shell before considering a dedicated sound hole.
+6. __Buzzer audibility, assembled__ — beep inside a closed Nosecone, through its sound hole, and listen from 20 m.
 7. __Mass__ — weigh the loaded sled and hand the real number to the rocket's stability re-run, [#9](https://github.com/jwilleke/js-rocket/issues/9). __Do not fly on the estimate.__
 
 ## Risks

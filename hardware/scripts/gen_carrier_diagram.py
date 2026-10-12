@@ -144,9 +144,20 @@ def main():
             svg.text(cx, cy + 25, "%.2f mm off the board" % (bat["r0"] - 0.5), 8.5, BATTERY, "middle")
 
         if side == "low":
-            for leg in L["bmp_legs"]:
-                svg.circle(px(side, leg["x"]), py(leg["y"]), 1.9 * S, "none",
+            for sp in L["bmp_spacers"]:
+                svg.circle(px(side, sp["x"]), py(sp["y"]), sp["r"] * S, "none",
                            SIDE_COLOUR["low"], 1.0, "2,2")
+        # the PS1240, on the tall side, facing the Nosecone's sound hole
+        bz = L["buzzer"]
+        mine = side == "tall"
+        svg.circle(px(side, bz["x"]), py(bz["y"]), bz["r"] * S, SIDE_COLOUR["tall"] if mine else "none",
+                   SIDE_COLOUR["tall"], 1.2 if mine else 0.7, None if mine else "3,3")
+        if mine:
+            svg.add('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#ffffff" fill-opacity="0.75" stroke="none"/>'
+                    % (px(side, bz["x"]), py(bz["y"]), bz["r"] * S - 1))
+            svg.text(px(side, bz["x"]), py(bz["y"]) - 12, "PS1240", 10.5, SIDE_COLOUR["tall"], "middle", "bold")
+            svg.text(px(side, bz["x"]), py(bz["y"]) + 20, "buzzer, nose z %.1f" % (z0 + bz["y"]), 8.5,
+                     SIDE_COLOUR["tall"], "middle")
 
         for p in L["pads"]:
             if p["ref"].startswith("SO"):
@@ -178,6 +189,7 @@ def main():
 
     # nose z, shared, at the stations that matter
     ys = {0.0, bh} | {s_["y"] for s_ in L["standoffs"]} | {L["battery"]["y0"], L["battery"]["y1"]}
+    ys |= {L["buzzer"]["y"]}
     for b in L["bodies"]:
         if b["name"] != "JST-PH":
             ys |= {b["y0"], b["y1"]}
@@ -206,8 +218,12 @@ def main():
             "screws from the web's far face — M3 × 10,",
             "which stops short of the board.",
             "",
-            "Dashed rings on the low side: the BMP388's",
-            "M2 bolt-head legs.",
+            "Dashed rings on the low side: the spacers",
+            "through the BMP388's own holes. No bolt",
+            "crosses the board.",
+            "",
+            "PS1240 buzzer: on the tall side, facing",
+            "the sound hole in the Nosecone at 270°.",
             "",
             "The battery is not on the board: the",
             "PayloadSled's cage holds it against the",

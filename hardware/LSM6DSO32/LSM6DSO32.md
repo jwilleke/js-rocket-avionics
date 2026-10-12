@@ -65,7 +65,7 @@ The front shot is the dimensional record — square-on on the measurement grid, 
 | Mounting holes → each short side | __2.54 mm__ |
 | Screw | __M2__ |
 
-__The BMP388 is the same board dimensionally__ — same outline, same 20.58 mm centres, same thickness to 0.01. __The carrier carries one hole pattern, placed twice__: two M2 clearance holes at 20.58 mm centres. What differs is the rotation, not the drilling — the BMP388's holes are on the edge opposite its header, these are on the __Aux__ edge with the Primary row opposite.
+__The BMP388 is the same board dimensionally__ — same outline, same 20.58 mm centres, same thickness to 0.01. What differs is where the holes sit — the BMP388's are on the edge opposite its header, these are on the __Aux__ edge with the Primary row opposite. The carrier has no hole under either part's mounting holes ([PCB-carrier.md](../PCB-carrier/PCB-carrier.md#low-side--faces-90-the-web)).
 
 ### Fitting it
 

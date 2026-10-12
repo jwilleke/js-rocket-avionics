@@ -164,7 +164,7 @@ __Worth one tie-break reading before the board is fabricated__, not before the f
 
 __Nothing further is needed to draw the footprint.__ Outline, pitch, hole pattern and both Y offsets are in hand, and every X position falls out of the outline and the 2.54 mm pitch.
 
-__This tie-break no longer gates fabrication__ (2026-09-11): nothing screws a sensor into the carrier any more. The holes only take the BMP388's M2 leg bolts, which rest on the board, so 0.16 mm does not matter.
+__This tie-break no longer gates fabrication__ (2026-09-11): nothing screws a sensor into the carrier any more. The holes only locate the BMP388's two spacers, which stand on the board, so 0.16 mm does not matter.
 
 ## XIAO ESP32S3 — read off the underside 2026-09-08
 

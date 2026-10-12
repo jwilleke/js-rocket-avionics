@@ -16,6 +16,10 @@ __The port was dropped for five reasons__, of which [design.md](../../docs/desig
 
 A __contamination bulkhead__ — foam or plate, no sealing duty — still belongs at the sled base to keep black-powder particulate off the boards.
 
+### The buzzer's sound hole is an unintended static port
+
+__The Nosecone has a Ø6.0 sound hole on the camera side for the [buzzer](../PS1240-buzzer/PS1240-buzzer.md)__, right beside this part ([nosecone.md](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/nosecone.md), [#36](https://github.com/jwilleke/js-rocket-avionics/issues/36)). It vents the payload bay at that one point on the ogive, so the reading carries the local pressure there — on a transition, exactly where a static port is not allowed. Nothing consumes the number for ejection, so it is __a data-quality note to check in the flight log__, not a blocker.
+
 Because it is not the altimeter, __the part is interchangeable__: it shares the BMP3xx driver so it was a drop-in for the out-of-stock BMP390, and a generic BMP280 would serve.
 
 ## Photographs
@@ -59,11 +63,13 @@ __On the bench, 2026-09-12:__ chip ID `0x50` — a BMP388, not a BMP390 (`0x60`)
 
 __Every outline figure above is identical on the LSM6DSO32.__ Working in [module-pinouts.md](../../docs/module-pinouts.md).
 
-__Mounting: flat, on a straight kit-standard header, no screws through the carrier__ (operator, 2026-09-11). The pin row is soldered on one edge. The free edge rests on __two M2 bolts through its own mounting holes, heads down__ on the carrier, nutted on top, which keeps it level at the header's ~2.50 mm. __The bolts are long enough for their tips to go into two holes in the ElectronicsSled's web__, which then holds the free edge as well (operator, [js-rocket#99](https://github.com/jwilleke/js-rocket/issues/99)); from the board face to 2 mm into the web is about __M2 × 12__, to be confirmed on the parts. Nothing is screwed through the carrier. On the carrier it sits on the __low side, lengthwise__, standing ~1 mm proud on its pins with the header plastic up against the part ([PCB-carrier.md](../PCB-carrier/PCB-carrier.md)). The legs then need that extra millimetre too. __Straight, not right-angle__, and the same part on the bench and in flight, so it is soldered once and never removed. Settled in [module-pinouts.md](../../docs/module-pinouts.md#the-header-is-a-straight-kit-standard-strip--settled-2026-09-08), which owns it.
+## Mounting
+
+__Flat, on a straight kit-standard header, no screws through the carrier__ (operator, 2026-09-11). On the carrier it sits on the __low side, turned 90°__, its pin row soldered and running across the board, standing ~1 mm proud on its pins with the header plastic up against the part. __The free edge rests on two ~3.5 mm spacers__, one in each of its own mounting holes, standing on the carrier's low face, so the part sits level at its pins' height (operator, 2026-10-12, [#36](https://github.com/jwilleke/js-rocket-avionics/issues/36)). No bolt and no hole in the carrier: nothing crosses to the tall side. Where it sits: [PCB-carrier.md](../PCB-carrier/PCB-carrier.md#low-side--faces-90-the-web). __Straight, not right-angle__, and the same part on the bench and in flight, so it is soldered once and never removed. Settled in [module-pinouts.md](../../docs/module-pinouts.md#the-header-is-a-straight-kit-standard-strip--settled-2026-09-08), which owns it.
 
 __All eight pads get soldered, four carry signal__ — `VIN` (1), `GND` (3), `SCL` (4), `SDA` (6). The rest are mechanical. __`CS` is tied to +3V3 on the carrier__, forcing I2C whatever the part's own pull-up does ([#19](https://github.com/jwilleke/js-rocket-avionics/issues/19)).
 
-__The leg bolts are M2__ because the holes decide it: Ø2.35 passes an M2 with 0.35 mm of total clearance, and __an M2.5 does not fit at all__. See [Fasteners](../README.md#fasteners).
+__The mounting holes are Ø2.35__, so that is what each spacer has to locate in: an M2-sized spigot passes with 0.35 mm of total clearance, and __an M2.5 does not fit at all__.
 
 __The board is marked 3 V__, and the design runs +3V3 into VIN. __5 V is not a documented fallback for this board__, whatever the listing says.
 

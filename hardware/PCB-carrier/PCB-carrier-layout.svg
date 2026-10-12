@@ -9,9 +9,10 @@
 <rect x="170.2" y="716.8" width="115.7" height="136.5" rx="2.0" fill="#9a3412" fill-opacity="0.18" stroke="#9a3412" stroke-width="1.2"/>
 <rect x="169.5" y="547.8" width="117.0" height="136.5" rx="2.0" fill="#9a3412" fill-opacity="0.18" stroke="#9a3412" stroke-width="1.2"/>
 <rect x="159.8" y="402.2" width="136.5" height="115.7" rx="2.0" fill="#9a3412" fill-opacity="0.18" stroke="#9a3412" stroke-width="1.2"/>
-<rect x="198.1" y="228.7" width="54.6" height="84.5" rx="2.0" fill="#9a3412" fill-opacity="0.18" stroke="#9a3412" stroke-width="1.2"/>
+<rect x="243.6" y="328.1" width="52.6" height="37.1" rx="2.0" fill="#9a3412" fill-opacity="0.18" stroke="#9a3412" stroke-width="1.2"/>
+<rect x="168.8" y="328.1" width="52.7" height="37.1" rx="2.0" fill="#9a3412" fill-opacity="0.18" stroke="#9a3412" stroke-width="1.2"/>
 <rect x="147.7" y="684.3" width="115.7" height="165.8" rx="2.0" fill="none" fill-opacity="0.00" stroke="#1d6b3f" stroke-width="0.7" stroke-dasharray="3,3"/>
-<rect x="170.2" y="204.3" width="115.7" height="165.8" rx="2.0" fill="none" fill-opacity="0.00" stroke="#1d6b3f" stroke-width="0.7" stroke-dasharray="3,3"/>
+<rect x="145.1" y="220.2" width="165.8" height="115.7" rx="2.0" fill="none" fill-opacity="0.00" stroke="#1d6b3f" stroke-width="0.7" stroke-dasharray="3,3"/>
 <rect x="202.0" y="861.1" width="52.0" height="-7.8" rx="0.0" fill="#b8b8b8" fill-opacity="1.00" stroke="#1b1b1b" stroke-width="0.8"/>
 <rect x="296.2" y="486.1" width="7.8" height="-52.0" rx="0.0" fill="#b8b8b8" fill-opacity="1.00" stroke="#1b1b1b" stroke-width="0.8"/>
 <circle cx="228.0" cy="876.1" r="25.7" fill="none" stroke="#b7791f" stroke-width="0.7" stroke-dasharray="3,2"/>
@@ -21,14 +22,18 @@
 <text x="198.8" y="186.8" font-size="7.5" fill="#b7791f" text-anchor="middle" font-weight="normal">standoff,</text>
 <text x="198.8" y="195.8" font-size="7.5" fill="#b7791f" text-anchor="middle" font-weight="normal">other side</text>
 <rect x="133.8" y="382.7" width="188.5" height="243.1" rx="3.0" fill="none" fill-opacity="0.00" stroke="#5a6b8c" stroke-width="0.8" stroke-dasharray="6,3"/>
-<circle cx="186.7" cy="344.9" r="5.2" fill="#cc2f2f" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="186.7" cy="328.4" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="186.7" cy="311.9" r="5.2" fill="#222222" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="186.7" cy="295.4" r="5.2" fill="#d99b00" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="186.7" cy="278.9" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="186.7" cy="262.4" r="5.2" fill="#2f5fcc" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="186.7" cy="245.9" r="5.2" fill="#cc2f2f" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="186.7" cy="229.4" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="231.2" cy="232.6" r="39.6" fill="#9a3412" stroke="#9a3412" stroke-width="1.2"/>
+<circle cx="231.2" cy="232.6" r="38.6" fill="#ffffff" fill-opacity="0.75" stroke="none"/>
+<text x="231.2" y="220.6" font-size="10.5" fill="#9a3412" text-anchor="middle" font-weight="bold">PS1240</text>
+<text x="231.2" y="252.6" font-size="8.5" fill="#9a3412" text-anchor="middle" font-weight="normal">buzzer, nose z 128.4</text>
+<circle cx="285.8" cy="319.4" r="5.2" fill="#cc2f2f" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="269.3" cy="319.4" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="252.8" cy="319.4" r="5.2" fill="#222222" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="236.3" cy="319.4" r="5.2" fill="#d99b00" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="219.7" cy="319.4" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="203.2" cy="319.4" r="5.2" fill="#2f5fcc" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="186.7" cy="319.4" r="5.2" fill="#cc2f2f" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="170.2" cy="319.4" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="277.5" cy="834.6" r="5.2" fill="#6f6f6f" stroke="#1b1b1b" stroke-width="0.5"/>
 <text x="288.5" y="838.1" font-size="8.0" fill="#1b1b1b" text-anchor="start" font-weight="normal">D0</text>
 <circle cx="277.5" cy="818.1" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
@@ -71,10 +76,10 @@
 <circle cx="178.5" cy="599.5" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="178.5" cy="583.0" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="178.5" cy="566.5" r="5.2" fill="#1d8a4a" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="241.0" cy="258.6" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="224.5" cy="258.6" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="241.0" cy="304.1" r="5.2" fill="#7a3fb5" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="224.5" cy="304.1" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="196.2" cy="356.1" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="179.6" cy="356.1" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="283.2" cy="356.1" r="5.2" fill="#7a3fb5" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="266.7" cy="356.1" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="277.5" cy="410.5" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <text x="280.5" y="399.5" font-size="7.0" fill="#1b1b1b" text-anchor="start" font-weight="normal" transform="rotate(-90 280.5 399.5)">D0</text>
 <circle cx="261.0" cy="410.5" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
@@ -117,12 +122,12 @@
 <circle cx="164.2" cy="734.2" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="164.2" cy="717.6" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="164.2" cy="701.1" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="244.2" cy="235.8" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="211.2" cy="235.8" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="244.2" cy="281.3" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="211.2" cy="281.3" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="207.2" cy="707.1" r="5.2" fill="#6f6f6f" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="228.0" cy="686.2" r="5.2" fill="#222222" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="211.8" cy="336.6" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="178.7" cy="336.6" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="286.5" cy="336.6" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="253.5" cy="336.6" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="247.5" cy="232.6" r="5.2" fill="#6f6f6f" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="215.0" cy="232.6" r="5.2" fill="#222222" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="228.0" cy="707.1" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="248.8" cy="707.1" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="217.6" cy="376.9" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
@@ -132,16 +137,18 @@
 <text x="228.0" y="620.0" font-size="10.5" fill="#9a3412" text-anchor="middle" font-weight="bold">L76K-GNSS</text>
 <text x="228.0" y="457.6" font-size="10.5" fill="#9a3412" text-anchor="middle" font-weight="bold">XIAO-ESP32S3</text>
 <text x="228.0" y="470.6" font-size="10.5" fill="#9a3412" text-anchor="middle" font-weight="bold">lora</text>
-<text x="225.4" y="274.9" font-size="10.5" fill="#9a3412" text-anchor="middle" font-weight="bold">data links</text>
+<text x="269.9" y="350.6" font-size="10.5" fill="#9a3412" text-anchor="middle" font-weight="bold">GPS link</text>
+<text x="195.2" y="350.6" font-size="10.5" fill="#9a3412" text-anchor="middle" font-weight="bold">EVT link</text>
 <text x="548.0" y="120.0" font-size="14.0" fill="#1b1b1b" text-anchor="middle" font-weight="bold">LOW SIDE — faces 90°</text>
 <text x="548.0" y="136.0" font-size="10.5" fill="#5b5b5b" text-anchor="middle" font-weight="normal">seen from the web side</text>
 <rect x="470.0" y="150.0" width="156.0" height="752.1" rx="13.0" fill="#e9f1e4" fill-opacity="1.00" stroke="#5f7f52" stroke-width="1.5"/>
 <rect x="490.1" y="716.8" width="115.7" height="136.5" rx="2.0" fill="none" fill-opacity="0.00" stroke="#9a3412" stroke-width="0.7" stroke-dasharray="3,3"/>
 <rect x="489.5" y="547.8" width="117.0" height="136.5" rx="2.0" fill="none" fill-opacity="0.00" stroke="#9a3412" stroke-width="0.7" stroke-dasharray="3,3"/>
 <rect x="479.8" y="402.2" width="136.5" height="115.7" rx="2.0" fill="none" fill-opacity="0.00" stroke="#9a3412" stroke-width="0.7" stroke-dasharray="3,3"/>
-<rect x="523.3" y="228.7" width="54.6" height="84.5" rx="2.0" fill="none" fill-opacity="0.00" stroke="#9a3412" stroke-width="0.7" stroke-dasharray="3,3"/>
+<rect x="479.8" y="328.1" width="52.6" height="37.1" rx="2.0" fill="none" fill-opacity="0.00" stroke="#9a3412" stroke-width="0.7" stroke-dasharray="3,3"/>
+<rect x="554.5" y="328.1" width="52.6" height="37.1" rx="2.0" fill="none" fill-opacity="0.00" stroke="#9a3412" stroke-width="0.7" stroke-dasharray="3,3"/>
 <rect x="512.6" y="684.3" width="115.7" height="165.8" rx="2.0" fill="#1d6b3f" fill-opacity="0.18" stroke="#1d6b3f" stroke-width="1.2"/>
-<rect x="490.1" y="204.3" width="115.7" height="165.8" rx="2.0" fill="#1d6b3f" fill-opacity="0.18" stroke="#1d6b3f" stroke-width="1.2"/>
+<rect x="465.1" y="220.2" width="165.8" height="115.7" rx="2.0" fill="#1d6b3f" fill-opacity="0.18" stroke="#1d6b3f" stroke-width="1.2"/>
 <circle cx="548.0" cy="876.1" r="25.7" fill="#fff4d6" stroke="#b7791f" stroke-width="1.3"/>
 <text x="548.0" y="880.1" font-size="10.0" fill="#b7791f" text-anchor="middle" font-weight="bold">M3</text>
 <circle cx="577.2" cy="183.8" r="25.7" fill="#fff4d6" stroke="#b7791f" stroke-width="1.3"/>
@@ -151,16 +158,17 @@
 <text x="548.0" y="507.2" font-size="8.5" fill="#5a6b8c" text-anchor="middle" font-weight="normal">nose z 67.9–105.3</text>
 <text x="548.0" y="518.2" font-size="8.5" fill="#5a6b8c" text-anchor="middle" font-weight="normal">in the sled's cage,</text>
 <text x="548.0" y="529.2" font-size="8.5" fill="#5a6b8c" text-anchor="middle" font-weight="normal">5.25 mm off the board</text>
-<circle cx="506.8" cy="354.0" r="12.3" fill="none" stroke="#1d6b3f" stroke-width="1.0" stroke-dasharray="2,2"/>
-<circle cx="506.8" cy="220.3" r="12.3" fill="none" stroke="#1d6b3f" stroke-width="1.0" stroke-dasharray="2,2"/>
-<circle cx="589.3" cy="344.9" r="5.2" fill="#cc2f2f" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="589.3" cy="328.4" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="589.3" cy="311.9" r="5.2" fill="#222222" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="589.3" cy="295.4" r="5.2" fill="#d99b00" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="589.3" cy="278.9" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="589.3" cy="262.4" r="5.2" fill="#2f5fcc" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="589.3" cy="245.9" r="5.2" fill="#cc2f2f" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="589.3" cy="229.4" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="481.1" cy="236.8" r="12.3" fill="none" stroke="#1d6b3f" stroke-width="1.0" stroke-dasharray="2,2"/>
+<circle cx="614.9" cy="236.8" r="12.3" fill="none" stroke="#1d6b3f" stroke-width="1.0" stroke-dasharray="2,2"/>
+<circle cx="544.8" cy="232.6" r="39.6" fill="none" stroke="#9a3412" stroke-width="0.7" stroke-dasharray="3,3"/>
+<circle cx="490.2" cy="319.4" r="5.2" fill="#cc2f2f" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="506.7" cy="319.4" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="523.2" cy="319.4" r="5.2" fill="#222222" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="539.7" cy="319.4" r="5.2" fill="#d99b00" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="556.3" cy="319.4" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="572.8" cy="319.4" r="5.2" fill="#2f5fcc" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="589.3" cy="319.4" r="5.2" fill="#cc2f2f" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="605.8" cy="319.4" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="498.5" cy="834.6" r="5.2" fill="#6f6f6f" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="498.5" cy="818.1" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="498.5" cy="801.6" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
@@ -189,10 +197,10 @@
 <circle cx="597.5" cy="599.5" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="597.5" cy="583.0" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="597.5" cy="566.5" r="5.2" fill="#1d8a4a" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="535.0" cy="258.6" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="551.5" cy="258.6" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="535.0" cy="304.1" r="5.2" fill="#7a3fb5" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="551.5" cy="304.1" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="579.9" cy="356.1" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="596.4" cy="356.1" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="492.8" cy="356.1" r="5.2" fill="#7a3fb5" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="509.3" cy="356.1" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="498.5" cy="410.5" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="515.0" cy="410.5" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="531.5" cy="410.5" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
@@ -221,18 +229,18 @@
 <circle cx="611.8" cy="734.2" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="611.8" cy="717.6" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="611.8" cy="701.1" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="531.8" cy="235.8" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="564.8" cy="235.8" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="531.8" cy="281.3" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="564.8" cy="281.3" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="568.8" cy="707.1" r="5.2" fill="#6f6f6f" stroke="#1b1b1b" stroke-width="0.5"/>
-<circle cx="548.0" cy="686.2" r="5.2" fill="#222222" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="564.2" cy="336.6" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="597.3" cy="336.6" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="489.5" cy="336.6" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="522.5" cy="336.6" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="528.5" cy="232.6" r="5.2" fill="#6f6f6f" stroke="#1b1b1b" stroke-width="0.5"/>
+<circle cx="561.0" cy="232.6" r="5.2" fill="#222222" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="548.0" cy="707.1" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="527.2" cy="707.1" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="558.4" cy="376.9" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <circle cx="537.6" cy="376.9" r="5.2" fill="#d4af37" stroke="#1b1b1b" stroke-width="0.5"/>
 <text x="570.4" y="771.2" font-size="10.5" fill="#1d6b3f" text-anchor="middle" font-weight="bold">LSM6DSO32</text>
-<text x="548.0" y="291.2" font-size="10.5" fill="#1d6b3f" text-anchor="middle" font-weight="bold">BMP388</text>
+<text x="548.0" y="282.1" font-size="10.5" fill="#1d6b3f" text-anchor="middle" font-weight="bold">BMP388</text>
 <line x1="112.0" y1="902.1" x2="150.0" y2="902.1" stroke="#2f5fcc" stroke-width="0.5" stroke-dasharray="2,3"/>
 <text x="108.0" y="906.1" font-size="10.0" fill="#2f5fcc" text-anchor="end" font-weight="normal">25.4</text>
 <line x1="112.0" y1="876.1" x2="150.0" y2="876.1" stroke="#2f5fcc" stroke-width="0.5" stroke-dasharray="2,3"/>
@@ -253,14 +261,14 @@
 <text x="108.0" y="406.2" font-size="10.0" fill="#2f5fcc" text-anchor="end" font-weight="normal">102.3</text>
 <line x1="112.0" y1="382.7" x2="150.0" y2="382.7" stroke="#2f5fcc" stroke-width="0.5" stroke-dasharray="2,3"/>
 <text x="108.0" y="386.7" font-size="10.0" fill="#2f5fcc" text-anchor="end" font-weight="normal">105.3</text>
-<line x1="112.0" y1="370.0" x2="150.0" y2="370.0" stroke="#2f5fcc" stroke-width="0.5" stroke-dasharray="2,3"/>
-<text x="108.0" y="374.0" font-size="10.0" fill="#2f5fcc" text-anchor="end" font-weight="normal">107.2</text>
-<line x1="112.0" y1="313.2" x2="150.0" y2="313.2" stroke="#2f5fcc" stroke-width="0.5" stroke-dasharray="2,3"/>
-<text x="108.0" y="317.2" font-size="10.0" fill="#2f5fcc" text-anchor="end" font-weight="normal">116.0</text>
-<line x1="112.0" y1="228.7" x2="150.0" y2="228.7" stroke="#2f5fcc" stroke-width="0.5" stroke-dasharray="2,3"/>
-<text x="108.0" y="232.7" font-size="10.0" fill="#2f5fcc" text-anchor="end" font-weight="normal">129.0</text>
-<line x1="112.0" y1="204.3" x2="150.0" y2="204.3" stroke="#2f5fcc" stroke-width="0.5" stroke-dasharray="2,3"/>
-<text x="108.0" y="208.3" font-size="10.0" fill="#2f5fcc" text-anchor="end" font-weight="normal">132.8</text>
+<line x1="112.0" y1="365.2" x2="150.0" y2="365.2" stroke="#2f5fcc" stroke-width="0.5" stroke-dasharray="2,3"/>
+<text x="108.0" y="369.2" font-size="10.0" fill="#2f5fcc" text-anchor="end" font-weight="normal">108.0</text>
+<line x1="112.0" y1="335.9" x2="150.0" y2="335.9" stroke="#2f5fcc" stroke-width="0.5" stroke-dasharray="2,3"/>
+<text x="108.0" y="339.9" font-size="10.0" fill="#2f5fcc" text-anchor="end" font-weight="normal">112.5</text>
+<line x1="112.0" y1="232.6" x2="150.0" y2="232.6" stroke="#2f5fcc" stroke-width="0.5" stroke-dasharray="2,3"/>
+<text x="108.0" y="236.6" font-size="10.0" fill="#2f5fcc" text-anchor="end" font-weight="normal">128.4</text>
+<line x1="112.0" y1="220.2" x2="150.0" y2="220.2" stroke="#2f5fcc" stroke-width="0.5" stroke-dasharray="2,3"/>
+<text x="108.0" y="224.2" font-size="10.0" fill="#2f5fcc" text-anchor="end" font-weight="normal">130.3</text>
 <line x1="112.0" y1="183.8" x2="150.0" y2="183.8" stroke="#2f5fcc" stroke-width="0.5" stroke-dasharray="2,3"/>
 <text x="108.0" y="187.8" font-size="10.0" fill="#2f5fcc" text-anchor="end" font-weight="normal">135.9</text>
 <line x1="112.0" y1="150.0" x2="150.0" y2="150.0" stroke="#2f5fcc" stroke-width="0.5" stroke-dasharray="2,3"/>
@@ -293,16 +301,20 @@
 <text x="740.0" y="409.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">screws from the web's far face — M3 × 10,</text>
 <text x="740.0" y="424.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">which stops short of the board.</text>
 <text x="740.0" y="439.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal"></text>
-<text x="740.0" y="454.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">Dashed rings on the low side: the BMP388's</text>
-<text x="740.0" y="469.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">M2 bolt-head legs.</text>
-<text x="740.0" y="484.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal"></text>
-<text x="740.0" y="499.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">The battery is not on the board: the</text>
-<text x="740.0" y="514.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">PayloadSled's cage holds it against the</text>
-<text x="740.0" y="529.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">web, 29 mm wide, 2.5 mm past each edge.</text>
-<text x="740.0" y="544.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">The fit mock marks its two ends.</text>
-<text x="740.0" y="559.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal"></text>
-<text x="740.0" y="574.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">The sensors stand ~1 mm proud on their</text>
-<text x="740.0" y="589.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">pins, header plastic up against the</text>
-<text x="740.0" y="604.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">sensor, clear of the tall side's joints.</text>
+<text x="740.0" y="454.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">Dashed rings on the low side: the spacers</text>
+<text x="740.0" y="469.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">through the BMP388's own holes. No bolt</text>
+<text x="740.0" y="484.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">crosses the board.</text>
+<text x="740.0" y="499.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal"></text>
+<text x="740.0" y="514.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">PS1240 buzzer: on the tall side, facing</text>
+<text x="740.0" y="529.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">the sound hole in the Nosecone at 270°.</text>
+<text x="740.0" y="544.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal"></text>
+<text x="740.0" y="559.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">The battery is not on the board: the</text>
+<text x="740.0" y="574.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">PayloadSled's cage holds it against the</text>
+<text x="740.0" y="589.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">web, 29 mm wide, 2.5 mm past each edge.</text>
+<text x="740.0" y="604.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">The fit mock marks its two ends.</text>
+<text x="740.0" y="619.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal"></text>
+<text x="740.0" y="634.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">The sensors stand ~1 mm proud on their</text>
+<text x="740.0" y="649.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">pins, header plastic up against the</text>
+<text x="740.0" y="664.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">sensor, clear of the tall side's joints.</text>
 <text x="24.0" y="994.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">Generated by hardware/scripts/gen_carrier_diagram.py from PCB-carrier-layout.json, which gen_carrier.py writes. Regenerate, do not edit.</text>
 </svg>

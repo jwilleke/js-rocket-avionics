@@ -48,11 +48,12 @@ XIAO_LABELS = {"A": ["D0", "D1", "D2", "D3", "D4", "D5", "D6"],
                "B": ["D7", "D8", "D9", "D10", "3V3", "GND", "5V"]}
 # callouts beside the board, by pad reference: (text lines, page-y nudge in mm)
 CALLOUTS = [
-    (("TP_CAM_BAT_P", "TP_CAM_BAT_N", "TP_BUZ", "TP_BUZ_G"),
-     ("XIAO-ESP32S3-cam pigtail anchor: BAT+ red, BAT− black, laced", "through, not soldered; buzzer leads: BUZ grey, BUZ G black"), 0.0),
+    (("TP_CAM_BAT_P", "TP_CAM_BAT_N"),
+     ("XIAO-ESP32S3-cam pigtail anchor: BAT+ red, BAT− black, laced", "through, not soldered"), 0.0),
+    (("TP_BUZ", "TP_BUZ_G"), ("PS1240 buzzer, tall side, in the ring:", "BUZ grey, BUZ G black"), 0.0),
     (("TP_LORA_BAT_P", "TP_LORA_BAT_N"), ("XIAO-ESP32S3-lora pigtail anchor: lace BAT+ red,", "BAT− black through, not soldered"), 0.0),
     (("J_LSM_P", "J_LSM_A"), ("LSM6DSO32, low side: its 9-hole row (green) outside", "the cam XIAO's row, its 5-hole row inside"), 0.0),
-    (("J_BMP",), ("BMP388, low side: its 8-hole row, green,", "and two M2 bolt heads on the far edge"), -5.9),
+    (("J_BMP",), ("BMP388, low side, turned: its 8-hole row, green;", "a spacer under each of its holes, no bolt"), 0.0),
     (("J_LINK_GPS", "R_LINK_GPS"), ("GPS → cam data link: 2-pin header", "and its 1 kΩ, lying flat"), -1.25),
     (("J_LINK_EVT", "R_LINK_EVT"), ("cam → lora data link: 2-pin header", "and its 1 kΩ, lying flat"), -5.25),
 ]
@@ -148,8 +149,11 @@ def main():
             svg.circle(px(side, so["x"]), py(so["y"]), so["r"], "none", STANDOFF, 0.25,
                        None if side == "low" else "1,0.7")
         if side == "low":
-            for leg in L["bmp_legs"]:
-                svg.circle(px(side, leg["x"]), py(leg["y"]), 1.9, "none", SIDE_COLOUR["low"], 0.2, "0.7,0.5")
+            for sp in L["bmp_spacers"]:
+                svg.circle(px(side, sp["x"]), py(sp["y"]), sp["r"], "none", SIDE_COLOUR["low"], 0.2, "0.7,0.5")
+        bz = L["buzzer"]
+        svg.circle(px(side, bz["x"]), py(bz["y"]), bz["r"], "none", SIDE_COLOUR["tall"], 0.25,
+                   None if side == "tall" else "1,0.7")
 
         # every hole the mock has, at the size the mock has it, rimmed in the colour of the side
         # whose part owns it -- so the sensors' holes stand out from the XIAO rows beside them

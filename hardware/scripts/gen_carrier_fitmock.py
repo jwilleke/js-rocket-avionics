@@ -47,9 +47,9 @@ THICKNESS = 1.6            # the real board, OSH Park 4-layer. KiCad exports its
 MARK_R = 0.75              # the battery marker holes
 MARK_X = (1.2, 22.8)       # inside both long edges
 # arrow: tip forward (+y)
-ARROW = [(8.5, 114.4), (11.5, 110.4), (9.7, 110.4), (9.7, 107.6),
-         (7.3, 107.6), (7.3, 110.4), (5.5, 110.4)]   # the forward tip: clear on both faces,
-                                                     # between the BMP388 and the forward standoff
+ARROW = [(5.5, 114.6), (8.5, 110.6), (6.7, 110.6), (6.7, 108.0),
+         (4.3, 108.0), (4.3, 110.6), (2.5, 110.6)]   # the forward corner, clear of the PS1240's
+                                                     # disc (#36) and the BMP388's spacers
 
 MM = pcbnew.FromMM
 HOLES = []
