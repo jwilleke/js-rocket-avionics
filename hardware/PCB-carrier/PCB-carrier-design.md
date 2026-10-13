@@ -80,7 +80,7 @@ __Operator, 2026-09-12 ([#26](https://github.com/jwilleke/js-rocket-avionics/iss
 
 ## The buzzer on the board, the BMP388 turned — decided 2026-10-12
 
-__Operator, 2026-10-12 ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36)).__ The PS1240 is on the carrier, at the tall side's forward end, facing a sound hole cut in the Nosecone on the camera side ([nosecone.md](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/nosecone.md)). Its two leads go into their own holes; the wire pads that took flying leads to the nose wall are gone. [PS1240-buzzer.md](../PS1240-buzzer/PS1240-buzzer.md) owns the part, [PCB-carrier.md](PCB-carrier.md#layout) where it sits.
+__Operator, 2026-10-12 ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36)).__ The PS1240 is on the carrier, at the tall side's forward end, facing the Nosecone's wall at 270°, the camera side. The sound hole in that wall is deferred to a later flight (2026-10-13, [js-rocket#118](https://github.com/jwilleke/js-rocket/issues/118)); the position stands without it. Its two leads go into their own holes; the wire pads that took flying leads to the nose wall are gone. [PS1240-buzzer.md](../PS1240-buzzer/PS1240-buzzer.md) owns the part, [PCB-carrier.md](PCB-carrier.md#layout) where it sits.
 
 __Two things moved to make room, and nothing else did.__ XIAO-ESP32S3-cam, the L76K-GNSS and XIAO-ESP32S3-lora stay where they were.
 
