@@ -94,8 +94,6 @@ __Rejected:__
 
 __Checked in the generator, 2026-10-12:__ `verify_clearances()` passes (78 through-holes clear of each other, the standoffs, the BMP388's spacers and the buzzer); kicad-cli DRC 0 violations, 11 unconnected items — the unrouted nets, unchanged. The fit mock was regenerated and re-sliced, and all 84 holes and markers are open in the G-code; the plate is js-rocket's `rocket/printing/ready/carrier-fit-mock.gcode.3mf`.
 
-__The sound hole also vents the payload bay beside the BMP388__, so it is now an unintended static port. A data-quality check, not a blocker: [BMP388-barometer.md](../BMP388-barometer/BMP388-barometer.md#the-buzzers-sound-hole-is-an-unintended-static-port).
-
 ## The battery sits behind the carrier — decided 2026-09-14, layout B2 2026-09-15
 
 __Operator: behind the carrier on 2026-09-14, layout B2 on 2026-09-15.__ The battery lies behind the carrier's __low face__, between the board and the moved web, long axis along the sled, 29 mm across (2.5 mm past each board edge). __Its position is in [PCB-carrier.md](PCB-carrier.md#low-side--faces-90-the-web)__, which owns it.

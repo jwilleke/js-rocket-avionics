@@ -16,9 +16,12 @@ __The port was dropped for five reasons__, of which [design.md](../../docs/desig
 
 A __contamination bulkhead__ — foam or plate, no sealing duty — still belongs at the sled base to keep black-powder particulate off the boards.
 
-### The buzzer's sound hole is an unintended static port
+### The buzzer's sound hole does not affect either job
 
-__The Nosecone has a Ø6.0 sound hole on the camera side for the [buzzer](../PS1240-buzzer/PS1240-buzzer.md)__, right beside this part ([nosecone.md](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/nosecone.md), [#36](https://github.com/jwilleke/js-rocket-avionics/issues/36)). It vents the payload bay at that one point on the ogive, so the reading carries the local pressure there — on a transition, exactly where a static port is not allowed. Nothing consumes the number for ejection, so it is __a data-quality note to check in the flight log__, not a blocker.
+__The Nosecone has a Ø6.0 sound hole on the camera side for the [buzzer](../PS1240-buzzer/PS1240-buzzer.md)__, beside this part ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36)). It vents the payload bay, but neither job needs a static pressure:
+
+- __Ejection timestamp__ — the charge's pressure pulse reaches the bay through its open base. The hole bleeds some of it off a little sooner, but the pulse's leading edge, which sets the timestamp, still arrives
+- __Landing__ — read as pressure going flat. The hole lets the bay settle to outside pressure sooner, which helps
 
 Because it is not the altimeter, __the part is interchangeable__: it shares the BMP3xx driver so it was a drop-in for the out-of-stock BMP390, and a generic BMP280 would serve.
 

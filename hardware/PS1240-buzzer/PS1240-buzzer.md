@@ -32,7 +32,7 @@ __A piezo in a closed cavity loses 20–30 dB__, so the buzzer faces a hole. It 
 
 __The part is 12.2 × 6.5 mm__ (TDK's catalog; Adafruit lists 11.9 × 6.53), so on the carrier its top stands at r 7.6, far inside the Nosecone's inner wall at r 23.07. __Its two leads are 5.0 mm apart by TDK's catalog__, not yet calipered on the part in hand — [owed before the carrier is ordered](../PCB-carrier/PCB-carrier-design.md#checks-owed-before-building). They come through the carrier under the BMP388, so they are trimmed short before it goes on.
 
-__The hole also vents the bay beside the barometer__ — what that does to its reading is on [BMP388-barometer.md](../BMP388-barometer/BMP388-barometer.md#the-buzzers-sound-hole-is-an-unintended-static-port).
+__The hole also vents the bay beside the barometer__, which affects neither of its jobs: [BMP388-barometer.md](../BMP388-barometer/BMP388-barometer.md#the-buzzers-sound-hole-does-not-affect-either-job).
 
 ## What it is not
 

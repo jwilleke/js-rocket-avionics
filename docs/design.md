@@ -46,8 +46,6 @@ A __barometer is still carried, unported and demoted__ to ejection-event timesta
 
 Side benefit: this frees the contested nose wall for the camera lens.
 
-__The buzzer's sound hole is now an unintended port__, beside the barometer — a data-quality note, not a blocker: [BMP388-barometer.md](../hardware/BMP388-barometer/BMP388-barometer.md#the-buzzers-sound-hole-is-an-unintended-static-port).
-
 ## The carrier PCB
 
 __One two-sided board on the PayloadSled's centre line__, hanging off the web on two M3 standoffs (operator, 2026-09-11). The __tall side__ faces 270°, the camera port, and carries both XIAO stacks, the L76K-GNSS, the data-link jumpers and the buzzer; the __low side__ faces 90°, the web, and carries the sensors. What the board is, both sides, is [PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md); the design record is [PCB-carrier-design.md](../hardware/PCB-carrier/PCB-carrier-design.md). This section is why.
