@@ -247,7 +247,7 @@ LINK_LABELS = [("GPS", 8.4, 84.0), ("EVT", 14.2, 84.0)]
 # a sound hole in the Nosecone at 270 deg. Its leads were flying wires to the nose
 # wall until then, from wire pads between the cam XIAO and the L76K-GNSS.
 # 12.2 x 6.5 mm (TDK catalog; Adafruit lists 11.9 x 6.53), so its top is at r 7.6
-# against the bore's 20. BUZ_PITCH is TDK's; CALIPER THE PART before ordering.
+# against the bore's 20. BUZ_PITCH is TDK's, confirmed on the part in hand 2026-10-15.
 BUZ_XY = (11.5, 103.0)              # nose z 128.4
 BUZ_R = 6.1
 BUZ_PITCH = 5.0

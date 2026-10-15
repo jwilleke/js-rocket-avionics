@@ -124,7 +124,7 @@ __Built 2026-09-15 as the ElectronicsSled fit article__ ([js-rocket#99](https://
 ## Checks owed before building
 
 1. __The standoff part__: Würth WA-SMSI M3, 10 mm (9774100360) — confirm it is stocked
-2. __The buzzer's lead pitch__: the carrier's two holes are 5.0 mm apart, TDK's catalog figure. Caliper the part in hand ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36))
+2. ~~__The buzzer's lead pitch__~~ — done 2026-10-15: 5.0 mm on the part in hand, matching the carrier's holes ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36))
 
 Settled by the generator rather than owed: every sensor's pin order on the back of the board, and every hole's clearance across the two sides.
 

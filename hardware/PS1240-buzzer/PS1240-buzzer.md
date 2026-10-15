@@ -32,7 +32,7 @@ __A piezo in a closed cavity loses 20–30 dB.__ The buzzer is soldered to the [
 
 __So the loss is taken, and whether the beep still carries is untested.__ The [audibility test](../../docs/design.md#verification) — beep inside the closed Nosecone, listen from 20 m — is owed before flight 4, and matters more without a hole.
 
-__The part is 12.2 × 6.5 mm__ (TDK's catalog; Adafruit lists 11.9 × 6.53), so on the carrier its top stands at r 7.6, far inside the Nosecone's inner wall at r 23.07. __Its two leads are 5.0 mm apart by TDK's catalog__, not yet calipered on the part in hand — [owed before the carrier is ordered](../PCB-carrier/PCB-carrier-design.md#checks-owed-before-building). They come through the carrier under the BMP388, so they are trimmed short before it goes on.
+__The part is 12.2 × 6.5 mm__ (TDK's catalog; Adafruit lists 11.9 × 6.53), so on the carrier its top stands at r 7.6, far inside the Nosecone's inner wall at r 23.07. __Its two leads are 5.0 mm apart__, measured on the part in hand (2026-10-15) and matching TDK's catalog. They come through the carrier under the BMP388, so they are trimmed short before it goes on.
 
 ## What it is not
 
