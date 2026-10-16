@@ -63,7 +63,7 @@ __The holes are already in the generator__ (`WIRE_PADS`, `TestPoint_THTPad_D2.0m
 - __Polarity__ is fixed by the holes, not a connector: `+` to `+`, checked with a meter before first power-up
 - __Superseded:__ JST sockets on the board for the pigtails (decided and dropped the same day — no room within the pigtail's ~10 mm)
 
-### Two data links, each behind an open jumper — in the generator, pins owed
+### Two data links, each behind an open jumper — in the generator, netted
 
 __Operator, 2026-09-12 ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)).__ Both are nice-to-have, so the copper is built now and the features are chosen later. Each link runs through a __standard 2-pin 2.54 mm header with a slide-on shunt__: shunt off, the boards are exactly as isolated as without the link; shunt on, the feature is available to firmware.
 
@@ -76,7 +76,7 @@ __Operator, 2026-09-12 ([#26](https://github.com/jwilleke/js-rocket-avionics/iss
 - __Height:__ header plus shunt stands ~8–9 mm, so both go on the __tall side__, where the XIAO stacks already reach 10.7–11.8 mm
 - __Where:__ one at each long edge, just forward of the L76K-GNSS, so the buzzer has the middle of the forward end ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36)). Positions: [PCB-carrier.md](PCB-carrier.md#tall-side--faces-270-the-camera)
 - __Set before the nose is closed__ — the shunts are not reachable after
-- __Owed before they are drawn:__ which spare pins — mj-cam's `D1` (GPIO2) is the clean choice for the GPS input, `D2` is a strapping pin; the lora side is whatever Meshtastic's `seeed-xiao-s3` variant leaves free beside the Wio-SX1262 — and a bench check that the Serial module does what is described on firmware `2.7.26` ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26))
+- __Pins, decided 2026-10-16 ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)):__ mj-cam hears the GPS on `D1` (GPIO2) and sends event text from `D3` (GPIO4); the lora XIAO receives on `D1` (GPIO2). Meshtastic's `seeed_xiao_s3` variant at 2.7.26 claims `D0`, `D4`–`D10` and GPIO38–42, leaving `D1`–`D3` free; `D2` is a strapping pin. Still owed: a bench check that the Serial module forwards text from GPIO2 beside the Wio-SX1262 — and a bench check that the Serial module does what is described on firmware `2.7.26` ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26))
 
 ## The buzzer on the board, the BMP388 turned — decided 2026-10-12
 

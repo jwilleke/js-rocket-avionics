@@ -11,14 +11,14 @@ The sled side of the interface is [js-rocket#99](https://github.com/jwilleke/js-
 | Size | __24 × 115.7 mm__, nose z 25.4 → 141.1 |
 | Stackup | __4-layer__, solid ground plane |
 | Thickness | __1.6 mm FR4__, OSH Park's only 4-layer thickness. Low face at r 0.5 — [why](../../README.md#the-interface-to-the-sled) |
-| Nets | +3V3, +3V3_LORA, GND, SDA, SCL, BUZZER, GPS_TX, GPS_RX, LINK_GPS, LINK_EVT. __No battery net__: the battery reaches the XIAOs by a Y-cable, off the board |
+| Nets | +3V3, +3V3_LORA, GND, SDA, SCL, BUZZER, GPS_TX, GPS_RX, LINK_GPS, LINK_EVT, GPS_CAM, EVT_CAM, EVT_LORA. __No battery net__: the battery reaches the XIAOs by a Y-cable, off the board |
 | Mounting | two __surface-mount M3 standoffs__, 10 mm (Würth WA-SMSI 9774100360), on the low side. __M3 plastic screws, M3 × 10__, from the web's far face |
 
 ## Not yet in the generator
 
 __The layout drawing, the fit mock and the paper template do not show these yet.__ Each is part of the design on this page. __No fit mock is printed until this list is empty__ ([#34](https://github.com/jwilleke/js-rocket-avionics/issues/34)).
 
-- __Which XIAO pins the two data links meet__ — their headers and resistors are drawn, their far ends carry no net yet. Routing only; no hole moves — [#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)
+- __Whether Meshtastic's Serial module forwards text from lora D1 on 2.7.26__ — a bench check once the ground receiver is here. The copper does not wait on it: the event link's shunt stays off if it does not — [#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)
 - __The PS1240 driven from two pins__ in opposite phase, for about +6 dB. `TP_BUZ_G` becomes the second drive net instead of `GND`; both holes stay where they are. Which XIAO-ESP32S3-cam pin is still open — [#25](https://github.com/jwilleke/js-rocket-avionics/issues/25)
 
 ## Layout

@@ -116,8 +116,12 @@ XIAO_PIN = {
 # The cam XIAO feeds the +3V3 plane and the sensors. The lora XIAO feeds only the
 # L76K-GNSS, from its own 3V3 pin -- kept off the plane so no two regulators are
 # ever paralleled. GPS_TX / GPS_RX are named from the XIAO's side.
-CAM_SIGNALS = {"D0": "BUZZER", "D4": "SDA", "D5": "SCL", "3V3": "+3V3", "GND": "GND"}
-LORA_SIGNALS = {"D6": "GPS_TX", "D7": "GPS_RX", "3V3": "+3V3_LORA", "GND": "GND"}
+# The data links' far ends (operator, 2026-10-16, #26): the cam XIAO hears the GPS on
+# D1 and sends event text from D3; the lora XIAO takes it on D1 (GPIO2), which stock
+# Meshtastic leaves free -- its seeed_xiao_s3 variant claims D0, D4-D10 and GPIO38-42.
+CAM_SIGNALS = {"D0": "BUZZER", "D1": "GPS_CAM", "D3": "EVT_CAM", "D4": "SDA", "D5": "SCL",
+               "3V3": "+3V3", "GND": "GND"}
+LORA_SIGNALS = {"D1": "EVT_LORA", "D6": "GPS_TX", "D7": "GPS_RX", "3V3": "+3V3_LORA", "GND": "GND"}
 XIAOS = [("J_CAM_", CAM_Y, CAM_SIGNALS, False), ("J_LORA_", LORA_Y, LORA_SIGNALS, True)]
 
 
@@ -243,15 +247,15 @@ WIRE_PADS = [
 # resistor, on the tall side at the forward end (operator, 2026-09-12, #26;
 # PCB-carrier-design.md). Shunt off is the safe state. GPS -> cam: header pin 1 on
 # GPS_RX, the L76K's transmit line. cam -> lora: one way, for Meshtastic's Serial
-# module. WHICH XIAO PINS EACH FAR END MEETS IS STILL OWED, so those ends carry no
-# net yet: the holes are final, the routing is not.
+# module. Far ends: GPS_CAM to cam D1, EVT_CAM from cam D3, EVT_LORA to lora D1
+# (operator, 2026-10-16, #26). Each resistor sits at the cam XIAO's end.
 # Between the lora's battery anchors and the BMP388's row, one link at each edge
 # (#36, 2026-10-12); in the middle at y 92..102.5 until then, where the PS1240
 # now sits.
 LINK_HEADERS = [("J_LINK_GPS", (3.5, 84.0), {1: "GPS_RX", 2: "LINK_GPS"}),
-                ("J_LINK_EVT", (16.9, 84.0), {1: "LINK_EVT"})]
-LINK_RESISTORS = [("R_LINK_GPS", (3.0, 87.0), {1: "LINK_GPS"}),
-                  ("R_LINK_EVT", (14.5, 87.0), {2: "LINK_EVT"})]
+                ("J_LINK_EVT", (16.9, 84.0), {1: "LINK_EVT", 2: "EVT_LORA"})]
+LINK_RESISTORS = [("R_LINK_GPS", (3.0, 87.0), {1: "LINK_GPS", 2: "GPS_CAM"}),
+                  ("R_LINK_EVT", (14.5, 87.0), {1: "EVT_CAM", 2: "LINK_EVT"})]
 LINK_LABELS = [("GPS", 8.4, 84.0), ("EVT", 14.2, 84.0)]
 # The PS1240 ON THE BOARD (operator, 2026-10-12, #36), tall side, forward, facing
 # a sound hole in the Nosecone at 270 deg. Its leads were flying wires to the nose
@@ -780,7 +784,7 @@ def main():
 
     board.nets = {}
     for name in ("GND", "+3V3", "+3V3_LORA", "GPS_TX", "GPS_RX", "SDA", "SCL",
-                 "BUZZER", "LINK_GPS", "LINK_EVT"):
+                 "BUZZER", "LINK_GPS", "LINK_EVT", "GPS_CAM", "EVT_CAM", "EVT_LORA"):
         n = pcbnew.NETINFO_ITEM(board, name)
         board.Add(n)
         board.nets[name] = n

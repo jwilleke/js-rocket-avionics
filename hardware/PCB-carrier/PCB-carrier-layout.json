@@ -190,7 +190,7 @@
   {
    "ref": "J_CAM_A",
    "num": "2",
-   "net": "",
+   "net": "GPS_CAM",
    "side": "tall",
    "x": 4.38,
    "y": 12.92
@@ -206,7 +206,7 @@
   {
    "ref": "J_CAM_A",
    "num": "4",
-   "net": "",
+   "net": "EVT_CAM",
    "side": "tall",
    "x": 4.38,
    "y": 18.0
@@ -414,7 +414,7 @@
   {
    "ref": "J_LINK_EVT",
    "num": "2",
-   "net": "",
+   "net": "EVT_LORA",
    "side": "tall",
    "x": 19.44,
    "y": 84.0
@@ -446,7 +446,7 @@
   {
    "ref": "J_LORA_A",
    "num": "2",
-   "net": "",
+   "net": "EVT_LORA",
    "side": "tall",
    "x": 6.92,
    "y": 49.02
@@ -662,7 +662,7 @@
   {
    "ref": "R_LINK_EVT",
    "num": "1",
-   "net": "",
+   "net": "EVT_CAM",
    "side": "tall",
    "x": 14.5,
    "y": 87.0
@@ -686,7 +686,7 @@
   {
    "ref": "R_LINK_GPS",
    "num": "2",
-   "net": "",
+   "net": "GPS_CAM",
    "side": "tall",
    "x": 8.08,
    "y": 87.0

@@ -71,8 +71,11 @@ There is __no schematic file__. Nets are assigned to pads directly in the genera
 | `BUZZER` | cam __D0__ (pin 1, GPIO1) | the buzzer's other lead (`TP_BUZ`); the PS1240 sits on the tall side's forward end |
 | `GPS_TX` | lora __D6__ (pin 7, GPIO43) | the L76K-GNSS's pad at the D6 position, which is the module's __RX__ |
 | `GPS_RX` | lora __D7__ (pin 8, GPIO44) | the L76K-GNSS's pad at the D7 position, which is the module's __TX__ |
-| `LINK_GPS` | the GPS link's 2-pin header, pin 2 (pin 1 is on `GPS_RX`) | its 1 kΩ. The resistor's far end, toward a XIAO-ESP32S3-cam input, is __not netted yet__ — the pin is owed ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)) |
-| `LINK_EVT` | the event link's 2-pin header, pin 1 | its 1 kΩ. Both far ends — a XIAO-ESP32S3-cam output and a XIAO-ESP32S3-lora input — are __not netted yet__ ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)) |
+| `LINK_GPS` | the GPS link's 2-pin header, pin 2 (pin 1 is on `GPS_RX`) | its 1 kΩ, whose far end is `GPS_CAM` |
+| `LINK_EVT` | the event link's 2-pin header, pin 1 | its 1 kΩ, whose far end is `EVT_CAM` |
+| `GPS_CAM` | XIAO-ESP32S3-cam __D1__ (GPIO2) | the GPS link's 1 kΩ: the cam XIAO hears the GPS ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)) |
+| `EVT_CAM` | XIAO-ESP32S3-cam __D3__ (GPIO4) | the event link's 1 kΩ: event text out |
+| `EVT_LORA` | XIAO-ESP32S3-lora __D1__ (GPIO2) | the event link's 2-pin header, pin 2: Meshtastic's Serial module receives here. Stock Meshtastic leaves D1 free ([#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)) |
 
 `GPS_TX` and `GPS_RX` are named from the XIAO's side. __Wire the L76K-GNSS by position, never by its silkscreen word__ — [L76K-GNSS.md](hardware/L76K-GNSS/L76K-GNSS.md#pinout--from-seeeds-schematic-not-the-listing).
 
