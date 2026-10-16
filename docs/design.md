@@ -20,7 +20,7 @@ Related: [BOM.md](BOM.md) (parts and masses) · [shopping-list.md](shopping-list
 | Flight log storage | __Buffer in PSRAM, and write it to the card in slices as it goes__ (operator, 2026-09-12) | The sampler never writes the card itself — a separate writer task does, so a card stall delays the slice, never a sample |
 | Power | __One battery__ through a __Y-cable__, off the board, to each XIAO's __underside BAT pads by soldered pigtail__. __Charge through one USB port at a time__ | BAT is not on the castellated edge, so it cannot come through the headers. Avoids adding a charge IC |
 | Arming | __In the battery line__, not on a GPIO — and __flight 3 flies without one__ (2026-09-08). Mechanism and status: [Arming-switch.md](../hardware/Arming-switch/Arming-switch.md) | Physically cuts power; zero pins; cuts both modules at once. Deferred rather than replaced: __nothing else takes the role__ |
-| Antennas | __Both off-board on U.FL__ — GPS patch forward-facing, LoRa 82 mm whip up the ogive | A GPS patch needs a 30–40 mm ground plane; a 24 mm board never will be |
+| Antennas | __Both off-board on U.FL__ — GPS patch forward-facing; LoRa a flat strip on the back of the sled, the web's outer face, at the PORT end ([Antennas.md](../hardware/Antennas/Antennas.md)) | A GPS patch needs a 30–40 mm ground plane; a 24 mm board never will be |
 
 ## Why two boards, after settling on one
 

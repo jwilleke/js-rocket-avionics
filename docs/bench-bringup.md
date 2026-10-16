@@ -40,7 +40,7 @@ __Step by step, from the wired breadboard to a GPS fix: [lora-bench-board.md](be
 
 - Power the matched kit over USB and confirm it __enumerates as Meshtastic, untouched__
 - Get a __GPS fix outdoors__ and record __time to first fix__
-- Range-check the __82 mm U.FL whip__. The beacon is the recovery system, and an untested link is an untested recovery
+- Range-check the __LoRa antenna strip__ on its 82 mm U.FL lead. The beacon is the recovery system, and an untested link is an untested recovery
 
 > __Its USB-C is not used in the flight build__ — charging and service go through the Sense stack, because this module carries stock Meshtastic and nothing else ([the firmware rule](../hardware/XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md#firmware--stock-meshtastic-only-updated-on-purpose-frozen-for-flight)). Using its port on the bench is fine and expected; just note that the flight configuration has no service access to it.
 

@@ -14,7 +14,7 @@ Weights measured 2026-08-17 unless the row says `est`.
 |---|---|---|---|---|
 | XIAO ESP32S3 (plain) | 102010611 (kit) | Seeed | A | 2.9 |
 | Wio-SX1262 LoRa | 102010611 (kit) | Seeed | A | 2.1 |
-| U.FL 82 mm whip, 860-930M A-03 | 102010611 (kit) | Seeed | A | 0.4 |
+| LoRa antenna strip on an 82 mm U.FL lead, 860-930M A-03 | 102010611 (kit) | Seeed | A | 0.4 |
 | L76K GNSS for XIAO | 109100021 | Seeed | A | 14.2 |
 | XIAO ESP32S3 Sense | 113991115 | Seeed | B | 4.0 |
 | LSM6DSO32 6-DoF IMU | 4692 | Adafruit | B | 1.8 |
@@ -77,7 +77,7 @@ Both ride one two-sided carrier PCB, on its tall side, with the sensors on the o
 | Part | Why this one |
 |---|---|
 | __XIAO ESP32S3 + Wio-SX1262__ | Supported Meshtastic device out of the box. __Must be the matched B2B kit variant__ — buy SKU 102010611 as a kit, never the two boards separately. It arrives pre-flashed, which is the entire premise of XIAO-ESP32S3-lora |
-| __U.FL 82 mm whip__ | LoRa antenna, runs forward up the ogive. Included in the kit |
+| __LoRa antenna strip__ | A flat strip on an 82 mm U.FL lead, on the back of the sled at the PORT end ([Antennas.md](../hardware/Antennas/Antennas.md)). Included in the kit |
 | __L76K GNSS__ | __Active antenna included.__ Talks UART on D6/D7 and __mounts flat on the carrier's tall side__, on its own footprint ([where](../hardware/PCB-carrier/PCB-carrier.md#tall-side--faces-270-the-camera)) — it can ride a XIAO's 14 pads, but does not. Replaced a MAX-M10S that was 44.2 × 30.5 mm and ~$60 |
 | __XIAO ESP32S3 Sense__ | Recorder MCU. Carries the camera — an __OV3660__, confirmed off the ribbon 2026-09-06, not the OV2640 assumed throughout — and the microSD slot on its expansion board |
 | __LSM6DSO32__ | __±32 g.__ Boost peaks at __17.6 g__, so every ±16 g part on the market clips — and a clipped boost integral destroys the velocity estimate for the whole flight. 9 KB __FIFO__ is a hard requirement |
