@@ -10,7 +10,7 @@ __Position for XIAO-ESP32S3-lora.__ Ships with an active antenna. __It mounts fl
 |---|---|
 | Module | ≈__20 × 17 mm__, `QUECTEL L76K` |
 | Interface | UART on __D6/D7__ |
-| Mounting | __flat on the carrier's tall side, own footprint__, between the two XIAOs, antenna end forward |
+| Mounting | __flat on the carrier's tall side, own footprint__, turned 90° — [where](../PCB-carrier/PCB-carrier.md#tall-side--faces-270-the-camera) |
 | Antenna | active patch, ≈__25 × 25 mm__, U.FL, __`ANT 50mA MAX`__ |
 
 - [Getting Started with L76K GNSS Module for SeeedStudio XIAO](https://wiki.seeedstudio.com/get_start_l76k_gnss/)
@@ -28,7 +28,7 @@ Read off the grid — [module-pinouts.md](../../docs/module-pinouts.md#how-these
 | __L76K module__ | ≈ __20 × 17 mm__ |
 | __Patch antenna__ | ≈ __25 × 25 mm__, on a flying U.FL lead |
 
-Silkscreen: `QUECTEL L76K`, a U.FL connector, and __`ANT 50mA MAX`__ — the active antenna's current budget. __The outline matters__, because the module takes a footprint on the carrier's tall side, 21 mm of its length.
+Silkscreen: `QUECTEL L76K`, a U.FL connector, and __`ANT 50mA MAX`__ — the active antenna's current budget. __The outline matters__, because the module takes a footprint on the carrier's tall side.
 
 ## The antenna is the part worth looking at
 

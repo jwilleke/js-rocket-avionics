@@ -43,13 +43,13 @@ __One board on the PayloadSled's centre line__, hanging off the web on two stand
 | Corner radius | 2.0 mm |
 | Standoffs | __2 × Würth WA-SMSI M3, 10 mm__ (9774100360), low side, at board (x, y) __(12.0, 4.0)__ and __(16.5, 110.5)__ — nose z 29.4 and 135.9, neither under a module. M3 plastic screws, __M3 × 10__, from the web's far face |
 | XIAO-ESP32S3-cam centre | board y __18.0__ (nose z 43.4), under the camera pad |
-| XIAO-ESP32S3-lora centre | board y __68.0__ (nose z 93.4) |
+| XIAO-ESP32S3-lora centre | board y __41.4__ (nose z 66.8), turned 90° |
 
 Board x runs across the board, y from the aft end, forward positive, in KiCad's top view (the tall side). Everything above is read out of the generated board by `gen_carrier.py`; the gerbers in `fab/` predate it ([#16](https://github.com/jwilleke/js-rocket-avionics/issues/16)).
 
 __Why 24 mm wide.__ It matches the web. The sensors fit across it or hang just past its edges, below the web — [PCB-carrier.md](hardware/PCB-carrier/PCB-carrier.md#low-side--faces-90-the-web).
 
-__Why 115.7 mm long.__ The camera fixes the cam XIAO at the aft end, and the tall side then carries the L76K-GNSS, the lora XIAO, the data-link jumpers and the buzzer end to end. The low side carries the battery as well as the sensors (layout B2, 2026-09-15): LSM6DSO32 aft, the battery behind the L76K and the lora XIAO, the BMP388 forward of it, turned across the board under the buzzer ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36)). 90.4 mm until the battery moved onto the board.
+__Why 115.7 mm long.__ The camera fixes the cam XIAO at the aft end, and the tall side then carries the lora XIAO, the L76K-GNSS, the data-link jumpers and the buzzer end to end. The low side carries the battery as well as the sensors (layout B2, 2026-09-15): LSM6DSO32 aft, the battery behind the lora XIAO and the L76K, the BMP388 forward of it, turned across the board under the buzzer ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36)). 90.4 mm until the battery moved onto the board.
 
 __Why 1.6 mm.__ It is the only thickness OSH Park makes a 4-layer board in — "63mil (1.6mm) nominal". The 1.0 mm this page carried until 2026-09-15 was never checked against the fab; the operator caught it on the printed fit mock ("looks too thin"). It is also the better board: the standoffs are now __106.5 mm apart__ (81 before 2026-09-15), and 1.6 mm is __about 4× as stiff__ as 1.0 over that span (stiffness goes as thickness cubed). The low face — the standoffs' face — stays at r 0.5, so the sled does not change; the tall side moves __0.6 mm toward 270°__. What that costs across the bore is in [PCB-carrier-design.md](hardware/PCB-carrier/PCB-carrier-design.md#across-the-bore)
 
@@ -91,7 +91,7 @@ __Each 1×7 header numbers its own pads 1–7.__ The second row's pad 1 is XIAO 
 
 ## The GPS is an L76K
 
-The MAX-M10S was rejected on 2026-08-06: __44.2 × 30.5 mm — wider than this 24 mm board — and ~$60__. The chosen part is Seeed's __L76K GNSS for XIAO (109100021)__ — 18 × 21 mm, UART on __D6/D7__. It takes its own footprint on the tall side, between the two XIAOs, and its antenna is a separate part on the sled. Pinout, power and orientation: [L76K-GNSS.md](hardware/L76K-GNSS/L76K-GNSS.md).
+The MAX-M10S was rejected on 2026-08-06: __44.2 × 30.5 mm — wider than this 24 mm board — and ~$60__. The chosen part is Seeed's __L76K GNSS for XIAO (109100021)__ — 18 × 21 mm, UART on __D6/D7__. It takes its own footprint on the tall side, forward of the lora XIAO ([where](hardware/PCB-carrier/PCB-carrier.md#tall-side--faces-270-the-camera)), and its antenna is a separate part on the sled. Pinout, power and orientation: [L76K-GNSS.md](hardware/L76K-GNSS/L76K-GNSS.md).
 
 The same staleness once reached the barometer: __BMP390 → BMP388__, settled on 2026-08-06 when the 390 went out of stock. Same BMP3xx driver, same 25.5 × 17.8 mm STEMMA QT outline, address 0x77, and its pinout __confirmed off the physical part__.
 

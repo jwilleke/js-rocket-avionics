@@ -83,7 +83,7 @@ The camera hangs off the expansion board __on a flexible ribbon__, so its positi
 
 | Side | Faces | Carries |
 |---|---|---|
-| __Tall__ | 270°, the camera port | XIAO-ESP32S3-cam + Sense camera board (aft, under the camera); L76K-GNSS; XIAO-ESP32S3-lora + Wio-SX1262; the data-link jumpers; the PS1240 buzzer (forward), facing the Nosecone's wall |
+| __Tall__ | 270°, the camera port | XIAO-ESP32S3-cam + Sense camera board (aft, under the camera); XIAO-ESP32S3-lora + Wio-SX1262, turned; L76K-GNSS, turned; the data-link jumpers; the PS1240 buzzer (forward), facing the Nosecone's wall |
 | __Low__ | 90°, the web | LSM6DSO32, lengthwise; BMP388, turned across the board; two M3 standoffs |
 
 __Both antennas are off the board__, on the sled ([Antennas.md](../hardware/Antennas/Antennas.md)). The net list is on [PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md); the wiring table is in the [README](../README.md#connections).
@@ -92,7 +92,7 @@ __Both antennas are off the board__, on the sled ([Antennas.md](../hardware/Ante
 
 The MAX-M10S was rejected on 2026-08-06: **44.2 × 30.5 mm, wider than the 24 mm carrier, and ~$60**. Seeed's **L76K GNSS for XIAO (109100021)** is 18 × 21 mm, $11.99, active antenna included, and talks UART on __D6/D7__ — already the carrier's netlist.
 
-__It plugs onto the XIAO's own 14 pads rather than presenting a header to the carrier__, so it takes the carrier as a footprint of its own, __on the tall side between the two XIAOs__ (operator, 2026-09-09; 2026-09-11). __Flat on the carrier deleted the stack-height risk__ rather than answering it: whether the L76K cleared the Wio-SX1262 on the B2B was never tested, and a four-high column cantilevered off header pins under boost was the alternative. Component side up it shows a XIAO's __back__ pattern, so its footprint takes the mirrored mapping — see [L76K-GNSS.md](../hardware/L76K-GNSS/L76K-GNSS.md#pinout--from-seeeds-schematic-not-the-listing).
+__It plugs onto the XIAO's own 14 pads rather than presenting a header to the carrier__, so it takes the carrier as a footprint of its own, __on the tall side__ (operator, 2026-09-09; 2026-09-11), forward of XIAO-ESP32S3-lora ([where](../hardware/PCB-carrier/PCB-carrier.md#tall-side--faces-270-the-camera)). __Flat on the carrier deleted the stack-height risk__ rather than answering it: whether the L76K cleared the Wio-SX1262 on the B2B was never tested, and a four-high column cantilevered off header pins under boost was the alternative. Component side up it shows a XIAO's __back__ pattern, so its footprint takes the mirrored mapping — see [L76K-GNSS.md](../hardware/L76K-GNSS/L76K-GNSS.md#pinout--from-seeeds-schematic-not-the-listing).
 
 ### Power, and the pigtail constraint
 
