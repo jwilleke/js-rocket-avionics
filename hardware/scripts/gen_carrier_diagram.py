@@ -165,11 +165,12 @@ def main():
             svg.circle(px(side, p["x"]), py(p["y"]), 0.8 * S,
                        NET_COLOUR.get(p["net"], "#d4af37"), INK, 0.5)
             if side == "tall" and p["ref"][:-1] == "J_LORA_":
-                # turned 90 deg: each name upright just outside its row
+                # turned 90 deg: each name upright just inside its row, clear of
+                # the cam XIAO's labels aft of it
                 lab = XIAO_LABELS[p["ref"][-1]][int(p["num"]) - 1]
                 up = py(p["y"]) < py(lora_cy)
-                svg.text(px(side, p["x"]) + 3, py(p["y"]) + (-11 if up else 11), lab, 7, INK,
-                         "start" if up else "end", rotate=-90)
+                svg.text(px(side, p["x"]) + 3, py(p["y"]) + (11 if up else -11), lab, 7, INK,
+                         "end" if up else "start", rotate=-90)
             elif side == "tall" and p["ref"][:-1] == "J_CAM_":
                 lab = XIAO_LABELS[p["ref"][-1]][int(p["num"]) - 1]
                 right = px(side, p["x"]) > px(side, bw / 2)
@@ -223,7 +224,7 @@ def main():
             "crosses the board.",
             "",
             "PS1240 buzzer: on the tall side, facing",
-            "the sound hole in the Nosecone at 270°.",
+            "the Nosecone's wall at 270°.",
             "",
             "The battery is not on the board: the",
             "PayloadSled's cage holds it against the",

@@ -91,9 +91,13 @@ XIAO_ROW_DX = 7.62         # header rows at +/-7.62 mm from the XIAO centreline 
 SEEED_XIAO_ROW_DX = 7.62
 XIAO_PINS_PER_ROW = 7
 # XIAO-ESP32S3-cam sits under the camera pad, centred at nose z 43.435
-# (payload-sled.md, #89): 43.4 - 25.4. XIAO-ESP32S3-lora at the forward end.
+# (payload-sled.md, #89): 43.4 - 25.4. XIAO-ESP32S3-lora NEXT to it, ahead of the
+# L76K-GNSS (operator, 2026-10-15, #36): nearer the LoRa strip at the PORT end, and
+# the GNSS nearer its patch at the forward disc. Its rows start 1 mm past the cam
+# XIAO's battery anchors' keep-out (y 30 + 1.5). LORA_Y was 68.0, behind the GNSS.
 CAM_Y = 18.0
-LORA_Y = 68.0
+LORA_Y = 41.4
+LORA_ANCHOR_DY = 12.8      # its BAT anchors, forward of its centre, past its body
 
 # Footprint pad number -> XIAO signal name. The KiCad footprint numbers its
 # pads 1..14 with no names, DIP-style: 1 at top-left, down to 7 at bottom-left,
@@ -123,7 +127,10 @@ def xiao_xy(cy, dx, dy, turned):
     points to -x and the -7.62 row (pins 1..7) lies forward."""
     return (CX + dy, cy - dx) if turned else (CX + dx, cy + dy)
 
-# ---- L76K-GNSS, tall side, its own pins, antenna end forward ------------------
+# ---- L76K-GNSS, tall side, its own pins, TURNED: antenna end toward +x -------
+# Turned 90 deg like the lora (operator, 2026-10-15, #36): 18 mm along the board
+# instead of 21, its rows across it. Antenna end toward +x, away from the -x edge
+# the LoRa lead runs round. Forward of the lora XIAO's battery anchors.
 # Seeed's V1.1 top view (hardware/L76K-GNSS), antenna end UP, as (x, y) on
 # screen. Pads are named by the XIAO position they meet; the functions are RX
 # at D6, TX at D7, WAKE at D0, RESET at D2. Face up it shows a XIAO's BACK
@@ -134,12 +141,14 @@ L76K_TOPVIEW = {
     "D7": (7.62, -7.62), "D8": (7.62, -5.08), "D9": (7.62, -2.54), "D10": (7.62, 0.0),
     "3V3": (7.62, 2.54), "GND": (7.62, 5.08), "5V": (7.62, 7.62),
 }
-L76K_Y = 44.0              # body y 33.5..54.5
+L76K_Y = LORA_Y + LORA_ANCHOR_DY + 1.5 + 1.0 + 9.0   # 65.7: body 56.7..74.7
 L76K_NETS = {"D6": "GPS_TX", "D7": "GPS_RX", "3V3": "+3V3_LORA", "GND": "GND"}
-# The same picture turned by eye so the antenna points forward (+y): each
-# column listed aft to forward. verify_pins() holds the code's turn to it.
-L76K_COL_X20 = ["D0", "D1", "D2", "D3", "D4", "D5", "D6"]      # at x 19.62
-L76K_COL_X3 = ["5V", "GND", "3V3", "D10", "D9", "D8", "D7"]    # at x 4.38
+# The same picture turned by eye. Antenna forward, each column listed aft to
+# forward, X20 at x 19.62 and X3 at x 4.38; turned so the antenna points +x, each
+# column becomes a row listed from -x to +x: X20 the aft row (y - 7.62), X3 the
+# forward row (y + 7.62). verify_pins() holds the code's turn to it.
+L76K_COL_X20 = ["D0", "D1", "D2", "D3", "D4", "D5", "D6"]      # aft row
+L76K_COL_X3 = ["5V", "GND", "3V3", "D10", "D9", "D8", "D7"]    # forward row
 
 # ---- sensors, low side, rows lengthwise --------------------------------------
 # Front photographs (module-pinouts.md): 25.5 x 17.8 mm, header row along the
@@ -227,7 +236,8 @@ BATTERY_R = (5.75, 10.5)     # toward 90 deg: 4.75 thick, against the web's inne
 # Y-cable, so a pull lands on the board, not on the XIAO's 2.3 x 1.3 mm pads.
 WIRE_PADS = [
     ("TP_CAM_BAT_P", (8.8, 30.0), None), ("TP_CAM_BAT_N", (12.0, 30.0), None),
-    ("TP_LORA_BAT_P", (10.4, 80.8), None), ("TP_LORA_BAT_N", (13.6, 80.8), None),
+    ("TP_LORA_BAT_P", (10.4, LORA_Y + LORA_ANCHOR_DY), None),
+    ("TP_LORA_BAT_N", (13.6, LORA_Y + LORA_ANCHOR_DY), None),
 ]
 # Two data links, each a 2-pin header with a slide-on shunt and a ~1 kOhm series
 # resistor, on the tall side at the forward end (operator, 2026-09-12, #26;
@@ -262,7 +272,8 @@ R_FP = "R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal"   # pad 2 at +5.08 x a
 # the text off every pad and standoff 2.
 BAT_LABELS = [
     ("+", 8.8, 28.1), ("-", 12.0, 28.1), ("BAT", 5.3, 30.0),     # XIAO-ESP32S3-cam
-    ("+", 10.4, 78.9), ("-", 13.6, 78.9), ("BAT", 17.2, 80.6),   # XIAO-ESP32S3-lora
+    ("+", 10.4, LORA_Y + LORA_ANCHOR_DY - 1.9), ("-", 13.6, LORA_Y + LORA_ANCHOR_DY - 1.9),
+    ("BAT", 17.2, LORA_Y + LORA_ANCHOR_DY - 0.2),                 # XIAO-ESP32S3-lora
 ]
 # Each module's name on the board surface under it, on its own side, so the
 # carrier says what goes where during assembly (operator, 2026-09-13). Centred
@@ -271,8 +282,8 @@ BAT_LABELS = [
 MODULE_LABELS = [
     # (text, x, y, size, back)
     ("XIAO-ESP32S3", 12.0, 13.0, 0.8, False), ("cam", 12.0, 19.2, 1.5, False),
-    ("L76K-GNSS", 12.0, 44.0, 1.0, False),
-    ("XIAO-ESP32S3", 12.0, 66.8, 0.8, False), ("lora", 12.0, 69.2, 1.5, False),
+    ("L76K-GNSS", 12.0, L76K_Y, 1.0, False),
+    ("XIAO-ESP32S3", 12.0, LORA_Y - 1.2, 0.8, False), ("lora", 12.0, LORA_Y + 1.2, 1.5, False),
     ("LSM6DSO32", 14.4, LSM_Y, 1.0, True),   # between its 5-pin row and the cam's x 19.62 row
     ("BMP388", 12.0, 96.0, 1.0, True),       # between its row and the buzzer's leads
     ("PS1240", BUZ_XY[0], BUZ_XY[1] - 2.5, 1.0, False),   # under the disc
@@ -440,18 +451,18 @@ def add_xiao(board, ref, cy, signals, turned):
 
 
 def l76k_board_xy(label):
-    """Seeed's top view turned 180 deg, so the antenna end points forward (+y)."""
+    """Seeed's top view turned 90 deg, so the antenna end (its -y) points to +x."""
     lx, ly = L76K_TOPVIEW[label]
-    return (CX - lx, L76K_Y - ly)
+    return (CX - ly, L76K_Y + lx)
 
 
 def add_l76k(board):
-    cols = {}
+    rows = {}
     for label in L76K_TOPVIEW:
         x, y = l76k_board_xy(label)
-        cols.setdefault(round(x, 3), []).append((label, x, y))
-    for ref, x in (("J_L76K_A", min(cols)), ("J_L76K_B", max(cols))):
-        pads = sorted(cols[x], key=lambda p: p[2])
+        rows.setdefault(round(y, 3), []).append((label, x, y))
+    for ref, y in (("J_L76K_A", max(rows)), ("J_L76K_B", min(rows))):
+        pads = sorted(rows[y], key=lambda p: p[1])
         add_row(board, ref, "PinHeader_1x07_P2.54mm_Vertical", pads, L76K_NETS)
 
 
@@ -588,12 +599,12 @@ def verify_pins(board):
 
     for label, net in L76K_NETS.items():
         col = L76K_COL_X20 if label in L76K_COL_X20 else L76K_COL_X3
-        ex = CX + XIAO_ROW_DX if col is L76K_COL_X20 else CX - XIAO_ROW_DX
-        ey = L76K_Y + (col.index(label) - 3) * PITCH
+        ex = CX + (col.index(label) - 3) * PITCH
+        ey = L76K_Y - XIAO_ROW_DX if col is L76K_COL_X20 else L76K_Y + XIAO_ROW_DX
         x, y = l76k_board_xy(label)
         if abs(x - ex) > 0.01 or abs(y - ey) > 0.01:
             bad.append("L76K %s: turned (%.2f, %.2f), by eye (%.2f, %.2f)" % (label, x, y, ex, ey))
-        ref = "J_L76K_B" if ex > CX else "J_L76K_A"
+        ref = "J_L76K_B" if col is L76K_COL_X20 else "J_L76K_A"
         if not near(got.get((ref, net), []), ex, ey):
             bad.append("L76K %s (%s) not at (%.2f, %.2f)" % (label, net, ex, ey))
 
@@ -611,12 +622,14 @@ def verify_pins(board):
                 bad.append("%s %s (%s) not at (%.2f, %.2f)" % (name, lab, nets[lab], *a))
 
     # every XIAO-pattern header row where Seeed's footprint puts it (#33); the
-    # turned lora's rows lie across the board, 7.62 either side of LORA_Y
+    # turned lora's and L76K's rows lie across the board, 7.62 either side of centre
     for fp in board.GetFootprints():
         if fp.GetReference()[:-1] in ("J_CAM_", "J_LORA_", "J_L76K_"):
             for pad in fp.Pads():
                 if fp.GetReference().startswith("J_LORA_"):
                     dx = abs(pcbnew.ToMM(pad.GetY()) - LORA_Y)
+                elif fp.GetReference().startswith("J_L76K_"):
+                    dx = abs(pcbnew.ToMM(pad.GetY()) - L76K_Y)
                 else:
                     dx = abs(pcbnew.ToMM(pad.GetX()) - CX)
                 if abs(dx - SEEED_XIAO_ROW_DX) > 0.01:
@@ -720,7 +733,7 @@ def write_layout(board):
     bodies = [
         # name, side, x0, y0, x1, y1 -- outlines in KiCad's top view
         ("XIAO-ESP32S3-cam", "tall", CX - 8.9, CAM_Y - 10.5, CX + 8.9, CAM_Y + 10.5),
-        ("L76K-GNSS", "tall", CX - 9.0, L76K_Y - 10.5, CX + 9.0, L76K_Y + 10.5),
+        ("L76K-GNSS", "tall", CX - 10.5, L76K_Y - 9.0, CX + 10.5, L76K_Y + 9.0),   # turned
         ("XIAO-ESP32S3-lora", "tall", CX - 10.5, LORA_Y - 8.9, CX + 10.5, LORA_Y + 8.9),   # turned
         ("GPS link", "tall", 1.5, 82.6, 9.6, 88.3),
         ("EVT link", "tall", 13.0, 82.6, 21.1, 88.3),
