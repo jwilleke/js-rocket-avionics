@@ -30,7 +30,7 @@ __Do not rely on someone hearing it.__ High frequencies are the first many adult
 
 __A piezo in a closed cavity loses 20–30 dB.__ The buzzer is soldered to the [carrier](../PCB-carrier/PCB-carrier.md#tall-side--faces-270-the-camera), at the forward end of its tall side ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36)), and faces the Nosecone's wall on the camera side. __For flight 4 that wall is closed__: the Nosecone already printed has no sound hole. A hole, and how to seal it, is deferred to a later flight with the static ports (operator, 2026-10-13, [js-rocket#118](https://github.com/jwilleke/js-rocket/issues/118)). The camera port is no leak either: its window disc is glued in. The payload bay is open at its base.
 
-__So the loss is taken, and whether the beep still carries is untested.__ The [audibility test](../../docs/design.md#verification) — beep inside the closed Nosecone, listen from 20 m — is owed before flight 4, and matters more without a hole.
+__So the loss is taken, and whether the beep still carries is untested.__ The [audibility test](../../docs/design.md#verification) — beep inside the closed Nosecone, listen from 20 m — is not a flight-4 gate (operator, 2026-10-16), so flight 4 flies not knowing whether it carries.
 
 __The part is 12.2 × 6.5 mm__ (TDK's catalog; Adafruit lists 11.9 × 6.53), so on the carrier its top stands at r 7.6, far inside the Nosecone's inner wall at r 23.07. __Its two leads are 5.0 mm apart__, measured on the part in hand (2026-10-15) and matching TDK's catalog. They come through the carrier under the BMP388, so they are trimmed short before it goes on.
 

@@ -251,7 +251,7 @@ Each flight adds one thing, and the recovery beacon is proven before anything ex
 3. __PCB bring-up__ — power, then XIAO-ESP32S3-lora: GPS UART and LoRa; then XIAO-ESP32S3-cam: I2C enumeration and camera. __Measure GPS lock time with the LoRa transmitting__, since desense cannot be reasoned about from a schematic.
 4. __Sample-rate integrity under load__ — run XIAO-ESP32S3-cam's 500 Hz sampler with the camera recording to SD and confirm __zero dropped samples__ by checking timestamp deltas, not by trusting the loop. __Done on the bench, 2026-09-12: zero dropped__ at 833 Hz accel + gyro for 60 s while recording, judged by the FIFO's own overrun flag — [camera-stack.md](../hardware/camera-stack/camera-stack.md#at-flight-load--stack-load-test). Repeat on the carrier and on the battery ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)).
 5. __Shared-battery behaviour__ — confirm the camera's inrush on XIAO-ESP32S3-cam does not brown out XIAO-ESP32S3-lora, and that charging through one USB port with both BAT pads connected behaves.
-6. __Buzzer audibility, assembled__ — beep inside the closed Nosecone and listen from 20 m. __Owed before flight 4__; the Nosecone has no sound hole.
+6. __Buzzer audibility, assembled__ — beep inside the closed Nosecone and listen from 20 m. Not a flight-4 gate (operator, 2026-10-16): flight 4 flies without it; the Nosecone has no sound hole.
 7. __Mass__ — weigh the loaded sled and hand the real number to the rocket's stability re-run, [#9](https://github.com/jwilleke/js-rocket/issues/9). __Do not fly on the estimate.__
 
 ## Risks
