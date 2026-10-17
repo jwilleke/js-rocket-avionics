@@ -348,10 +348,13 @@ def outline(board, w, h, r):
     seg(w, r, w, h - r)
     seg(w - r, h, r, h)
     seg(0, h - r, 0, r)
-    arc(r, r, r, 0, 0, r)
-    arc(w - r, r, w, r, w - r, 0)
-    arc(w - r, h - r, w - r, h, w, h - r)
-    arc(r, h - r, 0, h - r, r, h)
+    # Start and end in this order sweep the 90 deg corner. The other order -- used
+    # until 2026-10-17 -- sweeps 270 deg the long way round, a loop at every
+    # corner that DRC passed and a board house could cut as drawn.
+    arc(r, r, 0, r, r, 0)
+    arc(w - r, r, w - r, 0, w, r)
+    arc(w - r, h - r, w, h - r, w - r, h)
+    arc(r, h - r, r, h, 0, h - r)
 
 
 def load(lib, name, board):
@@ -782,6 +785,11 @@ def write_rules():
         f.write('(version 1)\n')
 
 
+# Short, crowded nets first; the long I2C runs last, when the field is known.
+ROUTE_ORDER = ["BUZZER", "BUZZER_B", "LINK_GPS", "LINK_EVT", "GPS_CAM", "EVT_CAM", "EVT_LORA",
+               "+3V3_LORA", "GPS_TX", "GPS_RX", "SDA", "SCL"]
+
+
 def main():
     board = pcbnew.CreateEmptyBoard()
     board.SetCopperLayerCount(COPPER_LAYERS)
@@ -804,6 +812,13 @@ def main():
     verify_pins(board)
     verify_clearances(board)
 
+    # #15: wire the signal nets; the planes carry GND and +3V3
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import carrier_router
+    routed = carrier_router.route(board, ROUTE_ORDER, BOARD_W, BOARD_H)
+    n_seg, n_via = carrier_router.add_tracks(board, routed)
+    print("routed   %d nets: %d track segments, %d vias" % (len(routed), n_seg, n_via))
+
     add_plane(board, pcbnew.In1_Cu, board.nets["GND"])
     add_plane(board, pcbnew.In2_Cu, board.nets["+3V3"])
     pcbnew.ZONE_FILLER(board).Fill(board.Zones())
@@ -822,6 +837,10 @@ def main():
           % (board.GetCopperLayerCount(),
              pcbnew.ToMM(board.GetDesignSettings().GetBoardThickness())))
     print("parts    %d footprints" % len(board.GetFootprints()))
+    sweeps = [round(d.GetArcAngle().AsDegrees(), 1) for d in board.GetDrawings()
+              if d.GetLayer() == pcbnew.Edge_Cuts and d.GetShape() == pcbnew.SHAPE_T_ARC]
+    assert all(abs(a) == 90.0 for a in sweeps), "outline corners sweep %s, not 90 deg" % sweeps
+    print("outline  corner arcs sweep %s deg" % sweeps)
     print("nets     %d declared" % len(board.nets))
     print("planes   %d filled" % len(board.Zones()))
 

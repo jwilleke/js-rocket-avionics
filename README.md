@@ -10,9 +10,9 @@ Separate from the rocket repo on purpose: `js-rocket` is geometry and documentat
 
 __Why it is built this way is in [docs/design.md](docs/design.md).__ __Every part this project needs is in [docs/BOM.md](docs/BOM.md), which is the single source of truth for part numbers and weights__ — plus what each part is, which board it serves, and what was rejected. __What to change next time, and what can be bought ready-made, is in [docs/next-electronics.md](docs/next-electronics.md).__ __What was actually bought is in [docs/shopping-list.md](docs/shopping-list.md)__ — orders, costs, arrival status. The printed sled that carries these boards, and the [PayloadAdapter](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-adapter.md) it loads through, are rocket parts and stay in [js-rocket](https://github.com/jwilleke/js-rocket).
 
-__Status: one two-sided board ([PCB-carrier-design.md](hardware/PCB-carrier/PCB-carrier-design.md)). Every footprint placed and netted, DRC 0 violations.__ The 15 unconnected items DRC reports are the signal nets, which are not routed yet (stage 2d, [#15](https://github.com/jwilleke/js-rocket-avionics/issues/15)). What the board is, both sides with a drawing, is [hardware/PCB-carrier/PCB-carrier.md](hardware/PCB-carrier/PCB-carrier.md).
+__Status: one two-sided board ([PCB-carrier-design.md](hardware/PCB-carrier/PCB-carrier-design.md)), placed, netted and routed. DRC: 0 violations, 0 unconnected.__ The generator routes the signal nets itself ([`carrier_router.py`](hardware/scripts/carrier_router.py), [#15](https://github.com/jwilleke/js-rocket-avionics/issues/15)); ground and 3.3 V reach every pad through the two inner planes. What the board is, both sides with a drawing, is [hardware/PCB-carrier/PCB-carrier.md](hardware/PCB-carrier/PCB-carrier.md).
 
-> __Do not order it.__ It quotes cleanly, which is a toolchain check and nothing more. It is unrouted, and two checks are still owed (PCB-carrier-design.md, *Checks owed before building*).
+> __Do not order it yet.__ Left before ordering: the reprinted fit mock, fitted, and the pre-order review — regenerate the fabrication files from this board and read its connections back ([#16](https://github.com/jwilleke/js-rocket-avionics/issues/16)).
 
 ## What a flight records
 
