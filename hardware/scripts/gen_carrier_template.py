@@ -50,7 +50,7 @@ XIAO_LABELS = {"A": ["D0", "D1", "D2", "D3", "D4", "D5", "D6"],
 CALLOUTS = [
     (("TP_CAM_BAT_P", "TP_CAM_BAT_N"),
      ("XIAO-ESP32S3-cam pigtail anchor: BAT+ red, BAT− black, laced", "through, not soldered"), 0.0),
-    (("TP_BUZ", "TP_BUZ_G"), ("PS1240 buzzer, tall side, in the ring:", "BUZ grey, BUZ G black"), 0.0),
+    (("TP_BUZ", "TP_BUZ_G"), ("PS1240 buzzer, tall side, in the ring:", "two drive leads, either way round"), 0.0),
     (("TP_LORA_BAT_P", "TP_LORA_BAT_N"), ("XIAO-ESP32S3-lora pigtail anchor: lace BAT+ red,", "BAT− black through, not soldered"), 0.0),
     (("J_LSM_P", "J_LSM_A"), ("LSM6DSO32, low side: its 9-hole row (green) outside", "the cam XIAO's row, its 5-hole row inside"), 0.0),
     (("J_BMP",), ("BMP388, low side, turned: its 8-hole row, green;", "a spacer under each of its holes, no bolt"), 0.0),

@@ -119,7 +119,10 @@ XIAO_PIN = {
 # The data links' far ends (operator, 2026-10-16, #26): the cam XIAO hears the GPS on
 # D1 and sends event text from D3; the lora XIAO takes it on D1 (GPIO2), which stock
 # Meshtastic leaves free -- its seeed_xiao_s3 variant claims D0, D4-D10 and GPIO38-42.
-CAM_SIGNALS = {"D0": "BUZZER", "D1": "GPS_CAM", "D3": "EVT_CAM", "D4": "SDA", "D5": "SCL",
+# The PS1240 is driven from TWO pins in opposite phase, D0 and D2, for twice the
+# swing across the disc, ~+6 dB (operator, 2026-10-17, #25). D2 (GPIO3) is quiet at
+# boot; D6 would chirp it with the ROM's boot log.
+CAM_SIGNALS = {"D0": "BUZZER", "D1": "GPS_CAM", "D2": "BUZZER_B", "D3": "EVT_CAM", "D4": "SDA", "D5": "SCL",
                "3V3": "+3V3", "GND": "GND"}
 LORA_SIGNALS = {"D1": "EVT_LORA", "D6": "GPS_TX", "D7": "GPS_RX", "3V3": "+3V3_LORA", "GND": "GND"}
 XIAOS = [("J_CAM_", CAM_Y, CAM_SIGNALS, False), ("J_LORA_", LORA_Y, LORA_SIGNALS, True)]
@@ -266,7 +269,7 @@ BUZ_XY = (11.5, 103.0)              # nose z 128.4
 BUZ_R = 6.1
 BUZ_PITCH = 5.0
 BUZ_PADS = [("TP_BUZ", (BUZ_XY[0] - BUZ_PITCH / 2, BUZ_XY[1]), "BUZZER"),
-            ("TP_BUZ_G", (BUZ_XY[0] + BUZ_PITCH / 2, BUZ_XY[1]), "GND")]
+            ("TP_BUZ_G", (BUZ_XY[0] + BUZ_PITCH / 2, BUZ_XY[1]), "BUZZER_B")]
 R_FP = "R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal"   # pad 2 at +5.08 x at 0 deg
 # Each XIAO's battery pigtail laces through the two holes directly behind it
 # (operator, 2026-09-13, #14; anchors only from 2026-10-11), so the holes are
@@ -784,7 +787,7 @@ def main():
 
     board.nets = {}
     for name in ("GND", "+3V3", "+3V3_LORA", "GPS_TX", "GPS_RX", "SDA", "SCL",
-                 "BUZZER", "LINK_GPS", "LINK_EVT", "GPS_CAM", "EVT_CAM", "EVT_LORA"):
+                 "BUZZER", "BUZZER_B", "LINK_GPS", "LINK_EVT", "GPS_CAM", "EVT_CAM", "EVT_LORA"):
         n = pcbnew.NETINFO_ITEM(board, name)
         board.Add(n)
         board.nets[name] = n

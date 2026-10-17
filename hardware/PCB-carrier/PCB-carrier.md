@@ -11,7 +11,7 @@ The sled side of the interface is [js-rocket#99](https://github.com/jwilleke/js-
 | Size | __24 × 115.7 mm__, nose z 25.4 → 141.1 |
 | Stackup | __4-layer__, solid ground plane |
 | Thickness | __1.6 mm FR4__, OSH Park's only 4-layer thickness. Low face at r 0.5 — [why](../../README.md#the-interface-to-the-sled) |
-| Nets | +3V3, +3V3_LORA, GND, SDA, SCL, BUZZER, GPS_TX, GPS_RX, LINK_GPS, LINK_EVT, GPS_CAM, EVT_CAM, EVT_LORA. __No battery net__: the battery reaches the XIAOs by a Y-cable, off the board |
+| Nets | +3V3, +3V3_LORA, GND, SDA, SCL, BUZZER, GPS_TX, GPS_RX, LINK_GPS, LINK_EVT, GPS_CAM, EVT_CAM, EVT_LORA, BUZZER_B. __No battery net__: the battery reaches the XIAOs by a Y-cable, off the board |
 | Mounting | two __surface-mount M3 standoffs__, 10 mm (Würth WA-SMSI 9774100360), on the low side. __M3 plastic screws, M3 × 10__, from the web's far face |
 
 ## Not yet in the generator
@@ -19,7 +19,6 @@ The sled side of the interface is [js-rocket#99](https://github.com/jwilleke/js-
 __The layout drawing, the fit mock and the paper template do not show these yet.__ Each is part of the design on this page. __No fit mock is printed until this list is empty__ ([#34](https://github.com/jwilleke/js-rocket-avionics/issues/34)).
 
 - __Whether Meshtastic's Serial module forwards text from lora D1 on 2.7.26__ — a bench check once the ground receiver is here. The copper does not wait on it: the event link's shunt stays off if it does not — [#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)
-- __The PS1240 driven from two pins__ in opposite phase, for about +6 dB. `TP_BUZ_G` becomes the second drive net instead of `GND`; both holes stay where they are. Which XIAO-ESP32S3-cam pin is still open — [#25](https://github.com/jwilleke/js-rocket-avionics/issues/25)
 
 ## Layout
 
@@ -40,7 +39,7 @@ __XIAO header rows are 15.24 mm apart__ (±7.62 from the module centreline), per
 | 79.6 | its BAT pigtail anchor holes | the pigtail laces through on its way to the Y-cable |
 | 82.1–100.1 | __L76K-GNSS__, on its own soldered pins, __turned 90°__ | forward of the lora XIAO, toward the GNSS patch on the sled's forward disc. Its 21 mm length runs across the board, so it takes 18 mm of board length; its header rows lie across the board. __Antenna end toward the board's +x long edge__, away from the -x edge the LoRa lead runs round |
 | 108.0–113.7 | __the two data links__, one at each long edge | each a 2-pin header for a slide-on shunt (nose z 109.4), with its 1 kΩ lying flat just forward of it (112.4). The GPS link is at the edge the lora XIAO's USB-C faces, the event link at the other. They sit between the L76K-GNSS and the BMP388's pin row on the low side ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36)) — [why](PCB-carrier-design.md#two-data-links-each-behind-an-open-jumper--in-the-generator-pins-owed) |
-| 122.3–134.5 | __the [PS1240 buzzer](../PS1240-buzzer/PS1240-buzzer.md)__, centred at 128.4 | facing the Nosecone's wall at 270°, the camera side ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36)); the wall is closed for flight 4, the sound hole deferred ([js-rocket#118](https://github.com/jwilleke/js-rocket/issues/118)). Two through-hole leads, `TP_BUZ` (`BUZZER`) and `TP_BUZ_G` (GND), __5.0 mm apart__, measured on the part in hand (operator, 2026-10-15: one breadboard hole between the leads, ~5.6 mm across their outsides). A silk ring, Ø12.2, marks the disc. Its leads come through to the low side under the BMP388: trim them short |
+| 122.3–134.5 | __the [PS1240 buzzer](../PS1240-buzzer/PS1240-buzzer.md)__, centred at 128.4 | facing the Nosecone's wall at 270°, the camera side ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36)); the wall is closed for flight 4, the sound hole deferred ([js-rocket#118](https://github.com/jwilleke/js-rocket/issues/118)). Two through-hole leads, `TP_BUZ` (`BUZZER`, cam D0) and `TP_BUZ_G` (`BUZZER_B`, cam D2), driven in opposite phase, __5.0 mm apart__, measured on the part in hand (operator, 2026-10-15: one breadboard hole between the leads, ~5.6 mm across their outsides). A silk ring, Ø12.2, marks the disc. Its leads come through to the low side under the BMP388: trim them short |
 
 ### Low side — faces 90°, the web
 

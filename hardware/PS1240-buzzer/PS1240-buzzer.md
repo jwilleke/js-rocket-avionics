@@ -1,6 +1,6 @@
 # PS1240 — piezo buzzer
 
-__Passive, PWM-driven from D0.__ Named for the part number in [BOM.md](../../docs/BOM.md).
+__Passive, PWM-driven from two pins in opposite phase, D0 and D2__, which doubles the swing across the disc for about +6 dB (operator, 2026-10-17, [#25](https://github.com/jwilleke/js-rocket-avionics/issues/25)). The bench measurements below were one pin against ground. Named for the part number in [BOM.md](../../docs/BOM.md).
 
 ## It does three jobs
 

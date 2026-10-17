@@ -10,7 +10,7 @@ Separate from the rocket repo on purpose: `js-rocket` is geometry and documentat
 
 __Why it is built this way is in [docs/design.md](docs/design.md).__ __Every part this project needs is in [docs/BOM.md](docs/BOM.md), which is the single source of truth for part numbers and weights__ — plus what each part is, which board it serves, and what was rejected. __What to change next time, and what can be bought ready-made, is in [docs/next-electronics.md](docs/next-electronics.md).__ __What was actually bought is in [docs/shopping-list.md](docs/shopping-list.md)__ — orders, costs, arrival status. The printed sled that carries these boards, and the [PayloadAdapter](https://github.com/jwilleke/js-rocket/blob/main/docs/3d-printed-parts/payload-adapter.md) it loads through, are rocket parts and stay in [js-rocket](https://github.com/jwilleke/js-rocket).
 
-__Status: one two-sided board ([PCB-carrier-design.md](hardware/PCB-carrier/PCB-carrier-design.md)). Every footprint placed and netted, DRC 0 violations.__ The 10 unconnected items DRC reports are the signal nets, which are not routed yet (stage 2d, [#15](https://github.com/jwilleke/js-rocket-avionics/issues/15)). What the board is, both sides with a drawing, is [hardware/PCB-carrier/PCB-carrier.md](hardware/PCB-carrier/PCB-carrier.md).
+__Status: one two-sided board ([PCB-carrier-design.md](hardware/PCB-carrier/PCB-carrier-design.md)). Every footprint placed and netted, DRC 0 violations.__ The 15 unconnected items DRC reports are the signal nets, which are not routed yet (stage 2d, [#15](https://github.com/jwilleke/js-rocket-avionics/issues/15)). What the board is, both sides with a drawing, is [hardware/PCB-carrier/PCB-carrier.md](hardware/PCB-carrier/PCB-carrier.md).
 
 > __Do not order it.__ It quotes cleanly, which is a toolchain check and nothing more. It is unrouted, and two checks are still owed (PCB-carrier-design.md, *Checks owed before building*).
 
@@ -63,12 +63,13 @@ There is __no schematic file__. Nets are assigned to pads directly in the genera
 
 | Net | From | Also reaches |
 |---|---|---|
-| `GND` | both XIAOs, pin 13 | In1 plane, every module, the buzzer's `GND` lead (`TP_BUZ_G`) |
+| `GND` | both XIAOs, pin 13 | In1 plane, every module |
 | `+3V3` | XIAO-ESP32S3-cam pin 12 __only__ | In2 plane; LSM6DSO32 `VIN`; BMP388 `VIN` __and `CS`__ (I2C mode, [#19](https://github.com/jwilleke/js-rocket-avionics/issues/19)) |
 | `+3V3_LORA` | XIAO-ESP32S3-lora pin 12 | the L76K-GNSS's `3V3` only — __kept off the plane__, so the two regulators are never paralleled |
 | `SDA` | cam __D4__ (pin 5, GPIO5) | LSM6DSO32, BMP388 |
 | `SCL` | cam __D5__ (pin 6, GPIO6) | LSM6DSO32, BMP388 |
-| `BUZZER` | cam __D0__ (pin 1, GPIO1) | the buzzer's other lead (`TP_BUZ`); the PS1240 sits on the tall side's forward end |
+| `BUZZER` | cam __D0__ (pin 1, GPIO1) | one buzzer lead (`TP_BUZ`); the PS1240 sits on the tall side's forward end |
+| `BUZZER_B` | cam __D2__ (GPIO3) | the other buzzer lead (`TP_BUZ_G`), driven in opposite phase to `BUZZER` for about +6 dB ([#25](https://github.com/jwilleke/js-rocket-avionics/issues/25)) |
 | `GPS_TX` | lora __D6__ (pin 7, GPIO43) | the L76K-GNSS's pad at the D6 position, which is the module's __RX__ |
 | `GPS_RX` | lora __D7__ (pin 8, GPIO44) | the L76K-GNSS's pad at the D7 position, which is the module's __TX__ |
 | `LINK_GPS` | the GPS link's 2-pin header, pin 2 (pin 1 is on `GPS_RX`) | its 1 kΩ, whose far end is `GPS_CAM` |

@@ -198,7 +198,7 @@
   {
    "ref": "J_CAM_A",
    "num": "3",
-   "net": "",
+   "net": "BUZZER_B",
    "side": "tall",
    "x": 4.38,
    "y": 15.46
@@ -846,7 +846,7 @@
   {
    "ref": "TP_BUZ_G",
    "num": "1",
-   "net": "GND",
+   "net": "BUZZER_B",
    "side": "tall",
    "x": 14.0,
    "y": 103.0

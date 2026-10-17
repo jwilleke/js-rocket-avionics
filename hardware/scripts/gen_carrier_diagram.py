@@ -35,7 +35,7 @@ SIDE_COLOUR = {"tall": "#9a3412", "low": "#1d6b3f"}
 STANDOFF = "#b7791f"
 BATTERY = "#5a6b8c"
 NET_COLOUR = {"+3V3": "#cc2f2f", "+3V3_LORA": "#f08a4b", "GND": "#222222", "VBAT": "#e03b3b",
-              "SDA": "#2f5fcc", "SCL": "#d99b00", "BUZZER": "#6f6f6f", "GPS_TX": "#1d8a4a",
+              "SDA": "#2f5fcc", "SCL": "#d99b00", "BUZZER": "#6f6f6f", "BUZZER_B": "#a0a0a0", "GPS_TX": "#1d8a4a",
               "GPS_RX": "#7a3fb5"}
 XIAO_LABELS = {"A": ["D0", "D1", "D2", "D3", "D4", "D5", "D6"],
                "B": ["D7", "D8", "D9", "D10", "3V3", "GND", "5V"]}

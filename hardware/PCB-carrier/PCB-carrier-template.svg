@@ -113,8 +113,11 @@
 <circle cx="43.65" cy="60.06" r="0.30" fill="#cc2f2f" stroke="none" stroke-width="0.00"/>
 <circle cx="57.62" cy="139.32" r="0.30" fill="#6f6f6f" stroke="none" stroke-width="0.00"/>
 <text x="65.30" y="139.92" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">D0</text>
+<circle cx="57.62" cy="136.78" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <text x="65.30" y="137.38" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">D1</text>
+<circle cx="57.62" cy="134.24" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <text x="65.30" y="134.84" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">D2</text>
+<circle cx="57.62" cy="131.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <text x="65.30" y="132.30" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">D3</text>
 <circle cx="57.62" cy="129.16" r="0.30" fill="#2f5fcc" stroke="none" stroke-width="0.00"/>
 <text x="65.30" y="129.76" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">D4</text>
@@ -135,9 +138,11 @@
 <circle cx="42.38" cy="76.38" r="0.30" fill="#7a3fb5" stroke="none" stroke-width="0.00"/>
 <circle cx="42.38" cy="91.62" r="0.30" fill="#1d8a4a" stroke="none" stroke-width="0.00"/>
 <circle cx="45.10" cy="65.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
+<circle cx="42.56" cy="65.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <circle cx="58.50" cy="65.70" r="0.30" fill="#7a3fb5" stroke="none" stroke-width="0.00"/>
 <circle cx="55.96" cy="65.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <text x="58.22" y="99.38" font-size="1.40" fill="#1b1b1b" text-anchor="start" font-weight="normal" transform="rotate(-90 58.22 99.38)">D0</text>
+<circle cx="55.08" cy="100.68" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <text x="55.68" y="99.38" font-size="1.40" fill="#1b1b1b" text-anchor="start" font-weight="normal" transform="rotate(-90 55.68 99.38)">D1</text>
 <text x="53.14" y="99.38" font-size="1.40" fill="#1b1b1b" text-anchor="start" font-weight="normal" transform="rotate(-90 53.14 99.38)">D2</text>
 <text x="50.60" y="99.38" font-size="1.40" fill="#1b1b1b" text-anchor="start" font-weight="normal" transform="rotate(-90 50.60 99.38)">D3</text>
@@ -159,10 +164,12 @@
 <circle cx="40.19" cy="134.03" r="0.30" fill="#222222" stroke="none" stroke-width="0.00"/>
 <circle cx="40.19" cy="131.49" r="0.30" fill="#d99b00" stroke="none" stroke-width="0.00"/>
 <circle cx="40.19" cy="128.95" r="0.30" fill="#2f5fcc" stroke="none" stroke-width="0.00"/>
+<circle cx="47.50" cy="62.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <circle cx="42.42" cy="62.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <circle cx="59.00" cy="62.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
+<circle cx="53.92" cy="62.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <circle cx="53.00" cy="46.70" r="0.30" fill="#6f6f6f" stroke="none" stroke-width="0.00"/>
-<circle cx="48.00" cy="46.70" r="0.30" fill="#222222" stroke="none" stroke-width="0.00"/>
+<circle cx="48.00" cy="46.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <text x="50.00" y="131.10" font-size="1.60" fill="#9a3412" text-anchor="middle" font-weight="bold">XIAO-ESP32S3</text>
 <text x="50.00" y="133.70" font-size="1.60" fill="#9a3412" text-anchor="middle" font-weight="bold">cam</text>
 <text x="50.00" y="84.70" font-size="1.60" fill="#9a3412" text-anchor="middle" font-weight="bold">L76K-GNSS</text>
@@ -175,7 +182,7 @@
 <text x="68.50" y="122.00" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">through, not soldered</text>
 <line x1="53.60" y1="46.70" x2="67.70" y2="46.10" stroke="#555555" stroke-width="0.12"/>
 <text x="68.50" y="46.70" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">PS1240 buzzer, tall side, in the ring:</text>
-<text x="68.50" y="49.00" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">BUZ grey, BUZ G black</text>
+<text x="68.50" y="49.00" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">two drive leads, either way round</text>
 <line x1="52.20" y1="95.50" x2="67.70" y2="94.90" stroke="#555555" stroke-width="0.12"/>
 <text x="68.50" y="95.50" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">XIAO-ESP32S3-lora pigtail anchor: lace BAT+ red,</text>
 <text x="68.50" y="97.80" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">BAT− black through, not soldered</text>
@@ -299,6 +306,9 @@
 <circle cx="143.81" cy="60.06" r="0.30" fill="#2f5fcc" stroke="none" stroke-width="0.00"/>
 <circle cx="146.35" cy="60.06" r="0.30" fill="#cc2f2f" stroke="none" stroke-width="0.00"/>
 <circle cx="132.38" cy="139.32" r="0.30" fill="#6f6f6f" stroke="none" stroke-width="0.00"/>
+<circle cx="132.38" cy="136.78" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
+<circle cx="132.38" cy="134.24" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
+<circle cx="132.38" cy="131.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <circle cx="132.38" cy="129.16" r="0.30" fill="#2f5fcc" stroke="none" stroke-width="0.00"/>
 <circle cx="132.38" cy="126.62" r="0.30" fill="#d99b00" stroke="none" stroke-width="0.00"/>
 <circle cx="147.62" cy="134.24" r="0.30" fill="#cc2f2f" stroke="none" stroke-width="0.00"/>
@@ -308,8 +318,10 @@
 <circle cx="147.62" cy="76.38" r="0.30" fill="#7a3fb5" stroke="none" stroke-width="0.00"/>
 <circle cx="147.62" cy="91.62" r="0.30" fill="#1d8a4a" stroke="none" stroke-width="0.00"/>
 <circle cx="144.90" cy="65.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
+<circle cx="147.44" cy="65.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <circle cx="131.50" cy="65.70" r="0.30" fill="#7a3fb5" stroke="none" stroke-width="0.00"/>
 <circle cx="134.04" cy="65.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
+<circle cx="134.92" cy="100.68" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <circle cx="147.62" cy="100.68" r="0.30" fill="#1d8a4a" stroke="none" stroke-width="0.00"/>
 <circle cx="147.62" cy="115.92" r="0.30" fill="#7a3fb5" stroke="none" stroke-width="0.00"/>
 <circle cx="137.46" cy="115.92" r="0.30" fill="#f08a4b" stroke="none" stroke-width="0.00"/>
@@ -318,10 +330,12 @@
 <circle cx="149.81" cy="134.03" r="0.30" fill="#222222" stroke="none" stroke-width="0.00"/>
 <circle cx="149.81" cy="131.49" r="0.30" fill="#d99b00" stroke="none" stroke-width="0.00"/>
 <circle cx="149.81" cy="128.95" r="0.30" fill="#2f5fcc" stroke="none" stroke-width="0.00"/>
+<circle cx="142.50" cy="62.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <circle cx="147.58" cy="62.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <circle cx="131.00" cy="62.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
+<circle cx="136.08" cy="62.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <circle cx="137.00" cy="46.70" r="0.30" fill="#6f6f6f" stroke="none" stroke-width="0.00"/>
-<circle cx="142.00" cy="46.70" r="0.30" fill="#222222" stroke="none" stroke-width="0.00"/>
+<circle cx="142.00" cy="46.70" r="0.30" fill="#d4af37" stroke="none" stroke-width="0.00"/>
 <text x="142.40" y="129.65" font-size="1.60" fill="#1d6b3f" text-anchor="middle" font-weight="bold">LSM6DSO32</text>
 <text x="140.00" y="54.40" font-size="1.60" fill="#1d6b3f" text-anchor="middle" font-weight="bold">BMP388</text>
 <line x1="140.60" y1="119.70" x2="157.70" y2="119.10" stroke="#555555" stroke-width="0.12"/>
@@ -329,7 +343,7 @@
 <text x="158.50" y="122.00" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">through, not soldered</text>
 <line x1="142.60" y1="46.70" x2="157.70" y2="46.10" stroke="#555555" stroke-width="0.12"/>
 <text x="158.50" y="46.70" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">PS1240 buzzer, tall side, in the ring:</text>
-<text x="158.50" y="49.00" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">BUZ grey, BUZ G black</text>
+<text x="158.50" y="49.00" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">two drive leads, either way round</text>
 <line x1="142.20" y1="95.50" x2="157.70" y2="94.90" stroke="#555555" stroke-width="0.12"/>
 <text x="158.50" y="95.50" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">XIAO-ESP32S3-lora pigtail anchor: lace BAT+ red,</text>
 <text x="158.50" y="97.80" font-size="1.70" fill="#1b1b1b" text-anchor="start" font-weight="normal">BAT− black through, not soldered</text>
