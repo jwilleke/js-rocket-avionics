@@ -12,7 +12,7 @@ The sled side of the interface is [js-rocket#99](https://github.com/jwilleke/js-
 | Stackup | __4-layer__, solid ground plane |
 | Thickness | __1.6 mm FR4__, OSH Park's only 4-layer thickness. Low face at r 0.5 — [why](../../README.md#the-interface-to-the-sled) |
 | Nets | +3V3, +3V3_LORA, GND, SDA, SCL, BUZZER, GPS_TX, GPS_RX, LINK_GPS, LINK_EVT, GPS_CAM, EVT_CAM, EVT_LORA, BUZZER_B. __No battery net__: the battery reaches the XIAOs by a Y-cable, off the board |
-| Mounting | two __surface-mount M3 standoffs__, 10 mm (Würth WA-SMSI 9774100360), on the low side. __M3 plastic screws, M3 × 10__, from the web's far face |
+| Mounting | __two plain M3 holes__ (3.2 mm) for __female-female M3 hex standoffs__, 10 mm, between the board's low face and the web; a screw into each from each side — as fitted on the mock. Nothing soldered |
 
 ## Not yet in the generator
 

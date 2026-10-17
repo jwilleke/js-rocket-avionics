@@ -94,7 +94,7 @@ Both ride the one [carrier PCB](PCB-carrier/PCB-carrier.md), on its tall side. T
 
 ## Fasteners
 
-__The carrier hangs off the sled's web on two surface-mount M3 standoffs__ (Würth WA-SMSI, 10 mm), with __M3 plastic screws, M3 × 10__, driven in from the web's far face (operator, 2026-09-11; [PCB-carrier.md](PCB-carrier/PCB-carrier.md)). The length matters: a longer screw passes through the standoff and out of the board's tall side. The old "M2 everywhere" standard (2026-09-05) was for screwing the breakouts down, which is no longer done.
+__The carrier hangs off the sled's web on two female-female M3 hex standoffs__, 10 mm, through two plain M3 holes, with a screw into each standoff from each side: one through the board from its tall side, one through the web from its far face (operator, 2026-10-17, as fitted on the mock; [PCB-carrier.md](PCB-carrier/PCB-carrier.md)). Nothing is soldered. The old "M2 everywhere" standard (2026-09-05) was for screwing the breakouts down, which is no longer done.
 
 __The sensors are not screwed through the board__, because nothing may stick out of its back: the LSM6DSO32 is soldered by both its rows, and the BMP388's free edge rests on __two spacers in its own holes__, standing on the board's low face — no bolt ([BMP388-barometer.md](BMP388-barometer/BMP388-barometer.md#mounting)). Nothing on the avionics takes an M2.
 

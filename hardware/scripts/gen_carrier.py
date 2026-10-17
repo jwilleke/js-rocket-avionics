@@ -15,7 +15,7 @@ M3 standoffs, so it can come off the sled as one unit:
                the PS1240 buzzer at the forward end, facing the Nosecone's sound hole
     low side   B.Cu, faces 90 deg (the web)
                LSM6DSO32, rows lengthwise; BMP388 turned, its row across the board;
-               two SMT M3 standoffs
+               two plain M3 holes for female-female standoffs
 
 The web is offset toward 90 deg, clear of the low side, and two M3 plastic
 screws come in from its far face into the standoffs (js-rocket#99). Nothing
@@ -295,17 +295,20 @@ MODULE_LABELS = [
     ("BMP388", 12.0, 96.0, 1.0, True),       # between its row and the buzzer's leads
     ("PS1240", BUZ_XY[0], BUZ_XY[1] - 2.5, 1.0, False),   # under the disc
 ]
-# Two surface-mount M3 standoffs on the low side, 10 mm (Wuerth WA-SMSI
-# 9774100360). Screws come in from the web's far face. Each has a 4.4 mm hole
-# through the board, so neither sits under a module: standoff 1 is at the aft
+# Two plain M3 holes (operator, 2026-10-17): the board hangs off the web on
+# female-female M3 hex standoffs, a screw from each side -- the mount proved on the
+# fit mock, and no soldering. Each screw head sits on the TALL side, so neither
+# hole is under a module: standoff 1 is at the aft
 # end, under the USB-C plug room, ~13.5 mm from the camera; standoff 2 as far
-# forward as the board allows. M3 x 10 through the 3 mm web stops inside the
-# standoff. (Standoff 1 was first put under the cam XIAO, where a long screw
+# forward as the board allows. Until 2026-10-17 these were Wuerth WA-SMSI
+# surface-mount standoffs (9774100360), which need reflow or hot air. (Standoff 1
+# was first put under the cam XIAO, where a long screw
 # would have reached the XIAO's back -- operator, 2026-09-11.)
 STANDOFFS = [(CX, 4.0), (16.5, 110.5)]   # forward one 5.2 mm from the board's end, as before, under
                                           # no module; 85.2 until 2026-09-15
-STANDOFF_FP = "Mounting_Wuerth_WA-SMSI-M3_H10mm_9774100360"
-STANDOFF_R = 3.95          # its courtyard
+STANDOFF_FP = "MountingHole_3.2mm_M3"
+STANDOFF_R = 3.2           # a 5.5 mm hex standoff's corners, low side; > an M3 head's r 2.85, tall side
+SCREW_HEAD_R = 2.85        # an M3 button head, ISO 7380, on the tall side
 BMP_SPACER_R = 1.9         # a spacer's foot on the low face, under each BMP388 hole
 FILLET_R = 0.9             # a through-hole joint on the far face
 
@@ -313,7 +316,7 @@ FP_ROOT = "/Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints/"
 FP_LIB = FP_ROOT + "Connector_PinHeader_2.54mm.pretty"
 TP_LIB = FP_ROOT + "TestPoint.pretty"
 R_LIB = FP_ROOT + "Resistor_THT.pretty"
-SO_LIB = FP_ROOT + "Mounting_Wuerth.pretty"
+SO_LIB = FP_ROOT + "MountingHole.pretty"
 
 
 def outline(board, w, h, r):
@@ -517,7 +520,7 @@ def add_power_and_wires(board):
         silk_text(text, x, y, back=False, size=size)
         silk_text(text, x, y, back=True, size=size)
     for i, (x, y) in enumerate(STANDOFFS, 1):
-        place(board, SO_LIB, STANDOFF_FP, "SO%d" % i, x, y, back=True)
+        place(board, SO_LIB, STANDOFF_FP, "SO%d" % i, x, y)
     for ref, (x, y), nets in LINK_HEADERS:
         fp = place_strip(board, ref, "PinHeader_1x02_P2.54mm_Vertical", (x, y), (x + PITCH, y))
         for num, net in nets.items():
@@ -692,6 +695,12 @@ def verify_clearances(board):
     keep = [(x, y, STANDOFF_R + FILLET_R, "standoff") for x, y in STANDOFFS]
     keep += [(x, y, BMP_SPACER_R + FILLET_R, "BMP388 spacer") for x, y in bmp_spacers()]
     keep += [(BUZ_XY[0], BUZ_XY[1], BUZ_R + FILLET_R, "PS1240")]
+    for x, y in STANDOFFS:          # the disc must not sit on a screw head. Standoff 2's
+        # clears it by ~0.06 mm on paper, and it fits on the printed mock (operator,
+        # 2026-10-17): the disc's 12.2 is the catalog's; Adafruit lists 11.9
+        gap = ((x - BUZ_XY[0]) ** 2 + (y - BUZ_XY[1]) ** 2) ** 0.5 - BUZ_R - SCREW_HEAD_R
+        if gap < 0.0:
+            bad.append("PS1240 disc only %.2f mm from the screw head at (%.1f, %.1f)" % (gap, x, y))
     for ref, num, px, py in holes:
         for x, y, r, what in keep:
             if what == "PS1240" and ref.startswith("TP_BUZ"):
@@ -767,17 +776,10 @@ def write_layout(board):
 
 
 def write_rules():
-    """The project's one DRC exception, beside the board where kicad-cli finds it.
-
-    Wuerth's WA-SMSI land pattern puts its solder pads right at the edge of its
-    own 4.4 mm hole. That is the maker's design, not a clearance error, so it is
-    allowed for the standoffs and nowhere else.
-    """
+    """The DRC rules file beside the board. Empty since the Wuerth SMT standoffs
+    left (2026-10-17): their land pattern was the project's one exception."""
     with open(OUT.replace(".kicad_pcb", ".kicad_dru"), "w") as f:
-        f.write('(version 1)\n'
-                '(rule "Wuerth WA-SMSI standoff land pattern"\n'
-                '  (condition "A.memberOfFootprint(\'SO*\') && B.memberOfFootprint(\'SO*\')")\n'
-                '  (constraint hole_clearance (min 0mm)))\n')
+        f.write('(version 1)\n')
 
 
 def main():

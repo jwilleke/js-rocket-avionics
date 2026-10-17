@@ -25,7 +25,7 @@ __1. Every part sits in its own holes, and no hole meets another across the two 
 
 __2. The sensors stand ~1 mm proud on their pins__, header plastic up against the sensor, so the plastic clears the tall side's solder joints on the low face.
 
-__3. The standoffs are soldered to the board and the screws come in from the web side.__ Würth WA-SMSI M3 standoffs, 10 mm, on the low side; two M3 plastic screws, M3 × 10, through the web into them. Nothing fastens through to the tall side, so __no screw head is ever under a module__. Neither standoff is under a module either: each has a 4.4 mm hole through the board, so standoff 1 sits at the aft end, under the USB-C plug room, clear of XIAO-ESP32S3-cam and the BAT pigtail beneath it (operator, 2026-09-11).
+__3. The board hangs on two female-female M3 hex standoffs, a screw from each side__ (operator, 2026-10-17, as fitted on the mock). Two plain 3.2 mm holes; a 10 mm standoff between the board's low face and the web; one screw through the board from its tall side, one through the web from its far face. Nothing is soldered. Until 2026-10-17 the board carried Würth WA-SMSI surface-mount standoffs, chosen on paper and never bought; the board now matches the mock. __No screw head is under a module__: standoff 1 sits at the aft end, under the USB-C plug room, clear of XIAO-ESP32S3-cam and the BAT pigtail beneath it (operator, 2026-09-11).
 
 __4. The board does not touch the web.__ It hangs 10 mm off it, so there are no printed pads, no filed tails and no slots.
 
@@ -139,7 +139,7 @@ __Built 2026-09-15 as the ElectronicsSled fit article__ ([js-rocket#99](https://
 
 ## Checks owed before building
 
-1. __The standoff part__: Würth WA-SMSI M3, 10 mm (9774100360) — confirm it is stocked
+1. ~~__The standoff part__~~ — gone 2026-10-17: plain M3 holes for the female-female standoffs fitted on the mock
 2. ~~__The buzzer's lead pitch__~~ — done 2026-10-15: 5.0 mm on the part in hand, matching the carrier's holes ([#36](https://github.com/jwilleke/js-rocket-avionics/issues/36))
 
 Settled by the generator rather than owed: every sensor's pin order on the back of the board, and every hole's clearance across the two sides.

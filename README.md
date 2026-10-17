@@ -41,7 +41,7 @@ __One board on the PayloadSled's centre line__, hanging off the web on two stand
 | Board | __24.0 × 115.7 mm__, aft end at nose z 25.4, forward end 141.1 |
 | Thickness | __1.6 mm__, 4 copper layers — OSH Park's only 4-layer thickness |
 | Corner radius | 2.0 mm |
-| Standoffs | __2 × Würth WA-SMSI M3, 10 mm__ (9774100360), low side, at board (x, y) __(12.0, 4.0)__ and __(16.5, 110.5)__ — nose z 29.4 and 135.9, neither under a module. M3 plastic screws, __M3 × 10__, from the web's far face |
+| Standoffs | __2 plain M3 holes__ (3.2 mm) at board (x, y) __(12.0, 4.0)__ and __(16.5, 110.5)__ — nose z 29.4 and 135.9, neither under a module. A __female-female M3 hex standoff__, 10 mm, between the board's low face and the web, a screw into it from each side, as on the fit mock — nothing soldered |
 | XIAO-ESP32S3-cam centre | board y __18.0__ (nose z 43.4), under the camera pad |
 | XIAO-ESP32S3-lora centre | board y __41.4__ (nose z 66.8), turned 90° |
 
