@@ -2,7 +2,7 @@
 <rect x="0.0" y="0.0" width="1000.0" height="1012.0" rx="0.0" fill="#ffffff" fill-opacity="1.00" stroke="none" stroke-width="0.0"/>
 <text x="24.0" y="34.0" font-size="18.0" fill="#1b1b1b" text-anchor="start" font-weight="bold">PCB-carrier — one board, both sides</text>
 <text x="24.0" y="54.0" font-size="11.5" fill="#5b5b5b" text-anchor="start" font-weight="normal">Each side drawn as seen from that side, forward (nose tip) up — the panels are mirror images. Dashed outlines are parts on the OTHER side of the board.</text>
-<text x="24.0" y="72.0" font-size="11.5" fill="#5b5b5b" text-anchor="start" font-weight="normal">Tall side faces 270° (camera port); low side faces 90° (the web, which the board hangs off on two M3 standoffs).</text>
+<text x="24.0" y="72.0" font-size="11.5" fill="#5b5b5b" text-anchor="start" font-weight="normal">Tall side faces 270° (camera port); low side faces 90° (the web, which the board hangs off on two female-female M3 standoffs).</text>
 <text x="228.0" y="120.0" font-size="14.0" fill="#1b1b1b" text-anchor="middle" font-weight="bold">TALL SIDE — faces 270°</text>
 <text x="228.0" y="136.0" font-size="10.5" fill="#5b5b5b" text-anchor="middle" font-weight="normal">seen from the camera side</text>
 <rect x="150.0" y="150.0" width="156.0" height="752.1" rx="13.0" fill="#e9f1e4" fill-opacity="1.00" stroke="#5f7f52" stroke-width="1.5"/>
@@ -299,24 +299,27 @@
 <text x="740.0" y="366.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">Through-holes pass through, so every</text>
 <text x="740.0" y="381.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">pad shows on both sides.</text>
 <text x="740.0" y="396.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal"></text>
-<text x="740.0" y="411.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">M3 standoffs (low side) take M3 plastic</text>
-<text x="740.0" y="426.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">screws from the web's far face — M3 × 10,</text>
-<text x="740.0" y="441.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">which stops short of the board.</text>
+<text x="740.0" y="411.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">M3 holes: female-female M3 standoffs</text>
+<text x="740.0" y="426.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">between the low side and the web, a screw</text>
+<text x="740.0" y="441.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">into each from each side, as on the mock.</text>
 <text x="740.0" y="456.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal"></text>
-<text x="740.0" y="471.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">Dashed rings on the low side: the spacers</text>
-<text x="740.0" y="486.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">through the BMP388's own holes. No bolt</text>
-<text x="740.0" y="501.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">crosses the board.</text>
-<text x="740.0" y="516.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal"></text>
-<text x="740.0" y="531.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">PS1240 buzzer: on the tall side, facing</text>
-<text x="740.0" y="546.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">the Nosecone's wall at 270°.</text>
+<text x="740.0" y="471.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">Traces are not drawn here: the board is</text>
+<text x="740.0" y="486.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">routed, DRC 0 violations, 0 unconnected.</text>
+<text x="740.0" y="501.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal"></text>
+<text x="740.0" y="516.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">Dashed rings on the low side: the spacers</text>
+<text x="740.0" y="531.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">through the BMP388's own holes. No bolt</text>
+<text x="740.0" y="546.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">crosses the board.</text>
 <text x="740.0" y="561.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal"></text>
-<text x="740.0" y="576.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">The battery is not on the board: the</text>
-<text x="740.0" y="591.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">PayloadSled's cage holds it against the</text>
-<text x="740.0" y="606.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">web, 29 mm wide, 2.5 mm past each edge.</text>
-<text x="740.0" y="621.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">The fit mock marks its two ends.</text>
-<text x="740.0" y="636.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal"></text>
-<text x="740.0" y="651.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">The sensors stand ~1 mm proud on their</text>
-<text x="740.0" y="666.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">pins, header plastic up against the</text>
-<text x="740.0" y="681.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">sensor, clear of the tall side's joints.</text>
+<text x="740.0" y="576.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">PS1240 buzzer: on the tall side, facing</text>
+<text x="740.0" y="591.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">the Nosecone's wall at 270°.</text>
+<text x="740.0" y="606.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal"></text>
+<text x="740.0" y="621.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">The battery is not on the board: the</text>
+<text x="740.0" y="636.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">PayloadSled's cage holds it against the</text>
+<text x="740.0" y="651.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">web, 29 mm wide, 2.5 mm past each edge.</text>
+<text x="740.0" y="666.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">The fit mock marks its two ends.</text>
+<text x="740.0" y="681.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal"></text>
+<text x="740.0" y="696.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">The sensors stand ~1 mm proud on their</text>
+<text x="740.0" y="711.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">pins, header plastic up against the</text>
+<text x="740.0" y="726.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">sensor, clear of the tall side's joints.</text>
 <text x="24.0" y="994.0" font-size="10.0" fill="#5b5b5b" text-anchor="start" font-weight="normal">Generated by hardware/scripts/gen_carrier_diagram.py from PCB-carrier-layout.json, which gen_carrier.py writes. Regenerate, do not edit.</text>
 </svg>

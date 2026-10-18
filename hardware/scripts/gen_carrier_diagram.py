@@ -97,7 +97,7 @@ def main():
     svg.text(24, 54, "Each side drawn as seen from that side, forward (nose tip) up — the panels are mirror "
                      "images. Dashed outlines are parts on the OTHER side of the board.", 11.5, NOTE)
     svg.text(24, 72, "Tall side faces 270° (camera port); low side faces 90° (the web, which the board hangs "
-                     "off on two M3 standoffs).", 11.5, NOTE)
+                     "off on two female-female M3 standoffs).", 11.5, NOTE)
 
     titles = {"tall": ("TALL SIDE — faces 270°", "seen from the camera side"),
               "low": ("LOW SIDE — faces 90°", "seen from the web side")}
@@ -215,9 +215,12 @@ def main():
             "Through-holes pass through, so every",
             "pad shows on both sides.",
             "",
-            "M3 standoffs (low side) take M3 plastic",
-            "screws from the web's far face — M3 × 10,",
-            "which stops short of the board.",
+            "M3 holes: female-female M3 standoffs",
+            "between the low side and the web, a screw",
+            "into each from each side, as on the mock.",
+            "",
+            "Traces are not drawn here: the board is",
+            "routed, DRC 0 violations, 0 unconnected.",
             "",
             "Dashed rings on the low side: the spacers",
             "through the BMP388's own holes. No bolt",
