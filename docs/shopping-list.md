@@ -54,7 +54,7 @@ __Claim the AIG insurance window on both Seeed boxes now if at all__ — 7 days 
 
 | Part | Est. | Note |
 |---|---|---|
-| __Carrier PCB__ — 3 copies, 4-layer 1.6 mm, OSH Park, 24 × 115.7 mm | __~$43__ | __Blocked.__ Do not order before breadboarding — see below |
+| __Carrier PCB__ — 3 copies, 4-layer 1.6 mm, OSH Park, 24 × 115.7 mm | __$43.00__ | __Ordered 2026-10-18__, OSH Park order `ezo5qnJ6`, USPS free shipping, from `PCB-carrier.kicad_pcb` at [d8eafdd](https://github.com/jwilleke/js-rocket-avionics/commit/d8eafdd) ([preview](../hardware/PCB-carrier/2026-10-18-PCB-carrier-OSH%20Park.pdf), [#16](https://github.com/jwilleke/js-rocket-avionics/issues/16)). Weigh on arrival |
 | __Pull-pin + subminiature microswitch__ | ~$5 | Arming, in the battery line. __Superseded the reed switch 2026-08-15__ — smallest hole, snap action, no printed mechanism. __Do not order yet__: no part chosen, and the sled can rotate, so where the pin enters is unresolved. See [the arming brainstorm](resources/2026-08-15-arming-and-access-brainstorm.md) and avionics #1/#2 |
 | __MOSFET__, low-Vgs logic-level | ~$1 | __Only if__ the switch drives a gate rather than the load. Still open — a 3.5 mm jack's normalled contact is signal-rated even though its tip and sleeve are not. Adds a carrier footprint |
 | Female-female M3 hex standoffs, 10 mm, ×2, and four M3 screws | — | The carrier hangs off the web on the standoffs, a screw from each side, as fitted on the mock ([PCB-carrier.md](../hardware/PCB-carrier/PCB-carrier.md)). The old "2×7 stacking headers, ~14 mm" line is gone: the kit's standard 7-pin headers are the flight part |
