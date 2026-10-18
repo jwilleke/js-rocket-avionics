@@ -14,3 +14,6 @@ private/
 .kit-check/
 .continue/
 .agents/
+
+# Purchase invoices carry a home address, card details and order-access links: never commit one
+*invoice*
