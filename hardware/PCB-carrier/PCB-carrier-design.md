@@ -85,7 +85,7 @@ __Operator, 2026-10-12 ([#36](https://github.com/jwilleke/js-rocket-avionics/iss
 __Two things moved to make room, and nothing else did.__ XIAO-ESP32S3-cam, the L76K-GNSS and XIAO-ESP32S3-lora stay where they were.
 
 - __The BMP388 turned 90°__ on the low side, its pin row across the board, aft, and its mounting holes forward at the board's edges. It now rests on a spacer in each of its own holes, with __no bolt and no carrier hole__, so nothing crosses to the tall side — [BMP388-barometer.md](../BMP388-barometer/BMP388-barometer.md#mounting)
-- __The two data links went to the board's edges__ ([above](#two-data-links-each-behind-an-open-jumper--in-the-generator-pins-owed))
+- __The two data links went to the board's edges__ ([above](#two-data-links-each-behind-an-open-jumper--in-the-generator-netted))
 
 __Rejected:__
 
