@@ -14,14 +14,14 @@ Sensors reach it over __I2C on D4/D5__; the buzzer is __PWM on D0__. Flight firm
 
 ![XIAO-ESP32S3-cam on its breadboard, USB-C to the left, with the BMP388, the LSM6DSO32 and the buzzer wired to it, and no Sense board fitted. Photographed with the two I2C wires one pin short, on D3/D4](2026-09-12-XIAO-ESP32S3-cam-bench.jpg)
 
-__It calls itself `mj-cam`__ — the name its firmware prints at start-up, and its Bluetooth name once firmware uses Bluetooth. The USB name cannot change: in this USB mode the chip always reports `USB JTAG_serial debug unit`. __This XIAO's chip MAC is `e0:72:a1:fa:41:30`__ — USB serial number `E0:72:A1:FA:41:30`. It ran Seeed's factory demo until 2026-09-12, when `bringup-cam` replaced it. [Which XIAO is which](../XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md#which-xiao-is-this-one).
+__It calls itself `mj-cam`__ — the name its firmware prints at start-up, and its Bluetooth name once firmware uses Bluetooth. The USB name cannot change: in this USB mode the chip always reports `USB JTAG_serial debug unit`. __This XIAO's chip MAC is `e0:72:a1:fa:41:30`__ — USB serial number `E0:72:A1:FA:41:30`. __Marked `C`__ (2026-11-07, after its MAC was read on its own). It ran Seeed's factory demo until 2026-09-12, when `bringup-cam` replaced it. [Which XIAO is which](../XIAO-ESP32S3-lora/XIAO-ESP32S3-lora.md#which-xiao-is-this-one).
 
 __The photograph shows a wiring slip, since fixed.__ The two I2C wires sat on __D3/D4__, one pin short of D4/D5. `bringup-cam` then reports *nothing on the bus* while both sensors' power LEDs are lit. [`i2c-find`](../../firmware/i2c-find/) located them — pull-ups on D3 and D4, both sensors answering there — and moving each wire one pin away from the USB-C fixed it. __Count pins from the USB-C end: D0 is the first, D4 the fifth.__
 
 __Bring-up, 2026-09-12__ ([#7](https://github.com/jwilleke/js-rocket-avionics/issues/7)), on USB — first without the Sense board, then with it:
 
 | Check | Result |
-|---|---|
+| --- | --- |
 | I2C | BMP388 at `0x77` and LSM6DSO32 at `0x6A`, no clash — details on each part's page |
 | IMU at ±32 g, FIFO running | __pass__ — see [LSM6DSO32.md](../LSM6DSO32/LSM6DSO32.md#on-the-bench) |
 | PSRAM | present, 8 384 784 bytes free |
@@ -35,7 +35,7 @@ __Bring-up, 2026-09-12__ ([#7](https://github.com/jwilleke/js-rocket-avionics/is
 __Datum: the bottom of the XIAO's PCB.__ Headers add __2.50 mm__ below it. Camera excluded.
 
 | | Height | Above the carrier |
-|---|---|---|
+| --- | --- | --- |
 | A bare XIAO, to the top of the USB-C | __4.53 mm__ | 7.03 mm |
 | __XIAO-ESP32S3-cam__ + [Sense camera board](../Sense-camera-board/Sense-camera-board.md) | __8.22 mm__ | __10.72 mm__ |
 | __XIAO-ESP32S3-lora__ + [Wio-SX1262](../Wio-SX1262-LoRa/Wio-SX1262-LoRa.md) | __9.32 mm__ | __11.82 mm__ |
@@ -58,7 +58,7 @@ available = 2 x sqrt(19.7^2 - 8.75^2)                           = 35.30 mm
 Both copies are the same part — `Model: XIAO-ESP32-S3`, `FCC ID: Z4T-XIAOESP32S3` — and identical electrically. They differ only in what has been done to them and what is mated to them.
 
 | | |
-|---|---|
+| --- | --- |
 | Outline | __17.5 × 21 mm__ |
 | Pads | __14 castellated__, two rows of 7. __Header pins at ±7.62 mm: rows 15.24 mm apart__, pitch __2.54 mm__, hole Ø1.1 ([Seeed's footprint](PCB_Design_XIAO4.png), [#33](https://github.com/jwilleke/js-rocket-avionics/issues/33)). 17.0 until 2026-09-15 — the centres of KiCad's SMD pads, never the pins |
 | Connectors | USB-C, __U.FL__, and the B2B connector an expansion board mates to |

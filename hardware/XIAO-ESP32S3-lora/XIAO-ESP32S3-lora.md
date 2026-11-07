@@ -4,7 +4,7 @@ __The XIAO that carries the radio.__ The copy that arrived in the Wio-SX1262 kit
 
 ## Which XIAO is this one
 
-__You cannot tell by looking.__ It arrived with its 7-pin headers soldered on and [the cam copy](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) did not; now both have them, and the two are the same part. __The only difference is what is loaded on them__ — and they have already been swapped once on the bench (2026-09-11, [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6)): the Meshtastic XIAO sat on the cam breadboard, and the Wio-SX1262 on the one with Seeed's factory demo.
+__Read the letter on it: `L` is this one, `C` the cam copy__ — marked 2026-11-07 after each MAC was read on its own (operator). Unmarked, __you cannot tell by looking.__ It arrived with its 7-pin headers soldered on and [the cam copy](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md) did not; now both have them, and the two are the same part. __The only difference is what is loaded on them__ — and they have already been swapped once on the bench (2026-09-11, [#6](https://github.com/jwilleke/js-rocket-avionics/issues/6)): the Meshtastic XIAO sat on the cam breadboard, and the Wio-SX1262 on the one with Seeed's factory demo.
 
 __Plug it into the Mac alone and read the port name:__
 
@@ -13,7 +13,8 @@ ls /dev/cu.usbmodem*
 ```
 
 | | This one — XIAO-ESP32S3-lora | [The cam copy](../XIAO-ESP32S3-cam/XIAO-ESP32S3-cam.md#on-the-bench) |
-|---|---|---|
+| --- | --- | --- |
+| __Marked__ (2026-11-07) | __`L`__ | __`C`__ |
 | __Chip MAC__ — the one sure test | __`68:ee:8f:60:ca:48`__ | __`e0:72:a1:fa:41:30`__ |
 | Runs | __stock Meshtastic__, as the kit shipped it | `bringup-cam` since 2026-09-12. Before that, Seeed's factory demo: `Hello from Seeed Studio XIAO ESP32-S3 Sense`, then a camera error |
 | Port name | __long, letters and digits__, ending `CA481` — its serial number `…CA48` plus `1` | __short, digits only__, e.g. `usbmodem31101` — it changes with the USB socket |
@@ -59,7 +60,7 @@ __Its memory layout is older than current releases.__ The on-board partition tab
 __Datum: the bottom of the XIAO's PCB.__ Headers add __2.50 mm__ below it. Camera excluded.
 
 | | Height | Above the carrier |
-|---|---|---|
+| --- | --- | --- |
 | A bare XIAO, to the top of the USB-C | __4.53 mm__ | 7.03 mm |
 | __XIAO-ESP32S3-cam__ + [Sense camera board](../Sense-camera-board/Sense-camera-board.md) | __8.22 mm__ | __10.72 mm__ |
 | __XIAO-ESP32S3-lora__ + [Wio-SX1262](../Wio-SX1262-LoRa/Wio-SX1262-LoRa.md) | __9.32 mm__ | __11.82 mm__ |
@@ -82,7 +83,7 @@ available = 2 x sqrt(19.7^2 - 8.75^2)                           = 35.30 mm
 Both copies are the same part — `Model: XIAO-ESP32-S3`, `FCC ID: Z4T-XIAOESP32S3` — and identical electrically. They differ only in what has been done to them and what is mated to them.
 
 | | |
-|---|---|
+| --- | --- |
 | Outline | __17.5 × 21 mm__ |
 | Pads | __14 castellated__, two rows of 7. __Header pins at ±7.62 mm: rows 15.24 mm apart__, pitch __2.54 mm__, hole Ø1.1 ([Seeed's footprint](../XIAO-ESP32S3-cam/PCB_Design_XIAO4.png), [#33](https://github.com/jwilleke/js-rocket-avionics/issues/33)). 17.0 until 2026-09-15 — the centres of KiCad's SMD pads, never the pins |
 | Connectors | USB-C, __U.FL__, and the B2B connector an expansion board mates to |
