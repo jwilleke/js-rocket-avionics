@@ -25,10 +25,11 @@ Weights measured 2026-08-17 unless the row says `est`.
 | Carrier PCB, 4-layer 1.6 mm, 24 × 115.7, two-sided | — not ordered | OSH Park | both | est 8.3 |
 | LiPo charger — USB lead, JST-PH 2.0 socket, 4.2 V 0.5 A; off the rocket ([LiPo-charger.md](../hardware/LiPo-charger/LiPo-charger.md), [#30](https://github.com/jwilleke/js-rocket-avionics/issues/30)) | Blomiky 1S PH2.0 USB charge cable, ASIN [B0BDKT4BB2](https://www.amazon.com/dp/B0BDKT4BB2) | Amazon | ground | not flown |
 | 7-pin header, 4 off — two per XIAO | Seeed kits — __2 pre-soldered on XIAO-ESP32S3-lora, 2 loose in the Sense kit__ | Seeed | both | __0.6__ |
+| Data links, 2 off — each a 2-pin 2.54 mm header, a slide-on shunt and a __1 kΩ__ ¼ W axial resistor (brown-black-red-gold) on the carrier's tall side ([why](../hardware/PCB-carrier/PCB-carrier-design.md#two-data-links-each-behind-an-open-jumper--in-the-generator-netted), [#26](https://github.com/jwilleke/js-rocket-avionics/issues/26)) | — held | — | both | est 0.7 |
 | Arming switch + wiring | — not bought | — | shared | est 1.5 |
-| __Avionics subtotal__ | | | | __49.3__ |
+| __Avionics subtotal__ | | | | __49.9__ |
 | ElectronicsSled, PLA | v7.7.0 | printed | — | __9.3?__ |
-| __Nose total__ | | | | __58.6__ |
+| __Nose total__ | | | | __59.2__ |
 
 __Also in the kits and not flying:__ the 2.4G A-02 antenna, 0.3 g — the XIAO's WiFi/BLE antenna — and the __two aluminium heat sinks__ shipped with the Sense kit. The heat sinks adhere to the XIAO's top face, which is the face the expansion board mates to, and a sealed nose has no airflow for them to work with. See [XIAO-ESP32S3-Sense.md](../hardware/Sense-camera-board/Sense-camera-board.md#what-is-in-the-kit-and-what-flies).
 
@@ -43,17 +44,17 @@ __Not in the nose, not in the mass budget — and the rocket cannot be recovered
 
 __The receiver must match the flight node__ — region `US`, modem preset `LONG_FAST`, and the private channel, joined by its QR code. Setting-up and the range check: [#23](https://github.com/jwilleke/js-rocket-avionics/issues/23).
 
-__The sled's 9.3 g is disputed.__ The rocket repo weighed it at __7.1 g__ on 2026-08-07 ([sections.md](https://github.com/jwilleke/js-rocket/blob/main/docs/sections.md) note 6) and both figures claim the scale. Its geometry moved at v7.7.0, which may or may not explain 2.2 g. __Reweigh it__ — nose total is __56.4__ if 7.1 is right.
+__The sled's 9.3 g is disputed.__ The rocket repo weighed it at __7.1 g__ on 2026-08-07 ([sections.md](https://github.com/jwilleke/js-rocket/blob/main/docs/sections.md) note 6) and both figures claim the scale. Its geometry moved at v7.7.0, which may or may not explain 2.2 g. __Reweigh it__ — nose total is __57.0__ if 7.1 is right.
 
 ## Mass budget
 
 | | g |
 |---|---|
-| Nose total | __58.6__ |
+| Nose total | __59.2__ |
 | Target | ~50 |
 | Weathercock limit | ~65 |
 
-__Over target, under the limit__ — a budget problem, not a grounding. 39.5 g of the total is weighed, __9.8 g still estimated__ — only the carrier PCB (8.3: 4.1 g at 90.4 × 1.0 mm, scaled to 115.7 mm and then to 1.6 mm on 2026-09-15) and the arming switch (1.5) are left. __The microSD card was in the table but in none of the totals__ until 2026-09-07: the subtotal ran weighed + PCB + switch and the card sat there looking counted. It is now weighed and folded in.
+__Over target, under the limit__ — a budget problem, not a grounding. 39.5 g of the total is weighed, __10.4 g still estimated__ — only the carrier PCB (8.3: 4.1 g at 90.4 × 1.0 mm, scaled to 115.7 mm and then to 1.6 mm on 2026-09-15), the arming switch (1.5) and the two data links (0.7) are left. __The microSD card was in the table but in none of the totals__ until 2026-09-07: the subtotal ran weighed + PCB + switch and the card sat there looking counted. It is now weighed and folded in.
 
 __The card is 0.15 g, not the 0.4 g estimated__ — and that is two readings, not one. A single card reads __0.1 g__ on a scale with 0.1 g resolution and __two read 0.3 g__, so the pair is the better number and a single card is ~0.15. The estimate was high by nearly 3×; it changes nothing, which is the point of writing it down. A payload gram displaces only __0.75 g__ of ballast, so overruns cost more than they look — see [configurations.md](https://github.com/jwilleke/js-rocket/blob/main/docs/configurations.md#where-the-ballast-goes-and-why-placement-matters).
 
@@ -85,6 +86,7 @@ Both ride one two-sided carrier PCB, on its tall side, with the sensors on the o
 | __Piezo buzzer__ | PWM from D0 and D2 in opposite phase. __Passive, not active__ — a real GPIO can drive multiple tones, so beep patterns read as distinct status codes |
 | __Carrier PCB__ | The sled's structural span. See [README](../README.md) for the frozen interface. __Blocked behind breadboarding, deliberately__ — a layout error costs ~$33 and two weeks |
 | __7-pin headers__ | Two per XIAO, onto its 14 pads in two rows __15.24 mm apart__ ([#33](https://github.com/jwilleke/js-rocket-avionics/issues/33); 17.0 until 2026-09-15, which was wrong) — __not__ a dual-row 2×7, whose rows are 2.54 mm apart. Standard height, __~2.50 mm standoff__, which is all that is needed: the expansion board sits __above__ the XIAO, not below it |
+| __Data-link resistors__ | Each link runs header → shunt → 1 kΩ, so a firmware mistake on either XIAO cannot drive the other's pin hard or pull the beacon's GPS line down. __Without the resistor the link is open__, shunt or no shunt. Any 470 Ω–2.2 kΩ works; 1 kΩ is the design value. Missing from this page until 2026-11-21, which is how a carrier got built without them |
 | __LiPo 500 mAh__ | One battery feeds both MCUs. __103 minutes from full__ at full load, timed on the bench — ~290 mA average ([#8](https://github.com/jwilleke/js-rocket-avionics/issues/8)). __Charged off the carrier__: the beacon out-draws the XIAO's charger |
 | __Arming switch__ | Inline in the battery lead, zero pins. __Nothing bought and no part chosen__, so the 1.5 g is inherited from a superseded design and is the least trustworthy number on this page. Mechanism and status: [Arming-switch.md](../hardware/Arming-switch/Arming-switch.md) |
 | __microSD__ | __Video and the log's slices, and in hand.__ The old A1/A2 / pSLC requirement was written when the sampler wrote to the card in flight; __PSRAM buffering removed that__. What is left is sequential video write — a speed-class question, not a random-IOPS one |
